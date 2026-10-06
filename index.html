@@ -19,12 +19,12 @@
     --line: #1b2029;
     --text: #f1f3f7;
     --muted: #777f8d;
-    --accent: #e8edf5;
     --green: #5df2a5;
     --blue: #65a9ff;
     --purple: #a87cff;
     --orange: #ffae57;
     --red: #ff667a;
+    --cyan: #69e2dc;
 }
 
 body {
@@ -36,9 +36,15 @@ body {
     min-height: 100vh;
 }
 
-/* =========================
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+/* ==================================================
    SPLASH SCREEN
-========================= */
+================================================== */
 
 #splash {
     position: fixed;
@@ -131,9 +137,10 @@ body {
     letter-spacing: 2px;
 }
 
-/* =========================
+
+/* ==================================================
    APP
-========================= */
+================================================== */
 
 #app {
     width: min(1050px, 100%);
@@ -141,7 +148,10 @@ body {
     padding: 24px 18px 60px;
 }
 
-/* HEADER */
+
+/* ==================================================
+   HEADER
+================================================== */
 
 header {
     display: flex;
@@ -195,7 +205,10 @@ header {
     box-shadow: 0 0 8px var(--green);
 }
 
-/* HERO */
+
+/* ==================================================
+   HERO
+================================================== */
 
 .hero {
     margin-top: 22px;
@@ -285,7 +298,10 @@ header {
     letter-spacing: 1px;
 }
 
-/* SUMMARY */
+
+/* ==================================================
+   SUMMARY
+================================================== */
 
 .summary-grid {
     display: grid;
@@ -322,7 +338,10 @@ header {
     color: var(--orange);
 }
 
-/* SECTION */
+
+/* ==================================================
+   SECTION
+================================================== */
 
 .section {
     margin-top: 34px;
@@ -346,7 +365,10 @@ header {
     font-size: 9px;
 }
 
-/* OBJECTIVE */
+
+/* ==================================================
+   OBJECTIVE
+================================================== */
 
 .objective {
     border-left: 2px solid var(--blue);
@@ -375,7 +397,10 @@ header {
     line-height: 1.5;
 }
 
-/* QUESTS */
+
+/* ==================================================
+   QUEST CARDS
+================================================== */
 
 .quest-list {
     display: grid;
@@ -453,8 +478,6 @@ header {
     margin-top: 4px;
 }
 
-/* QUEST COLORS */
-
 .quest.easy {
     border-left: 2px solid var(--green);
 }
@@ -467,7 +490,128 @@ header {
     border-left: 2px solid var(--purple);
 }
 
-/* LIFE QUEST */
+.quest.extreme {
+    border-left: 2px solid var(--red);
+}
+
+
+/* ==================================================
+   CREATE QUEST
+================================================== */
+
+.create-quest {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+input,
+select {
+    width: 100%;
+    border: 1px solid #252b35;
+    background: #080a0f;
+    color: var(--text);
+    padding: 12px;
+    outline: none;
+    font-size: 11px;
+}
+
+input:focus,
+select:focus {
+    border-color: #5d6878;
+}
+
+.create-button {
+    margin-top: 14px;
+    width: 100%;
+    background: #e8edf5;
+    color: #050609;
+    border: none;
+    font-weight: bold;
+    padding: 13px;
+}
+
+.create-button:hover {
+    background: white;
+}
+
+
+/* ==================================================
+   CUSTOM QUESTS
+================================================== */
+
+.custom-quest {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 9px;
+}
+
+.custom-quest-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.custom-quest-name {
+    font-size: 12px;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.custom-quest-meta {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-top: 6px;
+}
+
+.custom-quest-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.custom-complete {
+    white-space: nowrap;
+}
+
+.delete-button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: var(--red);
+    border-color: #30232a;
+}
+
+
+/* ==================================================
+   LIFE QUEST
+================================================== */
 
 .life-quest {
     border: 1px solid var(--line);
@@ -528,7 +672,10 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* SIDE QUEST */
+
+/* ==================================================
+   SIDE QUEST
+================================================== */
 
 .side-card {
     border: 1px solid var(--line);
@@ -554,6 +701,7 @@ button:disabled {
     align-items: center;
     justify-content: center;
     font-size: 17px;
+    flex-shrink: 0;
 }
 
 .side-name {
@@ -567,7 +715,10 @@ button:disabled {
     margin-top: 5px;
 }
 
-/* STATS */
+
+/* ==================================================
+   STATS
+================================================== */
 
 .stats-grid {
     display: grid;
@@ -609,15 +760,38 @@ button:disabled {
     transition: width .4s ease;
 }
 
-.str { background: var(--red); }
-.int { background: var(--blue); }
-.wis { background: var(--purple); }
-.cha { background: #ff78bd; }
-.dex { background: var(--green); }
-.cre { background: var(--orange); }
-.vit { background: #69e2dc; }
+.str {
+    background: var(--red);
+}
 
-/* NOTIFICATION */
+.int {
+    background: var(--blue);
+}
+
+.wis {
+    background: var(--purple);
+}
+
+.cha {
+    background: #ff78bd;
+}
+
+.dex {
+    background: var(--green);
+}
+
+.cre {
+    background: var(--orange);
+}
+
+.vit {
+    background: var(--cyan);
+}
+
+
+/* ==================================================
+   NOTIFICATION
+================================================== */
 
 .notification {
     position: fixed;
@@ -641,7 +815,10 @@ button:disabled {
     opacity: 1;
 }
 
-/* FOOTER */
+
+/* ==================================================
+   FOOTER
+================================================== */
 
 footer {
     text-align: center;
@@ -651,7 +828,10 @@ footer {
     margin-top: 50px;
 }
 
-/* MOBILE */
+
+/* ==================================================
+   MOBILE
+================================================== */
 
 @media (max-width: 600px) {
 
@@ -703,27 +883,67 @@ footer {
         font-size: 32px;
         letter-spacing: 7px;
     }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .custom-quest {
+        align-items: flex-start;
+    }
+
+    .custom-quest-actions {
+        flex-direction: column;
+    }
+
+    .custom-complete {
+        width: 100%;
+    }
+
+}
+
+
+/* ==================================================
+   EMPTY STATE
+================================================== */
+
+.empty-state {
+    border: 1px dashed #242a34;
+    padding: 25px;
+    text-align: center;
+    color: #565e6b;
+    font-size: 9px;
+    letter-spacing: 1px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     SPLASH SCREEN
-========================= -->
+
+<!-- ==================================================
+     SPLASH
+================================================== -->
 
 <div id="splash">
 
     <div class="splash-content">
 
         <div class="logo-mark">
+
             <div class="logo-inner">
                 <span>S</span>
             </div>
+
         </div>
 
-        <div class="splash-title">SENRAI</div>
+        <div class="splash-title">
+            SENRAI
+        </div>
 
         <div class="splash-subtitle">
             PERSONAL PROGRESSION SYSTEM
@@ -732,12 +952,22 @@ footer {
         <div class="loading-container">
 
             <div class="loading-bar">
-                <div class="loading-fill" id="loadingFill"></div>
+                <div
+                    class="loading-fill"
+                    id="loadingFill">
+                </div>
             </div>
 
             <div class="loading-text">
-                <span id="loadingStatus">SYSTEM INITIALIZING</span>
-                <span id="loadingPercent">0%</span>
+
+                <span id="loadingStatus">
+                    SYSTEM INITIALIZING
+                </span>
+
+                <span id="loadingPercent">
+                    0%
+                </span>
+
             </div>
 
         </div>
@@ -747,625 +977,1024 @@ footer {
 </div>
 
 
-<!-- =========================
-     MAIN APP
-========================= -->
+<!-- ==================================================
+     APP
+================================================== -->
 
 <div id="app">
 
-    <header>
 
-        <div class="brand">
+<header>
 
-            <div class="brand-mark">
-                <span>S</span>
+    <div class="brand">
+
+        <div class="brand-mark">
+            <span>S</span>
+        </div>
+
+        <div class="brand-name">
+            SENRAI
+        </div>
+
+    </div>
+
+    <div class="system-status">
+
+        <span class="status-dot"></span>
+
+        SYSTEM ONLINE
+
+    </div>
+
+</header>
+
+
+<!-- ==================================================
+     LEVEL / XP
+================================================== -->
+
+<section class="hero">
+
+    <div class="hero-top">
+
+        <div>
+
+            <div class="hero-label">
+                CURRENT LEVEL
             </div>
 
-            <div class="brand-name">
-                SENRAI
+            <div class="level">
+
+                <span id="level">
+                    1
+                </span>
+
+                <span>
+                    LVL
+                </span>
+
             </div>
 
         </div>
 
-        <div class="system-status">
-            <span class="status-dot"></span>
-            SYSTEM ONLINE
-        </div>
 
-    </header>
+        <div class="hero-xp">
 
+            <div class="hero-xp-number">
 
-    <!-- LEVEL / XP -->
+                <span id="xp">
+                    0
+                </span>
 
-    <section class="hero">
-
-        <div class="hero-top">
-
-            <div>
-
-                <div class="hero-label">
-                    CURRENT LEVEL
-                </div>
-
-                <div class="level">
-                    <span id="level">1</span>
-                    <span>LVL</span>
-                </div>
+                XP
 
             </div>
 
-            <div class="hero-xp">
-
-                <div class="hero-xp-number">
-                    <span id="xp">0</span>
-                    XP
-                </div>
-
-                <div class="hero-xp-label">
-                    TOTAL EXPERIENCE
-                </div>
-
+            <div class="hero-xp-label">
+                TOTAL EXPERIENCE
             </div>
 
         </div>
 
-        <div class="xp-track">
-            <div class="xp-fill" id="xpBar"></div>
+    </div>
+
+
+    <div class="xp-track">
+
+        <div
+            class="xp-fill"
+            id="xpBar">
         </div>
 
-        <div class="xp-footer">
+    </div>
 
-            <span id="xpProgress">
-                0 / 100 XP
+
+    <div class="xp-footer">
+
+        <span id="xpProgress">
+            0 / 100 XP
+        </span>
+
+        <span id="nextLevel">
+            LEVEL 2
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     SUMMARY
+================================================== -->
+
+<section class="summary-grid">
+
+
+    <div class="summary-card">
+
+        <div class="summary-label">
+            TODAY
+        </div>
+
+        <div class="summary-value">
+
+            <span id="todayCount">
+                0
             </span>
 
-            <span id="nextLevel">
-                NEXT LEVEL
+            / 4
+
+        </div>
+
+        <div class="summary-sub">
+            DAILY QUESTS
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <div class="summary-label">
+            STREAK
+        </div>
+
+        <div class="summary-value streak-value">
+
+            <span id="streak">
+                0
             </span>
 
         </div>
 
-    </section>
+        <div class="summary-sub">
+            DAYS ACTIVE
+        </div>
+
+    </div>
 
 
-    <!-- SUMMARY -->
+    <div class="summary-card">
 
-    <section class="summary-grid">
+        <div class="summary-label">
+            TODAY XP
+        </div>
 
-        <div class="summary-card">
+        <div class="summary-value">
 
-            <div class="summary-label">
-                TODAY
-            </div>
-
-            <div class="summary-value">
-                <span id="todayCount">0</span> / 4
-            </div>
-
-            <div class="summary-sub">
-                DAILY QUESTS
-            </div>
+            <span id="todayXP">
+                0
+            </span>
 
         </div>
 
-
-        <div class="summary-card">
-
-            <div class="summary-label">
-                STREAK
-            </div>
-
-            <div class="summary-value streak-value">
-                <span id="streak">0</span>
-            </div>
-
-            <div class="summary-sub">
-                DAYS ACTIVE
-            </div>
-
+        <div class="summary-sub">
+            EXPERIENCE EARNED
         </div>
 
+    </div>
 
-        <div class="summary-card">
 
-            <div class="summary-label">
-                TODAY XP
-            </div>
+</section>
 
-            <div class="summary-value">
-                <span id="todayXP">0</span>
-            </div>
 
-            <div class="summary-sub">
-                EXPERIENCE EARNED
-            </div>
+<!-- ==================================================
+     CURRENT OBJECTIVE
+================================================== -->
 
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="section-title">
+            CURRENT OBJECTIVE
         </div>
 
-    </section>
-
-
-    <!-- OBJECTIVE -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                CURRENT OBJECTIVE
-            </div>
-
-            <div class="section-description">
-                MAKE PROGRESS
-            </div>
-
+        <div class="section-description">
+            MAKE PROGRESS
         </div>
 
-        <div class="objective">
+    </div>
 
-            <div class="objective-tag">
-                MAIN QUEST
-            </div>
 
-            <h2>
-                Become better than yesterday.
-            </h2>
+    <div class="objective">
 
-            <p>
-                You don't need to change your entire life today.
-                Complete a few meaningful actions and keep moving forward.
-            </p>
-
+        <div class="objective-tag">
+            MAIN QUEST
         </div>
 
-    </section>
+        <h2>
+            Become better than yesterday.
+        </h2>
+
+        <p>
+            You don't need to change your entire life today.
+            Complete a few meaningful actions and keep moving forward.
+        </p>
+
+    </div>
+
+</section>
 
 
-    <!-- DAILY QUESTS -->
+<!-- ==================================================
+     DAILY QUESTS
+================================================== -->
 
-    <section class="section">
+<section class="section">
 
-        <div class="section-header">
+    <div class="section-header">
 
-            <div class="section-title">
-                DAILY QUESTS
-            </div>
-
-            <div class="section-description">
-                RESET DAILY
-            </div>
-
+        <div class="section-title">
+            DAILY QUESTS
         </div>
 
-        <div class="quest-list" id="dailyQuests">
+        <div class="section-description">
+            RESET DAILY
+        </div>
+
+    </div>
 
 
-            <div class="quest easy"
-                 data-id="bed"
-                 data-xp="10"
-                 data-stat="DEX">
+    <div
+        class="quest-list"
+        id="dailyQuests">
 
-                <div class="quest-check">
-                    ✓
+
+        <div
+            class="quest easy"
+            data-id="bed"
+            data-xp="10"
+            data-stat="DEX">
+
+            <div class="quest-check">
+                ✓
+            </div>
+
+            <div class="quest-info">
+
+                <div class="quest-name">
+                    Make your bed
                 </div>
 
-                <div class="quest-info">
-
-                    <div class="quest-name">
-                        Make your bed
-                    </div>
-
-                    <div class="quest-meta">
-                        EASY • DEX
-                    </div>
-
-                </div>
-
-                <div class="quest-reward">
-
-                    <div class="xp-reward">
-                        +10 XP
-                    </div>
-
-                    <div class="stat-reward">
-                        +1 DEX
-                    </div>
-
+                <div class="quest-meta">
+                    EASY • DEX
                 </div>
 
             </div>
 
+            <div class="quest-reward">
 
-            <div class="quest easy"
-                 data-id="water"
-                 data-xp="10"
-                 data-stat="VIT">
-
-                <div class="quest-check">
-                    ✓
+                <div class="xp-reward">
+                    +10 XP
                 </div>
 
-                <div class="quest-info">
-
-                    <div class="quest-name">
-                        Drink some water
-                    </div>
-
-                    <div class="quest-meta">
-                        EASY • VIT
-                    </div>
-
-                </div>
-
-                <div class="quest-reward">
-
-                    <div class="xp-reward">
-                        +10 XP
-                    </div>
-
-                    <div class="stat-reward">
-                        +1 VIT
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="quest normal"
-                 data-id="procrastination"
-                 data-xp="25"
-                 data-stat="WIS">
-
-                <div class="quest-check">
-                    ✓
-                </div>
-
-                <div class="quest-info">
-
-                    <div class="quest-name">
-                        Do something you've been putting off
-                    </div>
-
-                    <div class="quest-meta">
-                        NORMAL • WIS
-                    </div>
-
-                </div>
-
-                <div class="quest-reward">
-
-                    <div class="xp-reward">
-                        +25 XP
-                    </div>
-
-                    <div class="stat-reward">
-                        +1 WIS
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="quest easy"
-                 data-id="outside"
-                 data-xp="10"
-                 data-stat="VIT">
-
-                <div class="quest-check">
-                    ✓
-                </div>
-
-                <div class="quest-info">
-
-                    <div class="quest-name">
-                        Go outside for at least 5 minutes
-                    </div>
-
-                    <div class="quest-meta">
-                        EASY • VIT
-                    </div>
-
-                </div>
-
-                <div class="quest-reward">
-
-                    <div class="xp-reward">
-                        +10 XP
-                    </div>
-
-                    <div class="stat-reward">
-                        +1 VIT
-                    </div>
-
+                <div class="stat-reward">
+                    +1 DEX
                 </div>
 
             </div>
 
         </div>
 
-    </section>
 
+        <div
+            class="quest easy"
+            data-id="water"
+            data-xp="10"
+            data-stat="VIT">
 
-    <!-- LIFE QUEST -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                LIFE QUEST
+            <div class="quest-check">
+                ✓
             </div>
 
-            <div class="section-description">
-                OPTIONAL
-            </div>
+            <div class="quest-info">
 
-        </div>
-
-        <div class="life-quest">
-
-            <div class="life-label">
-                RANDOM ENCOUNTER
-            </div>
-
-            <div class="life-text" id="lifeQuestText">
-                Your next adventure is waiting.
-            </div>
-
-            <div class="button-row">
-
-                <button id="surpriseButton" class="primary">
-                    🎲 SURPRISE ME
-                </button>
-
-                <button id="completeLifeButton" disabled>
-                    COMPLETE QUEST
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- SIDE QUEST -->
-
-    <section class="section">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                SIDE QUEST
-            </div>
-
-            <div class="section-description">
-                SOCIAL
-            </div>
-
-        </div>
-
-        <div class="side-card">
-
-            <div class="side-left">
-
-                <div class="side-icon">
-                    ☎
+                <div class="quest-name">
+                    Drink some water
                 </div>
 
-                <div>
-
-                    <div class="side-name">
-                        Call someone you haven't talked to recently
-                    </div>
-
-                    <div class="side-meta">
-                        +20 XP • +1 CHA
-                    </div>
-
+                <div class="quest-meta">
+                    EASY • VIT
                 </div>
 
             </div>
 
-            <button id="sideQuestButton">
-                COMPLETE
+            <div class="quest-reward">
+
+                <div class="xp-reward">
+                    +10 XP
+                </div>
+
+                <div class="stat-reward">
+                    +1 VIT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="quest normal"
+            data-id="procrastination"
+            data-xp="25"
+            data-stat="WIS">
+
+            <div class="quest-check">
+                ✓
+            </div>
+
+            <div class="quest-info">
+
+                <div class="quest-name">
+                    Do something you've been putting off
+                </div>
+
+                <div class="quest-meta">
+                    NORMAL • WIS
+                </div>
+
+            </div>
+
+            <div class="quest-reward">
+
+                <div class="xp-reward">
+                    +25 XP
+                </div>
+
+                <div class="stat-reward">
+                    +1 WIS
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="quest easy"
+            data-id="outside"
+            data-xp="10"
+            data-stat="VIT">
+
+            <div class="quest-check">
+                ✓
+            </div>
+
+            <div class="quest-info">
+
+                <div class="quest-name">
+                    Go outside for at least 5 minutes
+                </div>
+
+                <div class="quest-meta">
+                    EASY • VIT
+                </div>
+
+            </div>
+
+            <div class="quest-reward">
+
+                <div class="xp-reward">
+                    +10 XP
+                </div>
+
+                <div class="stat-reward">
+                    +1 VIT
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     CREATE QUEST
+================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="section-title">
+            CREATE QUEST
+        </div>
+
+        <div class="section-description">
+            DEFINE YOUR OWN PATH
+        </div>
+
+    </div>
+
+
+    <div class="create-quest">
+
+        <div class="form-grid">
+
+
+            <div class="form-group full">
+
+                <label class="form-label">
+                    QUEST NAME
+                </label>
+
+                <input
+                    id="questNameInput"
+                    type="text"
+                    placeholder="What do you want to accomplish?"
+                    maxlength="80">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    QUEST TYPE
+                </label>
+
+                <select id="questTypeInput">
+
+                    <option value="MAIN">
+                        MAIN QUEST
+                    </option>
+
+                    <option value="DAILY">
+                        DAILY QUEST
+                    </option>
+
+                    <option value="SIDE">
+                        SIDE QUEST
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    DIFFICULTY
+                </label>
+
+                <select id="questDifficultyInput">
+
+                    <option value="EASY">
+                        EASY • +10 XP
+                    </option>
+
+                    <option value="NORMAL">
+                        NORMAL • +25 XP
+                    </option>
+
+                    <option value="HARD">
+                        HARD • +50 XP
+                    </option>
+
+                    <option value="EXTREME">
+                        EXTREME • +100 XP
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    STAT
+                </label>
+
+                <select id="questStatInput">
+
+                    <option value="STR">
+                        STR • FITNESS
+                    </option>
+
+                    <option value="INT">
+                        INT • LEARNING
+                    </option>
+
+                    <option value="WIS">
+                        WIS • PERSONAL GROWTH
+                    </option>
+
+                    <option value="CHA">
+                        CHA • SOCIAL
+                    </option>
+
+                    <option value="DEX">
+                        DEX • PRODUCTIVITY
+                    </option>
+
+                    <option value="CRE">
+                        CRE • CREATIVITY
+                    </option>
+
+                    <option value="VIT">
+                        VIT • HEALTH
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="create-button"
+            id="createQuestButton">
+
+            + CREATE QUEST
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     CUSTOM QUESTS
+================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="section-title">
+            YOUR QUESTS
+        </div>
+
+        <div class="section-description">
+            PERSONAL OBJECTIVES
+        </div>
+
+    </div>
+
+
+    <div id="customQuestList">
+
+        <div class="empty-state" id="emptyQuestState">
+            NO CUSTOM QUESTS YET.
+            CREATE ONE ABOVE.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     LIFE QUEST
+================================================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="section-title">
+            LIFE QUEST
+        </div>
+
+        <div class="section-description">
+            OPTIONAL
+        </div>
+
+    </div>
+
+
+    <div class="life-quest">
+
+        <div class="life-label">
+            RANDOM ENCOUNTER
+        </div>
+
+
+        <div
+            class="life-text"
+            id="lifeQuestText">
+
+            Your next adventure is waiting.
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                id="surpriseButton"
+                class="primary">
+
+                🎲 SURPRISE ME
+
+            </button>
+
+
+            <button
+                id="completeLifeButton"
+                disabled>
+
+                COMPLETE QUEST
+
             </button>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- STATS -->
+<!-- ==================================================
+     SIDE QUEST
+================================================== -->
 
-    <section class="section">
+<section class="section">
 
-        <div class="section-header">
+    <div class="section-header">
 
-            <div class="section-title">
-                CHARACTER STATS
+        <div class="section-title">
+            SIDE QUEST
+        </div>
+
+        <div class="section-description">
+            SOCIAL
+        </div>
+
+    </div>
+
+
+    <div class="side-card">
+
+        <div class="side-left">
+
+            <div class="side-icon">
+                ☎
             </div>
 
-            <div class="section-description">
-                YOUR DEVELOPMENT
+            <div>
+
+                <div class="side-name">
+                    Call someone you haven't talked to recently
+                </div>
+
+                <div class="side-meta">
+                    +20 XP • +1 CHA
+                </div>
+
             </div>
 
         </div>
 
-        <div class="stats-grid">
+
+        <button id="sideQuestButton">
+            COMPLETE
+        </button>
+
+    </div>
+
+</section>
 
 
-            <div class="stat">
+<!-- ==================================================
+     CHARACTER STATS
+================================================== -->
 
-                <div class="stat-top">
-                    <div class="stat-name">STR • FITNESS</div>
-                    <div class="stat-value" id="STRValue">0</div>
+<section class="section">
+
+    <div class="section-header">
+
+        <div class="section-title">
+            CHARACTER STATS
+        </div>
+
+        <div class="section-description">
+            YOUR DEVELOPMENT
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    STR • FITNESS
                 </div>
 
-                <div class="stat-bar">
-                    <div class="stat-fill str" id="STRBar"></div>
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-top">
-                    <div class="stat-name">INT • LEARNING</div>
-                    <div class="stat-value" id="INTValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill int" id="INTBar"></div>
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-top">
-                    <div class="stat-name">WIS • PERSONAL GROWTH</div>
-                    <div class="stat-value" id="WISValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill wis" id="WISBar"></div>
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-top">
-                    <div class="stat-name">CHA • SOCIAL</div>
-                    <div class="stat-value" id="CHAValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill cha" id="CHABar"></div>
+                <div
+                    class="stat-value"
+                    id="STRValue">
+                    0
                 </div>
 
             </div>
 
+            <div class="stat-bar">
 
-            <div class="stat">
-
-                <div class="stat-top">
-                    <div class="stat-name">DEX • PRODUCTIVITY</div>
-                    <div class="stat-value" id="DEXValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill dex" id="DEXBar"></div>
+                <div
+                    class="stat-fill str"
+                    id="STRBar">
                 </div>
 
             </div>
-
-
-            <div class="stat">
-
-                <div class="stat-top">
-                    <div class="stat-name">CRE • CREATIVITY</div>
-                    <div class="stat-value" id="CREValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill cre" id="CREBar"></div>
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-top">
-                    <div class="stat-name">VIT • HEALTH</div>
-                    <div class="stat-value" id="VITValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill vit" id="VITBar"></div>
-                </div>
-
-            </div>
-
 
         </div>
 
-    </section>
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    INT • LEARNING
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="INTValue">
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill int"
+                    id="INTBar">
+                </div>
+
+            </div>
+
+        </div>
 
 
-    <footer>
-        SENRAI • YOUR LIFE, YOUR PROGRESS
-    </footer>
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    WIS • PERSONAL GROWTH
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="WISValue">
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill wis"
+                    id="WISBar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    CHA • SOCIAL
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="CHAValue">
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill cha"
+                    id="CHABar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    DEX • PRODUCTIVITY
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="DEXValue">
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill dex"
+                    id="DEXBar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    CRE • CREATIVITY
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="CREValue">
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill cre"
+                    id="CREBar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    VIT • HEALTH
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="VITValue">
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill vit"
+                    id="VITBar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+    SENRAI • YOUR LIFE, YOUR PROGRESS
+</footer>
+
 
 </div>
 
 
-<!-- LEVEL-UP NOTIFICATION -->
+<!-- ==================================================
+     NOTIFICATION
+================================================== -->
 
-<div class="notification" id="notification">
+<div
+    class="notification"
+    id="notification">
+
     SENRAI LEVEL UP
+
 </div>
 
 
 <script>
 
-/* =========================================
-   SENRAI DATA
-========================================= */
+/* ==================================================
+   SENRAI STORAGE
+================================================== */
 
 const STORAGE_KEY = "theSystemData";
 
-let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-
-    level: 1,
-
-    xp: 0,
-
-    completed: [],
-
-    stats: {
-        STR: 0,
-        INT: 0,
-        WIS: 0,
-        CHA: 0,
-        DEX: 0,
-        CRE: 0,
-        VIT: 0
-    },
-
-    streak: 0,
-
-    lastActiveDate: null,
-
-    lastResetDate: null,
-
-    completedToday: 0,
-
-    todayXP: 0
-
-};
+const CUSTOM_QUESTS_KEY = "senraiCustomQuests";
 
 
-/* =========================================
-   DATE
-========================================= */
+/* ==================================================
+   MAIN DATA
+================================================== */
+
+let data =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    ) ||
+    {
+
+        level: 1,
+
+        xp: 0,
+
+        completed: [],
+
+        stats: {
+
+            STR: 0,
+            INT: 0,
+            WIS: 0,
+            CHA: 0,
+            DEX: 0,
+            CRE: 0,
+            VIT: 0
+
+        },
+
+        streak: 0,
+
+        lastActiveDate: null,
+
+        lastResetDate: null,
+
+        completedToday: 0,
+
+        todayXP: 0
+
+    };
+
+
+/* ==================================================
+   CUSTOM QUEST DATA
+================================================== */
+
+let customQuests =
+    JSON.parse(
+        localStorage.getItem(
+            CUSTOM_QUESTS_KEY
+        )
+    ) || [];
+
+
+/* ==================================================
+   DATE FUNCTIONS
+================================================== */
 
 function todayString() {
 
     const date = new Date();
 
-    return date.getFullYear() +
+    return (
+        date.getFullYear() +
         "-" +
-        String(date.getMonth() + 1).padStart(2, "0") +
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0") +
         "-" +
-        String(date.getDate()).padStart(2, "0");
+        String(
+            date.getDate()
+        ).padStart(2, "0")
+    );
 
 }
 
@@ -1374,26 +2003,65 @@ function yesterdayString() {
 
     const date = new Date();
 
-    date.setDate(date.getDate() - 1);
+    date.setDate(
+        date.getDate() - 1
+    );
 
-    return date.getFullYear() +
+    return (
+        date.getFullYear() +
         "-" +
-        String(date.getMonth() + 1).padStart(2, "0") +
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0") +
         "-" +
-        String(date.getDate()).padStart(2, "0");
+        String(
+            date.getDate()
+        ).padStart(2, "0")
+    );
 
 }
 
 
-/* =========================================
+/* ==================================================
+   SAVE MAIN DATA
+================================================== */
+
+function save() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* ==================================================
+   SAVE CUSTOM QUESTS
+================================================== */
+
+function saveCustomQuests() {
+
+    localStorage.setItem(
+        CUSTOM_QUESTS_KEY,
+        JSON.stringify(customQuests)
+    );
+
+}
+
+
+/* ==================================================
    DAILY RESET
-========================================= */
+================================================== */
 
 function checkDailyReset() {
 
-    const today = todayString();
+    const today =
+        todayString();
 
-    if (data.lastResetDate !== today) {
+    if (
+        data.lastResetDate !== today
+    ) {
 
         data.completed = [];
 
@@ -1410,23 +2078,9 @@ function checkDailyReset() {
 }
 
 
-/* =========================================
-   SAVE
-========================================= */
-
-function save() {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-    );
-
-}
-
-
-/* =========================================
-   XP
-========================================= */
+/* ==================================================
+   XP REQUIREMENT
+================================================== */
 
 function xpNeededForLevel(level) {
 
@@ -1435,29 +2089,47 @@ function xpNeededForLevel(level) {
 }
 
 
+/* ==================================================
+   ADD XP
+================================================== */
+
 function addXP(amount) {
 
-    const oldLevel = data.level;
+    const oldLevel =
+        data.level;
 
     data.xp += amount;
 
+
     while (
-        data.xp >= xpNeededForLevel(data.level)
+        data.xp >=
+        xpNeededForLevel(
+            data.level
+        )
     ) {
 
-        data.xp -= xpNeededForLevel(data.level);
+        data.xp -=
+            xpNeededForLevel(
+                data.level
+            );
 
         data.level++;
 
     }
 
-    if (data.level > oldLevel) {
+
+    if (
+        data.level >
+        oldLevel
+    ) {
 
         showNotification(
-            "SENRAI LEVEL UP • LEVEL " + data.level
+            "SENRAI LEVEL UP • LEVEL " +
+            data.level
         );
 
     }
+
 
     save();
 
@@ -1466,23 +2138,32 @@ function addXP(amount) {
 }
 
 
-/* =========================================
+/* ==================================================
    STREAK
-========================================= */
+================================================== */
 
 function updateStreak() {
 
-    const today = todayString();
+    const today =
+        todayString();
 
-    if (data.lastActiveDate === today) {
+
+    if (
+        data.lastActiveDate === today
+    ) {
 
         return;
 
     }
 
-    const yesterday = yesterdayString();
 
-    if (data.lastActiveDate === yesterday) {
+    const yesterday =
+        yesterdayString();
+
+
+    if (
+        data.lastActiveDate === yesterday
+    ) {
 
         data.streak++;
 
@@ -1492,28 +2173,43 @@ function updateStreak() {
 
     }
 
-    data.lastActiveDate = today;
+
+    data.lastActiveDate =
+        today;
 
 }
 
 
-/* =========================================
+/* ==================================================
    COMPLETE DAILY QUEST
-========================================= */
+================================================== */
 
-function completeDailyQuest(quest) {
+function completeDailyQuest(
+    quest
+) {
 
-    const id = quest.dataset.id;
+    const id =
+        quest.dataset.id;
 
-    if (data.completed.includes(id)) {
+
+    if (
+        data.completed.includes(id)
+    ) {
 
         return;
 
     }
 
-    const xp = Number(quest.dataset.xp);
 
-    const stat = quest.dataset.stat;
+    const xp =
+        Number(
+            quest.dataset.xp
+        );
+
+
+    const stat =
+        quest.dataset.stat;
+
 
     data.completed.push(id);
 
@@ -1522,6 +2218,7 @@ function completeDailyQuest(quest) {
     data.todayXP += xp;
 
     data.stats[stat]++;
+
 
     updateStreak();
 
@@ -1534,9 +2231,9 @@ function completeDailyQuest(quest) {
 }
 
 
-/* =========================================
+/* ==================================================
    RANDOM LIFE QUESTS
-========================================= */
+================================================== */
 
 const lifeQuests = [
 
@@ -1575,54 +2272,77 @@ const lifeQuests = [
 ];
 
 
-let currentLifeQuest = null;
+let currentLifeQuest =
+    null;
 
+
+/* ==================================================
+   GENERATE LIFE QUEST
+================================================== */
 
 function generateLifeQuest() {
 
-    const index = Math.floor(
-        Math.random() * lifeQuests.length
-    );
+    const index =
+        Math.floor(
+            Math.random() *
+            lifeQuests.length
+        );
 
-    currentLifeQuest = lifeQuests[index];
+
+    currentLifeQuest =
+        lifeQuests[index];
+
 
     document.getElementById(
         "lifeQuestText"
-    ).textContent = currentLifeQuest;
+    ).textContent =
+        currentLifeQuest;
+
 
     document.getElementById(
         "completeLifeButton"
-    ).disabled = false;
+    ).disabled =
+        false;
 
 }
 
 
-/* =========================================
+/* ==================================================
    COMPLETE LIFE QUEST
-========================================= */
+================================================== */
 
 function completeLifeQuest() {
 
-    if (!currentLifeQuest) {
+    if (
+        !currentLifeQuest
+    ) {
 
         return;
 
     }
 
+
     data.stats.WIS++;
+
 
     addXP(15);
 
-    currentLifeQuest = null;
+
+    currentLifeQuest =
+        null;
+
 
     document.getElementById(
         "lifeQuestText"
     ).textContent =
         "Quest complete. The next one awaits.";
 
+
     document.getElementById(
         "completeLifeButton"
-    ).disabled = true;
+    ).disabled =
+        true;
+
 
     save();
 
@@ -1631,9 +2351,9 @@ function completeLifeQuest() {
 }
 
 
-/* =========================================
+/* ==================================================
    SIDE QUEST
-========================================= */
+================================================== */
 
 function completeSideQuest() {
 
@@ -1642,19 +2362,29 @@ function completeSideQuest() {
             "sideQuestButton"
         );
 
-    if (button.disabled) {
+
+    if (
+        button.disabled
+    ) {
 
         return;
 
     }
 
+
     data.stats.CHA++;
+
 
     addXP(20);
 
-    button.textContent = "COMPLETED";
 
-    button.disabled = true;
+    button.textContent =
+        "COMPLETED";
+
+
+    button.disabled =
+        true;
+
 
     save();
 
@@ -1663,187 +2393,734 @@ function completeSideQuest() {
 }
 
 
-/* =========================================
+/* ==================================================
+   CUSTOM QUEST XP
+================================================== */
+
+function getQuestXP(
+    difficulty
+) {
+
+    const rewards = {
+
+        EASY: 10,
+
+        NORMAL: 25,
+
+        HARD: 50,
+
+        EXTREME: 100
+
+    };
+
+
+    return (
+        rewards[difficulty] ||
+        10
+    );
+
+}
+
+
+/* ==================================================
+   CUSTOM QUEST CLASS
+================================================== */
+
+function getQuestClass(
+    difficulty
+) {
+
+    return (
+        difficulty
+            .toLowerCase()
+    );
+
+}
+
+
+/* ==================================================
+   CREATE CUSTOM QUEST
+================================================== */
+
+function createCustomQuest() {
+
+    const nameInput =
+        document.getElementById(
+            "questNameInput"
+        );
+
+
+    const typeInput =
+        document.getElementById(
+            "questTypeInput"
+        );
+
+
+    const difficultyInput =
+        document.getElementById(
+            "questDifficultyInput"
+        );
+
+
+    const statInput =
+        document.getElementById(
+            "questStatInput"
+        );
+
+
+    const name =
+        nameInput.value.trim();
+
+
+    if (!name) {
+
+        showNotification(
+            "ENTER A QUEST NAME"
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    const difficulty =
+        difficultyInput.value;
+
+
+    const stat =
+        statInput.value;
+
+
+    const type =
+        typeInput.value;
+
+
+    const quest = {
+
+        id:
+            Date.now().toString() +
+            Math.random()
+                .toString(36)
+                .slice(2),
+
+        name: name,
+
+        type: type,
+
+        difficulty: difficulty,
+
+        stat: stat,
+
+        xp:
+            getQuestXP(
+                difficulty
+            ),
+
+        completed: false,
+
+        created:
+            new Date().toISOString()
+
+    };
+
+
+    customQuests.unshift(
+        quest
+    );
+
+
+    saveCustomQuests();
+
+    nameInput.value = "";
+
+    renderCustomQuests();
+
+    showNotification(
+        "QUEST CREATED"
+    );
+
+}
+
+
+/* ==================================================
+   COMPLETE CUSTOM QUEST
+================================================== */
+
+function completeCustomQuest(
+    id
+) {
+
+    const quest =
+        customQuests.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (
+        !quest ||
+        quest.completed
+    ) {
+
+        return;
+
+    }
+
+
+    quest.completed =
+        true;
+
+
+    data.stats[
+        quest.stat
+    ]++;
+
+
+    addXP(
+        quest.xp
+    );
+
+
+    saveCustomQuests();
+
+    renderCustomQuests();
+
+    updateUI();
+
+
+    showNotification(
+        "+" +
+        quest.xp +
+        " XP • QUEST COMPLETE"
+    );
+
+}
+
+
+/* ==================================================
+   DELETE CUSTOM QUEST
+================================================== */
+
+function deleteCustomQuest(
+    id
+) {
+
+    const index =
+        customQuests.findIndex(
+            item =>
+                item.id === id
+        );
+
+
+    if (
+        index === -1
+    ) {
+
+        return;
+
+    }
+
+
+    customQuests.splice(
+        index,
+        1
+    );
+
+
+    saveCustomQuests();
+
+    renderCustomQuests();
+
+    showNotification(
+        "QUEST REMOVED"
+    );
+
+}
+
+
+/* ==================================================
+   RENDER CUSTOM QUESTS
+================================================== */
+
+function renderCustomQuests() {
+
+    const container =
+        document.getElementById(
+            "customQuestList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        customQuests.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="empty-state">
+
+                NO CUSTOM QUESTS YET.
+                CREATE ONE ABOVE.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    customQuests.forEach(
+        quest => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "custom-quest";
+
+
+            if (
+                quest.completed
+            ) {
+
+                card.style.opacity =
+                    "0.4";
+
+            }
+
+
+            const main =
+                document.createElement(
+                    "div"
+                );
+
+
+            main.className =
+                "custom-quest-main";
+
+
+            const name =
+                document.createElement(
+                    "div"
+                );
+
+
+            name.className =
+                "custom-quest-name";
+
+
+            name.textContent =
+                quest.name;
+
+
+            const meta =
+                document.createElement(
+                    "div"
+                );
+
+
+            meta.className =
+                "custom-quest-meta";
+
+
+            meta.textContent =
+                quest.type +
+                " • " +
+                quest.difficulty +
+                " • " +
+                quest.stat +
+                " • +" +
+                quest.xp +
+                " XP";
+
+
+            main.appendChild(
+                name
+            );
+
+            main.appendChild(
+                meta
+            );
+
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+
+            actions.className =
+                "custom-quest-actions";
+
+
+            const completeButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            completeButton.className =
+                "custom-complete";
+
+
+            completeButton.textContent =
+                quest.completed
+                    ? "COMPLETED"
+                    : "COMPLETE";
+
+
+            completeButton.disabled =
+                quest.completed;
+
+
+            completeButton.addEventListener(
+                "click",
+                () => {
+
+                    completeCustomQuest(
+                        quest.id
+                    );
+
+                }
+            );
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.className =
+                "delete-button";
+
+
+            deleteButton.textContent =
+                "×";
+
+
+            deleteButton.title =
+                "Delete quest";
+
+
+            deleteButton.addEventListener(
+                "click",
+                () => {
+
+                    deleteCustomQuest(
+                        quest.id
+                    );
+
+                }
+            );
+
+
+            actions.appendChild(
+                completeButton
+            );
+
+            actions.appendChild(
+                deleteButton
+            );
+
+
+            card.appendChild(
+                main
+            );
+
+            card.appendChild(
+                actions
+            );
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* ==================================================
    UPDATE UI
-========================================= */
+================================================== */
 
 function updateUI() {
 
     document.getElementById(
         "level"
-    ).textContent = data.level;
+    ).textContent =
+        data.level;
+
 
     document.getElementById(
         "xp"
-    ).textContent = data.xp;
+    ).textContent =
+        data.xp;
+
 
     document.getElementById(
         "todayCount"
-    ).textContent = data.completedToday;
+    ).textContent =
+        data.completedToday;
+
 
     document.getElementById(
         "streak"
-    ).textContent = data.streak;
+    ).textContent =
+        data.streak;
+
 
     document.getElementById(
         "todayXP"
-    ).textContent = data.todayXP;
+    ).textContent =
+        data.todayXP;
 
 
     const needed =
-        xpNeededForLevel(data.level);
+        xpNeededForLevel(
+            data.level
+        );
+
 
     const percentage =
         Math.min(
-            (data.xp / needed) * 100,
+            (
+                data.xp /
+                needed
+            ) * 100,
             100
         );
 
+
     document.getElementById(
         "xpBar"
-    ).style.width = percentage + "%";
+    ).style.width =
+        percentage + "%";
 
 
     document.getElementById(
         "xpProgress"
     ).textContent =
-        data.xp + " / " + needed + " XP";
+        data.xp +
+        " / " +
+        needed +
+        " XP";
 
 
     document.getElementById(
         "nextLevel"
     ).textContent =
-        "LEVEL " + (data.level + 1);
+        "LEVEL " +
+        (data.level + 1);
 
 
     /* DAILY QUESTS */
 
     document.querySelectorAll(
         ".quest"
-    ).forEach(quest => {
+    ).forEach(
+        quest => {
 
-        const id =
-            quest.dataset.id;
+            const id =
+                quest.dataset.id;
 
-        if (
-            data.completed.includes(id)
-        ) {
 
-            quest.classList.add(
-                "completed"
-            );
+            if (
+                data.completed.includes(
+                    id
+                )
+            ) {
 
-        } else {
+                quest.classList.add(
+                    "completed"
+                );
 
-            quest.classList.remove(
-                "completed"
-            );
+            } else {
+
+                quest.classList.remove(
+                    "completed"
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     /* STATS */
 
-    Object.keys(data.stats).forEach(stat => {
+    Object.keys(
+        data.stats
+    ).forEach(
+        stat => {
 
-        const value =
-            data.stats[stat];
+            const value =
+                data.stats[stat];
 
-        const valueElement =
-            document.getElementById(
-                stat + "Value"
-            );
 
-        const barElement =
-            document.getElementById(
-                stat + "Bar"
-            );
-
-        if (valueElement) {
-
-            valueElement.textContent =
-                value;
-
-        }
-
-        if (barElement) {
-
-            const percentage =
-                Math.min(
-                    value,
-                    100
+            const valueElement =
+                document.getElementById(
+                    stat +
+                    "Value"
                 );
 
-            barElement.style.width =
-                percentage + "%";
+
+            const barElement =
+                document.getElementById(
+                    stat +
+                    "Bar"
+                );
+
+
+            if (
+                valueElement
+            ) {
+
+                valueElement.textContent =
+                    value;
+
+            }
+
+
+            if (
+                barElement
+            ) {
+
+                const percentage =
+                    Math.min(
+                        value,
+                        100
+                    );
+
+
+                barElement.style.width =
+                    percentage + "%";
+
+            }
 
         }
-
-    });
+    );
 
 }
 
 
-/* =========================================
+/* ==================================================
    NOTIFICATION
-========================================= */
+================================================== */
 
 let notificationTimeout;
 
 
-function showNotification(message) {
+function showNotification(
+    message
+) {
 
     const notification =
         document.getElementById(
             "notification"
         );
 
+
     notification.textContent =
         message;
+
 
     notification.classList.add(
         "show"
     );
 
+
     clearTimeout(
         notificationTimeout
     );
 
+
     notificationTimeout =
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            notification.classList.remove(
-                "show"
-            );
+                notification.classList.remove(
+                    "show"
+                );
 
-        }, 3000);
+            },
+            3000
+        );
 
 }
 
 
-/* =========================================
-   EVENTS
-========================================= */
+/* ==================================================
+   EVENT LISTENERS
+================================================== */
+
+
+/* DAILY QUESTS */
 
 document.querySelectorAll(
     ".quest"
-).forEach(quest => {
+).forEach(
+    quest => {
 
-    quest.addEventListener(
-        "click",
-        () => {
+        quest.addEventListener(
+            "click",
+            () => {
 
-            completeDailyQuest(
-                quest
-            );
+                completeDailyQuest(
+                    quest
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* CREATE QUEST */
+
+document.getElementById(
+    "createQuestButton"
+).addEventListener(
+    "click",
+    createCustomQuest
+);
+
+
+/* ENTER KEY */
+
+document.getElementById(
+    "questNameInput"
+).addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            createCustomQuest();
 
         }
-    );
 
-});
+    }
+);
 
+
+/* LIFE QUEST */
 
 document.getElementById(
     "surpriseButton"
@@ -1861,6 +3138,8 @@ document.getElementById(
 );
 
 
+/* SIDE QUEST */
+
 document.getElementById(
     "sideQuestButton"
 ).addEventListener(
@@ -1869,9 +3148,9 @@ document.getElementById(
 );
 
 
-/* =========================================
+/* ==================================================
    SPLASH SCREEN
-========================================= */
+================================================== */
 
 const loadingMessages = [
 
@@ -1892,15 +3171,18 @@ const loadingMessages = [
 
 let progress = 0;
 
+
 const loadingFill =
     document.getElementById(
         "loadingFill"
     );
 
+
 const loadingPercent =
     document.getElementById(
         "loadingPercent"
     );
+
 
 const loadingStatus =
     document.getElementById(
@@ -1909,64 +3191,84 @@ const loadingStatus =
 
 
 const loadingInterval =
-    setInterval(() => {
+    setInterval(
+        () => {
 
-        progress += Math.floor(
-            Math.random() * 9
-        ) + 4;
-
-        if (progress >= 100) {
-
-            progress = 100;
-
-            clearInterval(
-                loadingInterval
-            );
-
-        }
-
-
-        loadingFill.style.width =
-            progress + "%";
-
-        loadingPercent.textContent =
-            progress + "%";
-
-
-        const messageIndex =
-            Math.min(
+            progress +=
                 Math.floor(
-                    progress / 20
-                ),
-                loadingMessages.length - 1
-            );
-
-        loadingStatus.textContent =
-            loadingMessages[
-                messageIndex
-            ];
+                    Math.random() * 9
+                ) + 4;
 
 
-        if (progress >= 100) {
+            if (
+                progress >= 100
+            ) {
 
-            setTimeout(() => {
+                progress = 100;
 
-                document
-                    .getElementById("splash")
-                    .classList.add("hidden");
+                clearInterval(
+                    loadingInterval
+                );
 
-            }, 500);
-
-        }
-
-    }, 180);
+            }
 
 
-/* =========================================
-   START
-========================================= */
+            loadingFill.style.width =
+                progress + "%";
+
+
+            loadingPercent.textContent =
+                progress + "%";
+
+
+            const messageIndex =
+                Math.min(
+                    Math.floor(
+                        progress / 20
+                    ),
+                    loadingMessages.length - 1
+                );
+
+
+            loadingStatus.textContent =
+                loadingMessages[
+                    messageIndex
+                ];
+
+
+            if (
+                progress >= 100
+            ) {
+
+                setTimeout(
+                    () => {
+
+                        document
+                            .getElementById(
+                                "splash"
+                            )
+                            .classList.add(
+                                "hidden"
+                            );
+
+                    },
+                    500
+                );
+
+            }
+
+        },
+        180
+    );
+
+
+/* ==================================================
+   START SENRAI
+================================================== */
 
 checkDailyReset();
+
+renderCustomQuests();
 
 updateUI();
 
