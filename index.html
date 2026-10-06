@@ -68,6 +68,7 @@
             width: 25%;
             height: 100%;
             background: #00e5ff;
+            transition: width 0.4s ease;
         }
 
         .section {
@@ -102,13 +103,32 @@
         button {
             width: 100%;
             padding: 15px;
-            margin-top: 10px;
+            margin-top: 15px;
             border: none;
             border-radius: 10px;
             background: #00e5ff;
             color: black;
             font-size: 16px;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button.completed {
+            background: #222;
+            color: #777;
+            cursor: default;
+        }
+
+        .level-up {
+            text-align: center;
+            color: #00e5ff;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
         }
     </style>
 </head>
@@ -118,23 +138,35 @@
 <div class="system">
 
     <div class="header">
-        <div class="status">SYSTEM ONLINE</div>
+
+        <div class="status">
+            SYSTEM ONLINE
+        </div>
 
         <h1>THE SYSTEM</h1>
 
-        <div class="level">
+        <div class="level" id="level">
             LEVEL 1
         </div>
+
     </div>
 
     <div class="xp-text">
         <span>XP</span>
-        <span>250 / 1000</span>
+
+        <span id="xpText">
+            250 / 1000
+        </span>
     </div>
 
     <div class="xp-bar">
-        <div class="xp-fill"></div>
+        <div class="xp-fill" id="xpFill"></div>
     </div>
+
+    <div class="level-up" id="levelUp">
+        LEVEL UP!
+    </div>
+
 
     <div class="section">
 
@@ -142,7 +174,9 @@
             DAILY QUESTS
         </div>
 
+
         <div class="quest">
+
             <div class="quest-name">
                 Make your bed
             </div>
@@ -150,9 +184,12 @@
             <div class="quest-xp">
                 +10 XP
             </div>
+
         </div>
 
+
         <div class="quest">
+
             <div class="quest-name">
                 Drink some water
             </div>
@@ -160,9 +197,12 @@
             <div class="quest-xp">
                 +10 XP
             </div>
+
         </div>
 
+
         <div class="quest">
+
             <div class="quest-name">
                 Do something you've been putting off
             </div>
@@ -170,9 +210,11 @@
             <div class="quest-xp">
                 +25 XP
             </div>
+
         </div>
 
     </div>
+
 
     <div class="section">
 
@@ -180,7 +222,9 @@
             SIDE QUEST
         </div>
 
+
         <div class="quest">
+
             <div class="quest-name">
                 Call someone you haven't talked to recently.
             </div>
@@ -189,14 +233,131 @@
                 +20 XP
             </div>
 
-            <button>
+            <button id="completeButton" onclick="completeQuest()">
                 COMPLETE QUEST
             </button>
+
         </div>
 
     </div>
 
 </div>
+
+
+<script>
+
+    let level = Number(localStorage.getItem("systemLevel")) || 1;
+
+    let xp = Number(localStorage.getItem("systemXP"));
+
+    if (isNaN(xp)) {
+        xp = 250;
+    }
+
+    let questCompleted =
+        localStorage.getItem("sideQuestCompleted") === "true";
+
+
+    const xpNeeded = 1000;
+    const questXP = 20;
+
+
+    const levelElement =
+        document.getElementById("level");
+
+    const xpText =
+        document.getElementById("xpText");
+
+    const xpFill =
+        document.getElementById("xpFill");
+
+    const button =
+        document.getElementById("completeButton");
+
+    const levelUp =
+        document.getElementById("levelUp");
+
+
+    function updateSystem() {
+
+        levelElement.textContent =
+            "LEVEL " + level;
+
+        xpText.textContent =
+            xp + " / " + xpNeeded;
+
+        let percentage =
+            (xp / xpNeeded) * 100;
+
+        xpFill.style.width =
+            percentage + "%";
+
+
+        if (questCompleted) {
+
+            button.textContent =
+                "QUEST COMPLETE";
+
+            button.classList.add("completed");
+
+            button.disabled = true;
+
+        }
+
+        localStorage.setItem(
+            "systemLevel",
+            level
+        );
+
+        localStorage.setItem(
+            "systemXP",
+            xp
+        );
+
+        localStorage.setItem(
+            "sideQuestCompleted",
+            questCompleted
+        );
+    }
+
+
+    function completeQuest() {
+
+        if (questCompleted) {
+            return;
+        }
+
+
+        xp += questXP;
+
+        questCompleted = true;
+
+
+        if (xp >= xpNeeded) {
+
+            xp -= xpNeeded;
+
+            level++;
+
+            levelUp.style.display =
+                "block";
+
+            setTimeout(function() {
+
+                levelUp.style.display =
+                    "none";
+
+            }, 3000);
+        }
+
+
+        updateSystem();
+    }
+
+
+    updateSystem();
+
+</script>
 
 </body>
 </html>
