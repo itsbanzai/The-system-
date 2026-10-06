@@ -22,21 +22,27 @@
 
         body {
             margin: 0;
+
             min-height: 100vh;
+
             background: #080808;
+
             color: white;
+
             font-family: Arial, sans-serif;
 
             display: flex;
+
             justify-content: center;
         }
 
 
         .system {
             width: 100%;
+
             max-width: 500px;
 
-            padding: 30px 20px 60px;
+            padding: 30px 20px 70px;
         }
 
 
@@ -46,6 +52,7 @@
 
         .header {
             text-align: center;
+
             margin-bottom: 30px;
         }
 
@@ -54,18 +61,21 @@
             color: #00e5ff;
 
             font-size: 13px;
+
             letter-spacing: 3px;
         }
 
 
         h1 {
             font-size: 36px;
+
             margin: 10px 0;
         }
 
 
         .level {
             color: #aaa;
+
             font-size: 20px;
         }
 
@@ -76,17 +86,20 @@
 
         .xp-text {
             display: flex;
+
             justify-content: space-between;
 
             margin-top: 25px;
 
             color: #aaa;
+
             font-size: 14px;
         }
 
 
         .xp-bar {
             width: 100%;
+
             height: 12px;
 
             margin-top: 8px;
@@ -101,12 +114,84 @@
 
         .xp-fill {
             width: 25%;
+
             height: 100%;
 
             background: #00e5ff;
 
-            transition:
-                width 0.4s ease;
+            transition: width 0.4s ease;
+        }
+
+
+        /* =========================
+           LEVEL UP
+        ========================= */
+
+        .level-up {
+            display: none;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #00e5ff;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .dashboard {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+
+        .dashboard-card {
+            background: #121212;
+
+            border: 1px solid #292929;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+
+        .dashboard-icon {
+            font-size: 24px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .dashboard-label {
+            color: #777;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
+        }
+
+
+        .dashboard-value {
+            margin-top: 5px;
+
+            font-size: 20px;
+
+            font-weight: bold;
         }
 
 
@@ -131,7 +216,7 @@
 
 
         /* =========================
-           QUEST CARD
+           QUEST
         ========================= */
 
         .quest {
@@ -214,31 +299,75 @@
 
 
         /* =========================
-           LEVEL UP
+           STATS
         ========================= */
 
-        .level-up {
-            display: none;
+        .stat {
+            background: #121212;
 
-            margin-top: 15px;
+            border: 1px solid #292929;
 
-            text-align: center;
+            border-radius: 12px;
 
+            padding: 15px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .stat-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .stat-name {
+            font-size: 15px;
+        }
+
+
+        .stat-value {
             color: #00e5ff;
-
-            font-size: 18px;
 
             font-weight: bold;
         }
 
 
-        /* =========================
-           RANDOM QUEST
-        ========================= */
+        .stat-description {
+            color: #666;
 
-        .random-quest {
-            min-height: 24px;
+            font-size: 12px;
+
+            margin-top: 5px;
         }
+
+
+        .stat-bar {
+            height: 6px;
+
+            background: #222;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            overflow: hidden;
+        }
+
+
+        .stat-fill {
+            height: 100%;
+
+            background: #00e5ff;
+
+            width: 10%;
+
+            transition: width 0.4s ease;
+        }
+
 
     </style>
 
@@ -280,7 +409,7 @@
 
 
     <!-- =========================
-         XP DISPLAY
+         XP
     ========================= -->
 
     <div class="xp-text">
@@ -317,6 +446,58 @@
 
 
     <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <div class="dashboard">
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                📋
+            </div>
+
+            <div class="dashboard-label">
+                TODAY
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="questProgress"
+            >
+                0 / 4
+            </div>
+
+        </div>
+
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                🔥
+            </div>
+
+            <div class="dashboard-label">
+                STREAK
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="streak"
+            >
+                1 DAY
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
          DAILY QUESTS
     ========================= -->
 
@@ -335,11 +516,9 @@
                 Make your bed
             </div>
 
-
             <div class="quest-xp">
                 +10 XP
             </div>
-
 
             <button
                 id="dailyQuest1"
@@ -360,11 +539,9 @@
                 Drink some water
             </div>
 
-
             <div class="quest-xp">
                 +10 XP
             </div>
-
 
             <button
                 id="dailyQuest2"
@@ -385,11 +562,9 @@
                 Do something you've been putting off
             </div>
 
-
             <div class="quest-xp">
                 +25 XP
             </div>
-
 
             <button
                 id="dailyQuest3"
@@ -419,7 +594,7 @@
 
 
             <div
-                class="quest-name random-quest"
+                class="quest-name"
                 id="randomQuest"
             >
                 Generate a random life quest.
@@ -445,7 +620,7 @@
             <button
                 id="randomComplete"
                 onclick="completeRandomQuest()"
-                style="display: none;"
+                style="display:none;"
             >
                 COMPLETE QUEST
             </button>
@@ -494,6 +669,286 @@
     </div>
 
 
+
+    <!-- =========================
+         STATS
+    ========================= -->
+
+    <div class="section">
+
+        <div class="section-title">
+            STATS
+        </div>
+
+
+        <!-- STR -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    💪 STR — Fitness
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="strValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Physical activity and strength
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="strFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- INT -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    🧠 INT — Learning
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="intValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Studying, knowledge and skills
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="intFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WIS -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    🧘 WIS — Personal Growth
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="wisValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Reflection, discipline and growth
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="wisFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CHA -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    ❤️ CHA — Social
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="chaValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Relationships and connection
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="chaFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DEX -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    ⚡ DEX — Productivity
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="dexValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Getting things done
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="dexFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CRE -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    🎨 CRE — Creativity
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="creValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Art, music and creative projects
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="creFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- VIT -->
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <div class="stat-name">
+                    💚 VIT — Health
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="vitValue"
+                >
+                    1
+                </div>
+
+            </div>
+
+
+            <div class="stat-description">
+                Sleep, recovery and healthy habits
+            </div>
+
+
+            <div class="stat-bar">
+
+                <div
+                    class="stat-fill"
+                    id="vitFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
 </div>
 
 
@@ -530,7 +985,39 @@ const XP_NEEDED = 1000;
 
 
 /* =====================================================
-   RANDOM LIFE QUESTS
+   STATS
+===================================================== */
+
+
+let stats = {
+
+    STR:
+        Number(localStorage.getItem("statSTR")) || 1,
+
+    INT:
+        Number(localStorage.getItem("statINT")) || 1,
+
+    WIS:
+        Number(localStorage.getItem("statWIS")) || 1,
+
+    CHA:
+        Number(localStorage.getItem("statCHA")) || 1,
+
+    DEX:
+        Number(localStorage.getItem("statDEX")) || 1,
+
+    CRE:
+        Number(localStorage.getItem("statCRE")) || 1,
+
+    VIT:
+        Number(localStorage.getItem("statVIT")) || 1
+
+};
+
+
+
+/* =====================================================
+   RANDOM QUESTS
 ===================================================== */
 
 
@@ -538,96 +1025,113 @@ const lifeQuests = [
 
     {
         text: "Go outside for 5 minutes.",
-        xp: 10
+        xp: 10,
+        stat: "VIT"
     },
 
     {
         text: "Text someone you haven't talked to in a while.",
-        xp: 20
+        xp: 20,
+        stat: "CHA"
     },
 
     {
         text: "Tell someone you appreciate them.",
-        xp: 20
+        xp: 20,
+        stat: "CHA"
     },
 
     {
         text: "Clean something you've been ignoring.",
-        xp: 25
+        xp: 25,
+        stat: "DEX"
     },
 
     {
         text: "Learn one completely random fact.",
-        xp: 10
+        xp: 10,
+        stat: "INT"
     },
 
     {
         text: "Put your phone down for 20 minutes.",
-        xp: 25
+        xp: 25,
+        stat: "WIS"
     },
 
     {
         text: "Take a photo of something you think looks cool.",
-        xp: 10
+        xp: 10,
+        stat: "CRE"
     },
 
     {
         text: "Work on a hobby for 20 minutes.",
-        xp: 25
+        xp: 25,
+        stat: "CRE"
     },
 
     {
         text: "Take a different route somewhere today.",
-        xp: 15
+        xp: 15,
+        stat: "WIS"
     },
 
     {
         text: "Do something kind for someone.",
-        xp: 25
+        xp: 25,
+        stat: "CHA"
     },
 
     {
         text: "Watch the sunset.",
-        xp: 20
+        xp: 20,
+        stat: "WIS"
     },
 
     {
         text: "Call a family member just to say hi.",
-        xp: 20
+        xp: 20,
+        stat: "CHA"
     },
 
     {
         text: "Organize one small area of your room.",
-        xp: 15
+        xp: 15,
+        stat: "DEX"
     },
 
     {
         text: "Try something you've never done before.",
-        xp: 50
+        xp: 50,
+        stat: "WIS"
     },
 
     {
         text: "Spend 20 minutes learning something new.",
-        xp: 25
+        xp: 25,
+        stat: "INT"
     },
 
     {
         text: "Listen to an album from beginning to end.",
-        xp: 20
+        xp: 20,
+        stat: "WIS"
     },
 
     {
         text: "Write down one thing you're grateful for.",
-        xp: 10
+        xp: 10,
+        stat: "WIS"
     },
 
     {
         text: "Take a short walk and notice five things around you.",
-        xp: 20
+        xp: 20,
+        stat: "VIT"
     }
 
 ];
-
 
 
 let currentRandomQuest = null;
@@ -667,6 +1171,14 @@ const randomComplete =
     document.getElementById("randomComplete");
 
 
+const questProgress =
+    document.getElementById("questProgress");
+
+
+const streakElement =
+    document.getElementById("streak");
+
+
 
 /* =====================================================
    UPDATE SYSTEM
@@ -703,6 +1215,15 @@ function updateSystem() {
         xp
     );
 
+
+    updateStats();
+
+
+    updateQuestProgress();
+
+
+    updateStreak();
+
 }
 
 
@@ -723,7 +1244,6 @@ function addXP(amount) {
         xp -= XP_NEEDED;
 
         level++;
-
 
         showLevelUp();
 
@@ -760,7 +1280,7 @@ function showLevelUp() {
 
 
 /* =====================================================
-   DAILY QUESTS
+   DAILY QUEST
 ===================================================== */
 
 
@@ -776,14 +1296,10 @@ function completeDailyQuest(
         "Completed";
 
 
-    const alreadyCompleted =
+    if (
         localStorage.getItem(
             storageKey
-        );
-
-
-    if (
-        alreadyCompleted === "true"
+        ) === "true"
     ) {
 
         return;
@@ -819,6 +1335,9 @@ function completeDailyQuest(
     button.disabled =
         true;
 
+
+    updateQuestProgress();
+
 }
 
 
@@ -831,14 +1350,10 @@ function completeDailyQuest(
 function completeSideQuest() {
 
 
-    const completed =
+    if (
         localStorage.getItem(
             "sideQuestCompleted"
-        );
-
-
-    if (
-        completed === "true"
+        ) === "true"
     ) {
 
         return;
@@ -847,6 +1362,9 @@ function completeSideQuest() {
 
 
     addXP(20);
+
+
+    increaseStat("CHA");
 
 
     localStorage.setItem(
@@ -873,12 +1391,15 @@ function completeSideQuest() {
     button.disabled =
         true;
 
+
+    updateQuestProgress();
+
 }
 
 
 
 /* =====================================================
-   GENERATE RANDOM QUEST
+   RANDOM QUEST
 ===================================================== */
 
 
@@ -922,7 +1443,7 @@ function generateRandomQuest() {
     randomComplete.disabled =
         false;
 
-}
+ }
 
 
 
@@ -935,15 +1456,7 @@ function completeRandomQuest() {
 
 
     if (
-        !currentRandomQuest
-    ) {
-
-        return;
-
-    }
-
-
-    if (
+        !currentRandomQuest ||
         randomComplete.disabled
     ) {
 
@@ -954,6 +1467,11 @@ function completeRandomQuest() {
 
     addXP(
         currentRandomQuest.xp
+    );
+
+
+    increaseStat(
+        currentRandomQuest.stat
     );
 
 
@@ -968,6 +1486,195 @@ function completeRandomQuest() {
 
     randomComplete.disabled =
         true;
+
+
+    updateQuestProgress();
+
+}
+
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+
+function increaseStat(stat) {
+
+
+    stats[stat]++;
+
+
+    localStorage.setItem(
+        "stat" + stat,
+        stats[stat]
+    );
+
+
+    updateStats();
+
+ }
+
+
+
+function updateStats() {
+
+
+    updateOneStat(
+        "STR",
+        stats.STR
+    );
+
+
+    updateOneStat(
+        "INT",
+        stats.INT
+    );
+
+
+    updateOneStat(
+        "WIS",
+        stats.WIS
+    );
+
+
+    updateOneStat(
+        "CHA",
+        stats.CHA
+    );
+
+
+    updateOneStat(
+        "DEX",
+        stats.DEX
+    );
+
+
+    updateOneStat(
+        "CRE",
+        stats.CRE
+    );
+
+
+    updateOneStat(
+        "VIT",
+        stats.VIT
+    );
+
+ }
+
+
+
+function updateOneStat(
+    name,
+    value
+) {
+
+
+    const valueElement =
+        document.getElementById(
+            name.toLowerCase() +
+            "Value"
+        );
+
+
+    const fillElement =
+        document.getElementById(
+            name.toLowerCase() +
+            "Fill"
+        );
+
+
+    valueElement.textContent =
+        value;
+
+
+    const percentage =
+        Math.min(
+            value * 10,
+            100
+        );
+
+
+    fillElement.style.width =
+        percentage + "%";
+
+}
+
+
+
+/* =====================================================
+   QUEST PROGRESS
+===================================================== */
+
+
+function updateQuestProgress() {
+
+
+    let completed = 0;
+
+
+    for (
+        let i = 1;
+        i <= 3;
+        i++
+    ) {
+
+
+        if (
+            localStorage.getItem(
+                "dailyQuest" +
+                i +
+                "Completed"
+            ) === "true"
+        ) {
+
+            completed++;
+
+        }
+
+    }
+
+
+    if (
+        localStorage.getItem(
+            "sideQuestCompleted"
+        ) === "true"
+    ) {
+
+        completed++;
+
+    }
+
+
+    questProgress.textContent =
+        completed + " / 4";
+
+}
+
+
+
+/* =====================================================
+   STREAK
+===================================================== */
+
+
+function updateStreak() {
+
+
+    let streak =
+        Number(
+            localStorage.getItem(
+                "systemStreak"
+            )
+        ) || 1;
+
+
+    streakElement.textContent =
+        streak +
+        (streak === 1
+            ? " DAY"
+            : " DAYS");
 
 }
 
@@ -988,16 +1695,12 @@ function loadSavedQuests() {
     ) {
 
 
-        const completed =
+        if (
             localStorage.getItem(
                 "dailyQuest" +
                 i +
                 "Completed"
-            );
-
-
-        if (
-            completed === "true"
+            ) === "true"
         ) {
 
 
@@ -1025,15 +1728,10 @@ function loadSavedQuests() {
     }
 
 
-
-    const sideCompleted =
+    if (
         localStorage.getItem(
             "sideQuestCompleted"
-        );
-
-
-    if (
-        sideCompleted === "true"
+        ) === "true"
     ) {
 
 
