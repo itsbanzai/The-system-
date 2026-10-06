@@ -1,1013 +1,743 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SENRAI</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            background: #050505;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-        }
-
-
-        /* =========================================================
-           SENRAI SPLASH SCREEN
-        ========================================================= */
-
-        #splashScreen {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    #111111 0%,
-                    #070707 45%,
-                    #020202 100%
-                );
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            overflow: hidden;
-
-            opacity: 1;
-            visibility: visible;
-
-            transition:
-                opacity 1s ease,
-                visibility 1s ease;
-        }
-
-
-        #splashScreen.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-
-        /* Background grid */
-
-        .splash-grid {
-            position: absolute;
-            inset: 0;
-
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,0.025) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,0.025) 1px,
-                    transparent 1px
-                );
-
-            background-size: 40px 40px;
-
-            mask-image:
-                radial-gradient(
-                    ellipse at center,
-                    black 0%,
-                    transparent 75%
-                );
-        }
-
-
-        .splash-content {
-            position: relative;
-
-            width: 90%;
-            max-width: 500px;
-
-            text-align: center;
-
-            animation:
-                splashAppear 1.2s ease forwards;
-        }
-
-
-        @keyframes splashAppear {
-
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-
-        /* Logo */
-
-        .senrai-logo {
-
-            width: 90px;
-            height: 90px;
-
-            margin: 0 auto 30px;
-
-            position: relative;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border: 1px solid #444;
-
-            transform: rotate(45deg);
-
-            box-shadow:
-                0 0 30px rgba(255,255,255,0.04);
-
-            animation:
-                logoPulse 2.5s ease-in-out infinite;
-        }
-
-
-        .senrai-logo::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 45px;
-            height: 45px;
-
-            border: 2px solid #ffffff;
-
-            transform: rotate(-45deg);
-
-            opacity: 0.9;
-        }
-
-
-        .senrai-logo::after {
-
-            content: "S";
-
-            position: absolute;
-
-            font-size: 30px;
-            font-weight: 900;
-
-            letter-spacing: 0;
-
-            transform: rotate(-45deg);
-
-            color: #ffffff;
-        }
-
-
-        @keyframes logoPulse {
-
-            0%,
-            100% {
-                box-shadow:
-                    0 0 20px rgba(255,255,255,0.03);
-            }
-
-            50% {
-                box-shadow:
-                    0 0 45px rgba(255,255,255,0.10);
-            }
-
-        }
-
-
-        .splash-brand {
-
-            font-size: 48px;
-            font-weight: 900;
-
-            letter-spacing: 12px;
-
-            margin-left: 12px;
-
-            text-shadow:
-                0 0 25px rgba(255,255,255,0.08);
-        }
-
-
-        .splash-subtitle {
-
-            margin-top: 12px;
-
-            color: #666;
-
-            font-size: 11px;
-
-            letter-spacing: 4px;
-        }
-
-
-        /* Loading section */
-
-        .loading-area {
-
-            margin-top: 55px;
-        }
-
-
-        .loading-text {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            margin-bottom: 9px;
-
-            color: #666;
-
-            font-size: 10px;
-
-            letter-spacing: 2px;
-        }
-
-
-        .loading-bar {
-
-            width: 100%;
-            height: 2px;
-
-            background: #1a1a1a;
-
-            overflow: hidden;
-        }
-
-
-        .loading-fill {
-
-            width: 0%;
-
-            height: 100%;
-
-            background: #ffffff;
-
-            box-shadow:
-                0 0 12px rgba(255,255,255,0.5);
-
-            animation:
-                loadingProgress 2.8s cubic-bezier(
-                    0.65,
-                    0,
-                    0.35,
-                    1
-                )
-                forwards;
-        }
-
-
-        @keyframes loadingProgress {
-
-            0% {
-                width: 0%;
-            }
-
-            25% {
-                width: 28%;
-            }
-
-            55% {
-                width: 62%;
-            }
-
-            80% {
-                width: 84%;
-            }
-
-            100% {
-                width: 100%;
-            }
-
-        }
-
-
-        .system-status {
-
-            margin-top: 18px;
-
-            font-size: 10px;
-
-            color: #444;
-
-            letter-spacing: 2px;
-        }
-
-
-        .status-dot {
-
-            display: inline-block;
-
-            width: 5px;
-            height: 5px;
-
-            margin-right: 7px;
-
-            border-radius: 50%;
-
-            background: #ffffff;
-
-            box-shadow:
-                0 0 8px rgba(255,255,255,0.7);
-
-            animation:
-                statusBlink 0.8s infinite;
-        }
-
-
-        @keyframes statusBlink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.2;
-            }
-
-        }
-
-
-        /* =========================================================
-           MAIN APP
-        ========================================================= */
-
-        #app {
-
-            opacity: 0;
-
-            transition:
-                opacity 1s ease;
-        }
-
-
-        #app.visible {
-
-            opacity: 1;
-        }
-
-
-        .container {
-
-            width: 100%;
-            max-width: 900px;
-
-            margin: auto;
-
-            padding: 20px;
-        }
-
-
-        /* =========================================================
-           HEADER
-        ========================================================= */
-
-        .system-header {
-
-            text-align: center;
-
-            padding: 30px 20px;
-
-            border: 1px solid #333;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #101010,
-                    #070707
-                );
-
-            box-shadow:
-                0 0 30px rgba(255,255,255,0.03);
-
-            margin-bottom: 20px;
-        }
-
-
-        .online {
-
-            color: #00ff88;
-
-            font-size: 12px;
-
-            letter-spacing: 3px;
-
-            margin-bottom: 10px;
-        }
-
-
-        .title {
-
-            font-size: 42px;
-
-            font-weight: 900;
-
-            letter-spacing: 8px;
-
-            margin: 0;
-        }
-
-
-        .subtitle {
-
-            color: #888;
-
-            margin-top: 10px;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================================================
-           LEVEL
-        ========================================================= */
-
-        .level-card {
-
-            border: 1px solid #333;
-
-            padding: 20px;
-
-            margin-bottom: 20px;
-
-            background: #0b0b0b;
-        }
-
-
-        .level-row {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 12px;
-        }
-
-
-        .level {
-
-            font-size: 24px;
-
-            font-weight: bold;
-        }
-
-
-        .xp-text {
-
-            color: #aaa;
-
-            font-size: 14px;
-        }
-
-
-        .xp-bar {
-
-            width: 100%;
-
-            height: 12px;
-
-            background: #222;
-
-            overflow: hidden;
-        }
-
-
-        .xp-fill {
-
-            height: 100%;
-
-            width: 0%;
-
-            background: #ffffff;
-
-            transition:
-                width 0.4s ease;
-        }
-
-
-        /* =========================================================
-           DASHBOARD
-        ========================================================= */
-
-        .dashboard {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 12px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .dashboard-card {
-
-            border: 1px solid #333;
-
-            background: #0b0b0b;
-
-            padding: 20px;
-
-            text-align: center;
-        }
-
-
-        .dashboard-label {
-
-            color: #777;
-
-            font-size: 11px;
-
-            letter-spacing: 2px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .dashboard-value {
-
-            font-size: 24px;
-
-            font-weight: bold;
-        }
-
-
-        /* =========================================================
-           SECTIONS
-        ========================================================= */
-
-        .section {
-
-            margin-bottom: 25px;
-        }
-
-
-        .section-title {
-
-            font-size: 13px;
-
-            letter-spacing: 3px;
-
-            color: #888;
-
-            border-bottom: 1px solid #222;
-
-            padding-bottom: 10px;
-
-            margin-bottom: 12px;
-        }
-
-
-        /* =========================================================
-           QUESTS
-        ========================================================= */
-
-        .quest {
-
-            border: 1px solid #292929;
-
-            background: #0c0c0c;
-
-            padding: 18px;
-
-            margin-bottom: 10px;
-
-            transition:
-                0.2s;
-        }
-
-
-        .quest:hover {
-
-            border-color: #555;
-        }
-
-
-        .quest-top {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 15px;
-        }
-
-
-        .quest-name {
-
-            font-size: 16px;
-
-            font-weight: bold;
-        }
-
-
-        .quest-description {
-
-            color: #777;
-
-            font-size: 12px;
-
-            margin-top: 6px;
-        }
-
-
-        .xp-reward {
-
-            color: #00ff88;
-
-            font-weight: bold;
-
-            white-space: nowrap;
-        }
-
-
-        .quest-button {
-
-            width: 100%;
-
-            margin-top: 15px;
-
-            padding: 12px;
-
-            border: 1px solid #444;
-
-            background: #151515;
-
-            color: white;
-
-            cursor: pointer;
-
-            font-weight: bold;
-
-            letter-spacing: 1px;
-
-            transition:
-                0.2s ease;
-        }
-
-
-        .quest-button:hover {
-
-            background: #222;
-        }
-
-
-        .quest-button.completed {
-
-            background: #0d2b1d;
-
-            color: #00ff88;
-
-            border-color: #00ff88;
-
-            cursor: default;
-        }
-
-
-        /* =========================================================
-           LIFE QUEST
-        ========================================================= */
-
-        .surprise-box {
-
-            border: 1px solid #333;
-
-            padding: 20px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #101010,
-                    #080808
-                );
-
-            text-align: center;
-        }
-
-
-        .surprise-quest {
-
-            min-height: 45px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: #ddd;
-
-            margin-bottom: 15px;
-
-            font-size: 15px;
-        }
-
-
-        .surprise-button {
-
-            width: 100%;
-
-            padding: 14px;
-
-            border: 1px solid #555;
-
-            background: #171717;
-
-            color: white;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            letter-spacing: 2px;
-
-            transition:
-                0.2s ease;
-        }
-
-
-        .surprise-button:hover {
-
-            background: #252525;
-        }
-
-
-        /* =========================================================
-           STATS
-        ========================================================= */
-
-        .stats-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 10px;
-        }
-
-
-        .stat {
-
-            border: 1px solid #292929;
-
-            background: #0c0c0c;
-
-            padding: 15px;
-        }
-
-
-        .stat-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            margin-bottom: 8px;
-        }
-
-
-        .stat-name {
-
-            font-size: 13px;
-
-            font-weight: bold;
-        }
-
-
-        .stat-value {
-
-            color: #aaa;
-
-            font-size: 13px;
-        }
-
-
-        .stat-bar {
-
-            height: 6px;
-
-            background: #222;
-        }
-
-
-        .stat-fill {
-
-            height: 100%;
-
-            width: 0%;
-
-            background: #ffffff;
-
-            transition:
-                width 0.3s;
-        }
-
-
-        /* =========================================================
-           FOOTER
-        ========================================================= */
-
-        .system-info {
-
-            text-align: center;
-
-            color: #555;
-
-            font-size: 11px;
-
-            margin-top: 30px;
-
-            padding-bottom: 20px;
-        }
-
-
-        /* =========================================================
-           LEVEL UP
-        ========================================================= */
-
-        .level-up {
-
-            position: fixed;
-
-            top: 20px;
-
-            left: 50%;
-
-            transform:
-                translateX(-50%)
-                translateY(-120px);
-
-            background: #ffffff;
-
-            color: #000000;
-
-            padding: 15px 25px;
-
-            font-weight: bold;
-
-            letter-spacing: 2px;
-
-            transition:
-                0.4s ease;
-
-            z-index: 999;
-        }
-
-
-        .level-up.show {
-
-            transform:
-                translateX(-50%)
-                translateY(0);
-        }
-
-
-        /* =========================================================
-           MOBILE
-        ========================================================= */
-
-        @media (max-width: 600px) {
-
-            .container {
-
-                padding: 12px;
-            }
-
-
-            .title {
-
-                font-size: 32px;
-
-                letter-spacing: 6px;
-            }
-
-
-            .dashboard {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .stats-grid {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .quest-top {
-
-                flex-direction: column;
-
-                gap: 8px;
-            }
-
-
-            .splash-brand {
-
-                font-size: 36px;
-
-                letter-spacing: 8px;
-
-                margin-left: 8px;
-            }
-
-
-            .senrai-logo {
-
-                width: 75px;
-                height: 75px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENRAI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #050609;
+    --panel: #0b0d12;
+    --panel2: #10131a;
+    --line: #1b2029;
+    --text: #f1f3f7;
+    --muted: #777f8d;
+    --accent: #e8edf5;
+    --green: #5df2a5;
+    --blue: #65a9ff;
+    --purple: #a87cff;
+    --orange: #ffae57;
+    --red: #ff667a;
+}
+
+body {
+    background:
+        radial-gradient(circle at 50% -10%, rgba(100,120,160,.12), transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+/* =========================
+   SPLASH SCREEN
+========================= */
+
+#splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background:
+        radial-gradient(circle at center, rgba(90,110,150,.10), transparent 45%),
+        #030407;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .8s ease, visibility .8s ease;
+}
+
+#splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    width: min(420px, 85%);
+    text-align: center;
+}
+
+.logo-mark {
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 25px;
+    border: 2px solid #dce2eb;
+    transform: rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 35px rgba(200,220,255,.08);
+}
+
+.logo-inner {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #737d8e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-inner span {
+    transform: rotate(-45deg);
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+.splash-title {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 10px;
+    margin-left: 10px;
+}
+
+.splash-subtitle {
+    color: #747c89;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 10px;
+}
+
+.loading-container {
+    margin-top: 55px;
+}
+
+.loading-bar {
+    height: 2px;
+    background: #171b23;
+    overflow: hidden;
+}
+
+.loading-fill {
+    width: 0%;
+    height: 100%;
+    background: #e8edf5;
+    transition: width .2s linear;
+}
+
+.loading-text {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    color: #626a78;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   APP
+========================= */
+
+#app {
+    width: min(1050px, 100%);
+    margin: auto;
+    padding: 24px 18px 60px;
+}
+
+/* HEADER */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #b9c0cb;
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-mark span {
+    transform: rotate(-45deg);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
+
+.system-status {
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 2px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 6px;
+    box-shadow: 0 0 8px var(--green);
+}
+
+/* HERO */
+
+.hero {
+    margin-top: 22px;
+    border: 1px solid var(--line);
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.025), transparent),
+        var(--panel);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgba(255,255,255,.035);
+    right: -100px;
+    top: -100px;
+    transform: rotate(45deg);
+}
+
+.hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.hero-label {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.level {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.level span {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-left: 5px;
+}
+
+.hero-xp {
+    text-align: right;
+}
+
+.hero-xp-number {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hero-xp-label {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 3px;
+}
+
+.xp-track {
+    margin-top: 22px;
+    height: 6px;
+    background: #191d25;
+    overflow: hidden;
+}
+
+.xp-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #737e91, #edf2f8);
+    transition: width .4s ease;
+}
+
+.xp-footer {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 9px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+}
+
+/* SUMMARY */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.summary-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 18px;
+}
+
+.summary-label {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+.summary-value {
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 7px;
+}
+
+.summary-sub {
+    color: #59616f;
+    font-size: 9px;
+    margin-top: 5px;
+}
+
+.streak-value {
+    color: var(--orange);
+}
+
+/* SECTION */
+
+.section {
+    margin-top: 34px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.section-description {
+    color: var(--muted);
+    font-size: 9px;
+}
+
+/* OBJECTIVE */
+
+.objective {
+    border-left: 2px solid var(--blue);
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    padding: 18px;
+}
+
+.objective-tag {
+    color: var(--blue);
+    font-size: 8px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.objective h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.objective p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* QUESTS */
+
+.quest-list {
+    display: grid;
+    gap: 9px;
+}
+
+.quest {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: .2s ease;
+}
+
+.quest:hover {
+    border-color: #343b48;
+    transform: translateX(2px);
+}
+
+.quest.completed {
+    opacity: .42;
+}
+
+.quest-check {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #414957;
+    background: transparent;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.quest.completed .quest-check {
+    border-color: var(--green);
+    background: rgba(93,242,165,.08);
+    color: var(--green);
+}
+
+.quest-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.quest-name {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.quest-meta {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+.quest-reward {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.xp-reward {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.stat-reward {
+    color: var(--muted);
+    font-size: 8px;
+    margin-top: 4px;
+}
+
+/* QUEST COLORS */
+
+.quest.easy {
+    border-left: 2px solid var(--green);
+}
+
+.quest.normal {
+    border-left: 2px solid var(--blue);
+}
+
+.quest.hard {
+    border-left: 2px solid var(--purple);
+}
+
+/* LIFE QUEST */
+
+.life-quest {
+    border: 1px solid var(--line);
+    background:
+        radial-gradient(circle at 90% 10%, rgba(168,124,255,.08), transparent 35%),
+        var(--panel);
+    padding: 20px;
+}
+
+.life-label {
+    color: var(--purple);
+    font-size: 8px;
+    letter-spacing: 3px;
+}
+
+.life-text {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 13px 0 18px;
+    line-height: 1.4;
+    min-height: 48px;
+}
+
+.button-row {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    border: 1px solid #343b48;
+    background: #11141a;
+    color: var(--text);
+    padding: 11px 14px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+button:hover {
+    background: #191d25;
+    border-color: #626c7d;
+}
+
+button.primary {
+    background: #e8edf5;
+    color: #050609;
+    border-color: #e8edf5;
+    font-weight: bold;
+}
+
+button.primary:hover {
+    background: white;
+}
+
+button:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+/* SIDE QUEST */
+
+.side-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.side-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.side-icon {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #303642;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.side-name {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.side-meta {
+    color: var(--muted);
+    font-size: 8px;
+    margin-top: 5px;
+}
+
+/* STATS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.stat {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 15px;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.stat-name {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.stat-bar {
+    height: 3px;
+    background: #1a1e26;
+}
+
+.stat-fill {
+    height: 100%;
+    width: 0%;
+    transition: width .4s ease;
+}
+
+.str { background: var(--red); }
+.int { background: var(--blue); }
+.wis { background: var(--purple); }
+.cha { background: #ff78bd; }
+.dex { background: var(--green); }
+.cre { background: var(--orange); }
+.vit { background: #69e2dc; }
+
+/* NOTIFICATION */
+
+.notification {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translate(-50%, 100px);
+    background: #eef2f7;
+    color: #050609;
+    padding: 13px 20px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    z-index: 10000;
+    opacity: 0;
+    transition: .35s ease;
+    box-shadow: 0 10px 35px rgba(0,0,0,.35);
+}
+
+.notification.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    color: #343a45;
+    font-size: 8px;
+    letter-spacing: 3px;
+    margin-top: 50px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    #app {
+        padding: 18px 12px 45px;
+    }
+
+    .hero {
+        padding: 18px;
+    }
+
+    .hero-top {
+        align-items: flex-end;
+    }
+
+    .level {
+        font-size: 31px;
+    }
+
+    .summary-grid {
+        gap: 7px;
+    }
+
+    .summary-card {
+        padding: 13px;
+    }
+
+    .summary-value {
+        font-size: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .side-card {
+        align-items: flex-start;
+    }
+
+    .button-row {
+        flex-direction: column;
+    }
+
+    .button-row button {
+        width: 100%;
+    }
+
+    .splash-title {
+        font-size: 32px;
+        letter-spacing: 7px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<!-- =========================
+     SPLASH SCREEN
+========================= -->
 
-<!-- =========================================================
-     SENRAI STARTUP SCREEN
-========================================================= -->
-
-<div id="splashScreen">
-
-    <div class="splash-grid"></div>
+<div id="splash">
 
     <div class="splash-content">
 
-        <div class="senrai-logo"></div>
-
-        <div class="splash-brand">
-            SENRAI
+        <div class="logo-mark">
+            <div class="logo-inner">
+                <span>S</span>
+            </div>
         </div>
+
+        <div class="splash-title">SENRAI</div>
 
         <div class="splash-subtitle">
             PERSONAL PROGRESSION SYSTEM
         </div>
 
-
-        <div class="loading-area">
-
-            <div class="loading-text">
-
-                <span id="loadingStatus">
-                    SYSTEM INITIALIZING
-                </span>
-
-                <span id="loadingPercent">
-                    0%
-                </span>
-
-            </div>
-
+        <div class="loading-container">
 
             <div class="loading-bar">
-
-                <div
-                    class="loading-fill"
-                    id="loadingFill"
-                ></div>
-
+                <div class="loading-fill" id="loadingFill"></div>
             </div>
 
-
-            <div class="system-status">
-
-                <span class="status-dot"></span>
-
-                <span id="statusMessage">
-                    INITIALIZING CORE SYSTEM
-                </span>
-
+            <div class="loading-text">
+                <span id="loadingStatus">SYSTEM INITIALIZING</span>
+                <span id="loadingPercent">0%</span>
             </div>
 
         </div>
@@ -1017,192 +747,380 @@
 </div>
 
 
-<!-- =========================================================
-     LEVEL UP NOTIFICATION
-========================================================= -->
+<!-- =========================
+     MAIN APP
+========================= -->
 
-<div
-    class="level-up"
-    id="levelUp"
->
-    SENRAI LEVEL UP
-</div>
+<div id="app">
 
+    <header>
 
-<!-- =========================================================
-     MAIN APPLICATION
-========================================================= -->
+        <div class="brand">
 
-<div
-    id="app"
->
-
-    <div class="container">
-
-
-        <!-- HEADER -->
-
-        <div class="system-header">
-
-            <div class="online">
-                ● SYSTEM ONLINE
+            <div class="brand-mark">
+                <span>S</span>
             </div>
 
-
-            <h1 class="title">
+            <div class="brand-name">
                 SENRAI
-            </h1>
-
-
-            <div class="subtitle">
-                Do things that make your life better. Earn XP. Level up.
             </div>
 
         </div>
 
-
-        <!-- LEVEL -->
-
-        <div class="level-card">
-
-            <div class="level-row">
-
-                <div
-                    class="level"
-                    id="levelText"
-                >
-                    LEVEL 1
-                </div>
-
-
-                <div
-                    class="xp-text"
-                    id="xpText"
-                >
-                    0 / 100 XP
-                </div>
-
-            </div>
-
-
-            <div class="xp-bar">
-
-                <div
-                    class="xp-fill"
-                    id="xpFill"
-                ></div>
-
-            </div>
-
+        <div class="system-status">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
         </div>
 
-
-        <!-- DAILY DASHBOARD -->
-
-        <div class="dashboard">
+    </header>
 
 
-            <div class="dashboard-card">
+    <!-- LEVEL / XP -->
 
-                <div class="dashboard-label">
-                    TODAY
+    <section class="hero">
+
+        <div class="hero-top">
+
+            <div>
+
+                <div class="hero-label">
+                    CURRENT LEVEL
                 </div>
 
-
-                <div
-                    class="dashboard-value"
-                    id="todayProgress"
-                >
-                    0 / 4
-                </div>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <div class="dashboard-label">
-                    STREAK
-                </div>
-
-
-                <div
-                    class="dashboard-value"
-                    id="streakValue"
-                >
-                    0 DAYS
+                <div class="level">
+                    <span id="level">1</span>
+                    <span>LVL</span>
                 </div>
 
             </div>
 
+            <div class="hero-xp">
 
-            <div class="dashboard-card">
-
-                <div class="dashboard-label">
-                    TODAY XP
+                <div class="hero-xp-number">
+                    <span id="xp">0</span>
+                    XP
                 </div>
 
-
-                <div
-                    class="dashboard-value"
-                    id="todayXp"
-                >
-                    0
+                <div class="hero-xp-label">
+                    TOTAL EXPERIENCE
                 </div>
 
             </div>
 
         </div>
 
+        <div class="xp-track">
+            <div class="xp-fill" id="xpBar"></div>
+        </div>
 
-        <!-- DAILY QUESTS -->
+        <div class="xp-footer">
 
-        <div class="section">
+            <span id="xpProgress">
+                0 / 100 XP
+            </span>
+
+            <span id="nextLevel">
+                NEXT LEVEL
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+
+    <section class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                TODAY
+            </div>
+
+            <div class="summary-value">
+                <span id="todayCount">0</span> / 4
+            </div>
+
+            <div class="summary-sub">
+                DAILY QUESTS
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                STREAK
+            </div>
+
+            <div class="summary-value streak-value">
+                <span id="streak">0</span>
+            </div>
+
+            <div class="summary-sub">
+                DAYS ACTIVE
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                TODAY XP
+            </div>
+
+            <div class="summary-value">
+                <span id="todayXP">0</span>
+            </div>
+
+            <div class="summary-sub">
+                EXPERIENCE EARNED
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- OBJECTIVE -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div class="section-title">
+                CURRENT OBJECTIVE
+            </div>
+
+            <div class="section-description">
+                MAKE PROGRESS
+            </div>
+
+        </div>
+
+        <div class="objective">
+
+            <div class="objective-tag">
+                MAIN QUEST
+            </div>
+
+            <h2>
+                Become better than yesterday.
+            </h2>
+
+            <p>
+                You don't need to change your entire life today.
+                Complete a few meaningful actions and keep moving forward.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- DAILY QUESTS -->
+
+    <section class="section">
+
+        <div class="section-header">
 
             <div class="section-title">
                 DAILY QUESTS
             </div>
 
-
-            <div id="dailyQuests"></div>
+            <div class="section-description">
+                RESET DAILY
+            </div>
 
         </div>
 
+        <div class="quest-list" id="dailyQuests">
 
-        <!-- LIFE QUEST -->
 
-        <div class="section">
+            <div class="quest easy"
+                 data-id="bed"
+                 data-xp="10"
+                 data-stat="DEX">
+
+                <div class="quest-check">
+                    ✓
+                </div>
+
+                <div class="quest-info">
+
+                    <div class="quest-name">
+                        Make your bed
+                    </div>
+
+                    <div class="quest-meta">
+                        EASY • DEX
+                    </div>
+
+                </div>
+
+                <div class="quest-reward">
+
+                    <div class="xp-reward">
+                        +10 XP
+                    </div>
+
+                    <div class="stat-reward">
+                        +1 DEX
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="quest easy"
+                 data-id="water"
+                 data-xp="10"
+                 data-stat="VIT">
+
+                <div class="quest-check">
+                    ✓
+                </div>
+
+                <div class="quest-info">
+
+                    <div class="quest-name">
+                        Drink some water
+                    </div>
+
+                    <div class="quest-meta">
+                        EASY • VIT
+                    </div>
+
+                </div>
+
+                <div class="quest-reward">
+
+                    <div class="xp-reward">
+                        +10 XP
+                    </div>
+
+                    <div class="stat-reward">
+                        +1 VIT
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="quest normal"
+                 data-id="procrastination"
+                 data-xp="25"
+                 data-stat="WIS">
+
+                <div class="quest-check">
+                    ✓
+                </div>
+
+                <div class="quest-info">
+
+                    <div class="quest-name">
+                        Do something you've been putting off
+                    </div>
+
+                    <div class="quest-meta">
+                        NORMAL • WIS
+                    </div>
+
+                </div>
+
+                <div class="quest-reward">
+
+                    <div class="xp-reward">
+                        +25 XP
+                    </div>
+
+                    <div class="stat-reward">
+                        +1 WIS
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="quest easy"
+                 data-id="outside"
+                 data-xp="10"
+                 data-stat="VIT">
+
+                <div class="quest-check">
+                    ✓
+                </div>
+
+                <div class="quest-info">
+
+                    <div class="quest-name">
+                        Go outside for at least 5 minutes
+                    </div>
+
+                    <div class="quest-meta">
+                        EASY • VIT
+                    </div>
+
+                </div>
+
+                <div class="quest-reward">
+
+                    <div class="xp-reward">
+                        +10 XP
+                    </div>
+
+                    <div class="stat-reward">
+                        +1 VIT
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LIFE QUEST -->
+
+    <section class="section">
+
+        <div class="section-header">
 
             <div class="section-title">
                 LIFE QUEST
             </div>
 
+            <div class="section-description">
+                OPTIONAL
+            </div>
 
-            <div class="surprise-box">
+        </div>
 
+        <div class="life-quest">
 
-                <div
-                    class="surprise-quest"
-                    id="surpriseQuest"
-                >
-                    Generate a random quest.
-                </div>
+            <div class="life-label">
+                RANDOM ENCOUNTER
+            </div>
 
+            <div class="life-text" id="lifeQuestText">
+                Your next adventure is waiting.
+            </div>
 
-                <button
-                    class="surprise-button"
-                    onclick="generateLifeQuest()"
-                >
+            <div class="button-row">
+
+                <button id="surpriseButton" class="primary">
                     🎲 SURPRISE ME
                 </button>
 
-
-                <button
-                    class="quest-button"
-                    id="surpriseCompleteButton"
-                    onclick="completeSurpriseQuest()"
-                    style="display:none;"
-                >
+                <button id="completeLifeButton" disabled>
                     COMPLETE QUEST
                 </button>
 
@@ -1210,1390 +1128,849 @@
 
         </div>
 
+    </section>
 
-        <!-- SIDE QUEST -->
 
-        <div class="section">
+    <!-- SIDE QUEST -->
+
+    <section class="section">
+
+        <div class="section-header">
 
             <div class="section-title">
                 SIDE QUEST
             </div>
 
-
-            <div class="quest">
-
-
-                <div class="quest-top">
-
-
-                    <div>
-
-                        <div class="quest-name">
-                            Call someone you haven't talked to recently
-                        </div>
-
-
-                        <div class="quest-description">
-                            Reconnect with someone.
-                        </div>
-
-                    </div>
-
-
-                    <div class="xp-reward">
-                        +20 XP
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="quest-button"
-                    id="sideQuestButton"
-                    onclick="completeSideQuest()"
-                >
-                    COMPLETE QUEST
-                </button>
-
+            <div class="section-description">
+                SOCIAL
             </div>
 
         </div>
 
+        <div class="side-card">
 
-        <!-- CHARACTER STATS -->
+            <div class="side-left">
 
-        <div class="section">
+                <div class="side-icon">
+                    ☎
+                </div>
+
+                <div>
+
+                    <div class="side-name">
+                        Call someone you haven't talked to recently
+                    </div>
+
+                    <div class="side-meta">
+                        +20 XP • +1 CHA
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button id="sideQuestButton">
+                COMPLETE
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="section">
+
+        <div class="section-header">
 
             <div class="section-title">
                 CHARACTER STATS
             </div>
 
-
-            <div class="stats-grid">
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            STR — FITNESS
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="strValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="strBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            INT — LEARNING
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="intValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="intBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            WIS — PERSONAL GROWTH
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="wisValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="wisBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            CHA — SOCIAL
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="chaValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="chaBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            DEX — PRODUCTIVITY
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="dexValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="dexBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            CRE — CREATIVITY
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="creValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="creBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-header">
-
-                        <div class="stat-name">
-                            VIT — HEALTH
-                        </div>
-
-                        <div
-                            class="stat-value"
-                            id="vitValue"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-bar">
-
-                        <div
-                            class="stat-fill"
-                            id="vitBar"
-                        ></div>
-
-                    </div>
-
-                </div>
-
+            <div class="section-description">
+                YOUR DEVELOPMENT
             </div>
 
         </div>
 
+        <div class="stats-grid">
 
-        <div class="system-info">
-            SENRAI • YOUR LIFE, YOUR PROGRESS
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">STR • FITNESS</div>
+                    <div class="stat-value" id="STRValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill str" id="STRBar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">INT • LEARNING</div>
+                    <div class="stat-value" id="INTValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill int" id="INTBar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">WIS • PERSONAL GROWTH</div>
+                    <div class="stat-value" id="WISValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill wis" id="WISBar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">CHA • SOCIAL</div>
+                    <div class="stat-value" id="CHAValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill cha" id="CHABar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">DEX • PRODUCTIVITY</div>
+                    <div class="stat-value" id="DEXValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill dex" id="DEXBar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">CRE • CREATIVITY</div>
+                    <div class="stat-value" id="CREValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill cre" id="CREBar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-top">
+                    <div class="stat-name">VIT • HEALTH</div>
+                    <div class="stat-value" id="VITValue">0</div>
+                </div>
+
+                <div class="stat-bar">
+                    <div class="stat-fill vit" id="VITBar"></div>
+                </div>
+
+            </div>
+
+
         </div>
 
-    </div>
+    </section>
 
+
+    <footer>
+        SENRAI • YOUR LIFE, YOUR PROGRESS
+    </footer>
+
+</div>
+
+
+<!-- LEVEL-UP NOTIFICATION -->
+
+<div class="notification" id="notification">
+    SENRAI LEVEL UP
 </div>
 
 
 <script>
 
+/* =========================================
+   SENRAI DATA
+========================================= */
 
-    /* =========================================================
-       SENRAI STARTUP
-    ========================================================= */
+const STORAGE_KEY = "theSystemData";
 
-    function startSenrai() {
+let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
 
-        const loadingPercent =
-            document.getElementById("loadingPercent");
+    level: 1,
 
-        const loadingStatus =
-            document.getElementById("loadingStatus");
+    xp: 0,
 
-        const statusMessage =
-            document.getElementById("statusMessage");
+    completed: [],
 
-        const splash =
-            document.getElementById("splashScreen");
+    stats: {
+        STR: 0,
+        INT: 0,
+        WIS: 0,
+        CHA: 0,
+        DEX: 0,
+        CRE: 0,
+        VIT: 0
+    },
 
-        const app =
-            document.getElementById("app");
+    streak: 0,
 
+    lastActiveDate: null,
 
-        const messages = [
+    lastResetDate: null,
 
-            {
-                time: 400,
-                text: "LOADING PROFILE"
-            },
+    completedToday: 0,
 
-            {
-                time: 900,
-                text: "SYNCING PROGRESS DATA"
-            },
+    todayXP: 0
 
-            {
-                time: 1500,
-                text: "INITIALIZING QUEST SYSTEM"
-            },
-
-            {
-                time: 2100,
-                text: "CALIBRATING CHARACTER STATS"
-            },
-
-            {
-                time: 2550,
-                text: "SYSTEM READY"
-            }
-
-        ];
+};
 
 
-        messages.forEach(message => {
+/* =========================================
+   DATE
+========================================= */
 
-            setTimeout(() => {
+function todayString() {
 
-                statusMessage.innerText =
-                    message.text;
+    const date = new Date();
 
-            }, message.time);
+    return date.getFullYear() +
+        "-" +
+        String(date.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(date.getDate()).padStart(2, "0");
 
-        });
-
-
-        const startTime =
-            Date.now();
-
-        const duration =
-            2800;
+}
 
 
-        function updateLoading() {
+function yesterdayString() {
 
-            const elapsed =
-                Date.now() - startTime;
+    const date = new Date();
 
-            const percentage =
-                Math.min(
-                    Math.floor(
-                        (elapsed / duration) * 100
-                    ),
-                    100
-                );
+    date.setDate(date.getDate() - 1);
 
+    return date.getFullYear() +
+        "-" +
+        String(date.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(date.getDate()).padStart(2, "0");
 
-            loadingPercent.innerText =
-                percentage + "%";
+}
 
 
-            if (percentage < 100) {
+/* =========================================
+   DAILY RESET
+========================================= */
 
-                requestAnimationFrame(
-                    updateLoading
-                );
+function checkDailyReset() {
 
-            }
+    const today = todayString();
 
-        }
+    if (data.lastResetDate !== today) {
 
+        data.completed = [];
 
-        updateLoading();
+        data.completedToday = 0;
 
+        data.todayXP = 0;
 
-        setTimeout(() => {
+        data.lastResetDate = today;
 
-            loadingStatus.innerText =
-                "SYSTEM ONLINE";
-
-
-            loadingPercent.innerText =
-                "100%";
-
-
-            setTimeout(() => {
-
-                splash.classList.add("hidden");
-
-                app.classList.add("visible");
-
-            }, 450);
-
-
-        }, 2850);
+        save();
 
     }
 
+}
 
-    /* =========================================================
-       SYSTEM DATA
-    ========================================================= */
 
-    const defaultData = {
+/* =========================================
+   SAVE
+========================================= */
 
-        level: 1,
+function save() {
 
-        xp: 0,
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
 
-        streak: 0,
+}
 
-        lastActiveDate: null,
 
-        lastResetDate: null,
+/* =========================================
+   XP
+========================================= */
 
-        completedToday: 0,
+function xpNeededForLevel(level) {
 
-        todayXP: 0,
+    return level * 100;
 
-        dailyCompleted: {},
+}
 
-        stats: {
 
-            STR: 0,
-            INT: 0,
-            WIS: 0,
-            CHA: 0,
-            DEX: 0,
-            CRE: 0,
-            VIT: 0
+function addXP(amount) {
 
-        }
+    const oldLevel = data.level;
 
-    };
+    data.xp += amount;
 
+    while (
+        data.xp >= xpNeededForLevel(data.level)
+    ) {
 
-    let systemData =
-        JSON.parse(
-            localStorage.getItem(
-                "theSystemData"
-            )
-        ) || defaultData;
+        data.xp -= xpNeededForLevel(data.level);
 
+        data.level++;
 
-    /* =========================================================
-       DAILY QUESTS
-    ========================================================= */
+    }
 
-    const dailyQuests = [
+    if (data.level > oldLevel) {
 
-        {
-            id: "bed",
-
-            name: "Make your bed",
-
-            description:
-                "Start the day by taking care of your space.",
-
-            xp: 10,
-
-            stat: "DEX"
-        },
-
-
-        {
-            id: "water",
-
-            name: "Drink some water",
-
-            description:
-                "Take care of your body.",
-
-            xp: 10,
-
-            stat: "VIT"
-        },
-
-
-        {
-            id: "procrastination",
-
-            name:
-                "Do something you've been putting off",
-
-            description:
-                "Take one thing off your mental list.",
-
-            xp: 25,
-
-            stat: "WIS"
-        },
-
-
-        {
-            id: "outside",
-
-            name:
-                "Go outside for at least 5 minutes",
-
-            description:
-                "Get some fresh air and step away from the screen.",
-
-            xp: 10,
-
-            stat: "VIT"
-        }
-
-    ];
-
-
-    /* =========================================================
-       RANDOM LIFE QUESTS
-    ========================================================= */
-
-    const lifeQuests = [
-
-        {
-            text:
-                "Call a family member just to say hi.",
-
-            xp: 20,
-
-            stat: "CHA"
-        },
-
-
-        {
-            text:
-                "Text someone you haven't talked to in a while.",
-
-            xp: 20,
-
-            stat: "CHA"
-        },
-
-
-        {
-            text:
-                "Tell someone you appreciate them.",
-
-            xp: 20,
-
-            stat: "CHA"
-        },
-
-
-        {
-            text:
-                "Go outside and watch the sunset.",
-
-            xp: 20,
-
-            stat: "VIT"
-        },
-
-
-        {
-            text:
-                "Put your phone down for 20 minutes.",
-
-            xp: 15,
-
-            stat: "WIS"
-        },
-
-
-        {
-            text:
-                "Learn one completely random fact.",
-
-            xp: 15,
-
-            stat: "INT"
-        },
-
-
-        {
-            text:
-                "Take a photo of something you think looks cool.",
-
-            xp: 15,
-
-            stat: "CRE"
-        },
-
-
-        {
-            text:
-                "Do something kind for someone.",
-
-            xp: 25,
-
-            stat: "CHA"
-        },
-
-
-        {
-            text:
-                "Clean something you've been ignoring.",
-
-            xp: 20,
-
-            stat: "DEX"
-        },
-
-
-        {
-            text:
-                "Spend 20 minutes working on a hobby.",
-
-            xp: 20,
-
-            stat: "CRE"
-        },
-
-
-        {
-            text:
-                "Take a different route somewhere today.",
-
-            xp: 15,
-
-            stat: "WIS"
-        },
-
-
-        {
-            text:
-                "Write down one thing you want to accomplish this month.",
-
-            xp: 20,
-
-            stat: "WIS"
-        }
-
-    ];
-
-
-    let currentLifeQuest = null;
-
-
-    /* =========================================================
-       SAVE SYSTEM
-    ========================================================= */
-
-    function saveData() {
-
-        localStorage.setItem(
-            "theSystemData",
-            JSON.stringify(systemData)
+        showNotification(
+            "SENRAI LEVEL UP • LEVEL " + data.level
         );
 
     }
 
+    save();
 
-    /* =========================================================
-       DATE SYSTEM
-    ========================================================= */
+    updateUI();
 
-    function getToday() {
-
-        const now =
-            new Date();
+}
 
 
-        return (
-            now.getFullYear() +
-            "-" +
-            String(
-                now.getMonth() + 1
-            ).padStart(2, "0") +
-            "-" +
-            String(
-                now.getDate()
-            ).padStart(2, "0")
-        );
+/* =========================================
+   STREAK
+========================================= */
+
+function updateStreak() {
+
+    const today = todayString();
+
+    if (data.lastActiveDate === today) {
+
+        return;
 
     }
 
+    const yesterday = yesterdayString();
 
-    function checkNewDay() {
+    if (data.lastActiveDate === yesterday) {
 
-        const today =
-            getToday();
+        data.streak++;
 
+    } else {
 
-        if (
-            systemData.lastResetDate !==
-            today
-        ) {
-
-            systemData.completedToday =
-                0;
-
-
-            systemData.todayXP =
-                0;
-
-
-            systemData.dailyCompleted =
-                {};
-
-
-            systemData.lastResetDate =
-                today;
-
-
-            currentLifeQuest =
-                null;
-
-
-            saveData();
-
-        }
+        data.streak = 1;
 
     }
 
+    data.lastActiveDate = today;
 
-    /* =========================================================
-       QUEST RENDERING
-    ========================================================= */
-
-    function renderDailyQuests() {
-
-        const container =
-            document.getElementById(
-                "dailyQuests"
-            );
+}
 
 
-        container.innerHTML =
-            "";
+/* =========================================
+   COMPLETE DAILY QUEST
+========================================= */
 
+function completeDailyQuest(quest) {
 
-        dailyQuests.forEach(
-            quest => {
+    const id = quest.dataset.id;
 
-                const completed =
-                    systemData
-                        .dailyCompleted[
-                            quest.id
-                        ] === true;
+    if (data.completed.includes(id)) {
 
-
-                const questElement =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                questElement.className =
-                    "quest";
-
-
-                questElement.innerHTML = `
-
-                    <div class="quest-top">
-
-                        <div>
-
-                            <div class="quest-name">
-                                ${quest.name}
-                            </div>
-
-                            <div class="quest-description">
-                                ${quest.description}
-                            </div>
-
-                        </div>
-
-                        <div class="xp-reward">
-                            +${quest.xp} XP
-                        </div>
-
-                    </div>
-
-                    <button
-                        class="quest-button ${
-                            completed
-                                ? "completed"
-                                : ""
-                        }"
-                        ${
-                            completed
-                                ? "disabled"
-                                : ""
-                        }
-                        onclick="completeDailyQuest('${quest.id}')"
-                    >
-                        ${
-                            completed
-                                ? "✓ COMPLETED"
-                                : "COMPLETE QUEST"
-                        }
-                    </button>
-
-                `;
-
-
-                container.appendChild(
-                    questElement
-                );
-
-            }
-        );
+        return;
 
     }
 
+    const xp = Number(quest.dataset.xp);
 
-    /* =========================================================
-       COMPLETE DAILY QUEST
-    ========================================================= */
+    const stat = quest.dataset.stat;
 
-    function completeDailyQuest(id) {
+    data.completed.push(id);
 
-        if (
-            systemData.dailyCompleted[id]
-        ) {
+    data.completedToday++;
 
-            return;
+    data.todayXP += xp;
 
-        }
+    data.stats[stat]++;
 
+    updateStreak();
 
-        const quest =
-            dailyQuests.find(
-                q => q.id === id
-            );
+    addXP(xp);
 
+    save();
 
-        if (!quest) {
+    updateUI();
 
-            return;
-
-        }
+}
 
 
-        systemData.dailyCompleted[id] =
-            true;
+/* =========================================
+   RANDOM LIFE QUESTS
+========================================= */
+
+const lifeQuests = [
+
+    "Call or text someone you haven't talked to in a while.",
+
+    "Call a family member just to say hi.",
+
+    "Tell someone you appreciate them.",
+
+    "Go outside for 5 minutes and just breathe.",
+
+    "Watch the sunset if you get the chance.",
+
+    "Take a different route somewhere today.",
+
+    "Learn one completely random fact.",
+
+    "Put your phone down for 20 minutes.",
+
+    "Take a photo of something you think looks cool.",
+
+    "Do something kind for someone without expecting anything back.",
+
+    "Spend 15 minutes working on a hobby.",
+
+    "Clean one thing you've been ignoring.",
+
+    "Listen to a song you haven't heard in a long time.",
+
+    "Write down one thing you're grateful for.",
+
+    "Try something you've never tried before.",
+
+    "Take a few minutes to think about where you want to be a year from now."
+
+];
 
 
-        systemData.completedToday++;
+let currentLifeQuest = null;
 
 
-        systemData.todayXP +=
-            quest.xp;
+function generateLifeQuest() {
+
+    const index = Math.floor(
+        Math.random() * lifeQuests.length
+    );
+
+    currentLifeQuest = lifeQuests[index];
+
+    document.getElementById(
+        "lifeQuestText"
+    ).textContent = currentLifeQuest;
+
+    document.getElementById(
+        "completeLifeButton"
+    ).disabled = false;
+
+}
 
 
-        addXP(
-            quest.xp
-        );
+/* =========================================
+   COMPLETE LIFE QUEST
+========================================= */
 
+function completeLifeQuest() {
 
-        addStat(
-            quest.stat,
-            1
-        );
+    if (!currentLifeQuest) {
 
-
-        updateStreak();
-
-
-        saveData();
-
-
-        renderAll();
-
-    }
-
-
-    /* =========================================================
-       SIDE QUEST
-    ========================================================= */
-
-    function completeSideQuest() {
-
-        const button =
-            document.getElementById(
-                "sideQuestButton"
-            );
-
-
-        if (
-            button.classList.contains(
-                "completed"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        addXP(20);
-
-
-        addStat(
-            "CHA",
-            1
-        );
-
-
-        button.classList.add(
-            "completed"
-        );
-
-
-        button.disabled =
-            true;
-
-
-        button.innerText =
-            "✓ COMPLETED";
-
-
-        saveData();
+        return;
 
     }
 
+    data.stats.WIS++;
 
-    /* =========================================================
-       RANDOM LIFE QUEST
-    ========================================================= */
+    addXP(15);
 
-    function generateLifeQuest() {
+    currentLifeQuest = null;
 
-        const randomIndex =
-            Math.floor(
-                Math.random() *
-                lifeQuests.length
-            );
+    document.getElementById(
+        "lifeQuestText"
+    ).textContent =
+        "Quest complete. The next one awaits.";
+
+    document.getElementById(
+        "completeLifeButton"
+    ).disabled = true;
+
+    save();
+
+    updateUI();
+
+}
 
 
-        currentLifeQuest =
-            lifeQuests[randomIndex];
+/* =========================================
+   SIDE QUEST
+========================================= */
 
+function completeSideQuest() {
 
+    const button =
         document.getElementById(
-            "surpriseQuest"
-        ).innerText =
-            currentLifeQuest.text +
-            "  +" +
-            currentLifeQuest.xp +
-            " XP";
-
-
-        const button =
-            document.getElementById(
-                "surpriseCompleteButton"
-            );
-
-
-        button.style.display =
-            "block";
-
-
-        button.classList.remove(
-            "completed"
+            "sideQuestButton"
         );
 
+    if (button.disabled) {
 
-        button.disabled =
-            false;
-
-
-        button.innerText =
-            "COMPLETE QUEST";
+        return;
 
     }
 
+    data.stats.CHA++;
 
-    function completeSurpriseQuest() {
+    addXP(20);
 
-        if (!currentLifeQuest) {
+    button.textContent = "COMPLETED";
 
-            return;
+    button.disabled = true;
 
-        }
+    save();
 
+    updateUI();
 
-        addXP(
-            currentLifeQuest.xp
-        );
-
-
-        addStat(
-            currentLifeQuest.stat,
-            1
-        );
+}
 
 
-        const button =
-            document.getElementById(
-                "surpriseCompleteButton"
-            );
+/* =========================================
+   UPDATE UI
+========================================= */
+
+function updateUI() {
+
+    document.getElementById(
+        "level"
+    ).textContent = data.level;
+
+    document.getElementById(
+        "xp"
+    ).textContent = data.xp;
+
+    document.getElementById(
+        "todayCount"
+    ).textContent = data.completedToday;
+
+    document.getElementById(
+        "streak"
+    ).textContent = data.streak;
+
+    document.getElementById(
+        "todayXP"
+    ).textContent = data.todayXP;
 
 
-        button.classList.add(
-            "completed"
-        );
+    const needed =
+        xpNeededForLevel(data.level);
 
-
-        button.disabled =
-            true;
-
-
-        button.innerText =
-            "✓ COMPLETED";
-
-
-        saveData();
-
-    }
-
-
-    /* =========================================================
-       XP SYSTEM
-    ========================================================= */
-
-    function xpNeeded() {
-
-        return (
-            systemData.level *
+    const percentage =
+        Math.min(
+            (data.xp / needed) * 100,
             100
         );
 
-    }
+    document.getElementById(
+        "xpBar"
+    ).style.width = percentage + "%";
 
 
-    function addXP(amount) {
+    document.getElementById(
+        "xpProgress"
+    ).textContent =
+        data.xp + " / " + needed + " XP";
 
-        systemData.xp +=
-            amount;
+
+    document.getElementById(
+        "nextLevel"
+    ).textContent =
+        "LEVEL " + (data.level + 1);
 
 
-        while (
-            systemData.xp >=
-            xpNeeded()
+    /* DAILY QUESTS */
+
+    document.querySelectorAll(
+        ".quest"
+    ).forEach(quest => {
+
+        const id =
+            quest.dataset.id;
+
+        if (
+            data.completed.includes(id)
         ) {
 
-            systemData.xp -=
-                xpNeeded();
-
-
-            systemData.level++;
-
-
-            showLevelUp();
-
-        }
-
-
-        saveData();
-
-
-        updateLevel();
-
-    }
-
-
-    function updateLevel() {
-
-        const needed =
-            xpNeeded();
-
-
-        const percentage =
-            Math.min(
-                (
-                    systemData.xp /
-                    needed
-                ) * 100,
-                100
+            quest.classList.add(
+                "completed"
             );
-
-
-        document.getElementById(
-            "levelText"
-        ).innerText =
-            "LEVEL " +
-            systemData.level;
-
-
-        document.getElementById(
-            "xpText"
-        ).innerText =
-            systemData.xp +
-            " / " +
-            needed +
-            " XP";
-
-
-        document.getElementById(
-            "xpFill"
-        ).style.width =
-            percentage +
-            "%";
-
-    }
-
-
-    /* =========================================================
-       STATS
-    ========================================================= */
-
-    function addStat(
-        stat,
-        amount
-    ) {
-
-        if (
-            !systemData.stats[stat]
-        ) {
-
-            systemData.stats[stat] =
-                0;
-
-        }
-
-
-        systemData.stats[stat] +=
-            amount;
-
-
-        updateStats();
-
-    }
-
-
-    function updateStats() {
-
-        Object.keys(
-            systemData.stats
-        ).forEach(
-            stat => {
-
-                const value =
-                    systemData.stats[
-                        stat
-                    ];
-
-
-                const valueElement =
-                    document.getElementById(
-                        stat.toLowerCase() +
-                        "Value"
-                    );
-
-
-                const barElement =
-                    document.getElementById(
-                        stat.toLowerCase() +
-                        "Bar"
-                    );
-
-
-                if (
-                    valueElement
-                ) {
-
-                    valueElement.innerText =
-                        value;
-
-                }
-
-
-                if (
-                    barElement
-                ) {
-
-                    const percentage =
-                        Math.min(
-                            value,
-                            100
-                        );
-
-
-                    barElement.style.width =
-                        percentage +
-                        "%";
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =========================================================
-       STREAK SYSTEM
-    ========================================================= */
-
-    function updateStreak() {
-
-        const today =
-            getToday();
-
-
-        if (
-            systemData.lastActiveDate ===
-            today
-        ) {
-
-            return;
-
-        }
-
-
-        if (
-            !systemData.lastActiveDate
-        ) {
-
-            systemData.streak =
-                1;
 
         } else {
 
-            const lastDate =
-                new Date(
-                    systemData
-                        .lastActiveDate +
-                    "T00:00:00"
+            quest.classList.remove(
+                "completed"
+            );
+
+        }
+
+    });
+
+
+    /* STATS */
+
+    Object.keys(data.stats).forEach(stat => {
+
+        const value =
+            data.stats[stat];
+
+        const valueElement =
+            document.getElementById(
+                stat + "Value"
+            );
+
+        const barElement =
+            document.getElementById(
+                stat + "Bar"
+            );
+
+        if (valueElement) {
+
+            valueElement.textContent =
+                value;
+
+        }
+
+        if (barElement) {
+
+            const percentage =
+                Math.min(
+                    value,
+                    100
                 );
 
+            barElement.style.width =
+                percentage + "%";
 
-            const todayDate =
-                new Date(
-                    today +
-                    "T00:00:00"
-                );
+        }
 
+    });
 
-            const difference =
-                Math.floor(
-                    (
-                        todayDate -
-                        lastDate
-                    ) /
-                    (
-                        1000 *
-                        60 *
-                        60 *
-                        24
-                    )
-                );
+}
 
 
-            if (
-                difference === 1
-            ) {
+/* =========================================
+   NOTIFICATION
+========================================= */
 
-                systemData.streak++;
+let notificationTimeout;
 
-            } else if (
-                difference > 1
-            ) {
 
-                systemData.streak =
-                    1;
+function showNotification(message) {
 
-            }
+    const notification =
+        document.getElementById(
+            "notification"
+        );
+
+    notification.textContent =
+        message;
+
+    notification.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        notificationTimeout
+    );
+
+    notificationTimeout =
+        setTimeout(() => {
+
+            notification.classList.remove(
+                "show"
+            );
+
+        }, 3000);
+
+}
+
+
+/* =========================================
+   EVENTS
+========================================= */
+
+document.querySelectorAll(
+    ".quest"
+).forEach(quest => {
+
+    quest.addEventListener(
+        "click",
+        () => {
+
+            completeDailyQuest(
+                quest
+            );
+
+        }
+    );
+
+});
+
+
+document.getElementById(
+    "surpriseButton"
+).addEventListener(
+    "click",
+    generateLifeQuest
+);
+
+
+document.getElementById(
+    "completeLifeButton"
+).addEventListener(
+    "click",
+    completeLifeQuest
+);
+
+
+document.getElementById(
+    "sideQuestButton"
+).addEventListener(
+    "click",
+    completeSideQuest
+);
+
+
+/* =========================================
+   SPLASH SCREEN
+========================================= */
+
+const loadingMessages = [
+
+    "SYSTEM INITIALIZING",
+
+    "LOADING PROFILE",
+
+    "SYNCING PROGRESS DATA",
+
+    "INITIALIZING QUEST SYSTEM",
+
+    "CALIBRATING CHARACTER STATS",
+
+    "SYSTEM READY"
+
+];
+
+
+let progress = 0;
+
+const loadingFill =
+    document.getElementById(
+        "loadingFill"
+    );
+
+const loadingPercent =
+    document.getElementById(
+        "loadingPercent"
+    );
+
+const loadingStatus =
+    document.getElementById(
+        "loadingStatus"
+    );
+
+
+const loadingInterval =
+    setInterval(() => {
+
+        progress += Math.floor(
+            Math.random() * 9
+        ) + 4;
+
+        if (progress >= 100) {
+
+            progress = 100;
+
+            clearInterval(
+                loadingInterval
+            );
 
         }
 
 
-        systemData.lastActiveDate =
-            today;
+        loadingFill.style.width =
+            progress + "%";
+
+        loadingPercent.textContent =
+            progress + "%";
 
 
-        saveData();
-
-    }
-
-
-    /* =========================================================
-       DASHBOARD
-    ========================================================= */
-
-    function updateDashboard() {
-
-        document.getElementById(
-            "todayProgress"
-        ).innerText =
-            systemData.completedToday +
-            " / " +
-            dailyQuests.length;
-
-
-        document.getElementById(
-            "streakValue"
-        ).innerText =
-            systemData.streak +
-            (
-                systemData.streak === 1
-                    ? " DAY"
-                    : " DAYS"
+        const messageIndex =
+            Math.min(
+                Math.floor(
+                    progress / 20
+                ),
+                loadingMessages.length - 1
             );
 
-
-        document.getElementById(
-            "todayXp"
-        ).innerText =
-            systemData.todayXP;
-
-    }
+        loadingStatus.textContent =
+            loadingMessages[
+                messageIndex
+            ];
 
 
-    /* =========================================================
-       LEVEL UP NOTIFICATION
-    ========================================================= */
+        if (progress >= 100) {
 
-    function showLevelUp() {
+            setTimeout(() => {
 
-        const notification =
-            document.getElementById(
-                "levelUp"
-            );
+                document
+                    .getElementById("splash")
+                    .classList.add("hidden");
 
+            }, 500);
 
-        notification.classList.add(
-            "show"
-        );
+        }
+
+    }, 180);
 
 
-        setTimeout(
-            () => {
+/* =========================================
+   START
+========================================= */
 
-                notification.classList.remove(
-                    "show"
-                );
+checkDailyReset();
 
-            },
-            2500
-        );
-
-    }
-
-
-    /* =========================================================
-       RENDER EVERYTHING
-    ========================================================= */
-
-    function renderAll() {
-
-        updateLevel();
-
-        updateDashboard();
-
-        updateStats();
-
-        renderDailyQuests();
-
-    }
-
-
-    /* =========================================================
-       START SYSTEM
-    ========================================================= */
-
-    checkNewDay();
-
-    renderAll();
-
-    startSenrai();
+updateUI();
 
 </script>
-
 
 </body>
 </html>
