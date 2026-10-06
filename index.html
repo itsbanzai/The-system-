@@ -7,1090 +7,1045 @@
 <title>SENRAI — Personal Progression System</title>
 
 <style>
-    :root {
-        --bg: #050608;
-        --panel: #0b0d11;
-        --panel2: #10131a;
-        --border: #20252e;
-        --border-bright: #303744;
-        --text: #f2f4f8;
-        --muted: #7d8491;
-        --dim: #555d69;
-        --accent: #ffffff;
-        --green: #75f0a4;
-        --red: #ff5d6c;
-        --gold: #ffd76a;
-        --blue: #75b9ff;
-        --purple: #b68cff;
-        --cyan: #6ee7f9;
-    }
+:root {
+    --bg: #050608;
+    --panel: #0b0d11;
+    --panel2: #10131a;
+    --border: #20252e;
+    --border-bright: #303744;
+    --text: #f2f4f8;
+    --muted: #7d8491;
+    --dim: #555d69;
+    --green: #75f0a4;
+    --red: #ff5d6c;
+    --gold: #ffd76a;
+}
 
-    * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        background: var(--bg);
-        color: var(--text);
-        font-family:
-            Inter,
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            sans-serif;
-    }
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
 
-    body {
-        overflow-x: hidden;
-    }
+body {
+    overflow-x: hidden;
+}
 
-    button,
-    input,
-    select {
-        font: inherit;
-    }
+button,
+input,
+select {
+    font: inherit;
+}
 
-    button {
-        cursor: pointer;
-    }
+button {
+    cursor: pointer;
+}
 
-    /* =========================================================
-       SPLASH SCREEN
-       ========================================================= */
+/* =========================================================
+   SPLASH SCREEN
+   ========================================================= */
 
-    #splash {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background:
-            radial-gradient(circle at center, #151923 0%, #080a0e 42%, #020304 100%);
+#splash {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at center, #151923 0%, #080a0e 42%, #020304 100%);
+    opacity: 1;
+    visibility: visible;
+    transition:
+        opacity 0.45s ease,
+        visibility 0.45s ease;
+    animation: emergencySplashHide 4s forwards;
+}
+
+@keyframes emergencySplashHide {
+    0%,
+    87% {
         opacity: 1;
         visibility: visible;
-        transition:
-            opacity 0.45s ease,
-            visibility 0.45s ease;
-        animation: emergencySplashHide 4s forwards;
+        pointer-events: auto;
     }
 
-    /*
-       Emergency fallback:
-       Even if JavaScript crashes, the splash screen cannot trap
-       the user forever.
-    */
-    @keyframes emergencySplashHide {
-        0%,
-        87% {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        100% {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-    }
-
-    #splash.hidden {
+    100% {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
     }
+}
 
-    .splash-inner {
-        width: min(380px, 82vw);
-        text-align: center;
+#splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-inner {
+    width: min(380px, 82vw);
+    text-align: center;
+}
+
+.splash-logo {
+    width: min(210px, 58vw);
+    max-height: 210px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 12px;
+    filter:
+        drop-shadow(0 0 22px rgba(255,255,255,0.12));
+    animation: logoPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%,
+    100% {
+        opacity: 0.88;
+        transform: scale(0.98);
     }
 
-    .splash-symbol {
-        width: 76px;
-        height: 76px;
-        margin: 0 auto 28px;
-        position: relative;
-        transform: rotate(45deg);
-        border: 1px solid rgba(255,255,255,0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow:
-            0 0 35px rgba(255,255,255,0.06),
-            inset 0 0 25px rgba(255,255,255,0.03);
-        animation: symbolPulse 2s ease-in-out infinite;
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+.splash-subtitle {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+.loading-box {
+    margin-top: 35px;
+}
+
+.loading-track {
+    width: 100%;
+    height: 2px;
+    background: #191d24;
+    overflow: hidden;
+}
+
+#loadingFill {
+    width: 0%;
+    height: 100%;
+    background: #fff;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+
+.loading-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+#app {
+    min-height: 100vh;
+    padding-bottom: 100px;
+}
+
+.app-shell {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    padding: 18px;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 5px 2px 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.brand-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    filter:
+        drop-shadow(0 0 8px rgba(255,255,255,0.12));
+}
+
+.brand-name {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 9px rgba(117,240,164,0.8);
+}
+
+/* =========================================================
+   VIEWS
+   ========================================================= */
+
+.view {
+    display: none;
+    animation: viewIn 0.25s ease;
+}
+
+.view.active {
+    display: block;
+}
+
+@keyframes viewIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
     }
 
-    .splash-symbol::before {
-        content: "";
-        width: 42px;
-        height: 42px;
-        border: 1px solid rgba(255,255,255,0.5);
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    .splash-symbol span {
-        position: absolute;
-        transform: rotate(-45deg);
-        font-size: 27px;
-        font-weight: 800;
-        letter-spacing: -2px;
-    }
+.view-heading {
+    margin-bottom: 18px;
+}
 
-    @keyframes symbolPulse {
-        0%,
-        100% {
-            opacity: 0.75;
-            transform: rotate(45deg) scale(0.98);
-        }
+.eyebrow {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
 
-        50% {
-            opacity: 1;
-            transform: rotate(45deg) scale(1.04);
-        }
-    }
+.view-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin: 0;
+}
 
-    .splash-title {
-        font-size: 31px;
-        font-weight: 800;
-        letter-spacing: 8px;
-        margin-left: 8px;
-    }
+/* =========================================================
+   CARDS
+   ========================================================= */
 
-    .splash-subtitle {
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 3px;
-    }
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.025),
+            rgba(255,255,255,0.008)
+        );
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
 
-    .loading-box {
-        margin-top: 38px;
-    }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 17px;
+    border-bottom: 1px solid var(--border);
+}
 
-    .loading-track {
-        width: 100%;
-        height: 2px;
-        background: #191d24;
-        overflow: hidden;
-    }
+.card-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 700;
+}
 
-    #loadingFill {
-        width: 0%;
-        height: 100%;
-        background: #fff;
-        transition: width 0.08s linear;
-        box-shadow: 0 0 10px rgba(255,255,255,0.6);
-    }
+.card-body {
+    padding: 17px;
+}
 
-    .loading-info {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
+/* =========================================================
+   HOME
+   ========================================================= */
 
-    /* =========================================================
-       APP
-       ========================================================= */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 12px;
+}
 
-    #app {
-        min-height: 100vh;
-        padding-bottom: 100px;
-    }
+.level-card {
+    min-height: 210px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(255,255,255,0.07),
+            transparent 30%
+        ),
+        linear-gradient(145deg, #10131a, #080a0e);
+}
+
+.level-label {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.level-number {
+    margin-top: 6px;
+    font-size: 62px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -5px;
+}
+
+.xp-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 22px;
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.xp-bar {
+    height: 5px;
+    margin-top: 8px;
+    background: #1a1e25;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.xp-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #fff, #aaa);
+    border-radius: inherit;
+    transition: width 0.4s ease;
+}
+
+.hero-side {
+    display: grid;
+    gap: 12px;
+}
+
+.mini-card {
+    padding: 18px;
+    min-height: 99px;
+}
+
+.mini-value {
+    font-size: 30px;
+    font-weight: 750;
+    margin-top: 5px;
+}
+
+.mini-label {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.objective-card {
+    min-height: 180px;
+}
+
+.objective-text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.objective-empty {
+    color: var(--dim);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.quick-grid {
+    display: grid;
+    gap: 8px;
+}
+
+.quick-quest {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: rgba(255,255,255,0.015);
+}
+
+.quick-quest-name {
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.quick-quest-xp {
+    color: var(--green);
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border: 1px solid var(--border-bright);
+    background: #11151c;
+    color: var(--text);
+    border-radius: 6px;
+    padding: 10px 13px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.18s ease;
+}
+
+.btn:hover {
+    border-color: #59616e;
+    background: #171b23;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn.primary {
+    background: #f2f2f2;
+    color: #08090b;
+    border-color: #fff;
+    font-weight: 800;
+}
+
+.btn.green {
+    color: var(--green);
+    border-color: rgba(117,240,164,0.25);
+}
+
+.btn.danger {
+    color: var(--red);
+    border-color: rgba(255,93,108,0.25);
+}
+
+.btn.small {
+    padding: 7px 9px;
+    font-size: 8px;
+}
+
+.surprise-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px;
+    border: 1px dashed #353b46;
+    background: transparent;
+    color: var(--text);
+    border-radius: 7px;
+    letter-spacing: 2px;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   QUESTS
+   ========================================================= */
+
+.quest-section {
+    margin-bottom: 22px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 9px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.section-count {
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.quest-list {
+    display: grid;
+    gap: 8px;
+}
+
+.quest {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    background: #090b0f;
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+.quest.completed {
+    opacity: 0.42;
+}
+
+.quest.completed .quest-name {
+    text-decoration: line-through;
+}
+
+.quest-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.quest-topline {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.quest-type {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+}
+
+.quest-difficulty {
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: var(--gold);
+}
+
+.quest-name {
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 600;
+}
+
+.quest-meta {
+    margin-top: 6px;
+    color: var(--dim);
+    font-size: 9px;
+}
+
+.quest-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.quest-xp {
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   CUSTOM QUEST CREATOR
+   ========================================================= */
+
+.creator {
+    padding: 17px;
+    margin-bottom: 24px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: #080a0e;
+    color: var(--text);
+    border-radius: 6px;
+    padding: 11px;
+    outline: none;
+}
+
+.creator-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-overview {
+    padding: 18px;
+    margin-bottom: 12px;
+}
+
+.overall-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 12px;
+}
+
+.overall-number {
+    font-size: 42px;
+    font-weight: 800;
+}
+
+.overall-label {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.stat-card {
+    padding: 15px;
+    border: 1px solid var(--border);
+    background: #090b0f;
+    border-radius: 8px;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-code {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.stat-name {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.stat-bar {
+    height: 3px;
+    margin-top: 13px;
+    background: #1b1f26;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.stat-fill {
+    width: 0%;
+    height: 100%;
+    background: #ddd;
+    transition: width 0.4s ease;
+}
+
+/* =========================================================
+   ACHIEVEMENTS
+   ========================================================= */
+
+.achievement-list {
+    display: grid;
+    gap: 9px;
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    background: #090b0f;
+    border-radius: 8px;
+}
+
+.achievement.locked {
+    opacity: 0.48;
+}
+
+.achievement-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    font-size: 17px;
+}
+
+.achievement.unlocked .achievement-icon {
+    border-color: rgba(255,215,106,0.45);
+    color: var(--gold);
+}
+
+.achievement-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.achievement-name {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.achievement-description {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+    line-height: 1.35;
+}
+
+.achievement-reward {
+    color: var(--green);
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   LIFE
+   ========================================================= */
+
+.life-card {
+    padding: 24px;
+    text-align: center;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(182,140,255,0.07),
+            transparent 45%
+        ),
+        #090b0f;
+}
+
+.life-symbol {
+    font-size: 32px;
+    margin-bottom: 17px;
+}
+
+.life-label {
+    color: var(--muted);
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.life-quest {
+    margin: 14px auto 20px;
+    max-width: 550px;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 650;
+}
+
+.life-reward {
+    color: var(--green);
+    font-size: 10px;
+    margin-bottom: 18px;
+}
+
+.life-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.life-history {
+    margin-top: 12px;
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.bottom-nav {
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 13px;
+    transform: translateX(-50%);
+    width: min(680px, calc(100% - 22px));
+    padding: 7px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    background: rgba(10,12,16,0.93);
+    border: 1px solid #272c35;
+    border-radius: 11px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+}
+
+.nav-btn {
+    border: 0;
+    background: transparent;
+    color: var(--dim);
+    padding: 9px 4px;
+    border-radius: 7px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav-icon {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.nav-btn.active {
+    color: #fff;
+    background: #171a20;
+}
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+#notification {
+    position: fixed;
+    z-index: 2000;
+    left: 50%;
+    top: 18px;
+    transform: translate(-50%, -120px);
+    min-width: 220px;
+    max-width: calc(100% - 30px);
+    padding: 12px 16px;
+    text-align: center;
+    border: 1px solid #363c47;
+    border-radius: 7px;
+    background: rgba(12,14,18,0.96);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+#notification.show {
+    transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
 
     .app-shell {
-        width: min(1100px, 100%);
-        margin: 0 auto;
-        padding: 18px;
+        padding: 15px;
     }
 
-    /* =========================================================
-       HEADER
-       ========================================================= */
-
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        padding: 8px 2px 22px;
-    }
-
-    .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .brand-symbol {
-        width: 28px;
-        height: 28px;
-        border: 1px solid #aaa;
-        transform: rotate(45deg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .brand-symbol span {
-        transform: rotate(-45deg);
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    .brand-name {
-        font-size: 17px;
-        font-weight: 800;
-        letter-spacing: 4px;
-    }
-
-    .system-status {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 1.5px;
-    }
-
-    .status-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 9px rgba(117,240,164,0.8);
-    }
-
-    /* =========================================================
-       VIEWS
-       ========================================================= */
-
-    .view {
-        display: none;
-        animation: viewIn 0.25s ease;
-    }
-
-    .view.active {
-        display: block;
-    }
-
-    @keyframes viewIn {
-        from {
-            opacity: 0;
-            transform: translateY(5px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .view-heading {
-        margin-bottom: 18px;
-    }
-
-    .eyebrow {
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 6px;
-    }
-
-    .view-title {
-        font-size: 28px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        margin: 0;
-    }
-
-    /* =========================================================
-       CARDS
-       ========================================================= */
-
-    .card {
-        background:
-            linear-gradient(145deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
-        border: 1px solid var(--border);
-        border-radius: 10px;
-    }
-
-    .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 17px;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .card-title {
-        font-size: 10px;
-        letter-spacing: 2px;
-        color: var(--muted);
-        text-transform: uppercase;
-        font-weight: 700;
-    }
-
-    .card-body {
-        padding: 17px;
-    }
-
-    /* =========================================================
-       HOME
-       ========================================================= */
-
-    .hero-grid {
-        display: grid;
-        grid-template-columns: 1.4fr 0.8fr;
-        gap: 12px;
+    .hero-grid,
+    .dashboard-grid {
+        grid-template-columns: 1fr;
     }
 
     .level-card {
-        min-height: 210px;
-        padding: 22px;
-        position: relative;
-        overflow: hidden;
-        background:
-            radial-gradient(circle at 85% 15%, rgba(255,255,255,0.07), transparent 30%),
-            linear-gradient(145deg, #10131a, #080a0e);
-    }
-
-    .level-card::after {
-        content: "";
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        border: 1px solid rgba(255,255,255,0.035);
-        border-radius: 50%;
-        right: -75px;
-        bottom: -90px;
-    }
-
-    .level-label {
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 2px;
-    }
-
-    .level-number {
-        margin-top: 6px;
-        font-size: 62px;
-        line-height: 1;
-        font-weight: 800;
-        letter-spacing: -5px;
-    }
-
-    .xp-row {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 22px;
-        font-size: 10px;
-        color: var(--muted);
-    }
-
-    .xp-bar {
-        height: 5px;
-        margin-top: 8px;
-        background: #1a1e25;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .xp-fill {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(90deg, #fff, #aaa);
-        border-radius: inherit;
-        transition: width 0.4s ease;
-    }
-
-    .hero-side {
-        display: grid;
-        gap: 12px;
-    }
-
-    .mini-card {
-        padding: 18px;
-        min-height: 99px;
-    }
-
-    .mini-value {
-        font-size: 30px;
-        font-weight: 750;
-        margin-top: 5px;
-    }
-
-    .mini-label {
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
-
-    .dashboard-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-top: 12px;
-    }
-
-    .objective-card {
-        min-height: 180px;
-    }
-
-    .objective-text {
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 1.35;
-    }
-
-    .objective-empty {
-        color: var(--dim);
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    .quick-grid {
-        display: grid;
-        gap: 8px;
-    }
-
-    .quick-quest {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 11px 12px;
-        border: 1px solid var(--border);
-        border-radius: 7px;
-        background: rgba(255,255,255,0.015);
-    }
-
-    .quick-quest-name {
-        font-size: 12px;
-        line-height: 1.3;
-    }
-
-    .quick-quest-xp {
-        color: var(--green);
-        font-size: 9px;
-        white-space: nowrap;
-    }
-
-    /* =========================================================
-       BUTTONS
-       ========================================================= */
-
-    .btn {
-        border: 1px solid var(--border-bright);
-        background: #11151c;
-        color: var(--text);
-        border-radius: 6px;
-        padding: 10px 13px;
-        font-size: 10px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: 0.18s ease;
-    }
-
-    .btn:hover {
-        border-color: #59616e;
-        background: #171b23;
-    }
-
-    .btn:active {
-        transform: scale(0.97);
-    }
-
-    .btn.primary {
-        background: #f2f2f2;
-        color: #08090b;
-        border-color: #fff;
-        font-weight: 800;
-    }
-
-    .btn.primary:hover {
-        background: #fff;
-    }
-
-    .btn.green {
-        color: var(--green);
-        border-color: rgba(117,240,164,0.25);
-    }
-
-    .btn.danger {
-        color: var(--red);
-        border-color: rgba(255,93,108,0.25);
-    }
-
-    .btn.small {
-        padding: 7px 9px;
-        font-size: 8px;
-    }
-
-    .surprise-btn {
-        width: 100%;
-        margin-top: 12px;
-        padding: 14px;
-        border: 1px dashed #353b46;
-        background: transparent;
-        color: var(--text);
-        border-radius: 7px;
-        letter-spacing: 2px;
-        font-size: 9px;
-        text-transform: uppercase;
-    }
-
-    .surprise-btn:hover {
-        border-color: #777;
-        background: rgba(255,255,255,0.025);
-    }
-
-    /* =========================================================
-       QUESTS
-       ========================================================= */
-
-    .quest-section {
-        margin-bottom: 22px;
-    }
-
-    .section-heading {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 9px;
-    }
-
-    .section-heading h2 {
-        margin: 0;
-        font-size: 11px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-
-    .section-count {
-        color: var(--muted);
-        font-size: 9px;
-    }
-
-    .quest-list {
-        display: grid;
-        gap: 8px;
-    }
-
-    .quest {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 14px;
-        padding: 14px;
-        border: 1px solid var(--border);
-        background: #090b0f;
-        border-radius: 8px;
-        transition: 0.2s ease;
-    }
-
-    .quest.completed {
-        opacity: 0.42;
-    }
-
-    .quest.completed .quest-name {
-        text-decoration: line-through;
-    }
-
-    .quest-main {
-        min-width: 0;
-        flex: 1;
-    }
-
-    .quest-topline {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        margin-bottom: 5px;
-        flex-wrap: wrap;
-    }
-
-    .quest-type {
-        color: var(--muted);
-        font-size: 8px;
-        letter-spacing: 1.5px;
-    }
-
-    .quest-difficulty {
-        font-size: 8px;
-        letter-spacing: 1px;
-        color: var(--gold);
-    }
-
-    .quest-name {
-        font-size: 13px;
-        line-height: 1.35;
-        font-weight: 600;
-    }
-
-    .quest-meta {
-        margin-top: 6px;
-        color: var(--dim);
-        font-size: 9px;
-    }
-
-    .quest-actions {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        flex-shrink: 0;
-    }
-
-    .quest-xp {
-        color: var(--green);
-        font-size: 10px;
-        font-weight: 700;
-    }
-
-    /* =========================================================
-       CUSTOM QUEST CREATOR
-       ========================================================= */
-
-    .creator {
-        padding: 17px;
-        margin-bottom: 24px;
-    }
-
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .field {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .field.full {
-        grid-column: 1 / -1;
-    }
-
-    .field label {
-        color: var(--muted);
-        font-size: 8px;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-    }
-
-    .field input,
-    .field select {
-        width: 100%;
-        border: 1px solid var(--border);
-        background: #080a0e;
-        color: var(--text);
-        border-radius: 6px;
-        padding: 11px;
-        outline: none;
-    }
-
-    .field input:focus,
-    .field select:focus {
-        border-color: #59616e;
-    }
-
-    .creator-actions {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 12px;
-    }
-
-    /* =========================================================
-       STATS
-       ========================================================= */
-
-    .stats-overview {
-        padding: 18px;
-        margin-bottom: 12px;
-    }
-
-    .overall-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 12px;
-    }
-
-    .overall-number {
-        font-size: 42px;
-        font-weight: 800;
-    }
-
-    .overall-label {
-        color: var(--muted);
-        font-size: 9px;
-        letter-spacing: 1.5px;
+        min-height: 200px;
     }
 
     .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: 1fr;
     }
 
-    .stat-card {
-        padding: 15px;
-        border: 1px solid var(--border);
-        background: #090b0f;
-        border-radius: 8px;
+    .quest {
+        align-items: flex-start;
     }
 
-    .stat-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .quest-actions {
+        flex-direction: column;
+        align-items: flex-end;
     }
 
-    .stat-code {
-        font-size: 20px;
-        font-weight: 800;
+    .quest-xp {
+        order: -1;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .brand-name {
+        font-size: 14px;
+        letter-spacing: 3px;
     }
 
-    .stat-value {
-        font-size: 20px;
-        font-weight: 700;
+    .system-status {
+        font-size: 7px;
     }
 
-    .stat-name {
-        margin-top: 3px;
-        color: var(--muted);
-        font-size: 8px;
-        letter-spacing: 1.3px;
-        text-transform: uppercase;
+    .view-title {
+        font-size: 24px;
     }
 
-    .stat-bar {
-        height: 3px;
-        margin-top: 13px;
-        background: #1b1f26;
-        overflow: hidden;
-        border-radius: 4px;
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 
-    .stat-fill {
-        width: 0%;
-        height: 100%;
-        background: #ddd;
-        transition: width 0.4s ease;
-    }
-
-    /* =========================================================
-       ACHIEVEMENTS
-       ========================================================= */
-
-    .achievement-list {
-        display: grid;
-        gap: 9px;
-    }
-
-    .achievement {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 15px;
-        border: 1px solid var(--border);
-        background: #090b0f;
-        border-radius: 8px;
-    }
-
-    .achievement.locked {
-        opacity: 0.48;
-    }
-
-    .achievement-icon {
-        width: 42px;
-        height: 42px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--border-bright);
-        border-radius: 8px;
-        font-size: 17px;
-    }
-
-    .achievement.unlocked .achievement-icon {
-        border-color: rgba(255,215,106,0.45);
-        color: var(--gold);
-    }
-
-    .achievement-info {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .achievement-name {
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
-
-    .achievement-description {
-        color: var(--muted);
-        font-size: 10px;
-        margin-top: 4px;
-        line-height: 1.35;
-    }
-
-    .achievement-reward {
-        color: var(--green);
-        font-size: 9px;
-        white-space: nowrap;
-    }
-
-    /* =========================================================
-       LIFE
-       ========================================================= */
-
-    .life-card {
-        padding: 24px;
-        text-align: center;
-        background:
-            radial-gradient(circle at center, rgba(182,140,255,0.07), transparent 45%),
-            #090b0f;
-    }
-
-    .life-symbol {
-        font-size: 32px;
-        margin-bottom: 17px;
-    }
-
-    .life-label {
-        color: var(--muted);
-        font-size: 8px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-
-    .life-quest {
-        margin: 14px auto 20px;
-        max-width: 550px;
-        font-size: 20px;
-        line-height: 1.4;
-        font-weight: 650;
-    }
-
-    .life-reward {
-        color: var(--green);
-        font-size: 10px;
-        margin-bottom: 18px;
-    }
-
-    .life-actions {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .life-history {
-        margin-top: 12px;
-    }
-
-    /* =========================================================
-       BOTTOM NAV
-       ========================================================= */
-
-    .bottom-nav {
-        position: fixed;
-        z-index: 1000;
-        left: 50%;
-        bottom: 13px;
-        transform: translateX(-50%);
-        width: min(680px, calc(100% - 22px));
-        padding: 7px;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 4px;
-        background: rgba(10,12,16,0.93);
-        border: 1px solid #272c35;
-        border-radius: 11px;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+    .field.full {
+        grid-column: auto;
     }
 
     .nav-btn {
-        border: 0;
-        background: transparent;
-        color: var(--dim);
-        padding: 9px 4px;
-        border-radius: 7px;
-        font-size: 8px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: 0.18s ease;
+        font-size: 7px;
     }
 
     .nav-icon {
-        display: block;
-        font-size: 15px;
-        margin-bottom: 3px;
+        font-size: 14px;
     }
 
-    .nav-btn.active {
-        color: #fff;
-        background: #171a20;
+    .splash-logo {
+        width: 190px;
     }
-
-    /* =========================================================
-       NOTIFICATION
-       ========================================================= */
-
-    #notification {
-        position: fixed;
-        z-index: 2000;
-        left: 50%;
-        top: 18px;
-        transform: translate(-50%, -120px);
-        min-width: 220px;
-        max-width: calc(100% - 30px);
-        padding: 12px 16px;
-        text-align: center;
-        border: 1px solid #363c47;
-        border-radius: 7px;
-        background: rgba(12,14,18,0.96);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.45);
-        color: #fff;
-        font-size: 10px;
-        letter-spacing: 1px;
-        transition: transform 0.3s ease;
-        pointer-events: none;
-    }
-
-    #notification.show {
-        transform: translate(-50%, 0);
-    }
-
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
-
-    @media (max-width: 700px) {
-        .app-shell {
-            padding: 15px;
-        }
-
-        .hero-grid,
-        .dashboard-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .level-card {
-            min-height: 200px;
-        }
-
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .quest {
-            align-items: flex-start;
-        }
-
-        .quest-actions {
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .quest-xp {
-            order: -1;
-        }
-
-        .life-quest {
-            font-size: 18px;
-        }
-    }
-
-    @media (max-width: 450px) {
-        .brand-name {
-            font-size: 14px;
-            letter-spacing: 3px;
-        }
-
-        .system-status {
-            font-size: 7px;
-        }
-
-        .view-title {
-            font-size: 24px;
-        }
-
-        .form-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .field.full {
-            grid-column: auto;
-        }
-
-        .nav-btn {
-            font-size: 7px;
-        }
-
-        .nav-icon {
-            font-size: 14px;
-        }
-    }
+}
 </style>
 </head>
 
 <body>
 
 <!-- =========================================================
-     SPLASH
+     SPLASH SCREEN
      ========================================================= -->
 
 <div id="splash">
+
     <div class="splash-inner">
 
-        <div class="splash-symbol">
-            <span>S</span>
-        </div>
-
-        <div class="splash-title">SENRAI</div>
+        <img
+            class="splash-logo"
+            src="senrai-logo.png"
+            alt="SENRAI"
+        >
 
         <div class="splash-subtitle">
             PERSONAL PROGRESSION SYSTEM
         </div>
 
         <div class="loading-box">
+
             <div class="loading-track">
                 <div id="loadingFill"></div>
             </div>
 
             <div class="loading-info">
-                <span id="loadingStatus">SYSTEM INITIALIZING</span>
-                <span id="loadingPercent">0%</span>
+
+                <span id="loadingStatus">
+                    SYSTEM INITIALIZING
+                </span>
+
+                <span id="loadingPercent">
+                    0%
+                </span>
+
             </div>
+
         </div>
 
     </div>
+
 </div>
+
 
 <!-- =========================================================
      NOTIFICATION
      ========================================================= -->
 
 <div id="notification"></div>
+
 
 <!-- =========================================================
      APP
@@ -1100,15 +1055,17 @@
 
     <div class="app-shell">
 
-        <!-- TOP BAR -->
+        <!-- HEADER -->
 
         <header class="topbar">
 
             <div class="brand">
 
-                <div class="brand-symbol">
-                    <span>S</span>
-                </div>
+                <img
+                    class="brand-logo"
+                    src="senrai-logo.png"
+                    alt="SENRAI"
+                >
 
                 <div class="brand-name">
                     SENRAI
@@ -1117,8 +1074,11 @@
             </div>
 
             <div class="system-status">
+
                 <span class="status-dot"></span>
+
                 SYSTEM ONLINE
+
             </div>
 
         </header>
@@ -1131,8 +1091,15 @@
         <main id="homeView" class="view active">
 
             <div class="view-heading">
-                <div class="eyebrow">PERSONAL PROGRESSION SYSTEM</div>
-                <h1 class="view-title">Dashboard</h1>
+
+                <div class="eyebrow">
+                    PERSONAL PROGRESSION SYSTEM
+                </div>
+
+                <h1 class="view-title">
+                    Dashboard
+                </h1>
+
             </div>
 
 
@@ -1144,17 +1111,32 @@
                         CURRENT LEVEL
                     </div>
 
-                    <div id="levelNumber" class="level-number">
+                    <div
+                        id="levelNumber"
+                        class="level-number"
+                    >
                         1
                     </div>
 
                     <div class="xp-row">
-                        <span id="xpText">0 / 100 XP</span>
-                        <span id="xpPercent">0%</span>
+
+                        <span id="xpText">
+                            0 / 100 XP
+                        </span>
+
+                        <span id="xpPercent">
+                            0%
+                        </span>
+
                     </div>
 
                     <div class="xp-bar">
-                        <div id="xpFill" class="xp-fill"></div>
+
+                        <div
+                            id="xpFill"
+                            class="xp-fill"
+                        ></div>
+
                     </div>
 
                 </section>
@@ -1168,11 +1150,15 @@
                             STREAK
                         </div>
 
-                        <div id="streakValue" class="mini-value">
+                        <div
+                            id="streakValue"
+                            class="mini-value"
+                        >
                             0
                         </div>
 
                     </section>
+
 
                     <section class="card mini-card">
 
@@ -1180,7 +1166,10 @@
                             TODAY
                         </div>
 
-                        <div id="todayProgress" class="mini-value">
+                        <div
+                            id="todayProgress"
+                            class="mini-value"
+                        >
                             0 / 4
                         </div>
 
@@ -1193,19 +1182,22 @@
 
             <div class="dashboard-grid">
 
-                <!-- CURRENT OBJECTIVE -->
-
                 <section class="card objective-card">
 
                     <div class="card-header">
+
                         <div class="card-title">
                             CURRENT OBJECTIVE
                         </div>
+
                     </div>
 
                     <div class="card-body">
 
-                        <div id="objectiveText" class="objective-empty">
+                        <div
+                            id="objectiveText"
+                            class="objective-empty"
+                        >
                             Create a Main Quest to define your current objective.
                         </div>
 
@@ -1214,23 +1206,29 @@
                 </section>
 
 
-                <!-- TODAY XP -->
-
                 <section class="card objective-card">
 
                     <div class="card-header">
+
                         <div class="card-title">
                             TODAY'S PROGRESS
                         </div>
+
                     </div>
 
                     <div class="card-body">
 
-                        <div class="overall-number" id="todayXP">
+                        <div
+                            class="overall-number"
+                            id="todayXP"
+                        >
                             +0 XP
                         </div>
 
-                        <div class="objective-empty" style="margin-top:8px;">
+                        <div
+                            class="objective-empty"
+                            style="margin-top:8px;"
+                        >
                             Every completed action moves the system forward.
                         </div>
 
@@ -1241,9 +1239,10 @@
             </div>
 
 
-            <!-- QUICK QUESTS -->
-
-            <section class="card" style="margin-top:12px;">
+            <section
+                class="card"
+                style="margin-top:12px;"
+            >
 
                 <div class="card-header">
 
@@ -1262,7 +1261,10 @@
 
                 <div class="card-body">
 
-                    <div id="quickQuestList" class="quick-grid"></div>
+                    <div
+                        id="quickQuestList"
+                        class="quick-grid"
+                    ></div>
 
                     <button
                         class="surprise-btn"
@@ -1297,17 +1299,19 @@
             </div>
 
 
-            <!-- CREATE QUEST -->
-
             <section class="card creator">
 
-                <div class="card-header" style="margin:-17px -17px 17px;">
+                <div
+                    class="card-header"
+                    style="margin:-17px -17px 17px;"
+                >
 
                     <div class="card-title">
                         CREATE QUEST
                     </div>
 
                 </div>
+
 
                 <div class="form-grid">
 
@@ -1364,7 +1368,10 @@
                                 EASY — +10 XP
                             </option>
 
-                            <option value="NORMAL" selected>
+                            <option
+                                value="NORMAL"
+                                selected
+                            >
                                 NORMAL — +25 XP
                             </option>
 
@@ -1438,8 +1445,6 @@
             </section>
 
 
-            <!-- DAILY -->
-
             <section class="quest-section">
 
                 <div class="section-heading">
@@ -1448,18 +1453,22 @@
                         DAILY QUESTS
                     </h2>
 
-                    <div id="dailyCount" class="section-count">
+                    <div
+                        id="dailyCount"
+                        class="section-count"
+                    >
                         0 / 4
                     </div>
 
                 </div>
 
-                <div id="dailyQuestList" class="quest-list"></div>
+                <div
+                    id="dailyQuestList"
+                    class="quest-list"
+                ></div>
 
             </section>
 
-
-            <!-- MAIN -->
 
             <section class="quest-section">
 
@@ -1475,12 +1484,13 @@
 
                 </div>
 
-                <div id="mainQuestList" class="quest-list"></div>
+                <div
+                    id="mainQuestList"
+                    class="quest-list"
+                ></div>
 
             </section>
 
-
-            <!-- SIDE -->
 
             <section class="quest-section">
 
@@ -1496,12 +1506,13 @@
 
                 </div>
 
-                <div id="sideQuestList" class="quest-list"></div>
+                <div
+                    id="sideQuestList"
+                    class="quest-list"
+                ></div>
 
             </section>
 
-
-            <!-- CUSTOM -->
 
             <section class="quest-section">
 
@@ -1511,13 +1522,19 @@
                         YOUR QUESTS
                     </h2>
 
-                    <div id="customCount" class="section-count">
+                    <div
+                        id="customCount"
+                        class="section-count"
+                    >
                         0
                     </div>
 
                 </div>
 
-                <div id="customQuestList" class="quest-list"></div>
+                <div
+                    id="customQuestList"
+                    class="quest-list"
+                ></div>
 
             </section>
 
@@ -1574,7 +1591,10 @@
             </section>
 
 
-            <div id="statsGrid" class="stats-grid"></div>
+            <div
+                id="statsGrid"
+                class="stats-grid"
+            ></div>
 
         </main>
 
@@ -1598,7 +1618,10 @@
             </div>
 
 
-            <section class="card" style="margin-bottom:12px;">
+            <section
+                class="card"
+                style="margin-bottom:12px;"
+            >
 
                 <div class="card-header">
 
@@ -1703,7 +1726,9 @@
             </section>
 
 
-            <section class="card life-history">
+            <section
+                class="card life-history"
+            >
 
                 <div class="card-header">
 
@@ -1718,8 +1743,7 @@
                     <div class="objective-empty">
 
                         You're not trying to become a perfect person.
-                        You're just trying to make small progress in
-                        your life.
+                        You're just trying to make small progress in your life.
 
                         <br><br>
 
@@ -1738,7 +1762,7 @@
 
 
     <!-- =====================================================
-         BOTTOM NAVIGATION
+         BOTTOM NAV
          ===================================================== -->
 
     <nav class="bottom-nav">
@@ -1809,35 +1833,52 @@ const ACHIEVEMENT_KEY = "senraiAchievements";
    ============================================================ */
 
 const defaultData = {
+
     level: 1,
+
     xp: 0,
+
     totalXP: 0,
 
     streak: 0,
+
     lastActiveDate: null,
+
     lastResetDate: null,
 
     completedToday: 0,
+
     todayXP: 0,
 
     totalQuestsCompleted: 0,
+
     totalLifeQuests: 0,
+
     totalSocialQuests: 0,
 
     stats: {
+
         STR: 0,
+
         INT: 0,
+
         WIS: 0,
+
         CHA: 0,
+
         DEX: 0,
+
         CRE: 0,
+
         VIT: 0
+
     }
+
 };
 
 
 /* ============================================================
-   DATA LOADING
+   LOAD DATA
    ============================================================ */
 
 function loadData() {
@@ -1845,27 +1886,47 @@ function loadData() {
     let saved = null;
 
     try {
-        saved = JSON.parse(
-            localStorage.getItem(DATA_KEY)
-        );
+
+        saved =
+            JSON.parse(
+                localStorage.getItem(DATA_KEY)
+            );
+
     } catch (error) {
-        console.error("SENRAI data load error:", error);
+
+        console.error(
+            "SENRAI data load error:",
+            error
+        );
+
     }
+
 
     if (!saved) {
-        return JSON.parse(JSON.stringify(defaultData));
+
+        return JSON.parse(
+            JSON.stringify(defaultData)
+        );
+
     }
 
-    const data = {
+
+    return {
+
         ...defaultData,
+
         ...saved,
+
         stats: {
+
             ...defaultData.stats,
+
             ...(saved.stats || {})
+
         }
+
     };
 
-    return data;
 }
 
 
@@ -1880,22 +1941,41 @@ function loadCustomQuests() {
 
     try {
 
-        const saved = JSON.parse(
-            localStorage.getItem(CUSTOM_KEY)
-        );
+        const saved =
+            JSON.parse(
+                localStorage.getItem(CUSTOM_KEY)
+            );
 
-        return Array.isArray(saved) ? saved : [];
+        return Array.isArray(saved)
+            ? saved
+            : [];
 
     } catch (error) {
 
-        console.error("Custom quest load error:", error);
+        console.error(
+            "Custom quest load error:",
+            error
+        );
 
         return [];
+
     }
+
 }
 
 
-let customQuests = loadCustomQuests();
+let customQuests =
+    loadCustomQuests();
+
+
+function saveCustomQuests() {
+
+    localStorage.setItem(
+        CUSTOM_KEY,
+        JSON.stringify(customQuests)
+    );
+
+}
 
 
 /* ============================================================
@@ -1910,7 +1990,8 @@ const achievementDefinitions = [
         description: "Complete your first quest.",
         reward: 50,
         icon: "Ⅰ",
-        condition: () => data.totalQuestsCompleted >= 1
+        condition: () =>
+            data.totalQuestsCompleted >= 1
     },
 
     {
@@ -1919,7 +2000,8 @@ const achievementDefinitions = [
         description: "Earn 100 total XP.",
         reward: 50,
         icon: "100",
-        condition: () => data.totalXP >= 100
+        condition: () =>
+            data.totalXP >= 100
     },
 
     {
@@ -1928,7 +2010,8 @@ const achievementDefinitions = [
         description: "Reach Level 5.",
         reward: 100,
         icon: "V",
-        condition: () => data.level >= 5
+        condition: () =>
+            data.level >= 5
     },
 
     {
@@ -1937,7 +2020,8 @@ const achievementDefinitions = [
         description: "Reach a 7-day streak.",
         reward: 100,
         icon: "7",
-        condition: () => data.streak >= 7
+        condition: () =>
+            data.streak >= 7
     },
 
     {
@@ -1946,7 +2030,8 @@ const achievementDefinitions = [
         description: "Complete 10 Life Quests.",
         reward: 100,
         icon: "✦",
-        condition: () => data.totalLifeQuests >= 10
+        condition: () =>
+            data.totalLifeQuests >= 10
     },
 
     {
@@ -1955,7 +2040,8 @@ const achievementDefinitions = [
         description: "Complete 5 social quests.",
         reward: 100,
         icon: "◉",
-        condition: () => data.totalSocialQuests >= 5
+        condition: () =>
+            data.totalSocialQuests >= 5
     },
 
     {
@@ -1977,22 +2063,31 @@ function loadAchievements() {
 
     try {
 
-        const saved = JSON.parse(
-            localStorage.getItem(ACHIEVEMENT_KEY)
-        );
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    ACHIEVEMENT_KEY
+                )
+            );
 
         return saved || {};
 
     } catch (error) {
 
-        console.error("Achievement load error:", error);
+        console.error(
+            "Achievement load error:",
+            error
+        );
 
         return {};
+
     }
+
 }
 
 
-let achievements = loadAchievements();
+let achievements =
+    loadAchievements();
 
 
 function saveAchievements() {
@@ -2001,11 +2096,12 @@ function saveAchievements() {
         ACHIEVEMENT_KEY,
         JSON.stringify(achievements)
     );
+
 }
 
 
 /* ============================================================
-   SAVE
+   SAVE DATA
    ============================================================ */
 
 function saveData() {
@@ -2014,57 +2110,60 @@ function saveData() {
         DATA_KEY,
         JSON.stringify(data)
     );
-}
 
-
-function saveCustomQuests() {
-
-    localStorage.setItem(
-        CUSTOM_KEY,
-        JSON.stringify(customQuests)
-    );
 }
 
 
 /* ============================================================
-   DATE HELPERS
+   DATE
    ============================================================ */
 
 function todayString() {
 
     const now = new Date();
 
-    const year = now.getFullYear();
-    const month = String(
-        now.getMonth() + 1
-    ).padStart(2, "0");
+    const year =
+        now.getFullYear();
 
-    const day = String(
-        now.getDate()
-    ).padStart(2, "0");
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+
 }
 
 
 function yesterdayString() {
 
-    const date = new Date();
+    const date =
+        new Date();
 
     date.setDate(
         date.getDate() - 1
     );
 
-    const year = date.getFullYear();
-    const month = String(
-        date.getMonth() + 1
-    ).padStart(2, "0");
+    const year =
+        date.getFullYear();
 
-    const day = String(
-        date.getDate()
-    ).padStart(2, "0");
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+
 }
 
 
@@ -2074,16 +2173,24 @@ function yesterdayString() {
 
 function checkDailyReset() {
 
-    const today = todayString();
+    const today =
+        todayString();
 
-    if (data.lastResetDate !== today) {
+    if (
+        data.lastResetDate !== today
+    ) {
 
         data.completedToday = 0;
+
         data.todayXP = 0;
-        data.lastResetDate = today;
+
+        data.lastResetDate =
+            today;
 
         saveData();
+
     }
+
 }
 
 
@@ -2093,25 +2200,40 @@ function checkDailyReset() {
 
 function updateStreak() {
 
-    const today = todayString();
-    const yesterday = yesterdayString();
+    const today =
+        todayString();
 
-    if (data.lastActiveDate === today) {
+    const yesterday =
+        yesterdayString();
+
+
+    if (
+        data.lastActiveDate === today
+    ) {
+
         return;
+
     }
 
-    if (data.lastActiveDate === yesterday) {
+
+    if (
+        data.lastActiveDate === yesterday
+    ) {
 
         data.streak += 1;
 
     } else {
 
         data.streak = 1;
+
     }
 
-    data.lastActiveDate = today;
+
+    data.lastActiveDate =
+        today;
 
     saveData();
+
 }
 
 
@@ -2122,42 +2244,62 @@ function updateStreak() {
 function xpNeededForLevel(level) {
 
     return level * 100;
+
 }
 
 
 function addXP(amount) {
 
-    if (!Number.isFinite(amount)) {
+    if (
+        !Number.isFinite(amount)
+    ) {
+
         return;
+
     }
 
+
     data.xp += amount;
+
     data.totalXP += amount;
+
     data.todayXP += amount;
+
 
     let leveledUp = false;
 
+
     while (
-        data.xp >= xpNeededForLevel(data.level)
+        data.xp >=
+        xpNeededForLevel(data.level)
     ) {
 
-        data.xp -= xpNeededForLevel(data.level);
+        data.xp -=
+            xpNeededForLevel(
+                data.level
+            );
 
         data.level += 1;
 
         leveledUp = true;
+
     }
 
+
     saveData();
+
 
     if (leveledUp) {
 
         showNotification(
             `SENRAI LEVEL UP • LEVEL ${data.level}`
         );
+
     }
 
+
     checkAchievements();
+
 }
 
 
@@ -2180,46 +2322,28 @@ const statNames = {
     CRE: "Creativity",
 
     VIT: "Health"
+
 };
 
 
-function addStat(stat, amount = 1) {
+function addStat(
+    stat,
+    amount = 1
+) {
 
-    if (!data.stats[stat]) {
+    if (
+        !data.stats[stat]
+    ) {
+
         data.stats[stat] = 0;
+
     }
+
 
     data.stats[stat] += amount;
 
     saveData();
-}
 
-
-/* ============================================================
-   QUEST COMPLETION
-   ============================================================ */
-
-function completeQuestRecord(
-    xp,
-    stat,
-    isSocial = false
-) {
-
-    updateStreak();
-
-    addStat(stat, 1);
-
-    if (isSocial) {
-        data.totalSocialQuests += 1;
-    }
-
-    data.totalQuestsCompleted += 1;
-
-    addXP(xp);
-
-    saveData();
-
-    renderAll();
 }
 
 
@@ -2262,66 +2386,83 @@ const dailyQuests = [
 
 function getDailyCompletionKey(id) {
 
-    return `senraiDaily_${todayString()}_${id}`;
+    return (
+        `senraiDaily_${todayString()}_${id}`
+    );
+
 }
 
 
 function isDailyCompleted(id) {
 
-    return localStorage.getItem(
-        getDailyCompletionKey(id)
-    ) === "true";
+    return (
+        localStorage.getItem(
+            getDailyCompletionKey(id)
+        ) === "true"
+    );
+
 }
 
 
 function completeDailyQuest(id) {
 
-    const quest = dailyQuests.find(
-        q => q.id === id
-    );
+    const quest =
+        dailyQuests.find(
+            q => q.id === id
+        );
+
 
     if (!quest) {
+
         return;
+
     }
 
-    if (isDailyCompleted(id)) {
+
+    if (
+        isDailyCompleted(id)
+    ) {
+
         return;
+
     }
+
 
     localStorage.setItem(
         getDailyCompletionKey(id),
         "true"
     );
 
+
     updateStreak();
+
 
     data.completedToday += 1;
 
     data.totalQuestsCompleted += 1;
 
-    addStat(quest.stat, 1);
 
-    addXP(quest.xp);
+    addStat(
+        quest.stat,
+        1
+    );
+
+
+    addXP(
+        quest.xp
+    );
+
 
     saveData();
+
 
     showNotification(
         `+${quest.xp} XP • QUEST COMPLETE`
     );
 
+
     renderAll();
-}
 
-
-/* ============================================================
-   MAIN QUESTS
-   ============================================================ */
-
-function getMainQuests() {
-
-    return customQuests.filter(
-        q => q.type === "MAIN"
-    );
 }
 
 
@@ -2333,60 +2474,85 @@ const sideQuest = {
 
     id: "call_someone",
 
-    name: "Call someone you haven't talked to recently",
+    name:
+        "Call someone you haven't talked to recently",
 
     xp: 20,
 
     stat: "CHA",
 
     type: "SIDE"
+
 };
 
 
 function isSideCompleted() {
 
-    return localStorage.getItem(
-        `senraiSide_${todayString()}`
-    ) === "true";
+    return (
+        localStorage.getItem(
+            `senraiSide_${todayString()}`
+        ) === "true"
+    );
+
 }
 
 
 function completeSideQuest() {
 
-    if (isSideCompleted()) {
+    if (
+        isSideCompleted()
+    ) {
+
         return;
+
     }
+
 
     localStorage.setItem(
         `senraiSide_${todayString()}`,
         "true"
     );
 
+
     updateStreak();
+
 
     data.totalSocialQuests += 1;
 
     data.totalQuestsCompleted += 1;
 
-    addStat("CHA", 1);
 
-    addXP(sideQuest.xp);
+    addStat(
+        "CHA",
+        1
+    );
+
+
+    addXP(
+        sideQuest.xp
+    );
+
 
     saveData();
+
 
     showNotification(
         "+20 XP • SOCIAL QUEST COMPLETE"
     );
 
+
     renderAll();
+
 }
 
 
 /* ============================================================
-   CUSTOM QUEST CREATION
+   CUSTOM QUESTS
    ============================================================ */
 
-function getQuestXP(difficulty) {
+function getQuestXP(
+    difficulty
+) {
 
     const values = {
 
@@ -2400,27 +2566,40 @@ function getQuestXP(difficulty) {
 
     };
 
-    return values[difficulty] || 25;
+
+    return (
+        values[difficulty] || 25
+    );
+
 }
 
 
 function createCustomQuest() {
 
     const nameInput =
-        document.getElementById("questName");
+        document.getElementById(
+            "questName"
+        );
 
     const typeInput =
-        document.getElementById("questType");
+        document.getElementById(
+            "questType"
+        );
 
     const difficultyInput =
-        document.getElementById("questDifficulty");
+        document.getElementById(
+            "questDifficulty"
+        );
 
     const statInput =
-        document.getElementById("questStat");
+        document.getElementById(
+            "questStat"
+        );
 
 
     const name =
         nameInput.value.trim();
+
 
     if (!name) {
 
@@ -2431,11 +2610,13 @@ function createCustomQuest() {
         nameInput.focus();
 
         return;
+
     }
 
 
     const difficulty =
         difficultyInput.value;
+
 
     const quest = {
 
@@ -2458,7 +2639,9 @@ function createCustomQuest() {
             statInput.value,
 
         xp:
-            getQuestXP(difficulty),
+            getQuestXP(
+                difficulty
+            ),
 
         completed: false,
 
@@ -2468,23 +2651,26 @@ function createCustomQuest() {
     };
 
 
-    customQuests.unshift(quest);
+    customQuests.unshift(
+        quest
+    );
+
 
     saveCustomQuests();
 
+
     nameInput.value = "";
+
 
     showNotification(
         "QUEST CREATED"
     );
 
+
     renderAll();
+
 }
 
-
-/* ============================================================
-   CUSTOM QUEST COMPLETION
-   ============================================================ */
 
 function completeCustomQuest(id) {
 
@@ -2493,12 +2679,18 @@ function completeCustomQuest(id) {
             q => q.id === id
         );
 
+
     if (!quest) {
+
         return;
+
     }
 
+
     if (quest.completed) {
+
         return;
+
     }
 
 
@@ -2507,33 +2699,44 @@ function completeCustomQuest(id) {
 
     updateStreak();
 
+
     data.totalQuestsCompleted += 1;
 
-    if (quest.stat) {
-        addStat(quest.stat, 1);
-    }
 
-    if (quest.stat === "CHA") {
+    addStat(
+        quest.stat,
+        1
+    );
+
+
+    if (
+        quest.stat === "CHA"
+    ) {
+
         data.totalSocialQuests += 1;
+
     }
 
-    addXP(quest.xp);
+
+    addXP(
+        quest.xp
+    );
+
 
     saveCustomQuests();
 
     saveData();
 
+
     showNotification(
         `+${quest.xp} XP • QUEST COMPLETE`
     );
 
+
     renderAll();
+
 }
 
-
-/* ============================================================
-   DELETE CUSTOM QUEST
-   ============================================================ */
 
 function deleteCustomQuest(id) {
 
@@ -2542,13 +2745,17 @@ function deleteCustomQuest(id) {
             q => q.id !== id
         );
 
+
     saveCustomQuests();
+
 
     showNotification(
         "QUEST REMOVED"
     );
 
+
     renderAll();
+
 }
 
 
@@ -2604,58 +2811,83 @@ function generateLifeQuest() {
             lifeQuestPool.length
         );
 
+
     currentLifeQuest =
-        lifeQuestPool[randomIndex];
+        lifeQuestPool[
+            randomIndex
+        ];
+
 
     document.getElementById(
         "lifeQuestText"
     ).textContent =
         currentLifeQuest;
 
+
     document.getElementById(
         "completeLifeButton"
     ).disabled = false;
 
+
     showNotification(
         "NEW LIFE QUEST"
     );
+
 }
 
 
 function completeLifeQuest() {
 
     if (!currentLifeQuest) {
+
         return;
+
     }
 
+
     updateStreak();
+
 
     data.totalLifeQuests += 1;
 
     data.totalQuestsCompleted += 1;
 
-    addStat("WIS", 1);
 
-    addXP(15);
+    addStat(
+        "WIS",
+        1
+    );
+
+
+    addXP(
+        15
+    );
+
 
     saveData();
+
 
     showNotification(
         "+15 XP • LIFE QUEST COMPLETE"
     );
 
+
     currentLifeQuest = null;
+
 
     document.getElementById(
         "lifeQuestText"
     ).textContent =
         "Quest complete. Generate another one whenever you want.";
 
+
     document.getElementById(
         "completeLifeButton"
     ).disabled = true;
 
+
     renderAll();
+
 }
 
 
@@ -2667,14 +2899,20 @@ function checkAchievements() {
 
     let changed = false;
 
+
     achievementDefinitions.forEach(
         achievement => {
 
             if (
-                achievements[achievement.id]
+                achievements[
+                    achievement.id
+                ]
             ) {
+
                 return;
+
             }
+
 
             if (
                 achievement.condition()
@@ -2684,42 +2922,47 @@ function checkAchievements() {
                     achievement.id
                 ] = true;
 
+
                 changed = true;
 
-                /*
-                   Achievement XP is added directly here
-                   rather than through addXP() so achievement
-                   rewards cannot recursively trigger themselves.
-                */
 
-                data.xp += achievement.reward;
-                data.totalXP += achievement.reward;
-                data.todayXP += achievement.reward;
+                data.xp +=
+                    achievement.reward;
+
+                data.totalXP +=
+                    achievement.reward;
+
+                data.todayXP +=
+                    achievement.reward;
 
 
                 while (
                     data.xp >=
-                    xpNeededForLevel(data.level)
+                    xpNeededForLevel(
+                        data.level
+                    )
                 ) {
 
                     data.xp -=
-                        xpNeededForLevel(data.level);
+                        xpNeededForLevel(
+                            data.level
+                        );
 
                     data.level += 1;
 
-                    showNotification(
-                        `LEVEL UP • LEVEL ${data.level}`
-                    );
                 }
 
 
-                setTimeout(() => {
+                setTimeout(
+                    () => {
 
-                    showNotification(
-                        `ACHIEVEMENT UNLOCKED • ${achievement.name}`
-                    );
+                        showNotification(
+                            `ACHIEVEMENT UNLOCKED • ${achievement.name}`
+                        );
 
-                }, 250);
+                    },
+                    250
+                );
 
             }
 
@@ -2732,101 +2975,128 @@ function checkAchievements() {
         saveAchievements();
 
         saveData();
+
     }
+
 }
 
 
 /* ============================================================
-   NOTIFICATIONS
+   NOTIFICATION
    ============================================================ */
 
 let notificationTimer = null;
 
 
-function showNotification(message) {
+function showNotification(
+    message
+) {
 
     const notification =
         document.getElementById(
             "notification"
         );
 
+
     notification.textContent =
         message;
+
 
     notification.classList.add(
         "show"
     );
 
+
     clearTimeout(
         notificationTimer
     );
 
+
     notificationTimer =
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            notification.classList.remove(
-                "show"
-            );
+                notification.classList.remove(
+                    "show"
+                );
 
-        }, 2300);
+            },
+            2300
+        );
+
 }
 
 
 /* ============================================================
-   VIEW NAVIGATION
+   NAVIGATION
    ============================================================ */
 
-function switchView(view) {
+function switchView(
+    view
+) {
 
     const views = [
+
         "home",
+
         "quests",
+
         "stats",
+
         "achievements",
+
         "life"
+
     ];
 
 
-    views.forEach(name => {
+    views.forEach(
+        name => {
 
-        const element =
-            document.getElementById(
-                name + "View"
-            );
+            const element =
+                document.getElementById(
+                    name + "View"
+                );
 
-        const nav =
-            document.getElementById(
-                "nav-" + name
-            );
+            const nav =
+                document.getElementById(
+                    "nav-" + name
+                );
 
-        if (element) {
 
-            element.classList.toggle(
-                "active",
-                name === view
-            );
+            if (element) {
+
+                element.classList.toggle(
+                    "active",
+                    name === view
+                );
+
+            }
+
+
+            if (nav) {
+
+                nav.classList.toggle(
+                    "active",
+                    name === view
+                );
+
+            }
+
         }
-
-        if (nav) {
-
-            nav.classList.toggle(
-                "active",
-                name === view
-            );
-        }
-
-    });
+    );
 
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
 /* ============================================================
-   RENDER DAILY QUESTS
+   DAILY RENDER
    ============================================================ */
 
 function renderDaily() {
@@ -2836,9 +3106,13 @@ function renderDaily() {
             "dailyQuestList"
         );
 
+
     if (!container) {
+
         return;
+
     }
+
 
     container.innerHTML = "";
 
@@ -2851,16 +3125,20 @@ function renderDaily() {
                     quest.id
                 );
 
+
             const div =
                 document.createElement(
                     "div"
                 );
 
+
             div.className =
                 "quest" +
-                (completed
-                    ? " completed"
-                    : "");
+                (
+                    completed
+                        ? " completed"
+                        : ""
+                );
 
 
             div.innerHTML = `
@@ -2919,7 +3197,9 @@ function renderDaily() {
             `;
 
 
-            container.appendChild(div);
+            container.appendChild(
+                div
+            );
 
         }
     );
@@ -2929,11 +3209,12 @@ function renderDaily() {
         "dailyCount"
     ).textContent =
         `${data.completedToday} / ${dailyQuests.length}`;
+
 }
 
 
 /* ============================================================
-   RENDER CUSTOM QUESTS
+   CUSTOM QUEST RENDER
    ============================================================ */
 
 function renderCustom() {
@@ -2959,12 +3240,16 @@ function renderCustom() {
         !sideContainer ||
         !customContainer
     ) {
+
         return;
+
     }
 
 
     mainContainer.innerHTML = "";
+
     sideContainer.innerHTML = "";
+
     customContainer.innerHTML = "";
 
 
@@ -2974,7 +3259,9 @@ function renderCustom() {
         );
 
 
-    if (mainQuests.length === 0) {
+    if (
+        mainQuests.length === 0
+    ) {
 
         mainContainer.innerHTML =
             emptyQuestHTML(
@@ -2986,9 +3273,13 @@ function renderCustom() {
         mainQuests.forEach(
             q =>
                 mainContainer.appendChild(
-                    questElement(q, true)
+                    questElement(
+                        q,
+                        true
+                    )
                 )
         );
+
     }
 
 
@@ -2998,84 +3289,79 @@ function renderCustom() {
         );
 
 
-    if (sideCustom.length === 0) {
+    sideContainer.appendChild(
 
-        sideContainer.appendChild(
-            questElement(
-                {
-                    id: sideQuest.id,
-                    name: sideQuest.name,
-                    type: "SIDE",
-                    difficulty: "NORMAL",
-                    stat: "CHA",
-                    xp: sideQuest.xp,
-                    completed: isSideCompleted(),
-                    builtIn: true
-                },
-                false
-            )
-        );
+        questElement(
 
-    } else {
+            {
+                id: sideQuest.id,
 
-        sideCustom.forEach(
-            q =>
-                sideContainer.appendChild(
-                    questElement(q, true)
-                )
-        );
+                name: sideQuest.name,
 
-        if (!isSideCompleted()) {
+                type: "SIDE",
 
+                difficulty: "NORMAL",
+
+                stat: "CHA",
+
+                xp: sideQuest.xp,
+
+                completed:
+                    isSideCompleted(),
+
+                builtIn: true
+
+            },
+
+            false
+
+        )
+
+    );
+
+
+    sideCustom.forEach(
+        q =>
             sideContainer.appendChild(
                 questElement(
-                    {
-                        id: sideQuest.id,
-                        name: sideQuest.name,
-                        type: "SIDE",
-                        difficulty: "NORMAL",
-                        stat: "CHA",
-                        xp: sideQuest.xp,
-                        completed: false,
-                        builtIn: true
-                    },
-                    false
+                    q,
+                    true
                 )
-            );
-        }
-    }
+            )
+    );
 
 
-    const dailyExcluded =
+    const dailyCustom =
         customQuests.filter(
             q => q.type === "DAILY"
         );
 
 
-    if (dailyExcluded.length > 0) {
-
-        dailyExcluded.forEach(
-            q =>
-                customContainer.appendChild(
-                    questElement(q, true)
+    dailyCustom.forEach(
+        q =>
+            customContainer.appendChild(
+                questElement(
+                    q,
+                    true
                 )
-        );
-    }
+            )
+    );
 
-
-    const customCount =
-        customQuests.length;
 
     document.getElementById(
         "customCount"
     ).textContent =
-        `${customCount} QUEST${customCount === 1 ? "" : "S"}`;
+        `${customQuests.length} QUEST${customQuests.length === 1 ? "" : "S"}`;
+
 }
 
 
-function emptyQuestHTML(message) {
+function emptyQuestHTML(
+    message
+) {
 
     return `
+
         <div
             style="
                 padding:18px;
@@ -3088,7 +3374,9 @@ function emptyQuestHTML(message) {
         >
             ${escapeHTML(message)}
         </div>
+
     `;
+
 }
 
 
@@ -3102,17 +3390,22 @@ function questElement(
             "div"
         );
 
+
     div.className =
         "quest" +
-        (quest.completed
-            ? " completed"
-            : "");
+        (
+            quest.completed
+                ? " completed"
+                : ""
+        );
 
 
     let actionHTML = "";
 
 
-    if (quest.builtIn) {
+    if (
+        quest.builtIn
+    ) {
 
         actionHTML = `
 
@@ -3135,6 +3428,7 @@ function questElement(
                         : "COMPLETE"
                 }
             </button>
+
         `;
 
     } else {
@@ -3167,7 +3461,9 @@ function questElement(
             >
                 DELETE
             </button>
+
         `;
+
     }
 
 
@@ -3206,15 +3502,17 @@ function questElement(
             ${actionHTML}
 
         </div>
+
     `;
 
 
     return div;
+
 }
 
 
 /* ============================================================
-   STATS RENDER
+   STATS
    ============================================================ */
 
 function renderStats() {
@@ -3224,31 +3522,33 @@ function renderStats() {
             "statsGrid"
         );
 
+
     if (!grid) {
+
         return;
+
     }
 
 
     grid.innerHTML = "";
 
 
-    const entries =
-        Object.entries(
-            data.stats
-        );
-
-
     let total = 0;
 
-    entries.forEach(
+
+    Object.entries(
+        data.stats
+    ).forEach(
         ([stat, value]) => {
 
             total += value;
+
 
             const card =
                 document.createElement(
                     "div"
                 );
+
 
             card.className =
                 "stat-card";
@@ -3277,7 +3577,8 @@ function renderStats() {
 
                 <div class="stat-name">
                     ${escapeHTML(
-                        statNames[stat] || "Custom"
+                        statNames[stat] ||
+                        "Custom"
                     )}
                 </div>
 
@@ -3289,10 +3590,13 @@ function renderStats() {
                     ></div>
 
                 </div>
+
             `;
 
 
-            grid.appendChild(card);
+            grid.appendChild(
+                card
+            );
 
         }
     );
@@ -3300,26 +3604,37 @@ function renderStats() {
 
     document.getElementById(
         "totalStats"
-    ).textContent = total;
+    ).textContent =
+        total;
+
+
+    const entries =
+        Object.entries(
+            data.stats
+        );
 
 
     if (entries.length) {
 
         const highest =
             entries.sort(
-                (a, b) => b[1] - a[1]
+                (a,b) =>
+                    b[1] - a[1]
             )[0];
+
 
         document.getElementById(
             "highestStat"
         ).textContent =
             `${highest[0]} • ${statNames[highest[0]]}`;
+
     }
+
 }
 
 
 /* ============================================================
-   ACHIEVEMENT RENDER
+   ACHIEVEMENTS
    ============================================================ */
 
 function renderAchievements() {
@@ -3329,8 +3644,11 @@ function renderAchievements() {
             "achievementList"
         );
 
+
     if (!container) {
+
         return;
+
     }
 
 
@@ -3350,7 +3668,9 @@ function renderAchievements() {
 
 
             if (unlocked) {
+
                 unlockedCount += 1;
+
             }
 
 
@@ -3359,15 +3679,19 @@ function renderAchievements() {
                     "div"
                 );
 
+
             div.className =
                 "achievement" +
-                (unlocked
-                    ? " unlocked"
-                    : " locked");
+                (
+                    unlocked
+                        ? " unlocked"
+                        : " locked"
+                );
 
 
             let name =
                 achievement.name;
+
 
             let description =
                 achievement.description;
@@ -3389,11 +3713,13 @@ function renderAchievements() {
             div.innerHTML = `
 
                 <div class="achievement-icon">
+
                     ${escapeHTML(
                         unlocked
                             ? achievement.icon
                             : "?"
                     )}
+
                 </div>
 
                 <div class="achievement-info">
@@ -3409,17 +3735,23 @@ function renderAchievements() {
                 </div>
 
                 <div class="achievement-reward">
+
                     ${
                         unlocked
                             ? "UNLOCKED"
-                            : "+" + achievement.reward + " XP"
+                            : "+" +
+                              achievement.reward +
+                              " XP"
                     }
+
                 </div>
 
             `;
 
 
-            container.appendChild(div);
+            container.appendChild(
+                div
+            );
 
         }
     );
@@ -3434,14 +3766,23 @@ function renderAchievements() {
     document.getElementById(
         "achievementSummary"
     ).textContent =
-        unlockedCount === achievementDefinitions.length
+
+        unlockedCount ===
+        achievementDefinitions.length
+
             ? "All current achievements unlocked."
-            : `${unlockedCount} achievement${unlockedCount === 1 ? "" : "s"} unlocked. Keep progressing.`;
+
+            : `${unlockedCount} achievement${
+                unlockedCount === 1
+                    ? ""
+                    : "s"
+              } unlocked. Keep progressing.`;
+
 }
 
 
 /* ============================================================
-   HOME RENDER
+   HOME
    ============================================================ */
 
 function renderHome() {
@@ -3454,12 +3795,17 @@ function renderHome() {
 
     const percentage =
         needed > 0
+
             ? Math.min(
                 100,
                 Math.round(
-                    (data.xp / needed) * 100
+                    (
+                        data.xp /
+                        needed
+                    ) * 100
                 )
             )
+
             : 0;
 
 
@@ -3534,10 +3880,12 @@ function renderHome() {
 
         objective.textContent =
             "Create a Main Quest to define your current objective.";
+
     }
 
 
     renderQuickQuests();
+
 }
 
 
@@ -3552,28 +3900,39 @@ function renderQuickQuests() {
             "quickQuestList"
         );
 
+
     if (!container) {
+
         return;
+
     }
 
 
     container.innerHTML = "";
 
 
-    const incompleteDaily =
+    const incomplete =
         dailyQuests.filter(
             q =>
-                !isDailyCompleted(q.id)
+                !isDailyCompleted(
+                    q.id
+                )
         );
 
 
     const quick =
-        incompleteDaily.slice(0, 3);
+        incomplete.slice(
+            0,
+            3
+        );
 
 
-    if (quick.length === 0) {
+    if (
+        quick.length === 0
+    ) {
 
         container.innerHTML = `
+
             <div
                 style="
                     color:#555d69;
@@ -3583,9 +3942,11 @@ function renderQuickQuests() {
             >
                 All daily quests complete. Nice work.
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -3596,6 +3957,7 @@ function renderQuickQuests() {
                 document.createElement(
                     "div"
                 );
+
 
             div.className =
                 "quick-quest";
@@ -3610,13 +3972,17 @@ function renderQuickQuests() {
                 <div class="quick-quest-xp">
                     +${quest.xp} XP
                 </div>
+
             `;
 
 
-            container.appendChild(div);
+            container.appendChild(
+                div
+            );
 
         }
     );
+
 }
 
 
@@ -3624,29 +3990,37 @@ function renderQuickQuests() {
    ESCAPE HTML
    ============================================================ */
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
         );
+
 }
 
 
@@ -3672,7 +4046,7 @@ function renderAll() {
 
 
 /* ============================================================
-   KEYBOARD SUPPORT
+   ENTER KEY
    ============================================================ */
 
 document.addEventListener(
@@ -3680,12 +4054,18 @@ document.addEventListener(
     event => {
 
         if (
+
             event.key === "Enter" &&
+
             document.activeElement &&
-            document.activeElement.id === "questName"
+
+            document.activeElement.id ===
+                "questName"
+
         ) {
 
             createCustomQuest();
+
         }
 
     }
@@ -3693,7 +4073,7 @@ document.addEventListener(
 
 
 /* ============================================================
-   ROBUST SPLASH SYSTEM
+   SPLASH SYSTEM
    ============================================================ */
 
 function hideSplash() {
@@ -3703,13 +4083,18 @@ function hideSplash() {
             "splash"
         );
 
+
     if (!splash) {
+
         return;
+
     }
+
 
     splash.classList.add(
         "hidden"
     );
+
 }
 
 
@@ -3731,11 +4116,16 @@ function runSplash() {
         );
 
 
-    if (!fill || !percent || !status) {
+    if (
+        !fill ||
+        !percent ||
+        !status
+    ) {
 
         hideSplash();
 
         return;
+
     }
 
 
@@ -3759,7 +4149,9 @@ function runSplash() {
     const start =
         performance.now();
 
-    const duration = 2200;
+
+    const duration =
+        2200;
 
 
     function frame(now) {
@@ -3772,8 +4164,10 @@ function runSplash() {
             Math.min(
                 100,
                 Math.round(
-                    (elapsed / duration) *
-                    100
+                    (
+                        elapsed /
+                        duration
+                    ) * 100
                 )
             );
 
@@ -3791,7 +4185,10 @@ function runSplash() {
                 messages.length - 1,
                 Math.floor(
                     progress /
-                    (100 / messages.length)
+                    (
+                        100 /
+                        messages.length
+                    )
                 )
             );
 
@@ -3802,7 +4199,9 @@ function runSplash() {
             ];
 
 
-        if (progress < 100) {
+        if (
+            progress < 100
+        ) {
 
             requestAnimationFrame(
                 frame
@@ -3813,11 +4212,14 @@ function runSplash() {
             status.textContent =
                 "SYSTEM READY";
 
+
             setTimeout(
                 hideSplash,
                 300
             );
+
         }
+
     }
 
 
@@ -3828,15 +4230,14 @@ function runSplash() {
 
     /*
        HARD FALLBACK
-
-       If anything weird happens with the animation,
-       the splash will still disappear.
+       The splash can never trap the user.
     */
 
     setTimeout(
         hideSplash,
         3500
     );
+
 }
 
 
@@ -3863,14 +4264,8 @@ window.addEventListener(
 
         } finally {
 
-            /*
-               IMPORTANT:
-               The splash is started in finally so even if
-               rendering throws an error, the user is never
-               permanently trapped on the loading screen.
-            */
-
             runSplash();
+
         }
 
     }
