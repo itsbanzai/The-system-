@@ -3,1256 +3,956 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The System</title>
+
+    <title>SENRAI</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
+        html,
         body {
             margin: 0;
+            padding: 0;
             background: #050505;
             color: #ffffff;
             font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
         }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
 
-        /* HEADER */
+        /* =========================================================
+           SENRAI SPLASH SCREEN
+        ========================================================= */
 
-        .system-header {
-            text-align: center;
-            padding: 30px 20px;
-            border: 1px solid #333;
-            background: linear-gradient(180deg, #101010, #070707);
-            box-shadow: 0 0 30px rgba(255,255,255,0.03);
-            margin-bottom: 20px;
-        }
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
 
-        .online {
-            color: #00ff88;
-            font-size: 12px;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
+            background:
+                radial-gradient(
+                    circle at center,
+                    #111111 0%,
+                    #070707 45%,
+                    #020202 100%
+                );
 
-        .title {
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 6px;
-            margin: 0;
-        }
-
-        .subtitle {
-            color: #888;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        /* LEVEL */
-
-        .level-card {
-            border: 1px solid #333;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: #0b0b0b;
-        }
-
-        .level-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .level {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .xp-text {
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        .xp-bar {
-            width: 100%;
-            height: 12px;
-            background: #222;
-            overflow: hidden;
-        }
-
-        .xp-fill {
-            height: 100%;
-            width: 0%;
-            background: #ffffff;
-            transition: width 0.4s ease;
-        }
-
-        /* DASHBOARD */
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .dashboard-card {
-            border: 1px solid #333;
-            background: #0b0b0b;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .dashboard-label {
-            color: #777;
-            font-size: 11px;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .dashboard-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* SECTIONS */
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 13px;
-            letter-spacing: 3px;
-            color: #888;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-            margin-bottom: 12px;
-        }
-
-        /* QUESTS */
-
-        .quest {
-            border: 1px solid #292929;
-            background: #0c0c0c;
-            padding: 18px;
-            margin-bottom: 10px;
-            transition: 0.2s;
-        }
-
-        .quest:hover {
-            border-color: #555;
-        }
-
-        .quest-top {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .quest-name {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .quest-description {
-            color: #777;
-            font-size: 12px;
-            margin-top: 6px;
-        }
-
-        .xp-reward {
-            color: #00ff88;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .quest-button {
-            width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            border: 1px solid #444;
-            background: #151515;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .quest-button:hover {
-            background: #222;
-        }
-
-        .quest-button.completed {
-            background: #0d2b1d;
-            color: #00ff88;
-            border-color: #00ff88;
-            cursor: default;
-        }
-
-        /* SURPRISE */
-
-        .surprise-box {
-            border: 1px solid #333;
-            padding: 20px;
-            background: linear-gradient(135deg, #101010, #080808);
-            text-align: center;
-        }
-
-        .surprise-quest {
-            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ddd;
-            margin-bottom: 15px;
-            font-size: 15px;
+
+            overflow: hidden;
+
+            opacity: 1;
+            visibility: visible;
+
+            transition:
+                opacity 1s ease,
+                visibility 1s ease;
         }
 
-        .surprise-button {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #555;
-            background: #171717;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+
+        #splashScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+
+        /* Background grid */
+
+        .splash-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 40px 40px;
+
+            mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    black 0%,
+                    transparent 75%
+                );
+        }
+
+
+        .splash-content {
+            position: relative;
+
+            width: 90%;
+            max-width: 500px;
+
+            text-align: center;
+
+            animation:
+                splashAppear 1.2s ease forwards;
+        }
+
+
+        @keyframes splashAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* Logo */
+
+        .senrai-logo {
+
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 30px;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #444;
+
+            transform: rotate(45deg);
+
+            box-shadow:
+                0 0 30px rgba(255,255,255,0.04);
+
+            animation:
+                logoPulse 2.5s ease-in-out infinite;
+        }
+
+
+        .senrai-logo::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 45px;
+            height: 45px;
+
+            border: 2px solid #ffffff;
+
+            transform: rotate(-45deg);
+
+            opacity: 0.9;
+        }
+
+
+        .senrai-logo::after {
+
+            content: "S";
+
+            position: absolute;
+
+            font-size: 30px;
+            font-weight: 900;
+
+            letter-spacing: 0;
+
+            transform: rotate(-45deg);
+
+            color: #ffffff;
+        }
+
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 20px rgba(255,255,255,0.03);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 45px rgba(255,255,255,0.10);
+            }
+
+        }
+
+
+        .splash-brand {
+
+            font-size: 48px;
+            font-weight: 900;
+
+            letter-spacing: 12px;
+
+            margin-left: 12px;
+
+            text-shadow:
+                0 0 25px rgba(255,255,255,0.08);
+        }
+
+
+        .splash-subtitle {
+
+            margin-top: 12px;
+
+            color: #666;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+        }
+
+
+        /* Loading section */
+
+        .loading-area {
+
+            margin-top: 55px;
+        }
+
+
+        .loading-text {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 9px;
+
+            color: #666;
+
+            font-size: 10px;
+
             letter-spacing: 2px;
         }
 
-        .surprise-button:hover {
-            background: #252525;
+
+        .loading-bar {
+
+            width: 100%;
+            height: 2px;
+
+            background: #1a1a1a;
+
+            overflow: hidden;
         }
 
-        /* STATS */
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+        .loading-fill {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 12px rgba(255,255,255,0.5);
+
+            animation:
+                loadingProgress 2.8s cubic-bezier(
+                    0.65,
+                    0,
+                    0.35,
+                    1
+                )
+                forwards;
         }
 
-        .stat {
-            border: 1px solid #292929;
-            background: #0c0c0c;
-            padding: 15px;
+
+        @keyframes loadingProgress {
+
+            0% {
+                width: 0%;
+            }
+
+            25% {
+                width: 28%;
+            }
+
+            55% {
+                width: 62%;
+            }
+
+            80% {
+                width: 84%;
+            }
+
+            100% {
+                width: 100%;
+            }
+
         }
 
-        .stat-header {
+
+        .system-status {
+
+            margin-top: 18px;
+
+            font-size: 10px;
+
+            color: #444;
+
+            letter-spacing: 2px;
+        }
+
+
+        .status-dot {
+
+            display: inline-block;
+
+            width: 5px;
+            height: 5px;
+
+            margin-right: 7px;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 8px rgba(255,255,255,0.7);
+
+            animation:
+                statusBlink 0.8s infinite;
+        }
+
+
+        @keyframes statusBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+
+        }
+
+
+        /* =========================================================
+           MAIN APP
+        ========================================================= */
+
+        #app {
+
+            opacity: 0;
+
+            transition:
+                opacity 1s ease;
+        }
+
+
+        #app.visible {
+
+            opacity: 1;
+        }
+
+
+        .container {
+
+            width: 100%;
+            max-width: 900px;
+
+            margin: auto;
+
+            padding: 20px;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .system-header {
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            border: 1px solid #333;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #101010,
+                    #070707
+                );
+
+            box-shadow:
+                0 0 30px rgba(255,255,255,0.03);
+
+            margin-bottom: 20px;
+        }
+
+
+        .online {
+
+            color: #00ff88;
+
+            font-size: 12px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .title {
+
+            font-size: 42px;
+
+            font-weight: 900;
+
+            letter-spacing: 8px;
+
+            margin: 0;
+        }
+
+
+        .subtitle {
+
+            color: #888;
+
+            margin-top: 10px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           LEVEL
+        ========================================================= */
+
+        .level-card {
+
+            border: 1px solid #333;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+            background: #0b0b0b;
+        }
+
+
+        .level-row {
+
             display: flex;
+
             justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 12px;
+        }
+
+
+        .level {
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+
+        .xp-text {
+
+            color: #aaa;
+
+            font-size: 14px;
+        }
+
+
+        .xp-bar {
+
+            width: 100%;
+
+            height: 12px;
+
+            background: #222;
+
+            overflow: hidden;
+        }
+
+
+        .xp-fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: #ffffff;
+
+            transition:
+                width 0.4s ease;
+        }
+
+
+        /* =========================================================
+           DASHBOARD
+        ========================================================= */
+
+        .dashboard {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .dashboard-card {
+
+            border: 1px solid #333;
+
+            background: #0b0b0b;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+
+        .dashboard-label {
+
+            color: #777;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
             margin-bottom: 8px;
         }
 
-        .stat-name {
-            font-size: 13px;
+
+        .dashboard-value {
+
+            font-size: 24px;
+
             font-weight: bold;
         }
 
-        .stat-value {
-            color: #aaa;
-            font-size: 13px;
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        .section {
+
+            margin-bottom: 25px;
         }
 
-        .stat-bar {
-            height: 6px;
+
+        .section-title {
+
+            font-size: 13px;
+
+            letter-spacing: 3px;
+
+            color: #888;
+
+            border-bottom: 1px solid #222;
+
+            padding-bottom: 10px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================================================
+           QUESTS
+        ========================================================= */
+
+        .quest {
+
+            border: 1px solid #292929;
+
+            background: #0c0c0c;
+
+            padding: 18px;
+
+            margin-bottom: 10px;
+
+            transition:
+                0.2s;
+        }
+
+
+        .quest:hover {
+
+            border-color: #555;
+        }
+
+
+        .quest-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        .quest-name {
+
+            font-size: 16px;
+
+            font-weight: bold;
+        }
+
+
+        .quest-description {
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-top: 6px;
+        }
+
+
+        .xp-reward {
+
+            color: #00ff88;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        .quest-button {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border: 1px solid #444;
+
+            background: #151515;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .quest-button:hover {
+
             background: #222;
         }
 
-        .stat-fill {
-            height: 100%;
-            width: 0%;
-            background: #ffffff;
-            transition: width 0.3s;
+
+        .quest-button.completed {
+
+            background: #0d2b1d;
+
+            color: #00ff88;
+
+            border-color: #00ff88;
+
+            cursor: default;
         }
 
-        /* RESET INFO */
+
+        /* =========================================================
+           LIFE QUEST
+        ========================================================= */
+
+        .surprise-box {
+
+            border: 1px solid #333;
+
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #101010,
+                    #080808
+                );
+
+            text-align: center;
+        }
+
+
+        .surprise-quest {
+
+            min-height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #ddd;
+
+            margin-bottom: 15px;
+
+            font-size: 15px;
+        }
+
+
+        .surprise-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #555;
+
+            background: #171717;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            letter-spacing: 2px;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .surprise-button:hover {
+
+            background: #252525;
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .stat {
+
+            border: 1px solid #292929;
+
+            background: #0c0c0c;
+
+            padding: 15px;
+        }
+
+
+        .stat-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+        }
+
+
+        .stat-name {
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .stat-value {
+
+            color: #aaa;
+
+            font-size: 13px;
+        }
+
+
+        .stat-bar {
+
+            height: 6px;
+
+            background: #222;
+        }
+
+
+        .stat-fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: #ffffff;
+
+            transition:
+                width 0.3s;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
 
         .system-info {
+
             text-align: center;
+
             color: #555;
+
             font-size: 11px;
+
             margin-top: 30px;
+
             padding-bottom: 20px;
         }
 
-        /* LEVEL UP */
+
+        /* =========================================================
+           LEVEL UP
+        ========================================================= */
 
         .level-up {
+
             position: fixed;
+
             top: 20px;
+
             left: 50%;
-            transform: translateX(-50%) translateY(-120px);
+
+            transform:
+                translateX(-50%)
+                translateY(-120px);
+
             background: #ffffff;
+
             color: #000000;
+
             padding: 15px 25px;
+
             font-weight: bold;
+
             letter-spacing: 2px;
-            transition: 0.4s ease;
+
+            transition:
+                0.4s ease;
+
             z-index: 999;
         }
 
+
         .level-up.show {
-            transform: translateX(-50%) translateY(0);
+
+            transform:
+                translateX(-50%)
+                translateY(0);
         }
 
-        /* MOBILE */
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
 
         @media (max-width: 600px) {
+
             .container {
+
                 padding: 12px;
             }
 
+
             .title {
+
                 font-size: 32px;
+
+                letter-spacing: 6px;
             }
+
 
             .dashboard {
+
                 grid-template-columns: 1fr;
             }
+
 
             .stats-grid {
+
                 grid-template-columns: 1fr;
             }
 
+
             .quest-top {
+
                 flex-direction: column;
+
                 gap: 8px;
             }
+
+
+            .splash-brand {
+
+                font-size: 36px;
+
+                letter-spacing: 8px;
+
+                margin-left: 8px;
+            }
+
+
+            .senrai-logo {
+
+                width: 75px;
+                height: 75px;
+            }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
-<div class="level-up" id="levelUp">
-    SYSTEM LEVEL UP
-</div>
 
-<div class="container">
-
-    <!-- HEADER -->
-
-    <div class="system-header">
-        <div class="online">● SYSTEM ONLINE</div>
-
-        <h1 class="title">THE SYSTEM</h1>
-
-        <div class="subtitle">
-            Do things that make your life better. Earn XP. Level up.
-        </div>
-    </div>
-
-
-    <!-- LEVEL -->
-
-    <div class="level-card">
-
-        <div class="level-row">
-            <div class="level" id="levelText">
-                LEVEL 1
-            </div>
-
-            <div class="xp-text" id="xpText">
-                0 / 100 XP
-            </div>
-        </div>
-
-        <div class="xp-bar">
-            <div class="xp-fill" id="xpFill"></div>
-        </div>
-
-    </div>
-
-
-    <!-- DAILY DASHBOARD -->
-
-    <div class="dashboard">
-
-        <div class="dashboard-card">
-            <div class="dashboard-label">
-                TODAY
-            </div>
-
-            <div class="dashboard-value" id="todayProgress">
-                0 / 4
-            </div>
-        </div>
-
-        <div class="dashboard-card">
-            <div class="dashboard-label">
-                STREAK
-            </div>
-
-            <div class="dashboard-value" id="streakValue">
-                0 DAYS
-            </div>
-        </div>
-
-        <div class="dashboard-card">
-            <div class="dashboard-label">
-                TODAY XP
-            </div>
-
-            <div class="dashboard-value" id="todayXp">
-                0
-            </div>
-        </div>
-
-    </div>
-
-
-    <!-- DAILY QUESTS -->
-
-    <div class="section">
-
-        <div class="section-title">
-            DAILY QUESTS
-        </div>
-
-        <div id="dailyQuests"></div>
-
-    </div>
-
-
-    <!-- RANDOM LIFE QUEST -->
-
-    <div class="section">
-
-        <div class="section-title">
-            LIFE QUEST
-        </div>
-
-        <div class="surprise-box">
-
-            <div class="surprise-quest" id="surpriseQuest">
-                Generate a random quest.
-            </div>
-
-            <button class="surprise-button" onclick="generateLifeQuest()">
-                🎲 SURPRISE ME
-            </button>
-
-            <button
-                class="quest-button"
-                id="surpriseCompleteButton"
-                onclick="completeSurpriseQuest()"
-                style="display:none;"
-            >
-                COMPLETE QUEST
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- SIDE QUEST -->
-
-    <div class="section">
-
-        <div class="section-title">
-            SIDE QUEST
-        </div>
-
-        <div class="quest">
-
-            <div class="quest-top">
-
-                <div>
-                    <div class="quest-name">
-                        Call someone you haven't talked to recently
-                    </div>
-
-                    <div class="quest-description">
-                        Reconnect with someone.
-                    </div>
-                </div>
-
-                <div class="xp-reward">
-                    +20 XP
-                </div>
-
-            </div>
-
-            <button
-                class="quest-button"
-                id="sideQuestButton"
-                onclick="completeSideQuest()"
-            >
-                COMPLETE QUEST
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- STATS -->
-
-    <div class="section">
-
-        <div class="section-title">
-            CHARACTER STATS
-        </div>
-
-        <div class="stats-grid">
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">STR — FITNESS</div>
-                    <div class="stat-value" id="strValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="strBar"></div>
-                </div>
-            </div>
-
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">INT — LEARNING</div>
-                    <div class="stat-value" id="intValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="intBar"></div>
-                </div>
-            </div>
-
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">WIS — PERSONAL GROWTH</div>
-                    <div class="stat-value" id="wisValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="wisBar"></div>
-                </div>
-            </div>
-
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">CHA — SOCIAL</div>
-                    <div class="stat-value" id="chaValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="chaBar"></div>
-                </div>
-            </div>
-
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">DEX — PRODUCTIVITY</div>
-                    <div class="stat-value" id="dexValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="dexBar"></div>
-                </div>
-            </div>
-
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">CRE — CREATIVITY</div>
-                    <div class="stat-value" id="creValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="creBar"></div>
-                </div>
-            </div>
-
-
-            <div class="stat">
-                <div class="stat-header">
-                    <div class="stat-name">VIT — HEALTH</div>
-                    <div class="stat-value" id="vitValue">0</div>
-                </div>
-
-                <div class="stat-bar">
-                    <div class="stat-fill" id="vitBar"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="system-info">
-        THE SYSTEM • YOUR LIFE, YOUR PROGRESS
-    </div>
-
-</div>
-
-
-<script>
-
-    /* =========================================
-       SYSTEM DATA
-    ========================================= */
-
-    const defaultData = {
-
-        level: 1,
-
-        xp: 0,
-
-        streak: 0,
-
-        lastActiveDate: null,
-
-        lastResetDate: null,
-
-        completedToday: 0,
-
-        todayXP: 0,
-
-        dailyCompleted: {},
-
-        stats: {
-            STR: 0,
-            INT: 0,
-            WIS: 0,
-            CHA: 0,
-            DEX: 0,
-            CRE: 0,
-            VIT: 0
-        }
-
-    };
-
-
-    let systemData =
-        JSON.parse(localStorage.getItem("theSystemData"))
-        || defaultData;
-
-
-    /* =========================================
-       DAILY QUESTS
-    ========================================= */
-
-    const dailyQuests = [
-
-        {
-            id: "bed",
-            name: "Make your bed",
-            description: "Start the day by taking care of your space.",
-            xp: 10,
-            stat: "DEX"
-        },
-
-        {
-            id: "water",
-            name: "Drink some water",
-            description: "Take care of your body.",
-            xp: 10,
-            stat: "VIT"
-        },
-
-        {
-            id: "procrastination",
-            name: "Do something you've been putting off",
-            description: "Take one thing off your mental list.",
-            xp: 25,
-            stat: "WIS"
-        },
-
-        {
-            id: "outside",
-            name: "Go outside for at least 5 minutes",
-            description: "Get some fresh air and step away from the screen.",
-            xp: 10,
-            stat: "VIT"
-        }
-
-    ];
-
-
-    /* =========================================
-       RANDOM LIFE QUESTS
-    ========================================= */
-
-    const lifeQuests = [
-
-        {
-            text: "Call a family member just to say hi.",
-            xp: 20,
-            stat: "CHA"
-        },
-
-        {
-            text: "Text someone you haven't talked to in a while.",
-            xp: 20,
-            stat: "CHA"
-        },
-
-        {
-            text: "Tell someone you appreciate them.",
-            xp: 20,
-            stat: "CHA"
-        },
-
-        {
-            text: "Go outside and watch the sunset.",
-            xp: 20,
-            stat: "VIT"
-        },
-
-        {
-            text: "Put your phone down for 20 minutes.",
-            xp: 15,
-            stat: "WIS"
-        },
-
-        {
-            text: "Learn one completely random fact.",
-            xp: 15,
-            stat: "INT"
-        },
-
-        {
-            text: "Take a photo of something you think looks cool.",
-            xp: 15,
-            stat: "CRE"
-        },
-
-        {
-            text: "Do something kind for someone.",
-            xp: 25,
-            stat: "CHA"
-        },
-
-        {
-            text: "Clean something you've been ignoring.",
-            xp: 20,
-            stat: "DEX"
-        },
-
-        {
-            text: "Spend 20 minutes working on a hobby.",
-            xp: 20,
-            stat: "CRE"
-        },
-
-        {
-            text: "Take a different route somewhere today.",
-            xp: 15,
-            stat: "WIS"
-        },
-
-        {
-            text: "Write down one thing you want to accomplish this month.",
-            xp: 20,
-            stat: "WIS"
-        }
-
-    ];
-
-
-    let currentLifeQuest = null;
-
-
-    /* =========================================
-       SAVE SYSTEM
-    ========================================= */
-
-    function saveData() {
-
-        localStorage.setItem(
-            "theSystemData",
-            JSON.stringify(systemData)
-        );
-
-    }
-
-
-    /* =========================================
-       DATE SYSTEM
-    ========================================= */
-
-    function getToday() {
-
-        const now = new Date();
-
-        return now.getFullYear() + "-" +
-            String(now.getMonth() + 1).padStart(2, "0") + "-" +
-            String(now.getDate()).padStart(2, "0");
-
-    }
-
-
-    function checkNewDay() {
-
-        const today = getToday();
-
-        if (systemData.lastResetDate !== today) {
-
-            systemData.completedToday = 0;
-
-            systemData.todayXP = 0;
-
-            systemData.dailyCompleted = {};
-
-            systemData.lastResetDate = today;
-
-            currentLifeQuest = null;
-
-            saveData();
-
-        }
-
-    }
-
-
-    /* =========================================
-       QUEST RENDERING
-    ========================================= */
-
-    function renderDailyQuests() {
-
-        const container =
-            document.getElementById("dailyQuests");
-
-        container.innerHTML = "";
-
-        dailyQuests.forEach(quest => {
-
-            const completed =
-                systemData.dailyCompleted[quest.id] === true;
-
-            const questElement =
-                document.createElement("div");
-
-            questElement.className = "quest";
-
-            questElement.innerHTML = `
-
-                <div class="quest-top">
-
-                    <div>
-
-                        <div class="quest-name">
-                            ${quest.name}
-                        </div>
-
-                        <div class="quest-description">
-                            ${quest.description}
-                        </div>
-
-                    </div>
-
-                    <div class="xp-reward">
-                        +${quest.xp} XP
-                    </div>
-
-                </div>
-
-                <button
-                    class="quest-button ${completed ? "completed" : ""}"
-                    ${completed ? "disabled" : ""}
-                    onclick="completeDailyQuest('${quest.id}')"
-                >
-                    ${completed ? "✓ COMPLETED" : "COMPLETE QUEST"}
-                </button>
-
-            `;
-
-            container.appendChild(questElement);
-
-        });
-
-    }
-
-
-    /* =========================================
-       COMPLETE DAILY QUEST
-    ========================================= */
-
-    function completeDailyQuest(id) {
-
-        if (systemData.dailyCompleted[id]) {
-            return;
-        }
-
-        const quest =
-            dailyQuests.find(q => q.id === id);
-
-        if (!quest) {
-            return;
-        }
-
-        systemData.dailyCompleted[id] = true;
-
-        systemData.completedToday++;
-
-        systemData.todayXP += quest.xp;
-
-        addXP(quest.xp);
-
-        addStat(quest.stat, 1);
-
-        updateStreak();
-
-        saveData();
-
-        renderAll();
-
-    }
-
-
-    /* =========================================
-       SIDE QUEST
-    ========================================= */
-
-    function completeSideQuest() {
-
-        const button =
-            document.getElementById("sideQuestButton");
-
-        if (button.classList.contains("completed")) {
-            return;
-        }
-
-        addXP(20);
-
-        addStat("CHA", 1);
-
-        button.classList.add("completed");
-
-        button.disabled = true;
-
-        button.innerText = "✓ COMPLETED";
-
-        saveData();
-
-    }
-
-
-    /* =========================================
-       RANDOM LIFE QUEST
-    ========================================= */
-
-    function generateLifeQuest() {
-
-        const randomIndex =
-            Math.floor(Math.random() * lifeQuests.length);
-
-        currentLifeQuest =
-            lifeQuests[randomIndex];
-
-        document.getElementById("surpriseQuest").innerText =
-            currentLifeQuest.text +
-            "  +" +
-            currentLifeQuest.xp +
-            " XP";
-
-        const button =
-            document.getElementById("surpriseCompleteButton");
-
-        button.style.display = "block";
-
-        button.classList.remove("completed");
-
-        button.disabled = false;
-
-        button.innerText = "COMPLETE QUEST";
-
-    }
-
-
-    function completeSurpriseQuest() {
-
-        if (!currentLifeQuest) {
-            return;
-        }
-
-        addXP(currentLifeQuest.xp);
-
-        addStat(currentLifeQuest.stat, 1);
-
-        const button =
-            document.getElementById("surpriseCompleteButton");
-
-        button.classList.add("completed");
-
-        button.disabled = true;
-
-        button.innerText = "✓ COMPLETED";
-
-        saveData();
-
-    }
-
-
-    /* =========================================
-       XP SYSTEM
-    ========================================= */
-
-    function xpNeeded() {
-
-        return systemData.level * 100;
-
-    }
-
-
-    function addXP(amount) {
-
-        systemData.xp += amount;
-
-        while (systemData.xp >= xpNeeded()) {
-
-            systemData.xp -= xpNeeded();
-
-            systemData.level++;
-
-            showLevelUp();
-
-        }
-
-        saveData();
-
-        updateLevel();
-
-    }
-
-
-    function updateLevel() {
-
-        const needed =
-            xpNeeded();
-
-        const percentage =
-            Math.min(
-                (systemData.xp / needed) * 100,
-                100
-            );
-
-        document.getElementById("levelText")
-            .innerText =
-            "LEVEL " + systemData.level;
-
-        document.getElementById("xpText")
-            .innerText =
-            systemData.xp +
-            " / " +
-            needed +
-            " XP";
-
-        document.getElementById("xpFill")
-            .style.width =
-            percentage + "%";
-
-    }
-
-
-    /* =========================================
-       STATS
-    ========================================= */
-
-    function addStat(stat, amount) {
-
-        if (!systemData.stats[stat]) {
-            systemData.stats[stat] = 0;
-        }
-
-        systemData.stats[stat] += amount;
-
-        updateStats();
-
-    }
-
-
-    function updateStats() {
-
-        Object.keys(systemData.stats).forEach(stat => {
-
-            const value =
-                systemData.stats[stat];
-
-            const valueElement =
-                document.getElementById(
-                    stat.toLowerCase() + "Value"
-                );
-
-            const barElement =
-                document.getElementById(
-                    stat.toLowerCase() + "Bar"
-                );
-
-            if (valueElement) {
-                valueElement.innerText = value;
-            }
-
-            if (barElement) {
-
-                const percentage =
-                    Math.min(value, 100);
-
-                barElement.style.width =
-                    percentage + "%";
-
-            }
-
-        });
-
-    }
-
-
-    /* =========================================
-       STREAK SYSTEM
-    ========================================= */
-
-    function updateStreak() {
-
-        const today =
-            getToday();
-
-        if (systemData.lastActiveDate === today) {
-            return;
-        }
-
-        if (!systemData.lastActiveDate) {
-
-            systemData.streak = 1;
-
-        } else {
-
-            const lastDate =
-                new Date(
-                    systemData.lastActiveDate +
-                    "T00:00:00"
-                );
-
-            const todayDate =
-                new Date(
-                    today +
-                    "T00:00:00"
-                );
-
-            const difference =
-                Math.floor(
-                    (
-                        todayDate -
-                        lastDate
-                    ) /
-                    (
-                        1000 *
-                        60 *
-                        60 *
-                        24
-                    )
-                );
-
-            if (difference === 1) {
-
-                systemData.streak++;
-
-            } else if (difference > 1) {
-
-                systemData.streak = 1;
-
-            }
-
-        }
-
-        systemData.lastActiveDate = today;
-
-        saveData();
-
-    }
-
-
-    /* =========================================
-       DASHBOARD
-    ========================================= */
-
-    function updateDashboard() {
-
-        document.getElementById("todayProgress")
-            .innerText =
-            systemData.completedToday +
-            " / " +
-            dailyQuests.length;
-
-        document.getElementById("streakValue")
-            .innerText =
-            systemData.streak +
-            (
-                systemData.streak === 1
-                    ? " DAY"
-                    : " DAYS"
-            );
-
-        document.getElementById("todayXp")
-            .innerText =
-            systemData.todayXP;
-
-    }
-
-
-    /* =========================================
-       LEVEL UP NOTIFICATION
-    ========================================= */
-
-    function showLevelUp() {
-
-        const notification =
-            document.getElementById("levelUp");
-
-        notification.classList.add("show");
-
-        setTimeout(() => {
-
-            notification.classList.remove("show");
-
-        }, 2500);
-
-    }
-
-
-    /* =========================================
-       RENDER EVERYTHING
-    ========================================= */
-
-    function renderAll() {
-
-        updateLevel();
-
-        updateDashboard();
-
-        updateStats();
-
-        renderDailyQuests();
-
-    }
-
-
-    /* =========================================
-       START SYSTEM
-    ========================================= */
-
-    checkNewDay();
-
-    renderAll();
-
-</script>
-
-</body>
-</html>
+<!-- =========================================================
+     SENRAI
