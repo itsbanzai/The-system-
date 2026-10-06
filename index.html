@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>The System</title>
+
 
     <style>
 
@@ -12,149 +19,242 @@
             box-sizing: border-box;
         }
 
+
         body {
             margin: 0;
             min-height: 100vh;
             background: #080808;
             color: white;
             font-family: Arial, sans-serif;
+
             display: flex;
             justify-content: center;
         }
 
+
         .system {
             width: 100%;
             max-width: 500px;
+
             padding: 30px 20px 60px;
         }
+
+
+        /* =========================
+           HEADER
+        ========================= */
 
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
 
+
         .status {
             color: #00e5ff;
+
             font-size: 13px;
             letter-spacing: 3px;
         }
+
 
         h1 {
             font-size: 36px;
             margin: 10px 0;
         }
 
+
         .level {
-            font-size: 20px;
             color: #aaa;
+            font-size: 20px;
         }
+
+
+        /* =========================
+           XP
+        ========================= */
 
         .xp-text {
             display: flex;
             justify-content: space-between;
+
             margin-top: 25px;
-            font-size: 14px;
+
             color: #aaa;
+            font-size: 14px;
         }
+
 
         .xp-bar {
             width: 100%;
             height: 12px;
-            background: #222;
-            border-radius: 20px;
-            overflow: hidden;
+
             margin-top: 8px;
+
+            background: #222;
+
+            border-radius: 20px;
+
+            overflow: hidden;
         }
 
+
         .xp-fill {
-            width: 0%;
+            width: 25%;
             height: 100%;
+
             background: #00e5ff;
-            transition: width 0.4s ease;
+
+            transition:
+                width 0.4s ease;
         }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
 
         .section {
             margin-top: 35px;
         }
 
+
         .section-title {
-            color: #00e5ff;
-            letter-spacing: 2px;
-            font-size: 14px;
             margin-bottom: 15px;
+
+            color: #00e5ff;
+
+            font-size: 14px;
+
+            letter-spacing: 2px;
         }
+
+
+        /* =========================
+           QUEST CARD
+        ========================= */
 
         .quest {
             background: #121212;
+
             border: 1px solid #292929;
+
             border-radius: 12px;
+
             padding: 18px;
+
             margin-bottom: 12px;
         }
 
+
         .quest-name {
             font-size: 17px;
+
             line-height: 1.4;
         }
 
+
         .quest-xp {
-            color: #00e5ff;
-            font-size: 13px;
             margin-top: 8px;
+
+            color: #00e5ff;
+
+            font-size: 13px;
         }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
 
         button {
             width: 100%;
+
             padding: 15px;
+
             margin-top: 15px;
+
             border: none;
+
             border-radius: 10px;
+
             background: #00e5ff;
-            color: black;
+
+            color: #000;
+
             font-size: 15px;
+
             font-weight: bold;
+
             cursor: pointer;
         }
+
 
         button:active {
             transform: scale(0.98);
         }
 
+
         button.completed {
             background: #222;
+
             color: #777;
+
+            cursor: default;
         }
 
-        .surprise {
+
+        .surprise-button {
             background: #151515;
-            border: 1px solid #333;
+
+            border: 1px solid #444;
+
+            color: #00e5ff;
         }
+
+
+        /* =========================
+           LEVEL UP
+        ========================= */
 
         .level-up {
-            text-align: center;
-            color: #00e5ff;
-            font-weight: bold;
-            margin-top: 15px;
             display: none;
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            color: #00e5ff;
+
+            font-size: 18px;
+
+            font-weight: bold;
         }
 
-        .empty {
-            color: #666;
-            font-size: 14px;
-            text-align: center;
-            padding: 10px;
+
+        /* =========================
+           RANDOM QUEST
+        ========================= */
+
+        .random-quest {
+            min-height: 24px;
         }
 
     </style>
+
 </head>
+
 
 
 <body>
 
+
 <div class="system">
 
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================= -->
 
     <div class="header">
 
@@ -162,24 +262,33 @@
             SYSTEM ONLINE
         </div>
 
+
         <h1>
             THE SYSTEM
         </h1>
 
-        <div class="level" id="level">
+
+        <div
+            class="level"
+            id="level"
+        >
             LEVEL 1
         </div>
 
     </div>
 
 
-    <!-- XP -->
+
+    <!-- =========================
+         XP DISPLAY
+    ========================= -->
 
     <div class="xp-text">
 
         <span>
             XP
         </span>
+
 
         <span id="xpText">
             250 / 1000
@@ -192,23 +301,24 @@
 
         <div
             class="xp-fill"
-            id="xpFill">
-        </div>
+            id="xpFill"
+        ></div>
 
     </div>
 
 
     <div
         class="level-up"
-        id="levelUp">
-
+        id="levelUp"
+    >
         LEVEL UP!
-
     </div>
 
 
 
-    <!-- DAILY QUESTS -->
+    <!-- =========================
+         DAILY QUESTS
+    ========================= -->
 
     <div class="section">
 
@@ -217,25 +327,32 @@
         </div>
 
 
+        <!-- QUEST 1 -->
+
         <div class="quest">
 
             <div class="quest-name">
                 Make your bed
             </div>
 
+
             <div class="quest-xp">
                 +10 XP
             </div>
 
+
             <button
-                onclick="completeDaily(this, 10)">
-
-                COMPLETE
-
+                id="dailyQuest1"
+                onclick="completeDailyQuest(1, 10)"
+            >
+                COMPLETE QUEST
             </button>
 
         </div>
 
+
+
+        <!-- QUEST 2 -->
 
         <div class="quest">
 
@@ -243,19 +360,24 @@
                 Drink some water
             </div>
 
+
             <div class="quest-xp">
                 +10 XP
             </div>
 
+
             <button
-                onclick="completeDaily(this, 10)">
-
-                COMPLETE
-
+                id="dailyQuest2"
+                onclick="completeDailyQuest(2, 10)"
+            >
+                COMPLETE QUEST
             </button>
 
         </div>
 
+
+
+        <!-- QUEST 3 -->
 
         <div class="quest">
 
@@ -263,15 +385,17 @@
                 Do something you've been putting off
             </div>
 
+
             <div class="quest-xp">
                 +25 XP
             </div>
 
+
             <button
-                onclick="completeDaily(this, 25)">
-
-                COMPLETE
-
+                id="dailyQuest3"
+                onclick="completeDailyQuest(3, 25)"
+            >
+                COMPLETE QUEST
             </button>
 
         </div>
@@ -280,7 +404,9 @@
 
 
 
-    <!-- RANDOM QUEST -->
+    <!-- =========================
+         LIFE QUEST
+    ========================= -->
 
     <div class="section">
 
@@ -291,41 +417,39 @@
 
         <div class="quest">
 
+
             <div
-                class="quest-name"
-                id="randomQuest">
-
-                Generate a random quest.
-
+                class="quest-name random-quest"
+                id="randomQuest"
+            >
+                Generate a random life quest.
             </div>
 
 
             <div
                 class="quest-xp"
-                id="randomXP">
-
-                Surprise yourself.
-
+                id="randomXP"
+            >
+                ??? XP
             </div>
 
 
             <button
-                class="surprise"
-                onclick="generateQuest()">
-
+                class="surprise-button"
+                onclick="generateRandomQuest()"
+            >
                 🎲 SURPRISE ME
-
             </button>
 
 
             <button
                 id="randomComplete"
                 onclick="completeRandomQuest()"
-                style="display:none;">
-
+                style="display: none;"
+            >
                 COMPLETE QUEST
-
             </button>
+
 
         </div>
 
@@ -333,7 +457,9 @@
 
 
 
-    <!-- SIDE QUEST -->
+    <!-- =========================
+         SIDE QUEST
+    ========================= -->
 
     <div class="section">
 
@@ -344,27 +470,24 @@
 
         <div class="quest">
 
+
             <div class="quest-name">
-
                 Call someone you haven't talked to recently.
-
             </div>
 
 
             <div class="quest-xp">
-
                 +20 XP
-
             </div>
 
 
             <button
-                id="sideButton"
-                onclick="completeSideQuest()">
-
-                COMPLETE
-
+                id="sideQuestButton"
+                onclick="completeSideQuest()"
+            >
+                COMPLETE QUEST
             </button>
+
 
         </div>
 
@@ -378,17 +501,21 @@
 <script>
 
 
-/* =========================
+/* =====================================================
    SYSTEM DATA
-========================= */
+===================================================== */
 
 
 let level =
-    Number(localStorage.getItem("systemLevel")) || 1;
+    Number(
+        localStorage.getItem("systemLevel")
+    ) || 1;
 
 
 let xp =
-    Number(localStorage.getItem("systemXP"));
+    Number(
+        localStorage.getItem("systemXP")
+    );
 
 
 if (isNaN(xp)) {
@@ -401,9 +528,10 @@ if (isNaN(xp)) {
 const XP_NEEDED = 1000;
 
 
-/* =========================
-   RANDOM QUESTS
-========================= */
+
+/* =====================================================
+   RANDOM LIFE QUESTS
+===================================================== */
 
 
 const lifeQuests = [
@@ -476,17 +604,39 @@ const lifeQuests = [
     {
         text: "Try something you've never done before.",
         xp: 50
+    },
+
+    {
+        text: "Spend 20 minutes learning something new.",
+        xp: 25
+    },
+
+    {
+        text: "Listen to an album from beginning to end.",
+        xp: 20
+    },
+
+    {
+        text: "Write down one thing you're grateful for.",
+        xp: 10
+    },
+
+    {
+        text: "Take a short walk and notice five things around you.",
+        xp: 20
     }
 
 ];
 
 
+
 let currentRandomQuest = null;
 
 
-/* =========================
+
+/* =====================================================
    ELEMENTS
-========================= */
+===================================================== */
 
 
 const levelElement =
@@ -517,12 +667,14 @@ const randomComplete =
     document.getElementById("randomComplete");
 
 
-/* =========================
+
+/* =====================================================
    UPDATE SYSTEM
-========================= */
+===================================================== */
 
 
 function updateSystem() {
+
 
     levelElement.textContent =
         "LEVEL " + level;
@@ -532,7 +684,7 @@ function updateSystem() {
         xp + " / " + XP_NEEDED;
 
 
-    let percentage =
+    const percentage =
         (xp / XP_NEEDED) * 100;
 
 
@@ -554,33 +706,26 @@ function updateSystem() {
 }
 
 
-/* =========================
+
+/* =====================================================
    ADD XP
-========================= */
+===================================================== */
 
 
 function addXP(amount) {
 
+
     xp += amount;
 
 
-    if (xp >= XP_NEEDED) {
+    while (xp >= XP_NEEDED) {
 
         xp -= XP_NEEDED;
 
         level++;
 
 
-        levelUp.style.display =
-            "block";
-
-
-        setTimeout(function() {
-
-            levelUp.style.display =
-                "none";
-
-        }, 3000);
+        showLevelUp();
 
     }
 
@@ -590,14 +735,56 @@ function addXP(amount) {
 }
 
 
-/* =========================
-   DAILY QUEST
-========================= */
+
+/* =====================================================
+   LEVEL UP
+===================================================== */
 
 
-function completeDaily(button, amount) {
+function showLevelUp() {
 
-    if (button.classList.contains("completed")) {
+
+    levelUp.style.display =
+        "block";
+
+
+    setTimeout(function() {
+
+        levelUp.style.display =
+            "none";
+
+    }, 3000);
+
+}
+
+
+
+/* =====================================================
+   DAILY QUESTS
+===================================================== */
+
+
+function completeDailyQuest(
+    questNumber,
+    amount
+) {
+
+
+    const storageKey =
+        "dailyQuest" +
+        questNumber +
+        "Completed";
+
+
+    const alreadyCompleted =
+        localStorage.getItem(
+            storageKey
+        );
+
+
+    if (
+        alreadyCompleted === "true"
+    ) {
 
         return;
 
@@ -605,6 +792,19 @@ function completeDaily(button, amount) {
 
 
     addXP(amount);
+
+
+    localStorage.setItem(
+        storageKey,
+        "true"
+    );
+
+
+    const button =
+        document.getElementById(
+            "dailyQuest" +
+            questNumber
+        );
 
 
     button.textContent =
@@ -616,25 +816,30 @@ function completeDaily(button, amount) {
     );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
 
 }
 
 
-/* =========================
+
+/* =====================================================
    SIDE QUEST
-========================= */
+===================================================== */
 
 
 function completeSideQuest() {
 
-    let completed =
+
+    const completed =
         localStorage.getItem(
             "sideQuestCompleted"
         );
 
 
-    if (completed === "true") {
+    if (
+        completed === "true"
+    ) {
 
         return;
 
@@ -652,7 +857,7 @@ function completeSideQuest() {
 
     const button =
         document.getElementById(
-            "sideButton"
+            "sideQuestButton"
         );
 
 
@@ -665,19 +870,22 @@ function completeSideQuest() {
     );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
 
 }
 
 
-/* =========================
-   RANDOM QUEST
-========================= */
+
+/* =====================================================
+   GENERATE RANDOM QUEST
+===================================================== */
 
 
-function generateQuest() {
+function generateRandomQuest() {
 
-    let randomIndex =
+
+    const randomIndex =
         Math.floor(
             Math.random() *
             lifeQuests.length
@@ -701,17 +909,43 @@ function generateQuest() {
     randomComplete.style.display =
         "block";
 
+
+    randomComplete.textContent =
+        "COMPLETE QUEST";
+
+
+    randomComplete.classList.remove(
+        "completed"
+    );
+
+
+    randomComplete.disabled =
+        false;
+
 }
 
 
-/* =========================
+
+/* =====================================================
    COMPLETE RANDOM QUEST
-========================= */
+===================================================== */
 
 
 function completeRandomQuest() {
 
-    if (!currentRandomQuest) {
+
+    if (
+        !currentRandomQuest
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        randomComplete.disabled
+    ) {
 
         return;
 
@@ -732,29 +966,80 @@ function completeRandomQuest() {
     );
 
 
-    randomComplete.disabled = true;
+    randomComplete.disabled =
+        true;
 
 }
 
 
-/* =========================
-   LOAD SAVED SIDE QUEST
-========================= */
+
+/* =====================================================
+   LOAD SAVED QUESTS
+===================================================== */
 
 
-function loadSavedQuest() {
+function loadSavedQuests() {
 
-    let completed =
+
+    for (
+        let i = 1;
+        i <= 3;
+        i++
+    ) {
+
+
+        const completed =
+            localStorage.getItem(
+                "dailyQuest" +
+                i +
+                "Completed"
+            );
+
+
+        if (
+            completed === "true"
+        ) {
+
+
+            const button =
+                document.getElementById(
+                    "dailyQuest" +
+                    i
+                );
+
+
+            button.textContent =
+                "COMPLETED ✓";
+
+
+            button.classList.add(
+                "completed"
+            );
+
+
+            button.disabled =
+                true;
+
+        }
+
+    }
+
+
+
+    const sideCompleted =
         localStorage.getItem(
             "sideQuestCompleted"
         );
 
 
-    if (completed === "true") {
+    if (
+        sideCompleted === "true"
+    ) {
+
 
         const button =
             document.getElementById(
-                "sideButton"
+                "sideQuestButton"
             );
 
 
@@ -767,24 +1052,28 @@ function loadSavedQuest() {
         );
 
 
-        button.disabled = true;
+        button.disabled =
+            true;
 
     }
 
 }
 
 
-/* =========================
+
+/* =====================================================
    START SYSTEM
-========================= */
+===================================================== */
 
 
 updateSystem();
 
-loadSavedQuest();
+loadSavedQuests();
 
 
 </script>
 
+
 </body>
+
 </html>
