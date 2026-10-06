@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>The System</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -23,7 +25,7 @@
         .system {
             width: 100%;
             max-width: 500px;
-            padding: 30px 20px;
+            padding: 30px 20px 60px;
         }
 
         .header {
@@ -33,7 +35,7 @@
 
         .status {
             color: #00e5ff;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 3px;
         }
 
@@ -65,7 +67,7 @@
         }
 
         .xp-fill {
-            width: 25%;
+            width: 0%;
             height: 100%;
             background: #00e5ff;
             transition: width 0.4s ease;
@@ -92,6 +94,7 @@
 
         .quest-name {
             font-size: 17px;
+            line-height: 1.4;
         }
 
         .quest-xp {
@@ -108,7 +111,7 @@
             border-radius: 10px;
             background: #00e5ff;
             color: black;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -120,7 +123,11 @@
         button.completed {
             background: #222;
             color: #777;
-            cursor: default;
+        }
+
+        .surprise {
+            background: #151515;
+            border: 1px solid #333;
         }
 
         .level-up {
@@ -130,12 +137,24 @@
             margin-top: 15px;
             display: none;
         }
+
+        .empty {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+        }
+
     </style>
 </head>
+
 
 <body>
 
 <div class="system">
+
+
+    <!-- HEADER -->
 
     <div class="header">
 
@@ -143,7 +162,9 @@
             SYSTEM ONLINE
         </div>
 
-        <h1>THE SYSTEM</h1>
+        <h1>
+            THE SYSTEM
+        </h1>
 
         <div class="level" id="level">
             LEVEL 1
@@ -151,22 +172,43 @@
 
     </div>
 
+
+    <!-- XP -->
+
     <div class="xp-text">
-        <span>XP</span>
+
+        <span>
+            XP
+        </span>
 
         <span id="xpText">
             250 / 1000
         </span>
+
     </div>
+
 
     <div class="xp-bar">
-        <div class="xp-fill" id="xpFill"></div>
+
+        <div
+            class="xp-fill"
+            id="xpFill">
+        </div>
+
     </div>
 
-    <div class="level-up" id="levelUp">
+
+    <div
+        class="level-up"
+        id="levelUp">
+
         LEVEL UP!
+
     </div>
 
+
+
+    <!-- DAILY QUESTS -->
 
     <div class="section">
 
@@ -185,6 +227,13 @@
                 +10 XP
             </div>
 
+            <button
+                onclick="completeDaily(this, 10)">
+
+                COMPLETE
+
+            </button>
+
         </div>
 
 
@@ -197,6 +246,13 @@
             <div class="quest-xp">
                 +10 XP
             </div>
+
+            <button
+                onclick="completeDaily(this, 10)">
+
+                COMPLETE
+
+            </button>
 
         </div>
 
@@ -211,10 +267,73 @@
                 +25 XP
             </div>
 
+            <button
+                onclick="completeDaily(this, 25)">
+
+                COMPLETE
+
+            </button>
+
         </div>
 
     </div>
 
+
+
+    <!-- RANDOM QUEST -->
+
+    <div class="section">
+
+        <div class="section-title">
+            LIFE QUEST
+        </div>
+
+
+        <div class="quest">
+
+            <div
+                class="quest-name"
+                id="randomQuest">
+
+                Generate a random quest.
+
+            </div>
+
+
+            <div
+                class="quest-xp"
+                id="randomXP">
+
+                Surprise yourself.
+
+            </div>
+
+
+            <button
+                class="surprise"
+                onclick="generateQuest()">
+
+                🎲 SURPRISE ME
+
+            </button>
+
+
+            <button
+                id="randomComplete"
+                onclick="completeRandomQuest()"
+                style="display:none;">
+
+                COMPLETE QUEST
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SIDE QUEST -->
 
     <div class="section">
 
@@ -226,136 +345,444 @@
         <div class="quest">
 
             <div class="quest-name">
+
                 Call someone you haven't talked to recently.
+
             </div>
+
 
             <div class="quest-xp">
+
                 +20 XP
+
             </div>
 
-            <button id="completeButton" onclick="completeQuest()">
-                COMPLETE QUEST
+
+            <button
+                id="sideButton"
+                onclick="completeSideQuest()">
+
+                COMPLETE
+
             </button>
 
         </div>
 
     </div>
 
+
 </div>
+
 
 
 <script>
 
-    let level = Number(localStorage.getItem("systemLevel")) || 1;
 
-    let xp = Number(localStorage.getItem("systemXP"));
+/* =========================
+   SYSTEM DATA
+========================= */
 
-    if (isNaN(xp)) {
-        xp = 250;
+
+let level =
+    Number(localStorage.getItem("systemLevel")) || 1;
+
+
+let xp =
+    Number(localStorage.getItem("systemXP"));
+
+
+if (isNaN(xp)) {
+
+    xp = 250;
+
+}
+
+
+const XP_NEEDED = 1000;
+
+
+/* =========================
+   RANDOM QUESTS
+========================= */
+
+
+const lifeQuests = [
+
+    {
+        text: "Go outside for 5 minutes.",
+        xp: 10
+    },
+
+    {
+        text: "Text someone you haven't talked to in a while.",
+        xp: 20
+    },
+
+    {
+        text: "Tell someone you appreciate them.",
+        xp: 20
+    },
+
+    {
+        text: "Clean something you've been ignoring.",
+        xp: 25
+    },
+
+    {
+        text: "Learn one completely random fact.",
+        xp: 10
+    },
+
+    {
+        text: "Put your phone down for 20 minutes.",
+        xp: 25
+    },
+
+    {
+        text: "Take a photo of something you think looks cool.",
+        xp: 10
+    },
+
+    {
+        text: "Work on a hobby for 20 minutes.",
+        xp: 25
+    },
+
+    {
+        text: "Take a different route somewhere today.",
+        xp: 15
+    },
+
+    {
+        text: "Do something kind for someone.",
+        xp: 25
+    },
+
+    {
+        text: "Watch the sunset.",
+        xp: 20
+    },
+
+    {
+        text: "Call a family member just to say hi.",
+        xp: 20
+    },
+
+    {
+        text: "Organize one small area of your room.",
+        xp: 15
+    },
+
+    {
+        text: "Try something you've never done before.",
+        xp: 50
     }
 
-    let questCompleted =
-        localStorage.getItem("sideQuestCompleted") === "true";
+];
 
 
-    const xpNeeded = 1000;
-    const questXP = 20;
+let currentRandomQuest = null;
 
 
-    const levelElement =
-        document.getElementById("level");
-
-    const xpText =
-        document.getElementById("xpText");
-
-    const xpFill =
-        document.getElementById("xpFill");
-
-    const button =
-        document.getElementById("completeButton");
-
-    const levelUp =
-        document.getElementById("levelUp");
+/* =========================
+   ELEMENTS
+========================= */
 
 
-    function updateSystem() {
-
-        levelElement.textContent =
-            "LEVEL " + level;
-
-        xpText.textContent =
-            xp + " / " + xpNeeded;
-
-        let percentage =
-            (xp / xpNeeded) * 100;
-
-        xpFill.style.width =
-            percentage + "%";
+const levelElement =
+    document.getElementById("level");
 
 
-        if (questCompleted) {
-
-            button.textContent =
-                "QUEST COMPLETE";
-
-            button.classList.add("completed");
-
-            button.disabled = true;
-
-        }
-
-        localStorage.setItem(
-            "systemLevel",
-            level
-        );
-
-        localStorage.setItem(
-            "systemXP",
-            xp
-        );
-
-        localStorage.setItem(
-            "sideQuestCompleted",
-            questCompleted
-        );
-    }
+const xpText =
+    document.getElementById("xpText");
 
 
-    function completeQuest() {
-
-        if (questCompleted) {
-            return;
-        }
+const xpFill =
+    document.getElementById("xpFill");
 
 
-        xp += questXP;
+const levelUp =
+    document.getElementById("levelUp");
 
-        questCompleted = true;
+
+const randomQuest =
+    document.getElementById("randomQuest");
 
 
-        if (xp >= xpNeeded) {
+const randomXP =
+    document.getElementById("randomXP");
 
-            xp -= xpNeeded;
 
-            level++;
+const randomComplete =
+    document.getElementById("randomComplete");
+
+
+/* =========================
+   UPDATE SYSTEM
+========================= */
+
+
+function updateSystem() {
+
+    levelElement.textContent =
+        "LEVEL " + level;
+
+
+    xpText.textContent =
+        xp + " / " + XP_NEEDED;
+
+
+    let percentage =
+        (xp / XP_NEEDED) * 100;
+
+
+    xpFill.style.width =
+        percentage + "%";
+
+
+    localStorage.setItem(
+        "systemLevel",
+        level
+    );
+
+
+    localStorage.setItem(
+        "systemXP",
+        xp
+    );
+
+}
+
+
+/* =========================
+   ADD XP
+========================= */
+
+
+function addXP(amount) {
+
+    xp += amount;
+
+
+    if (xp >= XP_NEEDED) {
+
+        xp -= XP_NEEDED;
+
+        level++;
+
+
+        levelUp.style.display =
+            "block";
+
+
+        setTimeout(function() {
 
             levelUp.style.display =
-                "block";
+                "none";
 
-            setTimeout(function() {
+        }, 3000);
 
-                levelUp.style.display =
-                    "none";
-
-            }, 3000);
-        }
-
-
-        updateSystem();
     }
 
 
     updateSystem();
+
+}
+
+
+/* =========================
+   DAILY QUEST
+========================= */
+
+
+function completeDaily(button, amount) {
+
+    if (button.classList.contains("completed")) {
+
+        return;
+
+    }
+
+
+    addXP(amount);
+
+
+    button.textContent =
+        "COMPLETED ✓";
+
+
+    button.classList.add(
+        "completed"
+    );
+
+
+    button.disabled = true;
+
+}
+
+
+/* =========================
+   SIDE QUEST
+========================= */
+
+
+function completeSideQuest() {
+
+    let completed =
+        localStorage.getItem(
+            "sideQuestCompleted"
+        );
+
+
+    if (completed === "true") {
+
+        return;
+
+    }
+
+
+    addXP(20);
+
+
+    localStorage.setItem(
+        "sideQuestCompleted",
+        "true"
+    );
+
+
+    const button =
+        document.getElementById(
+            "sideButton"
+        );
+
+
+    button.textContent =
+        "COMPLETED ✓";
+
+
+    button.classList.add(
+        "completed"
+    );
+
+
+    button.disabled = true;
+
+}
+
+
+/* =========================
+   RANDOM QUEST
+========================= */
+
+
+function generateQuest() {
+
+    let randomIndex =
+        Math.floor(
+            Math.random() *
+            lifeQuests.length
+        );
+
+
+    currentRandomQuest =
+        lifeQuests[randomIndex];
+
+
+    randomQuest.textContent =
+        currentRandomQuest.text;
+
+
+    randomXP.textContent =
+        "+" +
+        currentRandomQuest.xp +
+        " XP";
+
+
+    randomComplete.style.display =
+        "block";
+
+}
+
+
+/* =========================
+   COMPLETE RANDOM QUEST
+========================= */
+
+
+function completeRandomQuest() {
+
+    if (!currentRandomQuest) {
+
+        return;
+
+    }
+
+
+    addXP(
+        currentRandomQuest.xp
+    );
+
+
+    randomComplete.textContent =
+        "COMPLETED ✓";
+
+
+    randomComplete.classList.add(
+        "completed"
+    );
+
+
+    randomComplete.disabled = true;
+
+}
+
+
+/* =========================
+   LOAD SAVED SIDE QUEST
+========================= */
+
+
+function loadSavedQuest() {
+
+    let completed =
+        localStorage.getItem(
+            "sideQuestCompleted"
+        );
+
+
+    if (completed === "true") {
+
+        const button =
+            document.getElementById(
+                "sideButton"
+            );
+
+
+        button.textContent =
+            "COMPLETED ✓";
+
+
+        button.classList.add(
+            "completed"
+        );
+
+
+        button.disabled = true;
+
+    }
+
+}
+
+
+/* =========================
+   START SYSTEM
+========================= */
+
+
+updateSystem();
+
+loadSavedQuest();
+
 
 </script>
 
