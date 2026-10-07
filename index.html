@@ -13,139 +13,311 @@
 }
 
 :root{
-  --bg:#050609;
-  --panel:#0b0d12;
-  --panel2:#10131a;
-  --line:#1b2029;
-  --text:#f1f3f7;
-  --muted:#777f8d;
+  --bg:#020204;
+  --surface:rgba(13,15,21,.72);
+  --surface-strong:rgba(18,20,27,.88);
+  --surface-soft:rgba(255,255,255,.035);
+  --line:rgba(255,255,255,.075);
+  --line-soft:rgba(255,255,255,.045);
 
-  --green:#5df2a5;
-  --blue:#65a9ff;
-  --purple:#a87cff;
-  --orange:#ffae57;
-  --red:#ff667a;
-  --cyan:#69e2dc;
-  --pink:#ff78bd;
+  --text:#f4f5f7;
+  --muted:#858b97;
+  --dim:#535965;
+
+  --green:#63efaa;
+  --blue:#6caeff;
+  --purple:#a980ff;
+  --orange:#ffb45e;
+  --red:#ff6f82;
+  --cyan:#65dfdb;
+  --pink:#ff7fbe;
+
+  --radius:22px;
+  --radius-small:15px;
+}
+
+html{
+  background:var(--bg);
 }
 
 body{
+  min-height:100vh;
   background:
     radial-gradient(
-      circle at 50% -10%,
-      rgba(100,120,160,.12),
+      ellipse at 50% -15%,
+      rgba(91,107,145,.13),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 100% 80%,
+      rgba(96,65,150,.055),
       transparent 35%
     ),
     var(--bg);
   color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255,255,255,.012) 50%,
+      transparent 100%
+    );
+  opacity:.5;
+  z-index:-1;
 }
 
 button,
 input,
 select{
-  font-family:inherit;
+  font:inherit;
 }
 
 button{
-  border:1px solid #343b48;
-  background:#11141a;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
   color:var(--text);
-  padding:11px 14px;
+  border-radius:999px;
+  padding:11px 16px;
   font-size:9px;
   letter-spacing:1.5px;
   cursor:pointer;
-  transition:.2s;
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease,
+    box-shadow .2s ease;
 }
 
 button:hover{
-  background:#191d25;
-  border-color:#626c7d;
+  background:rgba(255,255,255,.075);
+  border-color:rgba(255,255,255,.16);
+  transform:translateY(-1px);
+}
+
+button:active{
+  transform:translateY(0) scale(.98);
 }
 
 button:disabled{
   opacity:.35;
   cursor:not-allowed;
+  transform:none;
 }
 
 button.primary{
-  background:#e8edf5;
-  color:#050609;
-  border-color:#e8edf5;
-  font-weight:bold;
+  background:#eef1f6;
+  color:#050507;
+  border-color:#eef1f6;
+  font-weight:800;
+  box-shadow:0 8px 25px rgba(255,255,255,.06);
+}
+
+button.primary:hover{
+  background:#fff;
+  border-color:#fff;
 }
 
 /* =========================================================
-   SPLASH
+   SPLASH / LOADING
 ========================================================= */
 
 #splash{
   position:fixed;
   inset:0;
-  z-index:9999;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(90,110,150,.1),
-      transparent 45%
-    ),
-    #030407;
+  z-index:99999;
+  overflow:hidden;
+  background:#000;
   display:flex;
   justify-content:center;
   align-items:center;
   transition:
-    opacity .8s,
-    visibility .8s;
+    opacity 1s ease,
+    visibility 1s ease;
 }
 
 #splash.hidden{
   opacity:0;
   visibility:hidden;
+  pointer-events:none;
+}
+
+/* ATMOSPHERIC SMOKE */
+
+.smoke{
+  position:absolute;
+  inset:-25%;
+  pointer-events:none;
+  filter:blur(55px);
+  opacity:.6;
+}
+
+.smoke:before,
+.smoke:after{
+  content:"";
+  position:absolute;
+  width:75%;
+  height:55%;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(100,100,110,.12),
+      rgba(30,30,35,.06) 35%,
+      transparent 72%
+    );
+}
+
+.smoke:before{
+  left:-10%;
+  top:15%;
+  animation:
+    smokeOne 13s ease-in-out infinite alternate;
+}
+
+.smoke:after{
+  right:-15%;
+  bottom:5%;
+  animation:
+    smokeTwo 17s ease-in-out infinite alternate;
+}
+
+.smoke-layer{
+  position:absolute;
+  width:90%;
+  height:60%;
+  left:5%;
+  top:20%;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(90,90,98,.09),
+      rgba(30,30,35,.035) 45%,
+      transparent 72%
+    );
+  filter:blur(65px);
+  animation:
+    smokeThree 19s ease-in-out infinite alternate;
+}
+
+@keyframes smokeOne{
+  0%{
+    transform:translate(-5%,8%) rotate(-8deg) scale(1);
+  }
+  100%{
+    transform:translate(18%,-5%) rotate(10deg) scale(1.25);
+  }
+}
+
+@keyframes smokeTwo{
+  0%{
+    transform:translate(8%,0) rotate(7deg) scale(1.1);
+  }
+  100%{
+    transform:translate(-20%,-12%) rotate(-10deg) scale(1.35);
+  }
+}
+
+@keyframes smokeThree{
+  0%{
+    transform:translate(-5%,5%) scale(.95);
+    opacity:.35;
+  }
+  100%{
+    transform:translate(8%,-8%) scale(1.2);
+    opacity:.7;
+  }
+}
+
+.splash-vignette{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 15%,
+      rgba(0,0,0,.3) 55%,
+      rgba(0,0,0,.92) 100%
+    );
+  pointer-events:none;
 }
 
 .splash-content{
-  width:min(420px,85%);
+  position:relative;
+  z-index:2;
+  width:min(430px,84%);
   text-align:center;
 }
 
-/* YOUR ORIGINAL LOGO */
 .splash-logo{
   display:block;
-  width:110px;
-  height:110px;
-  margin:0 auto 25px;
+  width:115px;
+  height:115px;
+  margin:0 auto 24px;
   object-fit:contain;
+  filter:
+    drop-shadow(0 0 25px rgba(255,255,255,.08));
+  animation:
+    logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-5px);
+  }
 }
 
 .splash-title{
-  font-size:42px;
+  font-size:39px;
   font-weight:800;
   letter-spacing:10px;
   margin-left:10px;
+  text-shadow:
+    0 0 35px rgba(255,255,255,.08);
 }
 
 .splash-subtitle{
-  color:#747c89;
-  font-size:10px;
-  letter-spacing:3px;
+  color:#666a73;
+  font-size:9px;
+  letter-spacing:3.5px;
   margin-top:10px;
 }
 
 .loading-container{
-  margin-top:55px;
+  margin-top:52px;
 }
 
 .loading-bar{
   height:2px;
-  background:#171b23;
+  border-radius:999px;
+  background:rgba(255,255,255,.09);
   overflow:hidden;
 }
 
 .loading-fill{
   width:0;
   height:100%;
-  background:#e8edf5;
+  border-radius:999px;
+  background:#e9edf3;
+  box-shadow:0 0 15px rgba(255,255,255,.35);
   transition:width .2s;
 }
 
@@ -153,8 +325,8 @@ button.primary{
   margin-top:12px;
   display:flex;
   justify-content:space-between;
-  color:#626a78;
-  font-size:9px;
+  color:#4e525b;
+  font-size:8px;
   letter-spacing:2px;
 }
 
@@ -163,17 +335,16 @@ button.primary{
 ========================================================= */
 
 #app{
-  width:min(1050px,100%);
+  width:min(1080px,100%);
   margin:auto;
-  padding:24px 18px 105px;
+  padding:22px 18px 115px;
 }
 
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-bottom:22px;
-  border-bottom:1px solid var(--line);
+  padding:4px 2px 20px;
 }
 
 .brand{
@@ -183,23 +354,26 @@ header{
 }
 
 .brand-mark{
-  width:30px;
-  height:30px;
-  border:1px solid #b9c0cb;
+  width:31px;
+  height:31px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:9px;
   transform:rotate(45deg);
   display:flex;
   align-items:center;
   justify-content:center;
+  box-shadow:
+    0 0 20px rgba(255,255,255,.025);
 }
 
 .brand-mark span{
   transform:rotate(-45deg);
-  font-size:12px;
-  font-weight:bold;
+  font-size:11px;
+  font-weight:800;
 }
 
 .brand-name{
-  font-size:18px;
+  font-size:17px;
   font-weight:800;
   letter-spacing:4px;
 }
@@ -208,31 +382,50 @@ header{
   position:relative;
 }
 
-.system-button button{
+.system-button > button{
   display:flex;
   align-items:center;
   gap:8px;
-  padding:9px 11px;
+  padding:9px 13px;
+  background:rgba(255,255,255,.035);
+  backdrop-filter:blur(15px);
 }
 
 .system-dot{
-  width:5px;
-  height:5px;
+  width:6px;
+  height:6px;
   border-radius:50%;
   background:var(--green);
-  box-shadow:0 0 8px var(--green);
+  box-shadow:
+    0 0 9px var(--green);
 }
 
 .system-menu{
   position:absolute;
   right:0;
-  top:43px;
-  width:190px;
-  background:#0b0d12;
-  border:1px solid #282f39;
-  box-shadow:0 18px 50px rgba(0,0,0,.5);
+  top:47px;
+  width:205px;
+  padding:7px;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:rgba(11,13,18,.9);
+  backdrop-filter:blur(25px);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.55);
   z-index:800;
   display:none;
+  animation:menuIn .18s ease;
+}
+
+@keyframes menuIn{
+  from{
+    opacity:0;
+    transform:translateY(-5px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 .system-menu.open{
@@ -240,25 +433,25 @@ header{
 }
 
 .system-menu-title{
-  color:#59616f;
+  color:#5f6570;
   font-size:8px;
   letter-spacing:2px;
-  padding:13px;
-  border-bottom:1px solid var(--line);
+  padding:10px 11px;
 }
 
 .system-menu button{
   width:100%;
   border:0;
-  border-bottom:1px solid #161b23;
+  border-radius:12px;
   background:transparent;
   text-align:left;
-  padding:13px;
+  padding:12px;
   font-size:9px;
+  letter-spacing:1px;
 }
 
 .system-menu button:hover{
-  background:#151920;
+  background:rgba(255,255,255,.055);
 }
 
 /* =========================================================
@@ -271,26 +464,110 @@ header{
 
 .view.active{
   display:block;
+  animation:viewIn .25s ease;
+}
+
+@keyframes viewIn{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 /* =========================================================
-   HOME
+   SHARED
 ========================================================= */
 
-.hero{
-  margin-top:22px;
-  border:1px solid var(--line);
+.section{
+  margin-top:26px;
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:11px;
+  padding:0 4px;
+}
+
+.section-title{
+  font-size:11px;
+  letter-spacing:2.5px;
+  font-weight:800;
+}
+
+.section-description{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:1px;
+}
+
+.section-header button{
+  padding:7px 12px;
+  font-size:8px;
+}
+
+.panel,
+.hero,
+.summary-card,
+.objective,
+.reflection-card,
+.life-quest,
+.side-card,
+.stat,
+.achievement,
+.history-item,
+.profile-card,
+.settings-card,
+.custom-quest{
   background:
     linear-gradient(
       135deg,
-      rgba(255,255,255,.025),
-      transparent
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
     ),
-    var(--panel);
-  padding:24px;
+    var(--surface);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--line-soft);
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.18);
+}
+
+/* =========================================================
+   HOME HERO
+========================================================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  padding:26px;
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  right:-130px;
+  top:-180px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(105,135,190,.12),
+      transparent 68%
+    );
+  pointer-events:none;
 }
 
 .hero-top{
+  position:relative;
   display:flex;
   justify-content:space-between;
   gap:20px;
@@ -300,19 +577,21 @@ header{
 .summary-label,
 .form-label{
   color:var(--muted);
-  font-size:9px;
+  font-size:8px;
   letter-spacing:2px;
 }
 
 .level{
-  font-size:38px;
-  font-weight:800;
+  font-size:43px;
+  font-weight:850;
   line-height:1;
+  margin-top:5px;
+  letter-spacing:-1px;
 }
 
 .level span{
   color:var(--muted);
-  font-size:12px;
+  font-size:10px;
   letter-spacing:2px;
 }
 
@@ -321,118 +600,122 @@ header{
 }
 
 .hero-xp-number{
-  font-size:20px;
-  font-weight:bold;
+  font-size:21px;
+  font-weight:800;
 }
 
 .hero-xp-label{
   color:var(--muted);
-  font-size:9px;
-  letter-spacing:2px;
-  margin-top:3px;
+  font-size:8px;
+  letter-spacing:1.5px;
+  margin-top:4px;
 }
 
 .xp-track{
-  margin-top:22px;
-  height:6px;
-  background:#191d25;
+  position:relative;
+  margin-top:24px;
+  height:5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
   overflow:hidden;
 }
 
 .xp-fill{
   width:0;
   height:100%;
-  background:linear-gradient(
-    90deg,
-    #737e91,
-    #edf2f8
-  );
-  transition:width .4s;
+  border-radius:999px;
+  background:
+    linear-gradient(
+      90deg,
+      #626c7c,
+      #f2f4f8
+    );
+  box-shadow:
+    0 0 15px rgba(255,255,255,.15);
+  transition:width .45s ease;
 }
 
 .xp-footer{
   display:flex;
   justify-content:space-between;
   color:var(--muted);
-  font-size:9px;
-  margin-top:8px;
+  font-size:8px;
+  margin-top:9px;
   letter-spacing:1px;
 }
+
+/* =========================================================
+   SUMMARY
+========================================================= */
 
 .summary-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:12px;
+  gap:10px;
+  margin-top:10px;
 }
 
 .summary-card{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:18px;
+  border-radius:19px;
+  padding:17px;
 }
 
 .summary-value{
-  font-size:24px;
+  font-size:23px;
   font-weight:800;
   margin-top:7px;
 }
 
 .summary-sub{
-  color:#59616f;
-  font-size:9px;
-  margin-top:5px;
+  color:#5d6370;
+  font-size:8px;
+  margin-top:4px;
+  letter-spacing:.7px;
 }
 
 .streak-value{
   color:var(--orange);
 }
 
-.section{
-  margin-top:28px;
-}
-
-.section-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  margin-bottom:12px;
-}
-
-.section-title{
-  font-size:12px;
-  letter-spacing:3px;
-  font-weight:bold;
-}
-
-.section-description{
-  color:var(--muted);
-  font-size:9px;
-}
+/* =========================================================
+   OBJECTIVE
+========================================================= */
 
 .objective{
-  border:1px solid var(--line);
-  border-left:2px solid var(--blue);
-  background:var(--panel);
-  padding:18px;
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+  padding:20px;
+}
+
+.objective:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:18px;
+  bottom:18px;
+  width:2px;
+  border-radius:999px;
+  background:var(--blue);
+  box-shadow:0 0 14px rgba(108,174,255,.25);
 }
 
 .objective-tag{
   color:var(--blue);
   font-size:8px;
   letter-spacing:2px;
-  margin-bottom:8px;
+  margin-bottom:9px;
 }
 
 .objective h2{
   font-size:18px;
-  margin-bottom:6px;
+  margin-bottom:7px;
 }
 
 .objective p{
   color:var(--muted);
   font-size:11px;
-  line-height:1.6;
+  line-height:1.65;
 }
 
 /* =========================================================
@@ -440,39 +723,30 @@ header{
 ========================================================= */
 
 .reflection-card{
-  border:1px solid #292f3a;
-  background:
-    radial-gradient(
-      circle at 90% 0%,
-      rgba(101,169,255,.08),
-      transparent 38%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.025),
-      transparent
-    ),
-    var(--panel);
-  padding:20px;
   position:relative;
   overflow:hidden;
+  border-radius:23px;
+  padding:22px;
 }
 
 .reflection-card:before{
   content:"";
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:linear-gradient(
-    180deg,
-    var(--blue),
-    var(--purple)
-  );
+  width:240px;
+  height:240px;
+  right:-120px;
+  top:-130px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(108,174,255,.12),
+      transparent 68%
+    );
 }
 
 .reflection-label{
+  position:relative;
   color:var(--blue);
   font-size:8px;
   letter-spacing:3px;
@@ -480,6 +754,7 @@ header{
 }
 
 .reflection-title{
+  position:relative;
   font-size:17px;
   font-weight:800;
   line-height:1.35;
@@ -487,14 +762,15 @@ header{
 }
 
 .reflection-text{
-  color:#aeb5c1;
+  position:relative;
+  color:#aeb4bf;
   font-size:11px;
-  line-height:1.6;
+  line-height:1.65;
 }
 
 .reflection-divider{
   height:1px;
-  background:#1d232d;
+  background:var(--line-soft);
   margin:17px 0;
 }
 
@@ -507,21 +783,21 @@ header{
 
 .reflection-suggestion{
   font-size:13px;
-  font-weight:bold;
-  line-height:1.45;
+  font-weight:700;
+  line-height:1.5;
 }
 
 .reflection-reward{
   color:var(--green);
   font-size:8px;
   letter-spacing:1px;
-  margin-top:6px;
+  margin-top:7px;
 }
 
 .reflection-actions{
   display:flex;
   gap:8px;
-  margin-top:15px;
+  margin-top:17px;
 }
 
 .reflection-actions button{
@@ -534,44 +810,55 @@ header{
 
 .quest-list{
   display:grid;
-  gap:9px;
+  gap:8px;
 }
 
 .quest{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:15px;
+  position:relative;
+  border-radius:17px;
+  padding:14px 15px;
   display:flex;
   align-items:center;
-  gap:14px;
-  transition:.2s;
+  gap:13px;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
   cursor:pointer;
 }
 
 .quest:hover{
-  border-color:#343b48;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.018)
+    );
+  border-color:rgba(255,255,255,.12);
   transform:translateX(2px);
 }
 
 .quest.completed{
-  opacity:.42;
+  opacity:.38;
   cursor:default;
 }
 
 .quest-check{
-  width:25px;
-  height:25px;
-  border:1px solid #414957;
+  width:27px;
+  height:27px;
+  border-radius:50%;
+  border:1px solid #444b58;
   color:transparent;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-shrink:0;
+  transition:.2s;
 }
 
 .quest.completed .quest-check{
   border-color:var(--green);
-  background:rgba(93,242,165,.08);
+  background:rgba(99,239,170,.08);
   color:var(--green);
 }
 
@@ -582,7 +869,7 @@ header{
 
 .quest-name{
   font-size:12px;
-  font-weight:bold;
+  font-weight:700;
 }
 
 .quest-meta{
@@ -597,30 +884,34 @@ header{
 }
 
 .xp-reward{
-  font-size:12px;
-  font-weight:bold;
+  font-size:11px;
+  font-weight:800;
 }
 
 .stat-reward{
   color:var(--muted);
-  font-size:8px;
+  font-size:7px;
   margin-top:4px;
 }
 
 .quest.easy{
-  border-left:2px solid var(--green);
+  box-shadow:
+    inset 2px 0 0 rgba(99,239,170,.75);
 }
 
 .quest.normal{
-  border-left:2px solid var(--blue);
+  box-shadow:
+    inset 2px 0 0 rgba(108,174,255,.75);
 }
 
 .quest.hard{
-  border-left:2px solid var(--purple);
+  box-shadow:
+    inset 2px 0 0 rgba(169,128,255,.75);
 }
 
 .quest.extreme{
-  border-left:2px solid var(--red);
+  box-shadow:
+    inset 2px 0 0 rgba(255,111,130,.75);
 }
 
 /* =========================================================
@@ -628,8 +919,7 @@ header{
 ========================================================= */
 
 .panel{
-  border:1px solid var(--line);
-  background:var(--panel);
+  border-radius:22px;
 }
 
 .create-quest{
@@ -655,37 +945,47 @@ header{
 input,
 select{
   width:100%;
-  border:1px solid #252b35;
-  background:#080a0f;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:rgba(0,0,0,.25);
   color:var(--text);
-  padding:12px;
+  padding:12px 13px;
   outline:none;
   font-size:11px;
+  transition:.2s;
 }
 
 input:focus,
 select:focus{
-  border-color:#5d6878;
+  border-color:rgba(255,255,255,.22);
+  background:rgba(255,255,255,.035);
+}
+
+input::placeholder{
+  color:#4f5560;
 }
 
 .create-button{
   margin-top:14px;
   width:100%;
-  background:#e8edf5;
-  color:#050609;
   border:none;
-  font-weight:bold;
+  background:#edf0f5;
+  color:#050507;
+  font-weight:800;
   padding:13px;
 }
 
+/* =========================================================
+   CUSTOM QUESTS
+========================================================= */
+
 .custom-quest{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:15px;
+  border-radius:17px;
+  padding:14px 15px;
   display:flex;
   align-items:center;
-  gap:14px;
-  margin-bottom:9px;
+  gap:13px;
+  margin-bottom:8px;
 }
 
 .custom-quest-main{
@@ -695,14 +995,14 @@ select:focus{
 
 .custom-quest-name{
   font-size:12px;
-  font-weight:bold;
+  font-weight:700;
   word-break:break-word;
 }
 
 .custom-quest-meta{
   color:var(--muted);
   font-size:8px;
-  letter-spacing:1px;
+  letter-spacing:.8px;
   margin-top:6px;
 }
 
@@ -712,61 +1012,75 @@ select:focus{
 }
 
 .delete-button{
-  width:32px;
-  height:32px;
+  width:34px;
+  height:34px;
   padding:0;
   color:var(--red);
-  border-color:#30232a;
+  border-color:rgba(255,111,130,.14);
 }
 
 .empty-state{
-  border:1px dashed #242a34;
+  border:1px dashed rgba(255,255,255,.09);
+  border-radius:17px;
   padding:25px;
   text-align:center;
-  color:#565e6b;
+  color:#565c68;
   font-size:9px;
   letter-spacing:1px;
 }
 
 /* =========================================================
-   LIFE QUEST
+   LIFE
 ========================================================= */
 
 .life-quest{
-  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  padding:22px;
+}
+
+.life-quest:before{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:-100px;
+  top:-150px;
+  border-radius:50%;
   background:
     radial-gradient(
-      circle at 90% 10%,
-      rgba(168,124,255,.08),
-      transparent 35%
-    ),
-    var(--panel);
-  padding:20px;
+      circle,
+      rgba(169,128,255,.13),
+      transparent 68%
+    );
 }
 
 .life-label{
+  position:relative;
   color:var(--purple);
   font-size:8px;
   letter-spacing:3px;
 }
 
 .life-text{
+  position:relative;
   font-size:17px;
-  font-weight:bold;
-  margin:13px 0 18px;
-  line-height:1.4;
+  font-weight:750;
+  margin:13px 0 19px;
+  line-height:1.45;
   min-height:48px;
 }
 
 .button-row{
+  position:relative;
   display:flex;
   gap:8px;
 }
 
 .side-card{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:17px;
+  border-radius:19px;
+  padding:16px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -780,18 +1094,20 @@ select:focus{
 }
 
 .side-icon{
-  width:38px;
-  height:38px;
-  border:1px solid #303642;
+  width:39px;
+  height:39px;
+  border-radius:13px;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--line);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:17px;
+  font-size:16px;
 }
 
 .side-name{
   font-size:12px;
-  font-weight:bold;
+  font-weight:700;
 }
 
 .side-meta{
@@ -807,77 +1123,98 @@ select:focus{
 .stats-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:9px;
 }
 
 .stat{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:16px;
+  border-radius:19px;
+  padding:17px;
+  transition:.2s;
+}
+
+.stat:hover{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.012)
+    );
 }
 
 .stat-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:8px;
+  gap:10px;
+  margin-bottom:9px;
 }
 
 .stat-name{
-  font-size:10px;
-  font-weight:bold;
+  font-size:9px;
+  font-weight:800;
   letter-spacing:1px;
 }
 
 .stat-value{
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
   text-align:right;
 }
 
 .stat-bar{
   height:4px;
-  background:#1a1e26;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
 }
 
 .stat-fill{
   height:100%;
   width:0;
-  transition:width .4s;
+  border-radius:999px;
+  transition:width .5s ease;
+  box-shadow:0 0 10px currentColor;
 }
 
 .stat-progress-label{
-  color:#59616f;
-  font-size:8px;
-  margin-top:7px;
+  color:#5d6370;
+  font-size:7px;
+  margin-top:8px;
   letter-spacing:.7px;
 }
 
 .str{
   background:var(--red);
+  color:var(--red);
 }
 
 .int{
   background:var(--blue);
+  color:var(--blue);
 }
 
 .wis{
   background:var(--purple);
+  color:var(--purple);
 }
 
 .cha{
   background:var(--pink);
+  color:var(--pink);
 }
 
 .dex{
   background:var(--green);
+  color:var(--green);
 }
 
 .cre{
   background:var(--orange);
+  color:var(--orange);
 }
 
 .vit{
   background:var(--cyan);
+  color:var(--cyan);
 }
 
 /* =========================================================
@@ -887,44 +1224,43 @@ select:focus{
 .achievement-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:9px;
 }
 
 .achievement{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:16px;
+  border-radius:19px;
+  padding:17px;
   position:relative;
 }
 
 .achievement.unlocked{
-  border-color:#38424f;
+  border-color:rgba(255,255,255,.11);
 }
 
 .achievement.locked{
-  opacity:.48;
+  opacity:.43;
 }
 
 .achievement-icon{
-  font-size:25px;
+  font-size:23px;
   margin-bottom:10px;
 }
 
 .achievement-title{
-  font-size:12px;
-  font-weight:bold;
+  font-size:11px;
+  font-weight:800;
   letter-spacing:1px;
 }
 
 .achievement-desc{
   color:var(--muted);
   font-size:9px;
-  line-height:1.45;
+  line-height:1.5;
   margin-top:6px;
 }
 
 .achievement-reward{
-  font-size:9px;
+  font-size:8px;
   color:var(--green);
   margin-top:10px;
   letter-spacing:1px;
@@ -932,20 +1268,23 @@ select:focus{
 
 .achievement-progress{
   height:3px;
-  background:#1a1e26;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
   margin-top:12px;
+  overflow:hidden;
 }
 
 .achievement-progress div{
   height:100%;
+  border-radius:999px;
   background:var(--purple);
 }
 
 .achievement-status{
   position:absolute;
-  right:12px;
-  top:12px;
-  font-size:8px;
+  right:14px;
+  top:14px;
+  font-size:7px;
   letter-spacing:1px;
   color:var(--muted);
 }
@@ -964,18 +1303,19 @@ select:focus{
 }
 
 .history-item{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:14px;
+  border-radius:17px;
+  padding:13px;
   display:flex;
   align-items:center;
-  gap:13px;
+  gap:12px;
 }
 
 .history-icon{
-  width:34px;
-  height:34px;
-  border:1px solid #303642;
+  width:35px;
+  height:35px;
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -984,30 +1324,33 @@ select:focus{
 
 .history-main{
   flex:1;
+  min-width:0;
 }
 
 .history-title{
   font-size:11px;
-  font-weight:bold;
+  font-weight:700;
 }
 
 .history-meta{
   color:var(--muted);
-  font-size:8px;
+  font-size:7px;
   margin-top:4px;
+  line-height:1.5;
 }
 
 .history-xp{
   color:var(--green);
-  font-size:10px;
-  font-weight:bold;
+  font-size:9px;
+  font-weight:800;
 }
 
 .history-empty{
-  border:1px dashed #242a34;
+  border:1px dashed rgba(255,255,255,.08);
+  border-radius:17px;
   padding:30px;
   text-align:center;
-  color:#565e6b;
+  color:#565c68;
   font-size:9px;
   letter-spacing:1px;
 }
@@ -1018,20 +1361,20 @@ select:focus{
 
 .profile-card,
 .settings-card{
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:20px;
+  border-radius:22px;
+  padding:21px;
 }
 
 .profile-name{
-  font-size:25px;
-  font-weight:800;
+  font-size:26px;
+  font-weight:850;
   margin:8px 0 5px;
+  letter-spacing:-.5px;
 }
 
 .profile-sub{
   color:var(--muted);
-  font-size:9px;
+  font-size:8px;
   letter-spacing:1px;
 }
 
@@ -1041,7 +1384,7 @@ select:focus{
   align-items:center;
   gap:20px;
   padding:15px 0;
-  border-bottom:1px solid #181d25;
+  border-bottom:1px solid var(--line-soft);
 }
 
 .setting-row:last-child{
@@ -1050,18 +1393,19 @@ select:focus{
 
 .setting-name{
   font-size:11px;
-  font-weight:bold;
+  font-weight:750;
 }
 
 .setting-description{
   color:var(--muted);
   font-size:8px;
   margin-top:4px;
+  line-height:1.5;
 }
 
 .danger-button{
   color:var(--red);
-  border-color:#3b252d;
+  border-color:rgba(255,111,130,.14);
 }
 
 /* =========================================================
@@ -1071,30 +1415,59 @@ select:focus{
 .navbar{
   position:fixed;
   left:50%;
-  bottom:12px;
+  bottom:13px;
   transform:translateX(-50%);
-  width:min(620px,calc(100% - 20px));
+  width:min(600px,calc(100% - 20px));
   z-index:500;
-  background:rgba(10,12,17,.96);
-  border:1px solid #242a34;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  background:rgba(12,14,19,.82);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:25px;
   padding:5px;
-  backdrop-filter:blur(12px);
+
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.45);
+}
+
+.navbar:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.04),
+      transparent
+    );
 }
 
 .nav-button{
+  position:relative;
   border:0;
+  border-radius:19px;
   background:transparent;
-  color:#687180;
-  padding:11px 4px;
-  font-size:8px;
-  letter-spacing:1px;
+  color:#68707d;
+  padding:10px 4px;
+  font-size:7px;
+  letter-spacing:1.3px;
+}
+
+.nav-button:hover{
+  background:rgba(255,255,255,.035);
+  border-color:transparent;
+  transform:none;
 }
 
 .nav-button.active{
   color:#f1f3f7;
-  background:#171b23;
+  background:rgba(255,255,255,.075);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .nav-icon{
@@ -1110,18 +1483,20 @@ select:focus{
 .notification{
   position:fixed;
   left:50%;
-  bottom:85px;
-  transform:translate(-50%,100px);
-  background:#eef2f7;
-  color:#050609;
-  padding:13px 20px;
-  font-size:10px;
-  font-weight:bold;
-  letter-spacing:2px;
+  bottom:90px;
+  transform:translate(-50%,120px);
+  background:rgba(240,243,248,.96);
+  color:#050507;
+  border-radius:999px;
+  padding:12px 19px;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.5px;
   z-index:10000;
   opacity:0;
   transition:.35s;
-  box-shadow:0 10px 35px rgba(0,0,0,.35);
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.45);
   text-align:center;
   white-space:nowrap;
 }
@@ -1133,10 +1508,10 @@ select:focus{
 
 footer{
   text-align:center;
-  color:#343a45;
-  font-size:8px;
-  letter-spacing:3px;
-  margin-top:45px;
+  color:#343943;
+  font-size:7px;
+  letter-spacing:2.5px;
+  margin-top:43px;
 }
 
 /* =========================================================
@@ -1146,15 +1521,32 @@ footer{
 @media(max-width:600px){
 
   #app{
-    padding:18px 12px 100px;
+    padding:
+      16px
+      12px
+      105px;
+  }
+
+  header{
+    padding-bottom:17px;
+  }
+
+  .brand-name{
+    font-size:15px;
+  }
+
+  .brand-mark{
+    width:28px;
+    height:28px;
   }
 
   .hero{
-    padding:18px;
+    padding:21px;
+    border-radius:24px;
   }
 
   .level{
-    font-size:31px;
+    font-size:35px;
   }
 
   .summary-grid{
@@ -1163,10 +1555,15 @@ footer{
 
   .summary-card{
     padding:13px;
+    border-radius:16px;
   }
 
   .summary-value{
-    font-size:20px;
+    font-size:19px;
+  }
+
+  .summary-sub{
+    font-size:7px;
   }
 
   .stats-grid,
@@ -1182,13 +1579,13 @@ footer{
     grid-column:auto;
   }
 
-  .button-row,
-  .custom-quest-actions{
+  .reflection-actions,
+  .button-row{
     flex-direction:column;
   }
 
-  .button-row button,
-  .custom-complete{
+  .reflection-actions button,
+  .button-row button{
     width:100%;
   }
 
@@ -1198,16 +1595,48 @@ footer{
   }
 
   .splash-title{
-    font-size:32px;
+    font-size:31px;
     letter-spacing:7px;
+  }
+
+  .splash-subtitle{
+    font-size:8px;
+  }
+
+  .system-menu{
+    right:-3px;
+    width:195px;
   }
 
   .custom-quest{
     align-items:flex-start;
   }
 
-  .system-menu{
-    right:-5px;
+  .custom-quest-actions{
+    flex-direction:column;
+  }
+
+  .custom-quest-actions button{
+    width:100%;
+  }
+
+  .side-card{
+    align-items:flex-start;
+  }
+
+  .side-card > button{
+    flex-shrink:0;
+  }
+
+  .navbar{
+    bottom:9px;
+    border-radius:22px;
+  }
+
+  .notification{
+    max-width:
+      calc(100% - 30px);
+    white-space:normal;
   }
 }
 </style>
@@ -1216,14 +1645,19 @@ footer{
 <body>
 
 <!-- =======================================================
-     SPLASH SCREEN
+     SPLASH
 ======================================================= -->
 
 <div id="splash">
 
+  <div class="smoke">
+    <div class="smoke-layer"></div>
+  </div>
+
+  <div class="splash-vignette"></div>
+
   <div class="splash-content">
 
-    <!-- YOUR ACTUAL SENRAI LOGO -->
     <img
       src="senrai-logo.png"
       alt="SENRAI"
@@ -1235,7 +1669,7 @@ footer{
     </div>
 
     <div class="splash-subtitle">
-      PERSONAL PROGRESSION SYSTEM
+      THE SYSTEM THAT MOVES YOU FORWARD
     </div>
 
     <div class="loading-container">
@@ -1248,6 +1682,7 @@ footer{
       </div>
 
       <div class="loading-text">
+
         <span id="loadingStatus">
           SYSTEM INITIALIZING
         </span>
@@ -1255,6 +1690,7 @@ footer{
         <span id="loadingPercent">
           0%
         </span>
+
       </div>
 
     </div>
@@ -1264,11 +1700,11 @@ footer{
 </div>
 
 
-<div id="app">
-
 <!-- =======================================================
-     HEADER
+     APPLICATION
 ======================================================= -->
+
+<div id="app">
 
 <header>
 
@@ -1288,10 +1724,15 @@ footer{
   <div class="system-button">
 
     <button id="systemMenuButton">
+
       <span class="system-dot"></span>
+
       SYSTEM
+
       <span>⌄</span>
+
     </button>
+
 
     <div
       class="system-menu"
@@ -1453,7 +1894,7 @@ footer{
     </div>
 
     <div class="summary-sub">
-      EXPERIENCE EARNED
+      EXPERIENCE
     </div>
 
   </div>
@@ -2080,10 +2521,13 @@ footer{
     </div>
 
     <div class="section-description">
+
       <span id="achievementCount">
         0 / 7
       </span>
+
       UNLOCKED
+
     </div>
 
   </div>
@@ -2169,11 +2613,15 @@ footer{
     </div>
 
     <div class="profile-sub">
+
       SENRAI USER • LEVEL
+
       <span id="profileLevel">
         1
       </span>
+
     </div>
+
 
     <div
       class="form-group"
@@ -2307,14 +2755,14 @@ footer{
 
 
 <footer>
-  SENRAI • YOUR LIFE, YOUR PROGRESS
+  SENRAI • YOUR LIFE • YOUR PROGRESS
 </footer>
 
 </div>
 
 
 <!-- =======================================================
-     BOTTOM NAVIGATION
+     NAVIGATION
 ======================================================= -->
 
 <nav class="navbar">
@@ -2323,10 +2771,13 @@ footer{
     class="nav-button active"
     data-view="home"
   >
+
     <span class="nav-icon">
       ⌂
     </span>
+
     HOME
+
   </button>
 
 
@@ -2334,10 +2785,13 @@ footer{
     class="nav-button"
     data-view="quests"
   >
+
     <span class="nav-icon">
       ⚔
     </span>
+
     QUESTS
+
   </button>
 
 
@@ -2345,10 +2799,13 @@ footer{
     class="nav-button"
     data-view="stats"
   >
+
     <span class="nav-icon">
       ◈
     </span>
+
     STATS
+
   </button>
 
 
@@ -2356,10 +2813,13 @@ footer{
     class="nav-button"
     data-view="life"
   >
+
     <span class="nav-icon">
       ✦
     </span>
+
     LIFE
+
   </button>
 
 </nav>
@@ -2435,11 +2895,6 @@ JSON.parse(
 };
 
 
-/* =========================================================
-   MIGRATION
-   Keeps older SENRAI data instead of wiping it.
-========================================================= */
-
 if(!data.stats){
   data.stats={};
 }
@@ -2447,6 +2902,7 @@ if(!data.stats){
 if(!data.statProgress){
   data.statProgress={};
 }
+
 
 const STAT_KEYS=[
   "STR",
@@ -2464,12 +2920,6 @@ STAT_KEYS.forEach(stat=>{
   if(
     typeof data.statProgress[stat]!=="number"
   ){
-
-    /*
-      Older versions stored the stat as a level.
-      We convert old levels into some starting progress.
-      This prevents existing users from losing everything.
-    */
 
     data.statProgress[stat]=
       (Number(data.stats[stat])||0)*50;
@@ -2499,28 +2949,8 @@ Number(data.completedToday)||0;
 
 
 /* =========================================================
-   LONG-TERM STAT SYSTEM
+   STAT PROGRESSION
 ========================================================= */
-
-/*
-  IMPORTANT:
-
-  Stats are NOT simply "XP divided by something."
-
-  Each level has its own requirement.
-
-  Level 1 = 50 progress
-  Level 2 = 125 additional progress
-  Level 3 = 200 additional progress
-  Level 4 = 275 additional progress
-  etc.
-
-  This makes stat growth intentionally slow.
-
-  One small quest should NOT instantly create
-  a new stat level.
-*/
-
 
 function statXPNeededForLevel(level){
 
@@ -2564,6 +2994,7 @@ function statProgressIntoLevel(progress){
 
   let spent=0;
 
+
   for(
     let i=1;
     i<=level;
@@ -2594,13 +3025,6 @@ function statProgressIntoLevel(progress){
 }
 
 
-/*
-  Quest difficulty affects stat progress.
-
-  Notice how the stat progress is intentionally
-  much smaller than the XP reward.
-*/
-
 function statGainForQuest(xp){
 
   const gains={
@@ -2618,6 +3042,7 @@ function statGainForQuest(xp){
     100:55
 
   };
+
 
   return gains[xp] ||
     Math.max(
@@ -2873,7 +3298,7 @@ const achievementDefs=[
 
 
 /* =========================================================
-   SAVE
+   SAVE FUNCTIONS
 ========================================================= */
 
 function save(){
@@ -2968,10 +3393,6 @@ function yesterdayString(){
 }
 
 
-/* =========================================================
-   DAILY RESET
-========================================================= */
-
 function checkDailyReset(){
 
   const today=
@@ -2998,7 +3419,7 @@ function checkDailyReset(){
 
 
 /* =========================================================
-   LEVEL SYSTEM
+   XP
 ========================================================= */
 
 function xpNeededForLevel(level){
@@ -3008,111 +3429,10 @@ function xpNeededForLevel(level){
 }
 
 
-/* =========================================================
-   STAT PROGRESS
-========================================================= */
-
-function addStatProgress(
-  stat,
-  amount
-){
-
-  if(!data.statProgress){
-    data.statProgress={};
-  }
-
-  const before=
-    statLevelFromProgress(
-      data.statProgress[stat]||0
-    );
-
-
-  data.statProgress[stat]=
-    (Number(
-      data.statProgress[stat]
-    )||0)+amount;
-
-
-  const after=
-    statLevelFromProgress(
-      data.statProgress[stat]
-    );
-
-
-  data.stats[stat]=after;
-
-
-  if(after>before){
-
-    showNotification(
-      stat+
-      " LEVEL UP • LEVEL "+
-      after
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function addHistory(
-  title,
-  type,
-  xp=0,
-  stat=null,
-  statProgress=0
-){
-
-  history.unshift({
-
-    id:
-      Date.now()+
-      Math.random(),
-
-    title,
-
-    type,
-
-    xp,
-
-    stat,
-
-    statProgress,
-
-    date:
-      new Date().toLocaleString()
-
-  });
-
-
-  /*
-    Keep the history useful without allowing it
-    to become infinitely huge.
-  */
-
-  if(history.length>500){
-
-    history=
-      history.slice(0,500);
-
-  }
-
-  saveHistory();
-
-}
-
-
-/* =========================================================
-   XP
-========================================================= */
-
 function addXP(
   amount,
-  title="XP EARNED"
+  title="XP EARNED",
+  shouldLog=true
 ){
 
   const oldLevel=
@@ -3139,11 +3459,15 @@ function addXP(
   }
 
 
-  addHistory(
-    title,
-    "XP",
-    amount
-  );
+  if(shouldLog){
+
+    addHistory(
+      title,
+      "XP",
+      amount
+    );
+
+  }
 
 
   save();
@@ -3215,7 +3539,102 @@ function updateStreak(){
 
 
 /* =========================================================
-   QUEST COMPLETION
+   STAT PROGRESS
+========================================================= */
+
+function addStatProgress(
+  stat,
+  amount
+){
+
+  if(!data.statProgress){
+    data.statProgress={};
+  }
+
+
+  const before=
+    statLevelFromProgress(
+      data.statProgress[stat]||0
+    );
+
+
+  data.statProgress[stat]=
+    (Number(
+      data.statProgress[stat]
+    )||0)+amount;
+
+
+  const after=
+    statLevelFromProgress(
+      data.statProgress[stat]
+    );
+
+
+  data.stats[stat]=after;
+
+
+  if(after>before){
+
+    showNotification(
+      stat+
+      " LEVEL UP • LEVEL "+
+      after
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function addHistory(
+  title,
+  type,
+  xp=0,
+  stat=null,
+  statProgress=0
+){
+
+  history.unshift({
+
+    id:
+      Date.now()+
+      Math.random(),
+
+    title,
+
+    type,
+
+    xp,
+
+    stat,
+
+    statProgress,
+
+    date:
+      new Date().toLocaleString()
+
+  });
+
+
+  if(history.length>500){
+
+    history=
+      history.slice(0,500);
+
+  }
+
+
+  saveHistory();
+
+}
+
+
+/* =========================================================
+   COMPLETE QUEST
 ========================================================= */
 
 function completeQuestRecord(
@@ -3252,19 +3671,38 @@ function completeQuestRecord(
   updateStreak();
 
 
-  addHistory(
-    title,
-    "QUEST",
-    xp,
-    stat,
-    statGain
-  );
-
-
   addXP(
     xp,
-    title
+    title,
+    true
   );
+
+
+  /*
+    addXP already creates the XP history entry.
+    The stat information is added separately so the
+    history still records the stat progression.
+  */
+
+  const latest=
+    history.find(
+      item=>
+        item.title===title &&
+        item.type==="XP"
+    );
+
+
+  if(latest){
+
+    latest.type="QUEST";
+
+    latest.stat=stat;
+
+    latest.statProgress=statGain;
+
+    saveHistory();
+
+  }
 
 
   save();
@@ -3273,7 +3711,7 @@ function completeQuestRecord(
 
 
 /* =========================================================
-   DAILY COMPLETION
+   DAILY QUEST
 ========================================================= */
 
 function completeDaily(id){
@@ -3324,7 +3762,7 @@ function completeDaily(id){
 
 
 /* =========================================================
-   CUSTOM QUESTS
+   CUSTOM QUEST
 ========================================================= */
 
 function getQuestXP(
@@ -3481,23 +3919,37 @@ function completeCustom(id){
   updateStreak();
 
 
-  addHistory(
-    q.name,
-    "CUSTOM QUEST",
-    q.xp,
-    q.stat,
-    statGain
-  );
-
-
   addXP(
     q.xp,
-    q.name
+    q.name,
+    true
   );
+
+
+  const latest=
+    history.find(
+      item=>
+        item.title===q.name &&
+        item.type==="XP"
+    );
+
+
+  if(latest){
+
+    latest.type="CUSTOM QUEST";
+
+    latest.stat=q.stat;
+
+    latest.statProgress=statGain;
+
+    saveHistory();
+
+  }
 
 
   saveCustom();
 
+  save();
 
   renderCustom();
 
@@ -3532,10 +3984,6 @@ function deleteCustom(id){
 
 }
 
-
-/* =========================================================
-   HTML SAFETY
-========================================================= */
 
 function escapeHTML(text){
 
@@ -3926,12 +4374,6 @@ function buildReflectionOptions(){
   }
 
 
-  /*
-    Fixed bug:
-    highest and lowest are objects,
-    so we correctly use .value here.
-  */
-
   if(
     entries.length &&
     highest.value >
@@ -4188,6 +4630,10 @@ function renderReflection(){
 }
 
 
+/* =========================================================
+   ACCEPT REFLECTION QUEST
+========================================================= */
+
 function acceptReflectionQuest(){
 
   if(
@@ -4309,8 +4755,10 @@ function completeLife(){
   currentLifeQuest=null;
 
 
+  const xp=15;
+
   const statGain=
-    statGainForQuest(15);
+    statGainForQuest(xp);
 
 
   addStatProgress(
@@ -4327,19 +4775,32 @@ function completeLife(){
   updateStreak();
 
 
-  addHistory(
-    quest,
-    "LIFE QUEST",
-    15,
-    "WIS",
-    statGain
-  );
-
-
   addXP(
-    15,
-    quest
+    xp,
+    quest,
+    true
   );
+
+
+  const latest=
+    history.find(
+      item=>
+        item.title===quest &&
+        item.type==="XP"
+    );
+
+
+  if(latest){
+
+    latest.type="LIFE QUEST";
+
+    latest.stat="WIS";
+
+    latest.statProgress=statGain;
+
+    saveHistory();
+
+  }
 
 
   document
@@ -4374,7 +4835,7 @@ function completeLife(){
 
 
 /* =========================================================
-   SIDE QUEST
+   SOCIAL QUEST
 ========================================================= */
 
 function completeSide(){
@@ -4412,19 +4873,33 @@ function completeSide(){
   updateStreak();
 
 
-  addHistory(
-    "Call someone you haven't talked to recently",
-    "SOCIAL QUEST",
-    xp,
-    "CHA",
-    statGain
-  );
-
-
   addXP(
     xp,
-    "Social Link"
+    "Call someone you haven't talked to recently",
+    true
   );
+
+
+  const latest=
+    history.find(
+      item=>
+        item.title===
+        "Call someone you haven't talked to recently" &&
+        item.type==="XP"
+    );
+
+
+  if(latest){
+
+    latest.type="SOCIAL QUEST";
+
+    latest.stat="CHA";
+
+    latest.statProgress=statGain;
+
+    saveHistory();
+
+  }
 
 
   button.textContent=
@@ -4449,6 +4924,9 @@ function completeSide(){
 
 function checkAchievements(){
 
+  let unlockedSomething=false;
+
+
   achievementDefs.forEach(
     achievement=>{
 
@@ -4467,15 +4945,12 @@ function checkAchievements(){
         saveAchievements();
 
 
-        /*
-          Achievement rewards still give XP,
-          but they do NOT give stat progress.
-          Stats should represent actual behavior,
-          not meta rewards.
-        */
-
         const reward=
           achievement.reward;
+
+
+        const oldLevel=
+          data.level;
 
 
         data.xp+=reward;
@@ -4508,7 +4983,23 @@ function checkAchievements(){
         }
 
 
+        if(
+          data.level>oldLevel
+        ){
+
+          addHistory(
+            "Reached Level "+
+            data.level,
+            "LEVEL_UP"
+          );
+
+        }
+
+
         save();
+
+
+        unlockedSomething=true;
 
 
         showNotification(
@@ -4529,6 +5020,10 @@ function checkAchievements(){
 
 }
 
+
+/* =========================================================
+   RENDER ACHIEVEMENTS
+========================================================= */
 
 function renderAchievements(){
 
@@ -4858,6 +5353,10 @@ function renderHistory(){
       icon="✦";
     }
 
+    if(item.type==="SOCIAL QUEST"){
+      icon="☏";
+    }
+
 
     element.innerHTML=`
 
@@ -4948,7 +5447,7 @@ function renderProfile(){
 
 
 /* =========================================================
-   UI UPDATE
+   UI
 ========================================================= */
 
 function updateUI(){
@@ -5118,7 +5617,7 @@ function showView(view){
 
 
 /* =========================================================
-   NOTIFICATION
+   NOTIFICATIONS
 ========================================================= */
 
 let notificationTimeout;
@@ -5162,7 +5661,7 @@ function showNotification(
 
 
 /* =========================================================
-   NAV EVENTS
+   NAV BUTTONS
 ========================================================= */
 
 document
@@ -5250,7 +5749,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   QUEST EVENTS
+   EVENTS
 ========================================================= */
 
 document
@@ -5293,10 +5792,6 @@ document
   );
 
 
-/* =========================================================
-   LIFE EVENTS
-========================================================= */
-
 document
   .getElementById(
     "surpriseButton"
@@ -5336,10 +5831,6 @@ document
     completeLife
   );
 
-
-/* =========================================================
-   REFLECTION EVENTS
-========================================================= */
 
 document
   .getElementById(
@@ -5393,10 +5884,6 @@ document
   );
 
 
-/* =========================================================
-   PROFILE
-========================================================= */
-
 document
   .getElementById(
     "saveProfileButton"
@@ -5443,10 +5930,6 @@ document
   );
 
 
-/* =========================================================
-   SETTINGS
-========================================================= */
-
 document
   .getElementById(
     "clearHistoryButton"
@@ -5484,7 +5967,7 @@ document
 
 
 /* =========================================================
-   INITIALIZATION
+   INITIALIZE
 ========================================================= */
 
 checkDailyReset();
@@ -5497,7 +5980,7 @@ updateUI();
 
 
 /* =========================================================
-   SPLASH LOADING
+   LOADING SCREEN
 ========================================================= */
 
 const loadingMessages=[
@@ -5544,7 +6027,7 @@ const loadingInterval=
 
       loadingProgress+=
         Math.floor(
-          Math.random()*9
+          Math.random()*8
         )+4;
 
 
@@ -5598,7 +6081,7 @@ const loadingInterval=
               );
 
           },
-          500
+          650
         );
 
       }
