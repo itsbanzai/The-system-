@@ -17,13 +17,9 @@
 :root {
     --bg: #050505;
     --panel: #0b0b0b;
-    --panel2: #101010;
     --border: #222;
-    --border2: #2d2d2d;
     --text: #f2f2f2;
     --muted: #858585;
-    --dim: #555;
-    --accent: #ffffff;
     --success: #72e6a5;
     --warning: #e7c66b;
     --danger: #e47777;
@@ -734,6 +730,137 @@ button {
 }
 
 /* =========================================================
+   HISTORY
+========================================================= */
+
+.history-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+    margin-bottom: 14px;
+}
+
+.history-stat {
+    background: #0c0c0c;
+    border: 1px solid #202020;
+    border-radius: 11px;
+    padding: 13px;
+}
+
+.history-stat-label {
+    font-size: 8px;
+    letter-spacing: 1.4px;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.history-stat-value {
+    font-size: 23px;
+    margin-top: 5px;
+}
+
+.history-day {
+    margin-bottom: 18px;
+}
+
+.history-day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.history-date {
+    font-size: 12px;
+    color: #aaa;
+    font-weight: 600;
+}
+
+.history-day-xp {
+    color: #777;
+    font-size: 10px;
+}
+
+.history-entry {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 0;
+    border-bottom: 1px solid #191919;
+}
+
+.history-entry:last-child {
+    border-bottom: 0;
+}
+
+.history-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: 1px solid #2b2b2b;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    font-size: 13px;
+}
+
+.history-entry-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.history-entry-name {
+    font-size: 12px;
+    color: #ddd;
+    line-height: 1.35;
+}
+
+.history-entry-meta {
+    color: #666;
+    font-size: 9px;
+    margin-top: 3px;
+}
+
+.history-entry-xp {
+    color: #aaa;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.look-back {
+    border: 1px solid #2b2b2b;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255,255,255,.055),
+            transparent 45%
+        ),
+        #0b0b0b;
+}
+
+.look-back-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+.look-back-big {
+    font-size: 22px;
+    line-height: 1.3;
+    margin-top: 9px;
+}
+
+.look-back-text {
+    color: #777;
+    font-size: 11px;
+    line-height: 1.65;
+    margin-top: 10px;
+}
+
+/* =========================================================
    FORMS
 ========================================================= */
 
@@ -851,9 +978,9 @@ textarea {
     right: 0;
     bottom: 0;
     padding:
-        7px 6px
+        7px 4px
         calc(7px + env(safe-area-inset-bottom));
-    background: rgba(7,7,7,.96);
+    background: rgba(7,7,7,.97);
     backdrop-filter: blur(18px);
     border-top: 1px solid #1c1c1c;
 }
@@ -862,7 +989,7 @@ textarea {
     max-width: 900px;
     margin: auto;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
 }
 
 .nav-btn {
@@ -870,7 +997,7 @@ textarea {
     background: transparent;
     color: #555;
     min-height: 51px;
-    padding: 4px 2px;
+    padding: 4px 1px;
 }
 
 .nav-btn.active {
@@ -879,14 +1006,14 @@ textarea {
 
 .nav-icon {
     display: block;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 18px;
 }
 
 .nav-label {
     display: block;
-    font-size: 7px;
-    letter-spacing: .7px;
+    font-size: 6.5px;
+    letter-spacing: .4px;
     margin-top: 4px;
 }
 
@@ -1000,6 +1127,10 @@ textarea {
     .schedule-options {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    .history-summary {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 </style>
 </head>
@@ -1011,9 +1142,11 @@ textarea {
 ========================================================= -->
 
 <div id="splash">
+
     <div class="splash-smoke"></div>
 
     <div class="splash-content">
+
         <img
             src="senrai-logo.png"
             class="splash-logo"
@@ -1021,17 +1154,27 @@ textarea {
             onerror="this.style.opacity='.15'"
         >
 
-        <div class="splash-status" id="splash-status">
+        <div
+            class="splash-status"
+            id="splash-status"
+        >
             SYSTEM INITIALIZING
         </div>
 
         <div class="splash-progress">
-            <div class="splash-progress-bar" id="splash-bar"></div>
+            <div
+                class="splash-progress-bar"
+                id="splash-bar"
+            ></div>
         </div>
 
-        <div class="splash-percent" id="splash-percent">
+        <div
+            class="splash-percent"
+            id="splash-percent"
+        >
             0%
         </div>
+
     </div>
 </div>
 
@@ -1042,59 +1185,101 @@ textarea {
 <div id="app" class="hidden">
 
     <header class="topbar">
+
         <div class="topbar-inner">
 
-            <div class="brand">SENRAI</div>
+            <div class="brand">
+                SENRAI
+            </div>
 
             <div class="user-mini">
-                <div class="user-mini-name" id="top-user-name">
+
+                <div
+                    class="user-mini-name"
+                    id="top-user-name"
+                >
                     Player
                 </div>
-                <div class="user-mini-level" id="top-user-level">
+
+                <div
+                    class="user-mini-level"
+                    id="top-user-level"
+                >
                     LEVEL 1
                 </div>
+
             </div>
 
         </div>
+
     </header>
 
     <main id="page-content"></main>
 
     <nav class="bottom-nav">
+
         <div class="nav-inner">
 
-            <button class="nav-btn active" data-page="home">
+            <button
+                class="nav-btn active"
+                data-page="home"
+            >
                 <span class="nav-icon">⌂</span>
                 <span class="nav-label">HOME</span>
             </button>
 
-            <button class="nav-btn" data-page="quests">
+            <button
+                class="nav-btn"
+                data-page="quests"
+            >
                 <span class="nav-icon">⚔</span>
                 <span class="nav-label">QUESTS</span>
             </button>
 
-            <button class="nav-btn" data-page="stats">
+            <button
+                class="nav-btn"
+                data-page="stats"
+            >
                 <span class="nav-icon">◈</span>
                 <span class="nav-label">STATS</span>
             </button>
 
-            <button class="nav-btn" data-page="achievements">
+            <button
+                class="nav-btn"
+                data-page="achievements"
+            >
                 <span class="nav-icon">♛</span>
                 <span class="nav-label">ACHIEVEMENTS</span>
             </button>
 
-            <button class="nav-btn" data-page="life">
+            <button
+                class="nav-btn"
+                data-page="history"
+            >
+                <span class="nav-icon">◷</span>
+                <span class="nav-label">HISTORY</span>
+            </button>
+
+            <button
+                class="nav-btn"
+                data-page="life"
+            >
                 <span class="nav-icon">✦</span>
                 <span class="nav-label">LIFE</span>
             </button>
 
-            <button class="nav-btn" data-page="settings">
+            <button
+                class="nav-btn"
+                data-page="settings"
+            >
                 <span class="nav-icon">⚙</span>
                 <span class="nav-label">SETTINGS</span>
             </button>
 
         </div>
+
     </nav>
+
 </div>
 
 <div id="toast-container"></div>
@@ -1103,11 +1288,18 @@ textarea {
      MODAL
 ========================================================= -->
 
-<div id="modal" class="modal hidden">
-    <div class="modal-box" id="modal-content"></div>
+<div
+    id="modal"
+    class="modal hidden"
+>
+    <div
+        class="modal-box"
+        id="modal-content"
+    ></div>
 </div>
 
 <script>
+
 /* =========================================================
    SUPABASE
 ========================================================= */
@@ -1125,73 +1317,108 @@ const supabaseClient =
     );
 
 /* =========================================================
-   CONSTANTS
+   STORAGE KEYS
 ========================================================= */
 
-const PROFILE_KEY = "theSystemData";
-const CUSTOM_QUESTS_KEY = "senraiCustomQuests";
-const ACHIEVEMENTS_KEY = "senraiAchievements";
-const DAILY_COMPLETED_KEY = "senraiDailyCompleted";
-const DAILY_SKIPPED_KEY = "senraiDailySkipped";
-const PERMANENT_COMPLETED_KEY = "senraiPermanentCompleted";
-const MAIN_QUESTS_KEY = "senraiMainQuests";
-const SIDE_QUESTS_KEY = "senraiSideQuests";
-const DAY_START_KEY = "senraiDayStartHour";
+const PROFILE_KEY =
+    "theSystemData";
+
+const CUSTOM_QUESTS_KEY =
+    "senraiCustomQuests";
+
+const ACHIEVEMENTS_KEY =
+    "senraiAchievements";
+
+const DAILY_COMPLETED_KEY =
+    "senraiDailyCompleted";
+
+const DAILY_SKIPPED_KEY =
+    "senraiDailySkipped";
+
+const PERMANENT_COMPLETED_KEY =
+    "senraiPermanentCompleted";
+
+const MAIN_QUESTS_KEY =
+    "senraiMainQuests";
+
+const SIDE_QUESTS_KEY =
+    "senraiSideQuests";
+
+const DAY_START_KEY =
+    "senraiDayStartHour";
+
+const HISTORY_KEY =
+    "senraiHistory";
+
+/* =========================================================
+   STATS
+========================================================= */
 
 const STAT_INFO = {
+
     STR: {
         name: "Strength",
         description: "Fitness & physical action"
     },
+
     INT: {
         name: "Intelligence",
         description: "Learning & studying"
     },
+
     WIS: {
         name: "Wisdom",
         description: "Personal growth & reflection"
     },
+
     CHA: {
         name: "Charisma",
         description: "Social connection"
     },
+
     DEX: {
         name: "Dexterity",
         description: "Productivity & execution"
     },
+
     CRE: {
         name: "Creativity",
         description: "Creative expression"
     },
+
     VIT: {
         name: "Vitality",
         description: "Health & recovery"
     }
+
 };
 
+/* =========================================================
+   DIFFICULTIES
+========================================================= */
+
 const DIFFICULTIES = {
+
     EASY: {
         label: "Easy",
         xp: 10
     },
+
     NORMAL: {
         label: "Normal",
         xp: 25
     },
+
     HARD: {
         label: "Hard",
         xp: 50
     },
+
     EXTREME: {
         label: "Extreme",
         xp: 100
     }
-};
 
-const QUEST_TYPES = {
-    MAIN: "MAIN",
-    DAILY: "DAILY",
-    SIDE: "SIDE"
 };
 
 /* =========================================================
@@ -1199,19 +1426,31 @@ const QUEST_TYPES = {
 ========================================================= */
 
 let profile = {
+
     id: null,
+
     name: "Player",
+
     level: 1,
+
     xp: 0,
+
     total_xp: 0,
+
     streak: 0,
+
     last_active_date: null,
+
     total_quests_completed: 0,
+
     total_life_quests: 0,
+
     social_quests_completed: 0,
+
     day_start_hour: 0,
 
     stats: {
+
         STR: 0,
         INT: 0,
         WIS: 0,
@@ -1219,152 +1458,334 @@ let profile = {
         DEX: 0,
         CRE: 0,
         VIT: 0
+
     }
+
 };
 
 let currentPage = "home";
+
 let lifeQuest = null;
-
-/* =========================================================
-   SPLASH
-========================================================= */
-
-function runSplash() {
-    const splash = document.getElementById("splash");
-    const bar = document.getElementById("splash-bar");
-    const percent = document.getElementById("splash-percent");
-    const status = document.getElementById("splash-status");
-
-    const statuses = [
-        "SYSTEM INITIALIZING",
-        "LOADING PROFILE",
-        "SYNCING PROGRESS DATA",
-        "INITIALIZING QUEST SYSTEM",
-        "CALIBRATING CHARACTER STATS",
-        "SYSTEM READY"
-    ];
-
-    const start = performance.now();
-    const duration = 2200;
-
-    function frame(now) {
-        const progress =
-            Math.min(1, (now - start) / duration);
-
-        const value =
-            Math.floor(progress * 100);
-
-        bar.style.width = value + "%";
-        percent.textContent = value + "%";
-
-        const index =
-            Math.min(
-                statuses.length - 1,
-                Math.floor(progress * statuses.length)
-            );
-
-        status.textContent = statuses[index];
-
-        if (progress < 1) {
-            requestAnimationFrame(frame);
-        } else {
-            setTimeout(() => {
-                splash.classList.add("hide");
-            }, 250);
-        }
-    }
-
-    requestAnimationFrame(frame);
-
-    setTimeout(() => {
-        splash.classList.add("hide");
-    }, 3500);
-}
 
 /* =========================================================
    LOCAL STORAGE HELPERS
 ========================================================= */
 
-function readJSON(key, fallback) {
+function readJSON(
+    key,
+    fallback
+) {
+
     try {
-        const raw = localStorage.getItem(key);
+
+        const raw =
+            localStorage.getItem(key);
 
         if (!raw) {
             return fallback;
         }
 
         return JSON.parse(raw);
+
     } catch {
+
         return fallback;
+
     }
+
 }
 
-function writeJSON(key, value) {
+function writeJSON(
+    key,
+    value
+) {
+
     localStorage.setItem(
         key,
         JSON.stringify(value)
     );
+
 }
 
 /* =========================================================
-   DAY / SCHEDULE
+   HISTORY SYSTEM
+========================================================= */
+
+function getHistory() {
+
+    return readJSON(
+        HISTORY_KEY,
+        []
+    );
+
+}
+
+function saveHistory(history) {
+
+    writeJSON(
+        HISTORY_KEY,
+        history
+    );
+
+}
+
+function addHistoryEntry(entry) {
+
+    const history =
+        getHistory();
+
+    history.push({
+
+        id:
+            "history-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .slice(2),
+
+        timestamp:
+            new Date().toISOString(),
+
+        personalDay:
+            getPersonalDayKey(),
+
+        ...entry
+
+    });
+
+    /*
+     * Keep the most recent 500
+     * history entries locally.
+     */
+    if (history.length > 500) {
+
+        history.splice(
+            0,
+            history.length - 500
+        );
+
+    }
+
+    saveHistory(history);
+
+}
+
+function getHistoryForDay(
+    day
+) {
+
+    return getHistory()
+        .filter(
+            entry =>
+                entry.personalDay === day
+        );
+
+}
+
+function getHistoryQuestCount() {
+
+    return getHistory()
+        .filter(
+            entry =>
+                entry.type === "QUEST_COMPLETE"
+        )
+        .length;
+
+}
+
+function getHistoryXP() {
+
+    return getHistory()
+        .filter(
+            entry =>
+                entry.type === "QUEST_COMPLETE" ||
+                entry.type === "LIFE_QUEST" ||
+                entry.type === "ACHIEVEMENT"
+        )
+        .reduce(
+            (sum, entry) =>
+                sum +
+                Number(entry.xp || 0),
+            0
+        );
+
+}
+
+function getHistoryStatGrowth() {
+
+    const growth = {
+
+        STR: 0,
+        INT: 0,
+        WIS: 0,
+        CHA: 0,
+        DEX: 0,
+        CRE: 0,
+        VIT: 0
+
+    };
+
+    getHistory()
+        .forEach(entry => {
+
+            if (
+                entry.stat &&
+                growth[entry.stat] !== undefined
+            ) {
+
+                growth[entry.stat] +=
+                    Number(
+                        entry.statPoints || 0
+                    );
+
+            }
+
+        });
+
+    return growth;
+
+}
+
+function getLongestHistoricalStreak() {
+
+    const history =
+        getHistory()
+            .filter(
+                entry =>
+                    entry.type ===
+                    "STREAK_MILESTONE"
+            );
+
+    if (!history.length) {
+
+        return Math.max(
+            0,
+            Number(profile.streak || 0)
+        );
+
+    }
+
+    return Math.max(
+        Number(profile.streak || 0),
+        ...history.map(
+            entry =>
+                Number(entry.streak || 0)
+        )
+    );
+
+}
+
+/* =========================================================
+   DAY / PERSONAL SCHEDULE
 ========================================================= */
 
 function getDayStartHour() {
+
     if (
         profile &&
-        Number.isInteger(Number(profile.day_start_hour))
+        Number.isInteger(
+            Number(
+                profile.day_start_hour
+            )
+        )
     ) {
-        return Number(profile.day_start_hour);
+
+        return Number(
+            profile.day_start_hour
+        );
+
     }
 
     const local =
-        Number(localStorage.getItem(DAY_START_KEY));
+        Number(
+            localStorage.getItem(
+                DAY_START_KEY
+            )
+        );
 
-    if (Number.isInteger(local)) {
+    if (
+        Number.isInteger(local)
+    ) {
+
         return local;
+
     }
 
     return 0;
+
 }
 
-function getPersonalDayKey(date = new Date()) {
-    const startHour = getDayStartHour();
+function getPersonalDayKey(
+    date = new Date()
+) {
 
-    const adjusted = new Date(date);
+    const startHour =
+        getDayStartHour();
 
-    if (adjusted.getHours() < startHour) {
+    const adjusted =
+        new Date(date);
+
+    if (
+        adjusted.getHours() <
+        startHour
+    ) {
+
         adjusted.setDate(
             adjusted.getDate() - 1
         );
+
     }
 
-    const y = adjusted.getFullYear();
-    const m = String(
-        adjusted.getMonth() + 1
-    ).padStart(2, "0");
+    const y =
+        adjusted.getFullYear();
 
-    const d = String(
-        adjusted.getDate()
-    ).padStart(2, "0");
+    const m =
+        String(
+            adjusted.getMonth() + 1
+        ).padStart(2, "0");
+
+    const d =
+        String(
+            adjusted.getDate()
+        ).padStart(2, "0");
 
     return `${y}-${m}-${d}`;
+
 }
 
 function getYesterdayPersonalDayKey() {
-    const date = new Date();
-    date.setDate(date.getDate() - 1);
 
-    return getPersonalDayKey(date);
+    const date =
+        new Date();
+
+    date.setDate(
+        date.getDate() - 1
+    );
+
+    return getPersonalDayKey(
+        date
+    );
+
 }
 
 function formatPersonalDay() {
-    const start = getDayStartHour();
 
-    const date = new Date();
+    const start =
+        getDayStartHour();
 
-    if (date.getHours() < start) {
-        date.setDate(date.getDate() - 1);
+    const date =
+        new Date();
+
+    if (
+        date.getHours() <
+        start
+    ) {
+
+        date.setDate(
+            date.getDate() - 1
+        );
+
     }
 
     return date.toLocaleDateString(
@@ -1375,10 +1796,72 @@ function formatPersonalDay() {
             day: "numeric"
         }
     );
+
 }
 
-async function saveSchedule(hour) {
-    profile.day_start_hour = Number(hour);
+function formatHistoryDate(
+    dateString
+) {
+
+    const date =
+        new Date(
+            dateString + "T12:00:00"
+        );
+
+    return date.toLocaleDateString(
+        undefined,
+        {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }
+    );
+
+}
+
+function formatHistoryTime(
+    timestamp
+) {
+
+    return new Date(
+        timestamp
+    ).toLocaleTimeString(
+        undefined,
+        {
+            hour: "numeric",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+function formatHour(hour) {
+
+    hour = Number(hour);
+
+    if (hour === 0) {
+        return "12:00 AM";
+    }
+
+    if (hour === 12) {
+        return "12:00 PM";
+    }
+
+    if (hour < 12) {
+        return `${hour}:00 AM`;
+    }
+
+    return `${hour - 12}:00 PM`;
+
+}
+
+async function saveSchedule(
+    hour
+) {
+
+    profile.day_start_hour =
+        Number(hour);
 
     localStorage.setItem(
         DAY_START_KEY,
@@ -1386,12 +1869,18 @@ async function saveSchedule(hour) {
     );
 
     if (profile.id) {
+
         await supabaseClient
             .from("profiles")
             .update({
-                day_start_hour: Number(hour)
+                day_start_hour:
+                    Number(hour)
             })
-            .eq("id", profile.id);
+            .eq(
+                "id",
+                profile.id
+            );
+
     }
 
     showToast(
@@ -1400,19 +1889,7 @@ async function saveSchedule(hour) {
     );
 
     render();
-}
 
-function formatHour(hour) {
-    hour = Number(hour);
-
-    if (hour === 0) return "12:00 AM";
-    if (hour === 12) return "12:00 PM";
-
-    if (hour < 12) {
-        return `${hour}:00 AM`;
-    }
-
-    return `${hour - 12}:00 PM`;
 }
 
 /* =========================================================
@@ -1420,40 +1897,57 @@ function formatHour(hour) {
 ========================================================= */
 
 async function getCurrentUser() {
+
     const {
         data,
         error
-    } = await supabaseClient.auth.getUser();
+    } =
+        await supabaseClient
+            .auth
+            .getUser();
 
     if (error) {
         return null;
     }
 
     return data.user;
+
 }
 
 async function loadProfile() {
-    const user = await getCurrentUser();
+
+    const user =
+        await getCurrentUser();
 
     if (!user) {
-        window.location.href =
-            "https://qkonsmkzxzkxziektmfx.supabase.co/auth/v1/authorize?provider=email";
+
+        showToast(
+            "Please sign in to SENRAI.",
+            "warning"
+        );
 
         return;
+
     }
 
-    profile.id = user.id;
+    profile.id =
+        user.id;
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .maybeSingle();
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "id",
+                user.id
+            )
+            .maybeSingle();
 
     if (error) {
+
         console.error(error);
 
         showToast(
@@ -1462,46 +1956,77 @@ async function loadProfile() {
         );
 
         return;
+
     }
 
     if (data) {
+
         profile = {
+
             ...profile,
+
             ...data,
+
             stats: {
+
                 ...profile.stats,
+
                 ...(data.stats || {})
+
             }
+
         };
 
         localStorage.setItem(
             DAY_START_KEY,
-            String(profile.day_start_hour ?? 0)
+            String(
+                profile.day_start_hour ?? 0
+            )
         );
+
     } else {
+
         await createProfile(user);
+
     }
+
 }
 
-async function createProfile(user) {
+async function createProfile(
+    user
+) {
+
     const name =
         user.user_metadata?.name ||
         user.email?.split("@")[0] ||
         "Player";
 
     const newProfile = {
+
         id: user.id,
+
         name,
+
         level: 1,
+
         xp: 0,
+
         total_xp: 0,
+
         streak: 0,
+
         last_active_date: null,
+
         total_quests_completed: 0,
+
         total_life_quests: 0,
+
         social_quests_completed: 0,
+
         day_start_hour: 0,
+
         stats: {
+
             STR: 0,
             INT: 0,
             WIS: 0,
@@ -1509,100 +2034,179 @@ async function createProfile(user) {
             DEX: 0,
             CRE: 0,
             VIT: 0
+
         }
+
     };
 
     const {
         error
-    } = await supabaseClient
-        .from("profiles")
-        .insert(newProfile);
+    } =
+        await supabaseClient
+            .from("profiles")
+            .insert(
+                newProfile
+            );
 
     if (error) {
+
         console.error(error);
+
         return;
+
     }
 
-    profile = newProfile;
+    profile =
+        newProfile;
+
 }
 
 async function saveProfile() {
+
     if (!profile.id) {
         return;
     }
 
     const payload = {
-        name: profile.name,
-        level: profile.level,
-        xp: profile.xp,
-        total_xp: profile.total_xp,
-        streak: profile.streak,
-        last_active_date: profile.last_active_date,
+
+        name:
+            profile.name,
+
+        level:
+            profile.level,
+
+        xp:
+            profile.xp,
+
+        total_xp:
+            profile.total_xp,
+
+        streak:
+            profile.streak,
+
+        last_active_date:
+            profile.last_active_date,
+
         total_quests_completed:
             profile.total_quests_completed,
+
         total_life_quests:
             profile.total_life_quests,
+
         social_quests_completed:
             profile.social_quests_completed,
+
         day_start_hour:
             profile.day_start_hour,
-        stats: profile.stats
+
+        stats:
+            profile.stats
+
     };
 
     const {
         error
-    } = await supabaseClient
-        .from("profiles")
-        .update(payload)
-        .eq("id", profile.id);
+    } =
+        await supabaseClient
+            .from("profiles")
+            .update(
+                payload
+            )
+            .eq(
+                "id",
+                profile.id
+            );
 
     if (error) {
         console.error(error);
     }
+
 }
 
 /* =========================================================
    XP
 ========================================================= */
 
-function xpNeededForLevel(level) {
+function xpNeededForLevel(
+    level
+) {
+
     return Math.max(
         100,
         Number(level) * 100
     );
+
 }
 
-async function addXP(amount, stat = null) {
-    amount = Number(amount) || 0;
+async function addXP(
+    amount,
+    stat = null
+) {
 
-    profile.xp += amount;
-    profile.total_xp += amount;
+    amount =
+        Number(amount) || 0;
 
-    if (stat && profile.stats[stat] !== undefined) {
+    profile.xp +=
+        amount;
+
+    profile.total_xp +=
+        amount;
+
+    if (
+        stat &&
+        profile.stats[stat] !== undefined
+    ) {
+
         profile.stats[stat] += 1;
+
     }
 
-    let leveledUp = false;
+    let leveledUp =
+        false;
 
     while (
         profile.xp >=
-        xpNeededForLevel(profile.level)
+        xpNeededForLevel(
+            profile.level
+        )
     ) {
+
         profile.xp -=
-            xpNeededForLevel(profile.level);
+            xpNeededForLevel(
+                profile.level
+            );
 
         profile.level += 1;
-        leveledUp = true;
+
+        leveledUp =
+            true;
+
+        addHistoryEntry({
+
+            type:
+                "LEVEL_UP",
+
+            level:
+                profile.level,
+
+            xp:
+                0
+
+        });
+
     }
 
     await saveProfile();
 
     if (leveledUp) {
+
         showToast(
             `SYSTEM LEVEL UP • LEVEL ${profile.level}`,
             "success"
         );
+
     }
+
 }
 
 /* =========================================================
@@ -1610,29 +2214,66 @@ async function addXP(amount, stat = null) {
 ========================================================= */
 
 async function updateStreak() {
+
     const today =
         getPersonalDayKey();
 
     if (
-        profile.last_active_date === today
+        profile.last_active_date ===
+        today
     ) {
+
         return;
+
     }
 
     const yesterday =
         getYesterdayPersonalDayKey();
 
     if (
-        profile.last_active_date === yesterday
+        profile.last_active_date ===
+        yesterday
     ) {
+
         profile.streak += 1;
+
     } else {
+
         profile.streak = 1;
+
     }
 
-    profile.last_active_date = today;
+    profile.last_active_date =
+        today;
 
     await saveProfile();
+
+    if (
+        profile.streak === 3 ||
+        profile.streak === 7 ||
+        profile.streak === 14 ||
+        profile.streak === 30 ||
+        profile.streak === 50 ||
+        profile.streak === 100
+    ) {
+
+        addHistoryEntry({
+
+            type:
+                "STREAK_MILESTONE",
+
+            streak:
+                profile.streak
+
+        });
+
+        showToast(
+            `STREAK MILESTONE • ${profile.streak} DAYS`,
+            "success"
+        );
+
+    }
+
 }
 
 /* =========================================================
@@ -1640,48 +2281,67 @@ async function updateStreak() {
 ========================================================= */
 
 function getCustomQuests() {
+
     return readJSON(
         CUSTOM_QUESTS_KEY,
         []
     );
+
 }
 
-function saveCustomQuests(quests) {
+function saveCustomQuests(
+    quests
+) {
+
     writeJSON(
         CUSTOM_QUESTS_KEY,
         quests
     );
+
 }
 
 function getMainQuests() {
+
     return readJSON(
         MAIN_QUESTS_KEY,
         []
     );
+
 }
 
-function saveMainQuests(quests) {
+function saveMainQuests(
+    quests
+) {
+
     writeJSON(
         MAIN_QUESTS_KEY,
         quests
     );
+
 }
 
 function getSideQuests() {
+
     return readJSON(
         SIDE_QUESTS_KEY,
         []
     );
+
 }
 
-function saveSideQuests(quests) {
+function saveSideQuests(
+    quests
+) {
+
     writeJSON(
         SIDE_QUESTS_KEY,
         quests
     );
+
 }
 
 function getDailyCompleted() {
+
     const data =
         readJSON(
             DAILY_COMPLETED_KEY,
@@ -1692,24 +2352,32 @@ function getDailyCompleted() {
         getPersonalDayKey();
 
     return data[day] || [];
+
 }
 
-function setDailyCompleted(ids) {
+function setDailyCompleted(
+    ids
+) {
+
     const data =
         readJSON(
             DAILY_COMPLETED_KEY,
             {}
         );
 
-    data[getPersonalDayKey()] = ids;
+    data[
+        getPersonalDayKey()
+    ] = ids;
 
     writeJSON(
         DAILY_COMPLETED_KEY,
         data
     );
+
 }
 
 function getDailySkipped() {
+
     const data =
         readJSON(
             DAILY_SKIPPED_KEY,
@@ -1720,95 +2388,128 @@ function getDailySkipped() {
         getPersonalDayKey();
 
     return data[day] || [];
+
 }
 
-function setDailySkipped(ids) {
+function setDailySkipped(
+    ids
+) {
+
     const data =
         readJSON(
             DAILY_SKIPPED_KEY,
             {}
         );
 
-    data[getPersonalDayKey()] = ids;
+    data[
+        getPersonalDayKey()
+    ] = ids;
 
     writeJSON(
         DAILY_SKIPPED_KEY,
         data
     );
+
 }
 
 /* =========================================================
-   DEFAULT QUESTS
+   DEFAULT DAILY QUESTS
 ========================================================= */
 
 const DEFAULT_DAILY_QUESTS = [
+
     {
         id: "bed",
         name: "Make your bed",
-        description: "Start your day by taking care of one small thing.",
+        description:
+            "Start your day by taking care of one small thing.",
         xp: 10,
         stat: "DEX",
         difficulty: "EASY"
     },
+
     {
         id: "water",
         name: "Drink some water",
-        description: "Take a moment to hydrate.",
+        description:
+            "Take a moment to hydrate.",
         xp: 10,
         stat: "VIT",
         difficulty: "EASY"
     },
+
     {
         id: "procrastination",
-        name: "Do something you've been putting off",
-        description: "Move one thing from your mental list into reality.",
+        name:
+            "Do something you've been putting off",
+        description:
+            "Move one thing from your mental list into reality.",
         xp: 25,
         stat: "WIS",
         difficulty: "NORMAL"
     },
+
     {
         id: "outside",
-        name: "Go outside for at least 5 minutes",
-        description: "Fresh air counts.",
+        name:
+            "Go outside for at least 5 minutes",
+        description:
+            "Fresh air counts.",
         xp: 10,
         stat: "VIT",
         difficulty: "EASY"
     }
+
 ];
 
 function getAllDailyQuests() {
+
     const custom =
         getCustomQuests()
-            .filter(q => q.type === "DAILY");
+            .filter(
+                q =>
+                    q.type === "DAILY"
+            );
 
     return [
         ...DEFAULT_DAILY_QUESTS,
         ...custom
     ];
+
 }
 
 /* =========================================================
    QUEST COMPLETION
 ========================================================= */
 
-async function completeDailyQuest(id) {
+async function completeDailyQuest(
+    id
+) {
+
     const completed =
         getDailyCompleted();
 
-    if (completed.includes(id)) {
+    if (
+        completed.includes(id)
+    ) {
         return;
     }
 
     const skipped =
         getDailySkipped();
 
-    if (skipped.includes(id)) {
+    if (
+        skipped.includes(id)
+    ) {
         return;
     }
 
     const quest =
         getAllDailyQuests()
-            .find(q => q.id === id);
+            .find(
+                q =>
+                    q.id === id
+            );
 
     if (!quest) {
         return;
@@ -1816,7 +2517,9 @@ async function completeDailyQuest(id) {
 
     completed.push(id);
 
-    setDailyCompleted(completed);
+    setDailyCompleted(
+        completed
+    );
 
     await updateStreak();
 
@@ -1828,6 +2531,28 @@ async function completeDailyQuest(id) {
     await questCompletedStats(
         quest
     );
+
+    addHistoryEntry({
+
+        type:
+            "QUEST_COMPLETE",
+
+        questType:
+            "DAILY",
+
+        questName:
+            quest.name,
+
+        xp:
+            quest.xp,
+
+        stat:
+            quest.stat,
+
+        statPoints:
+            1
+
+    });
 
     await checkAchievements();
 
@@ -1837,24 +2562,36 @@ async function completeDailyQuest(id) {
     );
 
     render();
+
 }
 
-async function skipDailyQuest(id) {
+async function skipDailyQuest(
+    id
+) {
+
     const completed =
         getDailyCompleted();
 
-    if (completed.includes(id)) {
+    if (
+        completed.includes(id)
+    ) {
         return;
     }
 
     const skipped =
         getDailySkipped();
 
-    if (!skipped.includes(id)) {
+    if (
+        !skipped.includes(id)
+    ) {
+
         skipped.push(id);
+
     }
 
-    setDailySkipped(skipped);
+    setDailySkipped(
+        skipped
+    );
 
     showToast(
         "Quest skipped. No penalty.",
@@ -1862,22 +2599,35 @@ async function skipDailyQuest(id) {
     );
 
     render();
+
 }
 
-async function completeSideQuest(id) {
+async function completeSideQuest(
+    id
+) {
+
     const quests =
         getSideQuests();
 
     const quest =
-        quests.find(q => q.id === id);
+        quests.find(
+            q =>
+                q.id === id
+        );
 
-    if (!quest || quest.completed) {
+    if (
+        !quest ||
+        quest.completed
+    ) {
         return;
     }
 
-    quest.completed = true;
+    quest.completed =
+        true;
 
-    saveSideQuests(quests);
+    saveSideQuests(
+        quests
+    );
 
     await updateStreak();
 
@@ -1890,6 +2640,28 @@ async function completeSideQuest(id) {
         quest
     );
 
+    addHistoryEntry({
+
+        type:
+            "QUEST_COMPLETE",
+
+        questType:
+            "SIDE",
+
+        questName:
+            quest.name,
+
+        xp:
+            quest.xp,
+
+        stat:
+            quest.stat,
+
+        statPoints:
+            1
+
+    });
+
     await checkAchievements();
 
     showToast(
@@ -1898,22 +2670,32 @@ async function completeSideQuest(id) {
     );
 
     render();
+
 }
 
-function skipSideQuest(id) {
+function skipSideQuest(
+    id
+) {
+
     const quests =
         getSideQuests();
 
     const quest =
-        quests.find(q => q.id === id);
+        quests.find(
+            q =>
+                q.id === id
+        );
 
     if (!quest) {
         return;
     }
 
-    quest.skipped = true;
+    quest.skipped =
+        true;
 
-    saveSideQuests(quests);
+    saveSideQuests(
+        quests
+    );
 
     showToast(
         "Side quest skipped. No penalty.",
@@ -1921,66 +2703,125 @@ function skipSideQuest(id) {
     );
 
     render();
+
 }
 
-async function questCompletedStats(quest) {
+async function questCompletedStats(
+    quest
+) {
+
     profile.total_quests_completed += 1;
 
-    if (quest.stat === "CHA") {
+    if (
+        quest.stat === "CHA"
+    ) {
+
         profile.social_quests_completed += 1;
+
     }
 
     await saveProfile();
+
 }
 
 /* =========================================================
    MAIN QUESTS
 ========================================================= */
 
-function createMainQuestObject(data) {
+function createMainQuestObject(
+    data
+) {
+
     const objectives =
         data.objectives
             .split("\n")
-            .map(x => x.trim())
+            .map(
+                x =>
+                    x.trim()
+            )
             .filter(Boolean)
-            .map((text, index) => ({
-                id: `${Date.now()}-${index}`,
-                text,
-                completed: false
-            }));
+            .map(
+                (
+                    text,
+                    index
+                ) => ({
+
+                    id:
+                        `${Date.now()}-${index}`,
+
+                    text,
+
+                    completed:
+                        false
+
+                })
+            );
 
     return {
-        id: "main-" + Date.now(),
-        type: "MAIN",
-        name: data.name,
-        description: data.description || "",
-        stat: data.stat,
-        xp: Number(data.xp),
-        dueDate: data.dueDate || null,
-        notes: data.notes || "",
+
+        id:
+            "main-" +
+            Date.now(),
+
+        type:
+            "MAIN",
+
+        name:
+            data.name,
+
+        description:
+            data.description || "",
+
+        stat:
+            data.stat,
+
+        xp:
+            Number(data.xp),
+
+        dueDate:
+            data.dueDate || null,
+
+        notes:
+            data.notes || "",
+
         objectives,
-        completed: false,
-        skipped: false
+
+        completed:
+            false,
+
+        skipped:
+            false
+
     };
+
 }
 
 async function toggleMainObjective(
     questId,
     objectiveId
 ) {
+
     const quests =
         getMainQuests();
 
     const quest =
-        quests.find(q => q.id === questId);
+        quests.find(
+            q =>
+                q.id === questId
+        );
 
-    if (!quest || quest.skipped) {
+    if (
+        !quest ||
+        quest.skipped
+    ) {
         return;
     }
 
     const objective =
-        quest.objectives
-            .find(o => o.id === objectiveId);
+        quest.objectives.find(
+            o =>
+                o.id === objectiveId
+        );
 
     if (!objective) {
         return;
@@ -1992,11 +2833,17 @@ async function toggleMainObjective(
     const allDone =
         quest.objectives.length > 0 &&
         quest.objectives.every(
-            o => o.completed
+            o =>
+                o.completed
         );
 
-    if (allDone && !quest.completed) {
-        quest.completed = true;
+    if (
+        allDone &&
+        !quest.completed
+    ) {
+
+        quest.completed =
+            true;
 
         await updateStreak();
 
@@ -2009,33 +2856,68 @@ async function toggleMainObjective(
             quest
         );
 
+        addHistoryEntry({
+
+            type:
+                "QUEST_COMPLETE",
+
+            questType:
+                "MAIN",
+
+            questName:
+                quest.name,
+
+            xp:
+                quest.xp,
+
+            stat:
+                quest.stat,
+
+            statPoints:
+                1
+
+        });
+
         await checkAchievements();
 
         showToast(
             `MAIN QUEST COMPLETE • +${quest.xp} XP`,
             "success"
         );
+
     }
 
-    saveMainQuests(quests);
+    saveMainQuests(
+        quests
+    );
 
     render();
+
 }
 
-function skipMainQuest(id) {
+function skipMainQuest(
+    id
+) {
+
     const quests =
         getMainQuests();
 
     const quest =
-        quests.find(q => q.id === id);
+        quests.find(
+            q =>
+                q.id === id
+        );
 
     if (!quest) {
         return;
     }
 
-    quest.skipped = true;
+    quest.skipped =
+        true;
 
-    saveMainQuests(quests);
+    saveMainQuests(
+        quests
+    );
 
     showToast(
         "Main quest skipped. Your progress is safe.",
@@ -2043,34 +2925,70 @@ function skipMainQuest(id) {
     );
 
     render();
+
 }
 
 /* =========================================================
    CUSTOM QUESTS
 ========================================================= */
 
-function createCustomQuest(data) {
+function createCustomQuest(
+    data
+) {
+
     const quest = {
-        id: "custom-" + Date.now(),
-        name: data.name,
-        description: data.description || "",
-        type: data.type,
-        difficulty: data.difficulty,
-        xp: DIFFICULTIES[data.difficulty].xp,
-        stat: data.stat,
-        dueDate: data.dueDate || null,
-        notes: data.notes || "",
-        recurring: data.type === "DAILY",
-        completed: false,
-        skipped: false
+
+        id:
+            "custom-" +
+            Date.now(),
+
+        name:
+            data.name,
+
+        description:
+            data.description || "",
+
+        type:
+            data.type,
+
+        difficulty:
+            data.difficulty,
+
+        xp:
+            DIFFICULTIES[
+                data.difficulty
+            ].xp,
+
+        stat:
+            data.stat,
+
+        dueDate:
+            data.dueDate || null,
+
+        notes:
+            data.notes || "",
+
+        recurring:
+            data.type === "DAILY",
+
+        completed:
+            false,
+
+        skipped:
+            false
+
     };
 
     const quests =
         getCustomQuests();
 
-    quests.push(quest);
+    quests.push(
+        quest
+    );
 
-    saveCustomQuests(quests);
+    saveCustomQuests(
+        quests
+    );
 
     closeModal();
 
@@ -2080,27 +2998,47 @@ function createCustomQuest(data) {
     );
 
     render();
+
 }
 
-async function completeCustomQuest(id) {
+async function completeCustomQuest(
+    id
+) {
+
     const quests =
         getCustomQuests();
 
     const quest =
-        quests.find(q => q.id === id);
+        quests.find(
+            q =>
+                q.id === id
+        );
 
-    if (!quest || quest.completed) {
+    if (
+        !quest ||
+        quest.completed
+    ) {
         return;
     }
 
-    if (quest.type === "DAILY") {
-        await completeDailyQuest(id);
+    if (
+        quest.type === "DAILY"
+    ) {
+
+        await completeDailyQuest(
+            id
+        );
+
         return;
+
     }
 
-    quest.completed = true;
+    quest.completed =
+        true;
 
-    saveCustomQuests(quests);
+    saveCustomQuests(
+        quests
+    );
 
     await updateStreak();
 
@@ -2113,6 +3051,28 @@ async function completeCustomQuest(id) {
         quest
     );
 
+    addHistoryEntry({
+
+        type:
+            "QUEST_COMPLETE",
+
+        questType:
+            quest.type,
+
+        questName:
+            quest.name,
+
+        xp:
+            quest.xp,
+
+        stat:
+            quest.stat,
+
+        statPoints:
+            1
+
+    });
+
     await checkAchievements();
 
     showToast(
@@ -2121,27 +3081,44 @@ async function completeCustomQuest(id) {
     );
 
     render();
+
 }
 
-function skipCustomQuest(id) {
+function skipCustomQuest(
+    id
+) {
+
     const quests =
         getCustomQuests();
 
     const quest =
-        quests.find(q => q.id === id);
+        quests.find(
+            q =>
+                q.id === id
+        );
 
     if (!quest) {
         return;
     }
 
-    if (quest.type === "DAILY") {
-        skipDailyQuest(id);
+    if (
+        quest.type === "DAILY"
+    ) {
+
+        skipDailyQuest(
+            id
+        );
+
         return;
+
     }
 
-    quest.skipped = true;
+    quest.skipped =
+        true;
 
-    saveCustomQuests(quests);
+    saveCustomQuests(
+        quests
+    );
 
     showToast(
         "Quest skipped. No penalty.",
@@ -2149,14 +3126,23 @@ function skipCustomQuest(id) {
     );
 
     render();
+
 }
 
-function deleteCustomQuest(id) {
+function deleteCustomQuest(
+    id
+) {
+
     const quests =
         getCustomQuests()
-            .filter(q => q.id !== id);
+            .filter(
+                q =>
+                    q.id !== id
+            );
 
-    saveCustomQuests(quests);
+    saveCustomQuests(
+        quests
+    );
 
     showToast(
         "Quest removed.",
@@ -2164,6 +3150,7 @@ function deleteCustomQuest(id) {
     );
 
     render();
+
 }
 
 /* =========================================================
@@ -2171,90 +3158,169 @@ function deleteCustomQuest(id) {
 ========================================================= */
 
 const ACHIEVEMENT_DEFINITIONS = [
+
     {
-        id: "first-step",
-        name: "FIRST STEP",
-        description: "Complete your first quest.",
-        reward: 50,
-        condition: () =>
-            profile.total_quests_completed >= 1
+        id:
+            "first-step",
+
+        name:
+            "FIRST STEP",
+
+        description:
+            "Complete your first quest.",
+
+        reward:
+            50,
+
+        condition:
+            () =>
+                profile.total_quests_completed >= 1
     },
+
     {
-        id: "century",
-        name: "CENTURY",
-        description: "Earn 100 total XP.",
-        reward: 50,
-        condition: () =>
-            profile.total_xp >= 100
+        id:
+            "century",
+
+        name:
+            "CENTURY",
+
+        description:
+            "Earn 100 total XP.",
+
+        reward:
+            50,
+
+        condition:
+            () =>
+                profile.total_xp >= 100
     },
+
     {
-        id: "getting-serious",
-        name: "GETTING SERIOUS",
-        description: "Reach Level 5.",
-        reward: 100,
-        condition: () =>
-            profile.level >= 5
+        id:
+            "getting-serious",
+
+        name:
+            "GETTING SERIOUS",
+
+        description:
+            "Reach Level 5.",
+
+        reward:
+            100,
+
+        condition:
+            () =>
+                profile.level >= 5
     },
+
     {
-        id: "consistency",
-        name: "CONSISTENCY",
-        description: "Reach a 7-day streak.",
-        reward: 100,
-        condition: () =>
-            profile.streak >= 7
+        id:
+            "consistency",
+
+        name:
+            "CONSISTENCY",
+
+        description:
+            "Reach a 7-day streak.",
+
+        reward:
+            100,
+
+        condition:
+            () =>
+                profile.streak >= 7
     },
+
     {
-        id: "explorer",
-        name: "EXPLORER",
-        description: "Complete 10 Life Quests.",
-        reward: 100,
-        condition: () =>
-            profile.total_life_quests >= 10
+        id:
+            "explorer",
+
+        name:
+            "EXPLORER",
+
+        description:
+            "Complete 10 Life Quests.",
+
+        reward:
+            100,
+
+        condition:
+            () =>
+                profile.total_life_quests >= 10
     },
+
     {
-        id: "social-link",
-        name: "SOCIAL LINK",
-        description: "Complete 5 social quests.",
-        reward: 100,
-        condition: () =>
-            profile.social_quests_completed >= 5
+        id:
+            "social-link",
+
+        name:
+            "SOCIAL LINK",
+
+        description:
+            "Complete 5 social quests.",
+
+        reward:
+            100,
+
+        condition:
+            () =>
+                profile.social_quests_completed >= 5
     },
+
     {
-        id: "secret",
-        name: "???",
-        description: "Something is waiting.",
-        reward: 150,
-        secret: true,
-        condition: () =>
-            profile.total_quests_completed >= 25 &&
-            profile.level >= 3
+        id:
+            "secret",
+
+        name:
+            "???",
+
+        description:
+            "Something is waiting.",
+
+        reward:
+            150,
+
+        secret:
+            true,
+
+        condition:
+            () =>
+                profile.total_quests_completed >= 25 &&
+                profile.level >= 3
     }
+
 ];
 
 async function checkAchievements() {
+
     const unlocked =
         readJSON(
             ACHIEVEMENTS_KEY,
             []
         );
 
-    let changed = false;
+    let changed =
+        false;
 
     for (
         const achievement
         of ACHIEVEMENT_DEFINITIONS
     ) {
+
         if (
             unlocked.includes(
                 achievement.id
             )
         ) {
+
             continue;
+
         }
 
         if (
             achievement.condition()
         ) {
+
             unlocked.push(
                 achievement.id
             );
@@ -2265,24 +3331,48 @@ async function checkAchievements() {
             profile.xp +=
                 achievement.reward;
 
-            changed = true;
+            addHistoryEntry({
+
+                type:
+                    "ACHIEVEMENT",
+
+                achievementName:
+                    achievement.name,
+
+                xp:
+                    achievement.reward
+
+            });
+
+            changed =
+                true;
 
             showToast(
                 `ACHIEVEMENT UNLOCKED • ${achievement.name}`,
                 "success"
             );
+
         }
+
     }
 
     if (changed) {
+
         while (
             profile.xp >=
-            xpNeededForLevel(profile.level)
+            xpNeededForLevel(
+                profile.level
+            )
         ) {
-            profile.xp -=
-                xpNeededForLevel(profile.level);
 
-            profile.level += 1;
+            profile.xp -=
+                xpNeededForLevel(
+                    profile.level
+                );
+
+            profile.level +=
+                1;
+
         }
 
         writeJSON(
@@ -2291,7 +3381,9 @@ async function checkAchievements() {
         );
 
         await saveProfile();
+
     }
+
 }
 
 /* =========================================================
@@ -2299,25 +3391,43 @@ async function checkAchievements() {
 ========================================================= */
 
 const LIFE_QUESTS = [
+
     "Call or text someone you haven't talked to in a while.",
+
     "Call a family member just to say hi.",
+
     "Tell someone you appreciate them.",
+
     "Go outside for 5 minutes.",
+
     "Watch the sunset.",
+
     "Take a different route somewhere.",
+
     "Learn a random fact.",
+
     "Put your phone down for 20 minutes.",
+
     "Take a cool photo.",
+
     "Do something kind for someone.",
+
     "Work on a hobby.",
+
     "Clean something you've been ignoring.",
+
     "Listen to an album from beginning to end.",
+
     "Write down one thing you're grateful for.",
+
     "Try something you've never tried before.",
+
     "Spend 10 minutes doing absolutely nothing."
+
 ];
 
 function generateLifeQuest() {
+
     const index =
         Math.floor(
             Math.random() *
@@ -2328,12 +3438,17 @@ function generateLifeQuest() {
         LIFE_QUESTS[index];
 
     render();
+
 }
 
 async function completeLifeQuest() {
+
     if (!lifeQuest) {
         return;
     }
+
+    const completedQuest =
+        lifeQuest;
 
     await updateStreak();
 
@@ -2342,9 +3457,29 @@ async function completeLifeQuest() {
         "WIS"
     );
 
-    profile.total_life_quests += 1;
+    profile.total_life_quests +=
+        1;
 
     await saveProfile();
+
+    addHistoryEntry({
+
+        type:
+            "LIFE_QUEST",
+
+        questName:
+            completedQuest,
+
+        xp:
+            15,
+
+        stat:
+            "WIS",
+
+        statPoints:
+            1
+
+    });
 
     await checkAchievements();
 
@@ -2353,13 +3488,17 @@ async function completeLifeQuest() {
         "success"
     );
 
-    lifeQuest = null;
+    lifeQuest =
+        null;
 
     render();
+
 }
 
 function skipLifeQuest() {
-    lifeQuest = null;
+
+    lifeQuest =
+        null;
 
     showToast(
         "No pressure. Maybe another time.",
@@ -2367,44 +3506,68 @@ function skipLifeQuest() {
     );
 
     render();
+
 }
 
 /* =========================================================
    MODAL
 ========================================================= */
 
-function openModal(html) {
+function openModal(
+    html
+) {
+
     document.getElementById(
         "modal-content"
-    ).innerHTML = html;
+    ).innerHTML =
+        html;
 
     document.getElementById(
         "modal"
-    ).classList.remove("hidden");
+    ).classList.remove(
+        "hidden"
+    );
+
 }
 
 function closeModal() {
+
     document.getElementById(
         "modal"
-    ).classList.add("hidden");
+    ).classList.add(
+        "hidden"
+    );
+
 }
 
-document.getElementById("modal")
-    .addEventListener("click", event => {
+document.getElementById(
+    "modal"
+).addEventListener(
+    "click",
+    event => {
+
         if (
-            event.target.id === "modal"
+            event.target.id ===
+            "modal"
         ) {
+
             closeModal();
+
         }
-    });
+
+    }
+);
 
 /* =========================================================
    CREATE QUEST MODAL
 ========================================================= */
 
 function openCreateQuestModal() {
+
     openModal(`
+
         <div class="modal-header">
+
             <div class="modal-title">
                 Create Quest
             </div>
@@ -2415,9 +3578,11 @@ function openCreateQuestModal() {
             >
                 ×
             </button>
+
         </div>
 
         <div class="form-group">
+
             <label class="form-label">
                 Quest Name
             </label>
@@ -2426,9 +3591,11 @@ function openCreateQuestModal() {
                 id="create-name"
                 placeholder="What do you want to accomplish?"
             >
+
         </div>
 
         <div class="form-group">
+
             <label class="form-label">
                 Description
             </label>
@@ -2437,16 +3604,19 @@ function openCreateQuestModal() {
                 id="create-description"
                 placeholder="Optional..."
             ></textarea>
+
         </div>
 
         <div class="form-grid">
 
             <div class="form-group">
+
                 <label class="form-label">
                     Type
                 </label>
 
                 <select id="create-type">
+
                     <option value="SIDE">
                         SIDE QUEST
                     </option>
@@ -2458,20 +3628,27 @@ function openCreateQuestModal() {
                     <option value="MAIN">
                         MAIN QUEST
                     </option>
+
                 </select>
+
             </div>
 
             <div class="form-group">
+
                 <label class="form-label">
                     Difficulty
                 </label>
 
                 <select id="create-difficulty">
+
                     <option value="EASY">
                         EASY • +10 XP
                     </option>
 
-                    <option value="NORMAL" selected>
+                    <option
+                        value="NORMAL"
+                        selected
+                    >
                         NORMAL • +25 XP
                     </option>
 
@@ -2482,7 +3659,9 @@ function openCreateQuestModal() {
                     <option value="EXTREME">
                         EXTREME • +100 XP
                     </option>
+
                 </select>
+
             </div>
 
         </div>
@@ -2490,22 +3669,47 @@ function openCreateQuestModal() {
         <div class="form-grid">
 
             <div class="form-group">
+
                 <label class="form-label">
                     Stat
                 </label>
 
                 <select id="create-stat">
-                    <option value="STR">STR • Strength</option>
-                    <option value="INT">INT • Intelligence</option>
-                    <option value="WIS">WIS • Wisdom</option>
-                    <option value="CHA">CHA • Charisma</option>
-                    <option value="DEX">DEX • Dexterity</option>
-                    <option value="CRE">CRE • Creativity</option>
-                    <option value="VIT">VIT • Vitality</option>
+
+                    <option value="STR">
+                        STR • Strength
+                    </option>
+
+                    <option value="INT">
+                        INT • Intelligence
+                    </option>
+
+                    <option value="WIS">
+                        WIS • Wisdom
+                    </option>
+
+                    <option value="CHA">
+                        CHA • Charisma
+                    </option>
+
+                    <option value="DEX">
+                        DEX • Dexterity
+                    </option>
+
+                    <option value="CRE">
+                        CRE • Creativity
+                    </option>
+
+                    <option value="VIT">
+                        VIT • Vitality
+                    </option>
+
                 </select>
+
             </div>
 
             <div class="form-group">
+
                 <label class="form-label">
                     Due Date
                 </label>
@@ -2514,6 +3718,7 @@ function openCreateQuestModal() {
                     id="create-date"
                     type="date"
                 >
+
             </div>
 
         </div>
@@ -2522,6 +3727,7 @@ function openCreateQuestModal() {
             id="main-objectives-field"
             class="form-group hidden"
         >
+
             <label class="form-label">
                 Main Quest Objectives
             </label>
@@ -2530,9 +3736,11 @@ function openCreateQuestModal() {
                 id="create-objectives"
                 placeholder="One objective per line&#10;&#10;Learn variables&#10;Learn functions&#10;Build a project"
             ></textarea>
+
         </div>
 
         <div class="form-group">
+
             <label class="form-label">
                 Notes
             </label>
@@ -2541,6 +3749,7 @@ function openCreateQuestModal() {
                 id="create-notes"
                 placeholder="Optional notes..."
             ></textarea>
+
         </div>
 
         <button
@@ -2549,6 +3758,7 @@ function openCreateQuestModal() {
         >
             CREATE QUEST
         </button>
+
     `);
 
     document.getElementById(
@@ -2557,9 +3767,11 @@ function openCreateQuestModal() {
         "change",
         updateCreateQuestFields
     );
+
 }
 
 function updateCreateQuestFields() {
+
     const type =
         document.getElementById(
             "create-type"
@@ -2570,30 +3782,40 @@ function updateCreateQuestFields() {
             "main-objectives-field"
         );
 
-    if (type === "MAIN") {
+    if (
+        type === "MAIN"
+    ) {
+
         objectives.classList.remove(
             "hidden"
         );
+
     } else {
+
         objectives.classList.add(
             "hidden"
         );
+
     }
+
 }
 
 function submitCreateQuest() {
+
     const name =
         document.getElementById(
             "create-name"
         ).value.trim();
 
     if (!name) {
+
         showToast(
             "Give your quest a name first.",
             "warning"
         );
 
         return;
+
     }
 
     const type =
@@ -2626,46 +3848,70 @@ function submitCreateQuest() {
             "create-notes"
         ).value.trim();
 
-    if (type === "MAIN") {
+    if (
+        type === "MAIN"
+    ) {
+
         const objectives =
             document.getElementById(
                 "create-objectives"
             ).value.trim();
 
         if (!objectives) {
+
             showToast(
                 "Add at least one objective.",
                 "warning"
             );
 
             return;
+
         }
+
+        const objectiveCount =
+            objectives
+                .split("\n")
+                .filter(Boolean)
+                .length;
 
         const quest =
             createMainQuestObject({
+
                 name,
+
                 description,
+
                 difficulty,
+
                 stat,
+
                 xp:
-                    DIFFICULTIES[difficulty].xp *
+                    DIFFICULTIES[
+                        difficulty
+                    ].xp *
                     Math.max(
                         1,
-                        objectives.split("\n")
-                            .filter(Boolean)
-                            .length
+                        objectiveCount
                     ),
+
                 dueDate,
+
                 notes,
+
                 objectives
+
             });
 
         const quests =
             getMainQuests();
 
-        quests.push(quest);
+        quests.push(
+            quest
+        );
 
-        saveMainQuests(quests);
+        saveMainQuests(
+            quests
+        );
 
         closeModal();
 
@@ -2677,33 +3923,67 @@ function submitCreateQuest() {
         render();
 
         return;
+
     }
 
     createCustomQuest({
+
         name,
+
         description,
+
         type,
+
         difficulty,
+
         stat,
+
         dueDate,
+
         notes
+
     });
+
 }
 
 /* =========================================================
    RENDER HELPERS
 ========================================================= */
 
-function escapeHTML(value) {
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
 }
 
-function questTypeBadge(type) {
+function questTypeBadge(
+    type
+) {
+
     const label =
         type === "MAIN"
             ? "MAIN QUEST"
@@ -2712,18 +3992,30 @@ function questTypeBadge(type) {
                 : "SIDE QUEST";
 
     return `
-        <span class="badge ${type.toLowerCase()}">
+
+        <span
+            class="badge ${type.toLowerCase()}"
+        >
             ${label}
         </span>
+
     `;
+
 }
 
-function difficultyBadge(difficulty, xp) {
+function difficultyBadge(
+    difficulty,
+    xp
+) {
+
     return `
+
         <span class="badge xp">
             +${xp} XP
         </span>
+
     `;
+
 }
 
 function renderQuestActions(
@@ -2732,20 +4024,25 @@ function renderQuestActions(
     skipAction,
     deleteAction = null
 ) {
+
     if (
         quest.completed ||
         quest.skipped
     ) {
+
         return `
+
             <div class="quest-actions">
 
                 ${
                     quest.completed
+
                         ? `
                             <span class="badge">
                                 ✓ COMPLETED
                             </span>
                         `
+
                         : `
                             <span class="badge skipped">
                                 SKIPPED
@@ -2755,6 +4052,7 @@ function renderQuestActions(
 
                 ${
                     deleteAction
+
                         ? `
                             <button
                                 class="btn btn-small btn-danger"
@@ -2763,14 +4061,18 @@ function renderQuestActions(
                                 DELETE
                             </button>
                         `
+
                         : ""
                 }
 
             </div>
+
         `;
+
     }
 
     return `
+
         <div class="quest-actions">
 
             <button
@@ -2789,6 +4091,7 @@ function renderQuestActions(
 
             ${
                 deleteAction
+
                     ? `
                         <button
                             class="btn btn-small btn-danger"
@@ -2797,11 +4100,14 @@ function renderQuestActions(
                             DELETE
                         </button>
                     `
+
                     : ""
             }
 
         </div>
+
     `;
+
 }
 
 /* =========================================================
@@ -2809,6 +4115,7 @@ function renderQuestActions(
 ========================================================= */
 
 function renderHome() {
+
     const needed =
         xpNeededForLevel(
             profile.level
@@ -2817,7 +4124,10 @@ function renderHome() {
     const xpPercent =
         Math.min(
             100,
-            (profile.xp / needed) * 100
+            (
+                profile.xp /
+                needed
+            ) * 100
         );
 
     const daily =
@@ -2835,9 +4145,14 @@ function renderHome() {
 
     const progress =
         daily.length
+
             ? Math.round(
-                (dailyFinished / daily.length) * 100
+                (
+                    dailyFinished /
+                    daily.length
+                ) * 100
             )
+
             : 0;
 
     const main =
@@ -2849,20 +4164,25 @@ function renderHome() {
             );
 
     return `
+
         <div class="page">
 
             <div class="welcome">
+
                 <div class="welcome-small">
                     PERSONAL PROGRESSION SYSTEM
                 </div>
 
                 <div class="welcome-name">
-                    Welcome, ${escapeHTML(profile.name)}
+                    Welcome, ${escapeHTML(
+                        profile.name
+                    )}
                 </div>
 
                 <div class="personal-day">
                     PERSONAL DAY • ${formatPersonalDay()}
                 </div>
+
             </div>
 
             <div class="card">
@@ -2870,6 +4190,7 @@ function renderHome() {
                 <div class="level-row">
 
                     <div>
+
                         <div class="level-label">
                             LEVEL
                         </div>
@@ -2877,6 +4198,7 @@ function renderHome() {
                         <div class="level-number">
                             ${profile.level}
                         </div>
+
                     </div>
 
                     <div class="xp-text">
@@ -2886,10 +4208,12 @@ function renderHome() {
                 </div>
 
                 <div class="progress-track">
+
                     <div
                         class="progress-fill"
                         style="width:${xpPercent}%"
                     ></div>
+
                 </div>
 
             </div>
@@ -2897,6 +4221,7 @@ function renderHome() {
             <div class="home-grid">
 
                 <div class="stat-mini">
+
                     <div class="stat-mini-label">
                         STREAK
                     </div>
@@ -2904,9 +4229,11 @@ function renderHome() {
                     <div class="stat-mini-value streak-number">
                         ${profile.streak}
                     </div>
+
                 </div>
 
                 <div class="stat-mini">
+
                     <div class="stat-mini-label">
                         TOTAL XP
                     </div>
@@ -2914,9 +4241,11 @@ function renderHome() {
                     <div class="stat-mini-value">
                         ${profile.total_xp}
                     </div>
+
                 </div>
 
                 <div class="stat-mini">
+
                     <div class="stat-mini-label">
                         QUESTS
                     </div>
@@ -2924,9 +4253,11 @@ function renderHome() {
                     <div class="stat-mini-value">
                         ${profile.total_quests_completed}
                     </div>
+
                 </div>
 
                 <div class="stat-mini">
+
                     <div class="stat-mini-label">
                         LIFE QUESTS
                     </div>
@@ -2934,6 +4265,7 @@ function renderHome() {
                     <div class="stat-mini-value">
                         ${profile.total_life_quests}
                     </div>
+
                 </div>
 
             </div>
@@ -2949,6 +4281,7 @@ function renderHome() {
                 </div>
 
                 <div class="quest-progress-row">
+
                     <span>
                         ${dailyFinished} / ${daily.length}
                     </span>
@@ -2956,13 +4289,16 @@ function renderHome() {
                     <span>
                         ${progress}%
                     </span>
+
                 </div>
 
                 <div class="quest-progress-track">
+
                     <div
                         class="quest-progress-fill"
                         style="width:${progress}%"
                     ></div>
+
                 </div>
 
             </div>
@@ -2975,13 +4311,19 @@ function renderHome() {
 
                 ${
                     main
+
                         ? `
+
                             <div class="objective-home">
-                                ${escapeHTML(main.name)}
+                                ${escapeHTML(
+                                    main.name
+                                )}
                             </div>
 
                             <div class="quest-description">
-                                ${escapeHTML(main.description)}
+                                ${escapeHTML(
+                                    main.description
+                                )}
                             </div>
 
                             <button
@@ -2991,8 +4333,11 @@ function renderHome() {
                             >
                                 VIEW QUEST
                             </button>
+
                         `
+
                         : `
+
                             <div class="objective-home">
                                 Choose something worth working toward.
                             </div>
@@ -3008,6 +4353,7 @@ function renderHome() {
                             >
                                 CREATE QUEST
                             </button>
+
                         `
                 }
 
@@ -3042,31 +4388,41 @@ function renderHome() {
 
                 <button
                     class="btn"
-                    onclick="navigate('settings')"
+                    onclick="navigate('history')"
                 >
-                    ⚙ SETTINGS
+                    ◷ HISTORY
                 </button>
 
             </div>
 
         </div>
+
     `;
+
 }
 
 /* =========================================================
-   RENDER QUESTS
+   RENDER DAILY QUEST
 ========================================================= */
 
-function renderDailyQuestCard(quest) {
+function renderDailyQuestCard(
+    quest
+) {
+
     const completed =
         getDailyCompleted()
-            .includes(quest.id);
+            .includes(
+                quest.id
+            );
 
     const skipped =
         getDailySkipped()
-            .includes(quest.id);
+            .includes(
+                quest.id
+            );
 
     return `
+
         <div class="card quest-card
             ${completed ? "completed" : ""}
             ${skipped ? "skipped" : ""}
@@ -3077,16 +4433,22 @@ function renderDailyQuestCard(quest) {
                 <div class="quest-info">
 
                     <div class="quest-name">
-                        ${escapeHTML(quest.name)}
+                        ${escapeHTML(
+                            quest.name
+                        )}
                     </div>
 
                     <div class="quest-description">
-                        ${escapeHTML(quest.description)}
+                        ${escapeHTML(
+                            quest.description
+                        )}
                     </div>
 
                     <div class="quest-meta">
 
-                        ${questTypeBadge("DAILY")}
+                        ${questTypeBadge(
+                            "DAILY"
+                        )}
 
                         ${difficultyBadge(
                             quest.difficulty,
@@ -3105,22 +4467,35 @@ function renderDailyQuestCard(quest) {
 
             ${
                 completed
+
                     ? `
+
                         <div class="quest-actions">
+
                             <span class="badge">
                                 ✓ COMPLETED
                             </span>
+
                         </div>
+
                     `
+
                     : skipped
+
                         ? `
+
                             <div class="quest-actions">
+
                                 <span class="badge skipped">
                                     SKIPPED • NO PENALTY
                                 </span>
+
                             </div>
+
                         `
+
                         : `
+
                             <div class="quest-actions">
 
                                 <button
@@ -3138,30 +4513,49 @@ function renderDailyQuestCard(quest) {
                                 </button>
 
                             </div>
+
                         `
             }
 
         </div>
+
     `;
+
 }
 
-function renderMainQuestCard(quest) {
+/* =========================================================
+   RENDER MAIN QUEST
+========================================================= */
+
+function renderMainQuestCard(
+    quest
+) {
+
     const total =
         quest.objectives.length;
 
     const completed =
         quest.objectives
-            .filter(o => o.completed)
+            .filter(
+                o =>
+                    o.completed
+            )
             .length;
 
     const percent =
         total
+
             ? Math.round(
-                (completed / total) * 100
+                (
+                    completed /
+                    total
+                ) * 100
             )
+
             : 0;
 
     return `
+
         <div class="card quest-card
             ${quest.completed ? "completed" : ""}
             ${quest.skipped ? "skipped" : ""}
@@ -3172,16 +4566,22 @@ function renderMainQuestCard(quest) {
                 <div class="quest-info">
 
                     <div class="quest-name">
-                        ${escapeHTML(quest.name)}
+                        ${escapeHTML(
+                            quest.name
+                        )}
                     </div>
 
                     <div class="quest-description">
-                        ${escapeHTML(quest.description)}
+                        ${escapeHTML(
+                            quest.description
+                        )}
                     </div>
 
                     <div class="quest-meta">
 
-                        ${questTypeBadge("MAIN")}
+                        ${questTypeBadge(
+                            "MAIN"
+                        )}
 
                         <span class="badge xp">
                             +${quest.xp} XP
@@ -3200,6 +4600,7 @@ function renderMainQuestCard(quest) {
             <div class="quest-progress">
 
                 <div class="quest-progress-row">
+
                     <span>
                         PROGRESS
                     </span>
@@ -3207,13 +4608,16 @@ function renderMainQuestCard(quest) {
                     <span>
                         ${completed} / ${total}
                     </span>
+
                 </div>
 
                 <div class="quest-progress-track">
+
                     <div
                         class="quest-progress-fill"
                         style="width:${percent}%"
                     ></div>
+
                 </div>
 
             </div>
@@ -3222,37 +4626,45 @@ function renderMainQuestCard(quest) {
 
                 ${
                     quest.objectives
-                        .map(objective => `
-                            <div
-                                class="objective ${
-                                    objective.completed
-                                        ? "done"
-                                        : ""
-                                }"
-                                onclick="${
-                                    quest.completed ||
-                                    quest.skipped
-                                        ? ""
-                                        : `toggleMainObjective('${quest.id}','${objective.id}')`
-                                }"
-                            >
+                        .map(
+                            objective => `
 
-                                <div class="objective-check">
-                                    ${
+                                <div
+                                    class="objective ${
                                         objective.completed
-                                            ? "✓"
+                                            ? "done"
                                             : ""
-                                    }
+                                    }"
+                                    onclick="${
+                                        quest.completed ||
+                                        quest.skipped
+
+                                            ? ""
+
+                                            : `toggleMainObjective('${quest.id}','${objective.id}')`
+                                    }"
+                                >
+
+                                    <div class="objective-check">
+
+                                        ${
+                                            objective.completed
+                                                ? "✓"
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                    <div>
+                                        ${escapeHTML(
+                                            objective.text
+                                        )}
+                                    </div>
+
                                 </div>
 
-                                <div>
-                                    ${escapeHTML(
-                                        objective.text
-                                    )}
-                                </div>
-
-                            </div>
-                        `)
+                            `
+                        )
                         .join("")
                 }
 
@@ -3260,44 +4672,67 @@ function renderMainQuestCard(quest) {
 
             ${
                 quest.notes
+
                     ? `
+
                         <div class="quest-note">
-                            ${escapeHTML(quest.notes)}
+                            ${escapeHTML(
+                                quest.notes
+                            )}
                         </div>
+
                     `
+
                     : ""
             }
 
             ${
                 quest.dueDate
+
                     ? `
+
                         <div class="quest-date">
                             DUE • ${escapeHTML(
                                 quest.dueDate
                             )}
                         </div>
+
                     `
+
                     : ""
             }
 
             ${
                 quest.completed
+
                     ? `
+
                         <div class="quest-actions">
+
                             <span class="badge">
                                 ✓ MAIN QUEST COMPLETE
                             </span>
+
                         </div>
+
                     `
+
                     : quest.skipped
+
                         ? `
+
                             <div class="quest-actions">
+
                                 <span class="badge skipped">
                                     SKIPPED • NO PENALTY
                                 </span>
+
                             </div>
+
                         `
+
                         : `
+
                             <div class="quest-actions">
 
                                 <button
@@ -3308,31 +4743,48 @@ function renderMainQuestCard(quest) {
                                 </button>
 
                             </div>
+
                         `
             }
 
         </div>
+
     `;
+
 }
 
-function renderSideQuestCard(quest) {
+/* =========================================================
+   RENDER SIDE QUEST
+========================================================= */
+
+function renderSideQuestCard(
+    quest
+) {
+
     return `
+
         <div class="card quest-card
             ${quest.completed ? "completed" : ""}
             ${quest.skipped ? "skipped" : ""}
         ">
 
             <div class="quest-name">
-                ${escapeHTML(quest.name)}
+                ${escapeHTML(
+                    quest.name
+                )}
             </div>
 
             <div class="quest-description">
-                ${escapeHTML(quest.description)}
+                ${escapeHTML(
+                    quest.description
+                )}
             </div>
 
             <div class="quest-meta">
 
-                ${questTypeBadge("SIDE")}
+                ${questTypeBadge(
+                    "SIDE"
+                )}
 
                 <span class="badge xp">
                     +${quest.xp} XP
@@ -3346,43 +4798,65 @@ function renderSideQuestCard(quest) {
 
             ${
                 renderQuestActions(
+
                     quest,
+
                     `completeSideQuest('${quest.id}')`,
+
                     `skipSideQuest('${quest.id}')`
+
                 )
             }
 
         </div>
+
     `;
+
 }
 
-function renderCustomQuestCard(quest) {
+/* =========================================================
+   RENDER CUSTOM QUEST
+========================================================= */
+
+function renderCustomQuestCard(
+    quest
+) {
+
     const isDaily =
         quest.type === "DAILY";
 
     if (isDaily) {
+
         return renderDailyQuestCard(
             quest
         );
+
     }
 
     return `
+
         <div class="card quest-card
             ${quest.completed ? "completed" : ""}
             ${quest.skipped ? "skipped" : ""}
         ">
 
             <div class="quest-name">
-                ${escapeHTML(quest.name)}
+                ${escapeHTML(
+                    quest.name
+                )}
             </div>
 
             <div class="quest-description">
-                ${escapeHTML(quest.description)}
+                ${escapeHTML(
+                    quest.description
+                )}
             </div>
 
             <div class="quest-meta">
 
-                ${questTypeBadge(quest.type)}
+                ${questTypeBadge(
+                    quest.type
+                )}
 
                 <span class="badge xp">
                     +${quest.xp} XP
@@ -3396,42 +4870,62 @@ function renderCustomQuestCard(quest) {
 
             ${
                 quest.dueDate
+
                     ? `
+
                         <div class="quest-date">
                             DUE • ${escapeHTML(
                                 quest.dueDate
                             )}
                         </div>
+
                     `
+
                     : ""
             }
 
             ${
                 quest.notes
+
                     ? `
+
                         <div class="quest-note">
                             ${escapeHTML(
                                 quest.notes
                             )}
                         </div>
+
                     `
+
                     : ""
             }
 
             ${
                 renderQuestActions(
+
                     quest,
+
                     `completeCustomQuest('${quest.id}')`,
+
                     `skipCustomQuest('${quest.id}')`,
+
                     `deleteCustomQuest('${quest.id}')`
+
                 )
             }
 
         </div>
+
     `;
+
 }
 
+/* =========================================================
+   RENDER QUESTS
+========================================================= */
+
 function renderQuests() {
+
     const daily =
         getAllDailyQuests();
 
@@ -3449,6 +4943,7 @@ function renderQuests() {
             );
 
     return `
+
         <div class="page">
 
             <h1 class="page-title">
@@ -3457,7 +4952,7 @@ function renderQuests() {
 
             <p class="page-subtitle">
                 You choose what is worth pursuing.
-                You can complete it, skip it, or come back later.
+                Complete it, skip it, or come back later.
             </p>
 
             <button
@@ -3473,11 +4968,17 @@ function renderQuests() {
 
             ${
                 mains.length
-                    ? mains.map(
-                        renderMainQuestCard
-                    ).join("")
+
+                    ? mains
+                        .map(
+                            renderMainQuestCard
+                        )
+                        .join("")
+
                     : `
+
                         <div class="card">
+
                             <div class="card-title">
                                 NO ACTIVE MAIN QUEST
                             </div>
@@ -3494,7 +4995,9 @@ function renderQuests() {
                             >
                                 CREATE MAIN QUEST
                             </button>
+
                         </div>
+
                     `
             }
 
@@ -3503,9 +5006,11 @@ function renderQuests() {
             </div>
 
             ${
-                daily.map(
-                    renderDailyQuestCard
-                ).join("")
+                daily
+                    .map(
+                        renderDailyQuestCard
+                    )
+                    .join("")
             }
 
             <div class="section-label">
@@ -3514,15 +5019,23 @@ function renderQuests() {
 
             ${
                 sides.length
-                    ? sides.map(
-                        renderSideQuestCard
-                    ).join("")
+
+                    ? sides
+                        .map(
+                            renderSideQuestCard
+                        )
+                        .join("")
+
                     : `
+
                         <div class="card">
+
                             <div class="quest-description">
                                 No side quests yet.
                             </div>
+
                         </div>
+
                     `
             }
 
@@ -3532,21 +5045,31 @@ function renderQuests() {
 
             ${
                 custom.length
-                    ? custom.map(
-                        renderCustomQuestCard
-                    ).join("")
+
+                    ? custom
+                        .map(
+                            renderCustomQuestCard
+                        )
+                        .join("")
+
                     : `
+
                         <div class="card">
+
                             <div class="quest-description">
                                 Create your own quests
                                 whenever you want.
                             </div>
+
                         </div>
+
                     `
             }
 
         </div>
+
     `;
+
 }
 
 /* =========================================================
@@ -3554,16 +5077,24 @@ function renderQuests() {
 ========================================================= */
 
 function renderStats() {
+
     const total =
         Object.values(
             profile.stats
         ).reduce(
-            (sum, value) =>
-                sum + Number(value || 0),
+            (
+                sum,
+                value
+            ) =>
+                sum +
+                Number(
+                    value || 0
+                ),
             0
         );
 
     return `
+
         <div class="page">
 
             <h1 class="page-title">
@@ -3584,9 +5115,11 @@ function renderStats() {
                 <div class="level-row">
 
                     <div>
+
                         <div class="level-number">
                             ${total}
                         </div>
+
                     </div>
 
                     <div class="xp-text">
@@ -3602,56 +5135,76 @@ function renderStats() {
                 ${
                     Object.entries(
                         STAT_INFO
-                    ).map(([key, info]) => {
+                    )
+                    .map(
+                        (
+                            [
+                                key,
+                                info
+                            ]
+                        ) => {
 
-                        const value =
-                            Number(
-                                profile.stats[key] || 0
-                            );
+                            const value =
+                                Number(
+                                    profile.stats[
+                                        key
+                                    ] || 0
+                                );
 
-                        const percent =
-                            Math.min(
-                                100,
-                                value
-                            );
+                            const percent =
+                                Math.min(
+                                    100,
+                                    value
+                                );
 
-                        return `
-                            <div class="stat-row">
+                            return `
 
-                                <div class="stat-header">
+                                <div class="stat-row">
 
-                                    <div>
-                                        <div class="stat-name">
-                                            ${key} • ${info.name}
+                                    <div class="stat-header">
+
+                                        <div>
+
+                                            <div class="stat-name">
+                                                ${key} • ${info.name}
+                                            </div>
+
+                                            <div class="stat-description">
+                                                ${info.description}
+                                            </div>
+
                                         </div>
 
-                                        <div class="stat-description">
-                                            ${info.description}
+                                        <div class="stat-value">
+                                            ${value}
                                         </div>
+
                                     </div>
 
-                                    <div class="stat-value">
-                                        ${value}
+                                    <div class="stat-track">
+
+                                        <div
+                                            class="stat-fill"
+                                            style="width:${percent}%"
+                                        ></div>
+
                                     </div>
 
                                 </div>
 
-                                <div class="stat-track">
-                                    <div
-                                        class="stat-fill"
-                                        style="width:${percent}%"
-                                    ></div>
-                                </div>
+                            `;
 
-                            </div>
-                        `;
-                    }).join("")
+                        }
+                    )
+                    .join("")
                 }
 
             </div>
 
         </div>
+
     `;
+
 }
 
 /* =========================================================
@@ -3659,6 +5212,7 @@ function renderStats() {
 ========================================================= */
 
 function renderAchievements() {
+
     const unlocked =
         readJSON(
             ACHIEVEMENTS_KEY,
@@ -3666,6 +5220,7 @@ function renderAchievements() {
         );
 
     return `
+
         <div class="page">
 
             <h1 class="page-title">
@@ -3681,64 +5236,619 @@ function renderAchievements() {
 
                 ${
                     ACHIEVEMENT_DEFINITIONS
-                        .map(a => {
+                        .map(
+                            achievement => {
 
-                            const isUnlocked =
-                                unlocked.includes(
-                                    a.id
-                                );
+                                const isUnlocked =
+                                    unlocked.includes(
+                                        achievement.id
+                                    );
 
-                            const name =
-                                a.secret &&
-                                !isUnlocked
-                                    ? "???"
-                                    : a.name;
+                                const name =
+                                    achievement.secret &&
+                                    !isUnlocked
 
-                            const description =
-                                a.secret &&
-                                !isUnlocked
-                                    ? "A secret achievement."
-                                    : a.description;
+                                        ? "???"
 
-                            return `
-                                <div class="achievement ${
-                                    isUnlocked
-                                        ? ""
-                                        : "locked"
-                                }">
+                                        : achievement.name;
 
-                                    <div class="achievement-icon">
-                                        ${
-                                            isUnlocked
-                                                ? "♛"
-                                                : "?"
-                                        }
-                                    </div>
+                                const description =
+                                    achievement.secret &&
+                                    !isUnlocked
 
-                                    <div>
-                                        <div class="achievement-name">
-                                            ${name}
+                                        ? "A secret achievement."
+
+                                        : achievement.description;
+
+                                return `
+
+                                    <div class="achievement ${
+                                        isUnlocked
+                                            ? ""
+                                            : "locked"
+                                    }">
+
+                                        <div class="achievement-icon">
+
+                                            ${
+                                                isUnlocked
+                                                    ? "♛"
+                                                    : "?"
+                                            }
+
                                         </div>
 
-                                        <div class="achievement-description">
-                                            ${description}
+                                        <div>
+
+                                            <div class="achievement-name">
+                                                ${name}
+                                            </div>
+
+                                            <div class="achievement-description">
+                                                ${description}
+                                            </div>
+
                                         </div>
+
+                                        <div class="achievement-reward">
+                                            +${achievement.reward}
+                                        </div>
+
                                     </div>
 
-                                    <div class="achievement-reward">
-                                        +${a.reward}
-                                    </div>
+                                `;
 
-                                </div>
-                            `;
-                        })
+                            }
+                        )
                         .join("")
                 }
 
             </div>
 
         </div>
+
     `;
+
+}
+
+/* =========================================================
+   HISTORY LOOK-BACK
+========================================================= */
+
+function renderLookBack() {
+
+    const history =
+        getHistory();
+
+    const questCount =
+        getHistoryQuestCount();
+
+    const totalXP =
+        getHistoryXP();
+
+    const longestStreak =
+        getLongestHistoricalStreak();
+
+    const unlocked =
+        readJSON(
+            ACHIEVEMENTS_KEY,
+            []
+        );
+
+    if (
+        history.length === 0
+    ) {
+
+        return `
+
+            <div class="card look-back">
+
+                <div class="look-back-title">
+                    YOUR JOURNEY IS JUST BEGINNING
+                </div>
+
+                <div class="look-back-big">
+                    Your first chapter hasn't been written yet.
+                </div>
+
+                <div class="look-back-text">
+                    Complete a quest and SENRAI will start
+                    building your history here.
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    return `
+
+        <div class="card look-back">
+
+            <div class="look-back-title">
+                LOOK BACK
+            </div>
+
+            <div class="look-back-big">
+                You're already making progress.
+            </div>
+
+            <div class="look-back-text">
+                ${questCount} quests completed,
+                ${totalXP} XP earned,
+                ${unlocked.length} achievements unlocked,
+                and a longest recorded streak of
+                ${longestStreak} day${
+                    longestStreak === 1
+                        ? ""
+                        : "s"
+                }.
+                <br><br>
+                The point isn't to become perfect.
+                It's to look back and realize
+                you kept moving.
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   HISTORY ENTRY
+========================================================= */
+
+function renderHistoryEntry(
+    entry
+) {
+
+    let icon =
+        "✦";
+
+    let name =
+        "Progress";
+
+    let meta =
+        formatHistoryTime(
+            entry.timestamp
+        );
+
+    let reward =
+        "";
+
+    if (
+        entry.type ===
+        "QUEST_COMPLETE"
+    ) {
+
+        icon =
+            "⚔";
+
+        name =
+            entry.questName;
+
+        meta =
+            `${entry.questType} • ${formatHistoryTime(
+                entry.timestamp
+            )}`;
+
+        reward =
+            `+${entry.xp} XP`;
+
+    }
+
+    if (
+        entry.type ===
+        "LIFE_QUEST"
+    ) {
+
+        icon =
+            "✦";
+
+        name =
+            entry.questName;
+
+        meta =
+            `LIFE QUEST • ${formatHistoryTime(
+                entry.timestamp
+            )}`;
+
+        reward =
+            `+${entry.xp} XP`;
+
+    }
+
+    if (
+        entry.type ===
+        "ACHIEVEMENT"
+    ) {
+
+        icon =
+            "♛";
+
+        name =
+            entry.achievementName;
+
+        meta =
+            `ACHIEVEMENT • ${formatHistoryTime(
+                entry.timestamp
+            )}`;
+
+        reward =
+            `+${entry.xp} XP`;
+
+    }
+
+    if (
+        entry.type ===
+        "LEVEL_UP"
+    ) {
+
+        icon =
+            "◆";
+
+        name =
+            `Reached Level ${entry.level}`;
+
+        meta =
+            `LEVEL UP • ${formatHistoryTime(
+                entry.timestamp
+            )}`;
+
+    }
+
+    if (
+        entry.type ===
+        "STREAK_MILESTONE"
+    ) {
+
+        icon =
+            "🔥";
+
+        name =
+            `${entry.streak}-Day Streak`;
+
+        meta =
+            `STREAK MILESTONE • ${formatHistoryTime(
+                entry.timestamp
+            )}`;
+
+    }
+
+    return `
+
+        <div class="history-entry">
+
+            <div class="history-icon">
+                ${icon}
+            </div>
+
+            <div class="history-entry-info">
+
+                <div class="history-entry-name">
+                    ${escapeHTML(
+                        name
+                    )}
+                </div>
+
+                <div class="history-entry-meta">
+                    ${escapeHTML(
+                        meta
+                    )}
+                </div>
+
+            </div>
+
+            ${
+                reward
+
+                    ? `
+
+                        <div class="history-entry-xp">
+                            ${reward}
+                        </div>
+
+                    `
+
+                    : ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   RENDER HISTORY
+========================================================= */
+
+function renderHistory() {
+
+    const history =
+        getHistory()
+            .slice()
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    new Date(
+                        b.timestamp
+                    ) -
+                    new Date(
+                        a.timestamp
+                    )
+            );
+
+    const questCount =
+        getHistoryQuestCount();
+
+    const totalXP =
+        getHistoryXP();
+
+    const statGrowth =
+        getHistoryStatGrowth();
+
+    const longestStreak =
+        getLongestHistoricalStreak();
+
+    const activeDays =
+        new Set(
+            history.map(
+                entry =>
+                    entry.personalDay
+            )
+        ).size;
+
+    /*
+     * Group history by personal day.
+     */
+    const grouped = {};
+
+    history.forEach(
+        entry => {
+
+            const day =
+                entry.personalDay;
+
+            if (!grouped[day]) {
+                grouped[day] = [];
+            }
+
+            grouped[day].push(
+                entry
+            );
+
+        }
+    );
+
+    const days =
+        Object.keys(
+            grouped
+        ).sort(
+            (a, b) =>
+                b.localeCompare(a)
+        );
+
+    return `
+
+        <div class="page">
+
+            <h1 class="page-title">
+                History
+            </h1>
+
+            <p class="page-subtitle">
+                A record of the things you actually did.
+                No punishment for what you skipped.
+            </p>
+
+            <div class="history-summary">
+
+                <div class="history-stat">
+
+                    <div class="history-stat-label">
+                        QUESTS
+                    </div>
+
+                    <div class="history-stat-value">
+                        ${questCount}
+                    </div>
+
+                </div>
+
+                <div class="history-stat">
+
+                    <div class="history-stat-label">
+                        XP EARNED
+                    </div>
+
+                    <div class="history-stat-value">
+                        ${totalXP}
+                    </div>
+
+                </div>
+
+                <div class="history-stat">
+
+                    <div class="history-stat-label">
+                        ACTIVE DAYS
+                    </div>
+
+                    <div class="history-stat-value">
+                        ${activeDays}
+                    </div>
+
+                </div>
+
+                <div class="history-stat">
+
+                    <div class="history-stat-label">
+                        LONGEST STREAK
+                    </div>
+
+                    <div class="history-stat-value">
+                        ${longestStreak}
+                    </div>
+
+                </div>
+
+            </div>
+
+            ${renderLookBack()}
+
+            <div class="section-label">
+                RECENT STAT GROWTH
+            </div>
+
+            <div class="card">
+
+                ${
+                    Object.entries(
+                        statGrowth
+                    )
+                    .map(
+                        (
+                            [
+                                stat,
+                                amount
+                            ]
+                        ) => `
+
+                            <div class="stat-row">
+
+                                <div class="stat-header">
+
+                                    <div>
+
+                                        <div class="stat-name">
+                                            ${stat} • ${
+                                                STAT_INFO[
+                                                    stat
+                                                ].name
+                                            }
+                                        </div>
+
+                                    </div>
+
+                                    <div class="stat-value">
+                                        +${amount}
+                                    </div>
+
+                                </div>
+
+                                <div class="stat-description">
+                                    ${
+                                        STAT_INFO[
+                                            stat
+                                        ].description
+                                    }
+                                </div>
+
+                            </div>
+
+                        `
+                    )
+                    .join("")
+                }
+
+            </div>
+
+            <div class="section-label">
+                JOURNEY
+            </div>
+
+            ${
+                days.length
+
+                    ? days
+                        .map(
+                            day => {
+
+                                const entries =
+                                    grouped[
+                                        day
+                                    ];
+
+                                const dayXP =
+                                    entries
+                                        .reduce(
+                                            (
+                                                sum,
+                                                entry
+                                            ) =>
+                                                sum +
+                                                Number(
+                                                    entry.xp ||
+                                                    0
+                                                ),
+                                            0
+                                        );
+
+                                return `
+
+                                    <div class="history-day">
+
+                                        <div class="history-day-header">
+
+                                            <div class="history-date">
+                                                ${formatHistoryDate(
+                                                    day
+                                                )}
+                                            </div>
+
+                                            <div class="history-day-xp">
+                                                ${
+                                                    dayXP
+                                                        ? `+${dayXP} XP`
+                                                        : ""
+                                                }
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card">
+
+                                            ${
+                                                entries
+                                                    .map(
+                                                        renderHistoryEntry
+                                                    )
+                                                    .join("")
+                                            }
+
+                                        </div>
+
+                                    </div>
+
+                                `;
+
+                            }
+                        )
+                        .join("")
+
+                    : `
+
+                        <div class="card">
+
+                            <div class="quest-description">
+                                Nothing here yet.
+                                Complete your first quest
+                                and your journey will appear.
+                            </div>
+
+                        </div>
+
+                    `
+            }
+
+        </div>
+
+    `;
+
 }
 
 /* =========================================================
@@ -3746,7 +5856,9 @@ function renderAchievements() {
 ========================================================= */
 
 function renderLife() {
+
     return `
+
         <div class="page">
 
             <h1 class="page-title">
@@ -3772,15 +5884,19 @@ function renderLife() {
 
                     ${
                         lifeQuest
+
                             ? `
+
                                 <div class="life-text">
                                     ${escapeHTML(
                                         lifeQuest
                                     )}
                                 </div>
 
-                                <div class="quest-actions"
-                                     style="justify-content:center">
+                                <div
+                                    class="quest-actions"
+                                    style="justify-content:center"
+                                >
 
                                     <button
                                         class="btn btn-primary"
@@ -3797,8 +5913,11 @@ function renderLife() {
                                     </button>
 
                                 </div>
+
                             `
+
                             : `
+
                                 <div class="life-text">
                                     Need something random?
                                 </div>
@@ -3810,6 +5929,7 @@ function renderLife() {
                                 >
                                     SURPRISE ME
                                 </button>
+
                             `
                     }
 
@@ -3835,7 +5955,9 @@ function renderLife() {
             </div>
 
         </div>
+
     `;
+
 }
 
 /* =========================================================
@@ -3843,6 +5965,7 @@ function renderLife() {
 ========================================================= */
 
 function renderSettings() {
+
     const current =
         getDayStartHour();
 
@@ -3858,6 +5981,7 @@ function renderSettings() {
     ];
 
     return `
+
         <div class="page">
 
             <h1 class="page-title">
@@ -3882,18 +6006,24 @@ function renderSettings() {
 
                     ${
                         options
-                            .map(hour => `
-                                <button
-                                    class="schedule-option ${
-                                        current === hour
-                                            ? "active"
-                                            : ""
-                                    }"
-                                    onclick="saveSchedule(${hour})"
-                                >
-                                    ${formatHour(hour)}
-                                </button>
-                            `)
+                            .map(
+                                hour => `
+
+                                    <button
+                                        class="schedule-option ${
+                                            current === hour
+                                                ? "active"
+                                                : ""
+                                        }"
+                                        onclick="saveSchedule(${hour})"
+                                    >
+                                        ${formatHour(
+                                            hour
+                                        )}
+                                    </button>
+
+                                `
+                            )
                             .join("")
                     }
 
@@ -3919,7 +6049,9 @@ function renderSettings() {
                 </div>
 
                 <div class="quest-name">
-                    ${escapeHTML(profile.name)}
+                    ${escapeHTML(
+                        profile.name
+                    )}
                 </div>
 
                 <div class="quest-description">
@@ -3954,7 +6086,9 @@ function renderSettings() {
             </div>
 
         </div>
+
     `;
+
 }
 
 /* =========================================================
@@ -3962,6 +6096,7 @@ function renderSettings() {
 ========================================================= */
 
 function render() {
+
     const page =
         document.getElementById(
             "page-content"
@@ -3974,82 +6109,128 @@ function render() {
     document.getElementById(
         "top-user-name"
     ).textContent =
-        profile.name || "Player";
+        profile.name ||
+        "Player";
 
     document.getElementById(
         "top-user-level"
     ).textContent =
         `LEVEL ${profile.level}`;
 
-    switch (currentPage) {
+    switch (
+        currentPage
+    ) {
+
         case "quests":
+
             page.innerHTML =
                 renderQuests();
+
             break;
 
         case "stats":
+
             page.innerHTML =
                 renderStats();
+
             break;
 
         case "achievements":
+
             page.innerHTML =
                 renderAchievements();
+
+            break;
+
+        case "history":
+
+            page.innerHTML =
+                renderHistory();
+
             break;
 
         case "life":
+
             page.innerHTML =
                 renderLife();
+
             break;
 
         case "settings":
+
             page.innerHTML =
                 renderSettings();
+
             break;
 
         default:
+
             page.innerHTML =
                 renderHome();
+
     }
 
     document
-        .querySelectorAll(".nav-btn")
-        .forEach(button => {
-            button.classList.toggle(
-                "active",
-                button.dataset.page ===
-                currentPage
-            );
-        });
+        .querySelectorAll(
+            ".nav-btn"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.page ===
+                    currentPage
+                );
+
+            }
+        );
+
 }
 
-function navigate(page) {
-    currentPage = page;
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(
+    page
+) {
+
+    currentPage =
+        page;
 
     render();
 
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
+
 }
 
-/* =========================================================
-   NAV EVENTS
-========================================================= */
-
 document
-    .querySelectorAll(".nav-btn")
-    .forEach(button => {
-        button.addEventListener(
-            "click",
-            () => {
-                navigate(
-                    button.dataset.page
-                );
-            }
-        );
-    });
+    .querySelectorAll(
+        ".nav-btn"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    navigate(
+                        button.dataset.page
+                    );
+
+                }
+            );
+
+        }
+    );
 
 /* =========================================================
    TOAST
@@ -4059,13 +6240,16 @@ function showToast(
     message,
     type = ""
 ) {
+
     const container =
         document.getElementById(
             "toast-container"
         );
 
     const toast =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     toast.className =
         `toast ${type}`;
@@ -4073,18 +6257,32 @@ function showToast(
     toast.textContent =
         message;
 
-    container.appendChild(toast);
+    container.appendChild(
+        toast
+    );
 
-    setTimeout(() => {
-        toast.style.opacity = "0";
-        toast.style.transform =
-            "translateY(-5px)";
+    setTimeout(
+        () => {
 
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
+            toast.style.opacity =
+                "0";
 
-    }, 2800);
+            toast.style.transform =
+                "translateY(-5px)";
+
+            setTimeout(
+                () => {
+
+                    toast.remove();
+
+                },
+                300
+            );
+
+        },
+        2800
+    );
+
 }
 
 /* =========================================================
@@ -4092,9 +6290,144 @@ function showToast(
 ========================================================= */
 
 async function signOut() {
-    await supabaseClient.auth.signOut();
+
+    await supabaseClient
+        .auth
+        .signOut();
 
     location.reload();
+
+}
+
+/* =========================================================
+   SPLASH
+========================================================= */
+
+function runSplash() {
+
+    const splash =
+        document.getElementById(
+            "splash"
+        );
+
+    const bar =
+        document.getElementById(
+            "splash-bar"
+        );
+
+    const percent =
+        document.getElementById(
+            "splash-percent"
+        );
+
+    const status =
+        document.getElementById(
+            "splash-status"
+        );
+
+    const statuses = [
+
+        "SYSTEM INITIALIZING",
+
+        "LOADING PROFILE",
+
+        "SYNCING PROGRESS DATA",
+
+        "INITIALIZING QUEST SYSTEM",
+
+        "CALIBRATING CHARACTER STATS",
+
+        "SYSTEM READY"
+
+    ];
+
+    const start =
+        performance.now();
+
+    const duration =
+        2200;
+
+    function frame(
+        now
+    ) {
+
+        const progress =
+            Math.min(
+                1,
+                (
+                    now -
+                    start
+                ) /
+                duration
+            );
+
+        const value =
+            Math.floor(
+                progress * 100
+            );
+
+        bar.style.width =
+            value + "%";
+
+        percent.textContent =
+            value + "%";
+
+        const index =
+            Math.min(
+                statuses.length - 1,
+                Math.floor(
+                    progress *
+                    statuses.length
+                )
+            );
+
+        status.textContent =
+            statuses[index];
+
+        if (
+            progress < 1
+        ) {
+
+            requestAnimationFrame(
+                frame
+            );
+
+        } else {
+
+            setTimeout(
+                () => {
+
+                    splash.classList.add(
+                        "hide"
+                    );
+
+                },
+                250
+            );
+
+        }
+
+    }
+
+    requestAnimationFrame(
+        frame
+    );
+
+    /*
+     * Emergency fallback so the
+     * splash can never trap the user.
+     */
+    setTimeout(
+        () => {
+
+            splash.classList.add(
+                "hide"
+            );
+
+        },
+        3500
+    );
+
 }
 
 /* =========================================================
@@ -4102,7 +6435,9 @@ async function signOut() {
 ========================================================= */
 
 async function startApp() {
+
     try {
+
         runSplash();
 
         await loadProfile();
@@ -4112,36 +6447,55 @@ async function startApp() {
         render();
 
         document
-            .getElementById("app")
-            .classList.remove("hidden");
+            .getElementById(
+                "app"
+            )
+            .classList.remove(
+                "hidden"
+            );
 
-    } catch (error) {
+    } catch (
+        error
+    ) {
+
         console.error(
             "SENRAI startup error:",
             error
         );
 
-        showToast(
-            "System started with limited functionality.",
-            "warning"
-        );
-
         document
-            .getElementById("app")
-            .classList.remove("hidden");
+            .getElementById(
+                "app"
+            )
+            .classList.remove(
+                "hidden"
+            );
 
         render();
 
     } finally {
-        setTimeout(() => {
-            document
-                .getElementById("splash")
-                .classList.add("hide");
-        }, 3500);
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById(
+                        "splash"
+                    )
+                    .classList.add(
+                        "hide"
+                    );
+
+            },
+            3500
+        );
+
     }
+
 }
 
 startApp();
+
 </script>
 
 </body>
