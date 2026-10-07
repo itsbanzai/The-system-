@@ -14,7 +14,8 @@
 <style>
 :root{
 --bg:#050609;
---panel:rgba(13,16,22,.82);
+--panel:rgba(13,16,22,.84);
+--panel2:#0b0e14;
 --line:#202632;
 --text:#f1f3f7;
 --muted:#7d8694;
@@ -41,7 +42,7 @@ scroll-behavior:smooth
 body{
 background:var(--bg);
 color:var(--text);
-font-family:Inter,Arial,sans-serif;
+font-family:Inter,Arial,Helvetica,sans-serif;
 min-height:100vh;
 overflow-x:hidden
 }
@@ -79,13 +80,13 @@ border-color:#edf2f8;
 font-weight:800
 }
 
+.ghost{
+background:transparent
+}
+
 .danger{
 border-color:#4a2830;
 color:#ff8795
-}
-
-.ghost{
-background:transparent
 }
 
 .small{
@@ -103,8 +104,16 @@ position:fixed;
 inset:0;
 pointer-events:none;
 background:
-radial-gradient(circle at 50% 8%,rgba(101,169,255,.06),transparent 34%),
-radial-gradient(circle at 8% 80%,rgba(168,124,255,.035),transparent 28%);
+radial-gradient(
+circle at 50% 8%,
+rgba(101,169,255,.06),
+transparent 34%
+),
+radial-gradient(
+circle at 8% 80%,
+rgba(168,124,255,.035),
+transparent 28%
+);
 z-index:-4
 }
 
@@ -249,6 +258,8 @@ transform:scale(1)
 }
 }
 
+/* SPLASH */
+
 #splash{
 position:fixed;
 inset:0;
@@ -268,7 +279,9 @@ text-align:center
 width:min(260px,70vw);
 max-height:160px;
 object-fit:contain;
-filter:drop-shadow(0 0 28px rgba(230,240,255,.1));
+filter:drop-shadow(
+0 0 28px rgba(230,240,255,.1)
+);
 margin-bottom:30px
 }
 
@@ -303,10 +316,12 @@ letter-spacing:2px;
 margin-top:11px
 }
 
+/* APP */
+
 #app{
-width:min(1050px,100%);
+width:min(1080px,100%);
 margin:auto;
-padding:18px 14px 105px
+padding:18px 14px 108px
 }
 
 header{
@@ -354,7 +369,7 @@ padding:9px 12px
 position:absolute;
 right:0;
 top:45px;
-width:215px;
+width:225px;
 padding:8px;
 border:1px solid var(--line);
 background:#0b0e14;
@@ -410,7 +425,32 @@ font-size:8px;
 letter-spacing:1.8px
 }
 
-/* SYSTEM CORE */
+/* SHARED */
+
+.card,
+.objective,
+.reflection,
+.status,
+.feed,
+.quest,
+.life,
+.stat,
+.week,
+.achievement,
+.history,
+.profile,
+.settings,
+.path-card,
+.boss,
+.journey-card,
+.intel-card{
+border:1px solid var(--line);
+background:var(--panel);
+border-radius:20px;
+box-shadow:0 12px 35px rgba(0,0,0,.12)
+}
+
+/* CORE */
 
 .core-stage{
 position:relative;
@@ -422,8 +462,16 @@ display:grid;
 place-items:center;
 overflow:hidden;
 background:
-radial-gradient(circle at 50% 48%,rgba(101,169,255,.09),transparent 25%),
-radial-gradient(circle,rgba(168,124,255,.04),transparent 55%);
+radial-gradient(
+circle at 50% 48%,
+rgba(101,169,255,.09),
+transparent 25%
+),
+radial-gradient(
+circle,
+rgba(168,124,255,.04),
+transparent 55%
+);
 box-shadow:
 inset 0 0 70px rgba(0,0,0,.35),
 0 20px 55px rgba(0,0,0,.12)
@@ -434,10 +482,22 @@ content:"";
 position:absolute;
 inset:0;
 background-image:
-linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
-linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
+linear-gradient(
+rgba(255,255,255,.016) 1px,
+transparent 1px
+),
+linear-gradient(
+90deg,
+rgba(255,255,255,.016) 1px,
+transparent 1px
+);
 background-size:42px 42px;
-mask-image:radial-gradient(circle,#000,transparent 72%)
+mask-image:
+radial-gradient(
+circle,
+#000,
+transparent 72%
+)
 }
 
 .aura{
@@ -445,7 +505,8 @@ position:absolute;
 width:175px;
 height:175px;
 border-radius:50%;
-background:radial-gradient(
+background:
+radial-gradient(
 circle,
 rgba(105,226,220,.14),
 transparent 68%
@@ -462,19 +523,25 @@ height:225px
 }
 
 .o1{
-transform:rotateX(64deg) rotateZ(12deg)
+transform:
+rotateX(64deg)
+rotateZ(12deg)
 }
 
 .o2{
 width:280px;
 height:175px;
-transform:rotateX(67deg) rotateY(22deg)
+transform:
+rotateX(67deg)
+rotateY(22deg)
 }
 
 .o3{
 width:300px;
 height:300px;
-transform:rotateY(66deg) rotateZ(20deg);
+transform:
+rotateY(66deg)
+rotateZ(20deg);
 border-color:rgba(168,124,255,.07)
 }
 
@@ -487,7 +554,12 @@ display:grid;
 place-items:center;
 text-align:center;
 background:
-radial-gradient(circle at 35% 25%,#26303d,#0d1118 62%,#080a0f);
+radial-gradient(
+circle at 35% 25%,
+#26303d,
+#0d1118 62%,
+#080a0f
+);
 border:1px solid #667284;
 box-shadow:
 0 0 0 8px rgba(5,6,9,.74),
@@ -531,7 +603,8 @@ animation:pop .85s ease-out
 
 .symbol{
 font-size:31px;
-text-shadow:0 0 18px rgba(235,242,250,.55);
+text-shadow:
+0 0 18px rgba(235,242,250,.55);
 animation:pulse 2.8s ease-in-out infinite
 }
 
@@ -610,8 +683,7 @@ margin-top:10px;
 padding:21px;
 border:1px solid var(--line);
 border-radius:20px;
-background:var(--panel);
-box-shadow:0 12px 35px rgba(0,0,0,.12)
+background:var(--panel)
 }
 
 .hero-top{
@@ -663,7 +735,12 @@ margin-top:20px
 height:100%;
 width:0;
 border-radius:99px;
-background:linear-gradient(90deg,#697589,#edf2f8);
+background:
+linear-gradient(
+90deg,
+#697589,
+#edf2f8
+);
 transition:.45s
 }
 
@@ -676,32 +753,13 @@ margin-top:8px;
 letter-spacing:1px
 }
 
-/* CARDS */
+/* SUMMARY */
 
 .summary{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:10px;
 margin-top:10px
-}
-
-.card,
-.objective,
-.reflection,
-.status,
-.feed,
-.quest,
-.life,
-.stat,
-.week,
-.achievement,
-.history,
-.profile,
-.settings{
-border:1px solid var(--line);
-background:var(--panel);
-border-radius:20px;
-box-shadow:0 12px 35px rgba(0,0,0,.12)
 }
 
 .summary .card{
@@ -724,7 +782,7 @@ margin-top:4px
 color:var(--orange)
 }
 
-/* SYSTEM STATUS */
+/* STATUS */
 
 .status{
 padding:15px 17px;
@@ -823,6 +881,57 @@ text-align:center;
 letter-spacing:1px
 }
 
+/* INTELLIGENCE */
+
+.intel-card{
+padding:18px;
+background:
+linear-gradient(
+120deg,
+rgba(101,169,255,.04),
+rgba(168,124,255,.04)
+),
+var(--panel)
+}
+
+.intel-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:13px
+}
+
+.intel-item{
+border:1px solid #202733;
+border-radius:13px;
+padding:10px;
+background:#0a0d12
+}
+
+.intel-item span{
+display:block;
+color:#596272;
+font-size:6px;
+letter-spacing:1.2px
+}
+
+.intel-item b{
+display:block;
+font-size:10px;
+margin-top:5px
+}
+
+.insight{
+margin-top:12px;
+padding:11px 12px;
+border:1px solid rgba(105,226,220,.13);
+border-radius:13px;
+color:#aeb5c1;
+font-size:9px;
+line-height:1.5;
+background:rgba(105,226,220,.025)
+}
+
 /* OBJECTIVE */
 
 .objective{
@@ -847,7 +956,10 @@ margin:8px 0
 .quest p,
 .life p,
 .week p,
-.history p{
+.history p,
+.boss p,
+.journey-card p,
+.intel-card p{
 color:#aeb5c1;
 font-size:10px;
 line-height:1.55
@@ -859,7 +971,7 @@ display:block;
 color:#424b58;
 font-size:6px;
 letter-spacing:2px;
-margin-top:14px
+margin-top:15px
 }
 
 .meta{
@@ -894,7 +1006,8 @@ left:0;
 top:0;
 bottom:0;
 width:2px;
-background:linear-gradient(
+background:
+linear-gradient(
 180deg,
 var(--blue),
 var(--purple)
@@ -939,10 +1052,7 @@ flex:1
 
 /* PATH */
 
-.path{
-border:1px solid var(--line);
-background:var(--panel);
-border-radius:20px;
+.path-card{
 padding:18px
 }
 
@@ -984,15 +1094,59 @@ font-size:7px;
 letter-spacing:1.5px
 }
 
-.system-chip.active{
-box-shadow:0 0 18px rgba(105,226,220,.08)
-}
-
 .path-tags{
 display:flex;
 flex-wrap:wrap;
 gap:6px;
 margin-top:12px
+}
+
+.stage-list{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:6px;
+margin-top:16px
+}
+
+.stage{
+border:1px solid #202733;
+border-radius:12px;
+padding:9px 6px;
+text-align:center;
+background:#0a0d12;
+min-width:0
+}
+
+.stage .mark{
+font-size:15px;
+color:#566070
+}
+
+.stage strong{
+display:block;
+font-size:7px;
+letter-spacing:1px;
+margin-top:5px
+}
+
+.stage small{
+display:block;
+color:#555e6d;
+font-size:6px;
+margin-top:3px
+}
+
+.stage.current{
+border-color:rgba(105,226,220,.4);
+box-shadow:0 0 20px rgba(105,226,220,.06)
+}
+
+.stage.current .mark{
+color:var(--cyan)
+}
+
+.stage.done .mark{
+color:var(--green)
 }
 
 /* QUESTS */
@@ -1186,6 +1340,12 @@ gap:10px
 padding:17px
 }
 
+.week-top{
+display:flex;
+justify-content:space-between;
+gap:10px
+}
+
 .week-title{
 font-size:12px;
 font-weight:900
@@ -1195,12 +1355,6 @@ font-weight:900
 color:var(--green);
 font-size:8px;
 letter-spacing:1px
-}
-
-.week-top{
-display:flex;
-justify-content:space-between;
-gap:10px
 }
 
 .week p{
@@ -1315,7 +1469,7 @@ line-height:1.55;
 margin-top:6px
 }
 
-/* PROFILE / SETTINGS */
+/* PROFILE */
 
 .profile{
 padding:20px;
@@ -1372,6 +1526,8 @@ color:var(--muted);
 letter-spacing:1px
 }
 
+/* SETTINGS */
+
 .settings{
 padding:17px
 }
@@ -1398,6 +1554,184 @@ font-weight:800
 font-size:8px;
 color:var(--muted);
 margin-top:3px
+}
+
+/* BOSS */
+
+.boss{
+padding:20px;
+position:relative;
+overflow:hidden;
+background:
+radial-gradient(
+circle at 90% 0,
+rgba(255,102,122,.09),
+transparent 38%
+),
+var(--panel);
+border-color:#3a252d
+}
+
+.boss:before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+bottom:0;
+width:2px;
+background:
+linear-gradient(
+180deg,
+var(--red),
+var(--purple)
+)
+}
+
+.boss-tag{
+color:var(--red);
+font-size:8px;
+letter-spacing:2px
+}
+
+.boss-title{
+font-size:21px;
+font-weight:950;
+margin:8px 0
+}
+
+.boss-actions{
+display:flex;
+gap:8px;
+margin-top:14px
+}
+
+.boss-actions button{
+flex:1
+}
+
+/* INTELLIGENCE */
+
+.intel-card{
+padding:18px;
+background:
+linear-gradient(
+120deg,
+rgba(101,169,255,.04),
+rgba(168,124,255,.04)
+),
+var(--panel)
+}
+
+.intel-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:13px
+}
+
+.intel-item{
+border:1px solid #202733;
+border-radius:13px;
+padding:10px;
+background:#0a0d12
+}
+
+.intel-item span{
+display:block;
+color:#596272;
+font-size:6px;
+letter-spacing:1.2px
+}
+
+.intel-item b{
+display:block;
+font-size:10px;
+margin-top:5px
+}
+
+.insight{
+margin-top:12px;
+padding:11px 12px;
+border:1px solid rgba(105,226,220,.13);
+border-radius:13px;
+color:#aeb5c1;
+font-size:9px;
+line-height:1.5;
+background:rgba(105,226,220,.025)
+}
+
+/* JOURNEY */
+
+.journey{
+position:relative;
+padding:4px 0 4px 22px
+}
+
+.journey:before{
+content:"";
+position:absolute;
+left:7px;
+top:0;
+bottom:0;
+width:1px;
+background:
+linear-gradient(
+var(--cyan),
+#222833,
+transparent
+)
+}
+
+.journey-card{
+position:relative;
+padding:16px;
+margin-bottom:12px
+}
+
+.journey-card:before{
+content:"";
+position:absolute;
+left:-20px;
+top:20px;
+width:8px;
+height:8px;
+border-radius:50%;
+background:#0b0e14;
+border:1px solid var(--cyan);
+box-shadow:
+0 0 12px rgba(105,226,220,.22)
+}
+
+.journey-date{
+color:var(--muted);
+font-size:7px;
+letter-spacing:1.5px
+}
+
+.journey-title{
+font-size:13px;
+font-weight:900;
+margin-top:5px
+}
+
+.journey-card p{
+margin-top:6px
+}
+
+.journey-type{
+color:var(--cyan);
+font-size:7px;
+letter-spacing:1.5px;
+margin-top:9px
+}
+
+.journey-empty{
+padding:18px;
+border:1px dashed #222a35;
+border-radius:16px;
+color:#596272;
+font-size:8px;
+text-align:center
 }
 
 /* NAV */
@@ -1470,10 +1804,6 @@ box-shadow:
 transition:.2s
 }
 
-.life-nav:hover .nav-icon{
-transform:translateY(-2px)
-}
-
 .life-nav.active .nav-icon{
 border-color:var(--cyan);
 color:var(--cyan);
@@ -1483,7 +1813,7 @@ box-shadow:
 0 0 30px rgba(105,226,220,.16)
 }
 
-/* TOAST / XP / MODAL */
+/* TOAST / MODAL */
 
 .toast{
 position:fixed;
@@ -1520,7 +1850,8 @@ color:var(--green);
 opacity:0;
 pointer-events:none;
 z-index:10001;
-text-shadow:0 0 25px rgba(93,242,165,.35);
+text-shadow:
+0 0 25px rgba(93,242,165,.35);
 transition:.8s
 }
 
@@ -1541,7 +1872,7 @@ padding:18px
 }
 
 .modal{
-width:min(650px,100%);
+width:min(680px,100%);
 max-height:90vh;
 overflow:auto;
 background:#0b0e14;
@@ -1577,8 +1908,6 @@ font-size:10px;
 line-height:1.6
 }
 
-/* FOOTER */
-
 footer{
 text-align:center;
 color:#343a45;
@@ -1587,18 +1916,14 @@ letter-spacing:3px;
 margin-top:40px
 }
 
-/* REDUCED MOTION */
-
-body.reduced *,
-body.reduced *:before,
-body.reduced *:after{
+.reduced *,
+.reduced *:before,
+.reduced *:after{
 animation-duration:.001ms!important;
 animation-iteration-count:1!important;
 scroll-behavior:auto!important;
 transition:none!important
 }
-
-/* MOBILE */
 
 @media(max-width:700px){
 
@@ -1655,12 +1980,22 @@ align-items:flex-start
 }
 
 .actions,
-.life-actions{
+.life-actions,
+.boss-actions{
 flex-direction:column
 }
 
-.profile-grid{
-grid-template-columns:repeat(3,1fr)
+.stage-list{
+grid-template-columns:repeat(5,1fr);
+overflow-x:auto
+}
+
+.stage{
+min-width:62px
+}
+
+.intel-grid{
+grid-template-columns:1fr 1fr
 }
 
 .nav{
@@ -1675,6 +2010,7 @@ height:48px
 .floatxp{
 top:35%
 }
+
 }
 </style>
 </head>
@@ -1690,45 +2026,80 @@ top:35%
 </div>
 
 <div id="splash">
+
 <div class="splash">
+
 <img src="senrai-logo.png" alt="SENRAI">
-<p>PERSONAL PROGRESSION SYSTEM</p>
+
+<p>
+PERSONAL PROGRESSION SYSTEM
+</p>
 
 <div class="load">
 <b id="loadBar"></b>
 </div>
 
 <div class="load-meta">
-<span id="loadText">SYSTEM INITIALIZING</span>
-<span id="loadPct">0%</span>
+<span id="loadText">
+SYSTEM INITIALIZING
+</span>
+
+<span id="loadPct">
+0%
+</span>
 </div>
+
 </div>
+
 </div>
+
 
 <div id="app">
 
 <header>
 
 <div>
-<div class="brand">SENRAI</div>
+
+<div class="brand">
+SENRAI
+</div>
 
 <div class="statusline">
+
 <span class="dot"></span>
-<span id="systemHeaderStatus">SYSTEM ONLINE</span>
+
+<span id="systemHeaderStatus">
+SYSTEM ONLINE
+</span>
+
 <span>•</span>
-<span id="clock">--:--</span>
+
+<span id="clock">
+--:--
+</span>
+
 </div>
+
 </div>
+
 
 <div class="menu">
 
-<button class="system-btn" id="menuBtn">
+<button
+class="system-btn"
+id="menuBtn"
+>
 SYSTEM ▾
 </button>
 
-<div class="menu-panel hidden" id="menuPanel">
+<div
+class="menu-panel hidden"
+id="menuPanel"
+>
 
-<div class="menu-label">SYSTEM</div>
+<div class="menu-label">
+SYSTEM
+</div>
 
 <button onclick="openView('objectives')">
 OBJECTIVES
@@ -1751,6 +2122,7 @@ SETTINGS
 </button>
 
 </div>
+
 </div>
 
 </header>
@@ -1758,7 +2130,10 @@ SETTINGS
 
 <!-- HOME -->
 
-<main id="homeView" class="view active">
+<main
+id="homeView"
+class="view active"
+>
 
 <section class="core-stage">
 
@@ -1780,27 +2155,42 @@ MOMENTS
 LIFE
 </div>
 
-<div class="core" id="core">
+<div
+class="core"
+id="core"
+>
 
 <div>
-<div class="symbol">✦</div>
+
+<div class="symbol">
+✦
+</div>
 
 <small>
 LVL <b id="coreLevel">1</b>
 </small>
 
 <em id="coreState">
-INITIALIZING
+READY
 </em>
+
 </div>
 
 </div>
 
 <div class="core-caption">
-<span>CORE STATUS</span>
-<span class="core-path" id="corePath">
+
+<span>
+CORE STATUS
+</span>
+
+<span
+class="core-path"
+id="corePath"
+>
 INITIATE
 </span>
+
 </div>
 
 </section>
@@ -1817,11 +2207,19 @@ CURRENT LEVEL
 </div>
 
 <div class="level">
-<span id="level">1</span>
-<span>LVL</span>
+
+<span id="level">
+1
+</span>
+
+<span>
+LVL
+</span>
+
 </div>
 
 </div>
+
 
 <div class="hero-xp">
 
@@ -1837,9 +2235,16 @@ CURRENT EXPERIENCE
 
 </div>
 
+
 <div class="track">
-<div class="fill" id="xpBar"></div>
+
+<div
+class="fill"
+id="xpBar"
+></div>
+
 </div>
+
 
 <div class="xp-foot">
 
@@ -1859,27 +2264,82 @@ LEVEL 2
 <section class="summary">
 
 <div class="card">
-<div class="label">TODAY</div>
-<div class="value" id="todayCount">0</div>
-<div class="sub">ACTIONS COMPLETE</div>
+
+<div class="label">
+TODAY
 </div>
 
-<div class="card">
-<div class="label">STREAK</div>
-<div class="value orange" id="streak">0</div>
-<div class="sub">DAYS ACTIVE</div>
+<div
+class="value"
+id="todayCount"
+>
+0
 </div>
 
-<div class="card">
-<div class="label">TODAY XP</div>
-<div class="value" id="todayXP">0</div>
-<div class="sub">EXPERIENCE</div>
+<div class="sub">
+ACTIONS COMPLETE
 </div>
 
+</div>
+
+
 <div class="card">
-<div class="label">MOMENTUM</div>
-<div class="value" id="momentum">0</div>
-<div class="sub">RECENT ACTIVITY</div>
+
+<div class="label">
+STREAK
+</div>
+
+<div
+class="value orange"
+id="streak"
+>
+0
+</div>
+
+<div class="sub">
+DAYS ACTIVE
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+TODAY XP
+</div>
+
+<div
+class="value"
+id="todayXP"
+>
+0
+</div>
+
+<div class="sub">
+EXPERIENCE
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+MOMENTUM
+</div>
+
+<div
+class="value"
+id="momentum"
+>
+0
+</div>
+
+<div class="sub">
+RECENT ACTIVITY
+</div>
+
 </div>
 
 </section>
@@ -1899,6 +2359,7 @@ LIVE ANALYSIS
 
 </div>
 
+
 <div class="status">
 
 <div>
@@ -1907,16 +2368,20 @@ LIVE ANALYSIS
 CURRENT STATE
 </div>
 
-<div class="status-title" id="statusTitle">
+<div
+class="status-title"
+id="statusTitle"
+>
 SYSTEM ONLINE
 </div>
 
 </div>
 
+
 <div class="metrics">
 
 <div>
-<span>AWARNESS</span>
+<span>AWARENESS</span>
 <b id="awareness">STABLE</b>
 </div>
 
@@ -1942,6 +2407,97 @@ SYSTEM ONLINE
 <div class="section-head">
 
 <div class="section-title">
+SYSTEM INTELLIGENCE
+</div>
+
+<div class="desc">
+LEARNING FROM YOU
+</div>
+
+</div>
+
+
+<div class="intel-card">
+
+<div class="label">
+ADAPTIVE ANALYSIS
+</div>
+
+<div
+style="font-size:17px;font-weight:900;margin-top:7px"
+id="intelTitle"
+>
+No pattern established yet.
+</div>
+
+<p
+id="intelText"
+style="margin-top:6px"
+>
+Complete a few actions and SENRAI will begin recognizing what naturally pulls you forward.
+</p>
+
+
+<div class="intel-grid">
+
+<div class="intel-item">
+
+<span>
+FAVORITE TYPE
+</span>
+
+<b id="intelFavorite">
+—
+</b>
+
+</div>
+
+
+<div class="intel-item">
+
+<span>
+WEAKER AREA
+</span>
+
+<b id="intelWeak">
+—
+</b>
+
+</div>
+
+
+<div class="intel-item">
+
+<span>
+ROUTINE
+</span>
+
+<b id="intelRoutine">
+—
+</b>
+
+</div>
+
+</div>
+
+
+<div
+class="insight"
+id="intelInsight"
+>
+Your behavior will become the data behind your System.
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<div class="section-head">
+
+<div class="section-title">
 SYSTEM ACTIVITY
 </div>
 
@@ -1951,10 +2507,10 @@ RECENT EVENTS
 
 </div>
 
-<div class="feed-list" id="homeFeed">
-<div class="empty">
-NO SYSTEM ACTIVITY YET.
-</div>
+<div
+class="feed-list"
+id="homeFeed"
+>
 </div>
 
 </section>
@@ -1974,7 +2530,10 @@ MAIN PATH
 
 </div>
 
-<div class="objective" id="homeObjective">
+<div
+class="objective"
+id="homeObjective"
+>
 </div>
 
 </section>
@@ -2000,7 +2559,10 @@ ADAPTIVE GUIDANCE
 SYSTEM INSIGHT
 </div>
 
-<div class="reflection-title" id="reflectionTitle">
+<div
+class="reflection-title"
+id="reflectionTitle"
+>
 The System is observing.
 </div>
 
@@ -2014,21 +2576,33 @@ Your actions will shape what SENRAI learns about you.
 RECOMMENDED QUEST
 </div>
 
-<div class="recommend" id="reflectionSuggestion">
+<div
+class="recommend"
+id="reflectionSuggestion"
+>
 Take one small action.
 </div>
 
-<div class="reward-text" id="reflectionReward">
+<div
+class="reward-text"
+id="reflectionReward"
+>
 +15 XP
 </div>
 
 <div class="actions">
 
-<button class="primary" id="acceptReflection">
+<button
+class="primary"
+id="acceptReflection"
+>
 ACCEPT QUEST
 </button>
 
-<button class="ghost" id="anotherReflection">
+<button
+class="ghost"
+id="anotherReflection"
+>
 ANOTHER SUGGESTION
 </button>
 
@@ -2047,14 +2621,35 @@ ANOTHER SUGGESTION
 CURRENT PATH
 </div>
 
-<div class="desc" id="pathStatus">
+<div
+class="desc"
+id="pathStatus"
+>
 FORMING
 </div>
 
 </div>
 
-<div id="homePath">
+<div id="homePath"></div>
+
+</section>
+
+
+<section class="section">
+
+<div class="section-head">
+
+<div class="section-title">
+SYSTEM BOSS
 </div>
+
+<div class="desc">
+OPTIONAL
+</div>
+
+</div>
+
+<div id="homeBoss"></div>
 
 </section>
 
@@ -2084,16 +2679,23 @@ Something worth doing.
 </div>
 
 <p id="homeLifeText">
-Generate a small real-world experience. No streaks. No pressure. Just life.
+Generate a small real-world experience.
+No streaks. No pressure. Just life.
 </p>
 
 <div class="life-actions">
 
-<button class="primary" id="homeSurprise">
+<button
+class="primary"
+id="homeSurprise"
+>
 GENERATE ENCOUNTER
 </button>
 
-<button id="homeLifeDone" disabled>
+<button
+id="homeLifeDone"
+disabled
+>
 COMPLETE
 </button>
 
@@ -2108,16 +2710,30 @@ COMPLETE
 
 <!-- QUESTS -->
 
-<main id="questsView" class="view">
+<main
+id="questsView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">QUESTS</div>
-<div class="desc">TODAY</div>
+
+<div class="section-title">
+QUESTS
 </div>
 
-<div class="quest-list" id="dailyQuests"></div>
+<div class="desc">
+TODAY
+</div>
+
+</div>
+
+<div
+class="quest-list"
+id="dailyQuests"
+>
+</div>
 
 </section>
 
@@ -2125,11 +2741,22 @@ COMPLETE
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">SMART QUESTS</div>
-<div class="desc">ADAPTIVE</div>
+
+<div class="section-title">
+SMART QUESTS
 </div>
 
-<div class="quest-list" id="smartQuests"></div>
+<div class="desc">
+ADAPTIVE
+</div>
+
+</div>
+
+<div
+class="quest-list"
+id="smartQuests"
+>
+</div>
 
 </section>
 
@@ -2137,49 +2764,123 @@ COMPLETE
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">CUSTOM QUEST</div>
-<div class="desc">CREATE YOUR OWN</div>
+
+<div class="section-title">
+CUSTOM QUEST
 </div>
 
-<div class="path">
+<div class="desc">
+CREATE YOUR OWN
+</div>
+
+</div>
+
+<div class="path-card">
 
 <div class="form-grid">
 
 <div class="form-group full">
-<label>QUEST NAME</label>
-<input id="qName" maxlength="80" placeholder="What do you want to do?">
+
+<label>
+QUEST NAME
+</label>
+
+<input
+id="qName"
+maxlength="80"
+placeholder="What do you want to do?"
+>
+
 </div>
 
+
 <div class="form-group">
-<label>DIFFICULTY</label>
+
+<label>
+DIFFICULTY
+</label>
+
 <select id="qDiff">
-<option value="EASY">EASY</option>
-<option value="NORMAL">NORMAL</option>
-<option value="HARD">HARD</option>
+
+<option value="EASY">
+EASY
+</option>
+
+<option value="NORMAL">
+NORMAL
+</option>
+
+<option value="HARD">
+HARD
+</option>
+
 </select>
+
 </div>
 
+
 <div class="form-group">
-<label>STAT</label>
+
+<label>
+STAT
+</label>
+
 <select id="qStat">
-<option value="STR">STR — STRENGTH</option>
-<option value="INT">INT — INTELLIGENCE</option>
-<option value="WIS">WIS — WISDOM</option>
-<option value="CHA">CHA — CHARISMA</option>
-<option value="DEX">DEX — DEXTERITY</option>
-<option value="CRE">CRE — CREATIVITY</option>
-<option value="VIT">VIT — VITALITY</option>
+
+<option value="STR">
+STR — STRENGTH
+</option>
+
+<option value="INT">
+INT — INTELLIGENCE
+</option>
+
+<option value="WIS">
+WIS — WISDOM
+</option>
+
+<option value="CHA">
+CHA — CHARISMA
+</option>
+
+<option value="DEX">
+DEX — DEXTERITY
+</option>
+
+<option value="CRE">
+CRE — CREATIVITY
+</option>
+
+<option value="VIT">
+VIT — VITALITY
+</option>
+
 </select>
+
 </div>
+
 
 <div class="form-group full">
-<label>DESCRIPTION</label>
-<textarea id="qDesc" placeholder="Optional details..."></textarea>
-</div>
+
+<label>
+DESCRIPTION
+</label>
+
+<textarea
+id="qDesc"
+placeholder="Optional details..."
+></textarea>
 
 </div>
 
-<button class="primary" id="createQuest" style="width:100%;margin-top:12px">
+</div>
+
+
+<button
+class="primary"
+id="createQuest"
+style="width:100%;margin-top:12px"
+>
 CREATE QUEST
 </button>
 
@@ -2191,11 +2892,22 @@ CREATE QUEST
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">YOUR QUESTS</div>
-<div class="desc">CUSTOM</div>
+
+<div class="section-title">
+YOUR QUESTS
 </div>
 
-<div class="quest-list" id="customQuests"></div>
+<div class="desc">
+CUSTOM
+</div>
+
+</div>
+
+<div
+class="quest-list"
+id="customQuests"
+>
+</div>
 
 </section>
 
@@ -2204,13 +2916,23 @@ CREATE QUEST
 
 <!-- LIFE -->
 
-<main id="lifeView" class="view">
+<main
+id="lifeView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">LIFE</div>
-<div class="desc">GO LIVE</div>
+
+<div class="section-title">
+LIFE
+</div>
+
+<div class="desc">
+GO LIVE
+</div>
+
 </div>
 
 <div class="life">
@@ -2229,11 +2951,17 @@ Generate an optional real-world encounter.
 
 <div class="life-actions">
 
-<button class="primary" id="surprise">
+<button
+class="primary"
+id="surprise"
+>
 SURPRISE ME
 </button>
 
-<button id="lifeDone" disabled>
+<button
+id="lifeDone"
+disabled
+>
 COMPLETE
 </button>
 
@@ -2247,8 +2975,15 @@ COMPLETE
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">SIDE QUEST</div>
-<div class="desc">OPTIONAL</div>
+
+<div class="section-title">
+SIDE QUEST
+</div>
+
+<div class="desc">
+OPTIONAL
+</div>
+
 </div>
 
 <div class="quest">
@@ -2264,13 +2999,23 @@ Call or message someone you haven't talked to recently.
 </p>
 
 <div class="pills">
-<span class="pill xp">+20 XP</span>
-<span class="pill">CHA</span>
-</div>
+
+<span class="pill xp">
++20 XP
+</span>
+
+<span class="pill">
+CHA
+</span>
 
 </div>
 
-<button class="small primary" id="sideQuest">
+</div>
+
+<button
+class="small primary"
+id="sideQuest"
+>
 START
 </button>
 
@@ -2283,16 +3028,30 @@ START
 
 <!-- STATS -->
 
-<main id="statsView" class="view">
+<main
+id="statsView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">STATS</div>
-<div class="desc">YOUR ATTRIBUTES</div>
+
+<div class="section-title">
+STATS
 </div>
 
-<div class="stats-grid" id="statsGrid"></div>
+<div class="desc">
+YOUR ATTRIBUTES
+</div>
+
+</div>
+
+<div
+class="stats-grid"
+id="statsGrid"
+>
+</div>
 
 </section>
 
@@ -2300,11 +3059,22 @@ START
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">WEEKLY SYSTEM</div>
-<div class="desc">LIMITED TIME</div>
+
+<div class="section-title">
+WEEKLY SYSTEM
 </div>
 
-<div class="grid2" id="weeklyGrid"></div>
+<div class="desc">
+LIMITED TIME
+</div>
+
+</div>
+
+<div
+class="grid2"
+id="weeklyGrid"
+>
+</div>
 
 </section>
 
@@ -2313,13 +3083,23 @@ START
 
 <!-- MOMENTS -->
 
-<main id="momentsView" class="view">
+<main
+id="momentsView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">MOMENTS</div>
-<div class="desc">YOUR JOURNEY</div>
+
+<div class="section-title">
+MOMENTS
+</div>
+
+<div class="desc">
+YOUR JOURNEY
+</div>
+
 </div>
 
 <div class="moment-box">
@@ -2328,15 +3108,26 @@ START
 RECORD A MOMENT
 </div>
 
-<textarea id="momentInput" placeholder="Something worth remembering..."></textarea>
+<textarea
+id="momentInput"
+placeholder="Something worth remembering..."
+></textarea>
 
-<button class="primary" id="saveMoment" style="width:100%;margin-top:10px">
+<button
+class="primary"
+id="saveMoment"
+style="width:100%;margin-top:10px"
+>
 SAVE MOMENT
 </button>
 
 </div>
 
-<div class="moment-list" id="momentList"></div>
+<div
+class="moment-list"
+id="momentList"
+>
+</div>
 
 </section>
 
@@ -2345,16 +3136,30 @@ SAVE MOMENT
 
 <!-- OBJECTIVES -->
 
-<main id="objectivesView" class="view">
+<main
+id="objectivesView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">OBJECTIVES</div>
-<div class="desc">YOUR DIRECTION</div>
+
+<div class="section-title">
+OBJECTIVES
 </div>
 
-<button class="primary" onclick="newObjective()" style="width:100%;margin-bottom:12px">
+<div class="desc">
+YOUR DIRECTION
+</div>
+
+</div>
+
+<button
+class="primary"
+onclick="newObjective()"
+style="width:100%;margin-bottom:12px"
+>
 CREATE OBJECTIVE
 </button>
 
@@ -2362,11 +3167,22 @@ CREATE OBJECTIVE
 
 </section>
 
-<section class="section hidden" id="objectivePathSection">
+
+<section
+class="section hidden"
+id="objectivePathSection"
+>
 
 <div class="section-head">
-<div class="section-title">OBJECTIVE PATH</div>
-<div class="desc">NEXT STEPS</div>
+
+<div class="section-title">
+OBJECTIVE PATH
+</div>
+
+<div class="desc">
+NEXT STEPS
+</div>
+
 </div>
 
 <div id="objectivePath"></div>
@@ -2378,45 +3194,108 @@ CREATE OBJECTIVE
 
 <!-- ACHIEVEMENTS -->
 
-<main id="achievementsView" class="view">
+<main
+id="achievementsView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">ACHIEVEMENTS</div>
-<div class="desc">DISCOVERIES</div>
+
+<div class="section-title">
+ACHIEVEMENTS
 </div>
 
-<div class="achievement-grid" id="achievementGrid"></div>
+<div class="desc">
+DISCOVERIES
+</div>
+
+</div>
+
+<div
+class="achievement-grid"
+id="achievementGrid"
+>
+</div>
 
 </section>
 
+
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">TITLES</div>
-<div class="desc">IDENTITY</div>
+
+<div class="section-title">
+TITLES
 </div>
 
-<div class="grid2" id="titlesGrid"></div>
+<div class="desc">
+IDENTITY
+</div>
+
+</div>
+
+<div
+class="grid2"
+id="titlesGrid"
+>
+</div>
 
 </section>
 
 </main>
 
 
-<!-- HISTORY -->
+<!-- HISTORY / JOURNEY -->
 
-<main id="historyView" class="view">
+<main
+id="historyView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">SYSTEM HISTORY</div>
-<div class="desc">YOUR JOURNEY</div>
+
+<div class="section-title">
+JOURNEY
 </div>
 
-<div class="history-list" id="historyList"></div>
+<div class="desc">
+YOUR STORY
+</div>
+
+</div>
+
+<div
+class="journey"
+id="journeyTimeline"
+>
+</div>
+
+</section>
+
+
+<section class="section">
+
+<div class="section-head">
+
+<div class="section-title">
+SYSTEM HISTORY
+</div>
+
+<div class="desc">
+ACTIVITY LOG
+</div>
+
+</div>
+
+<div
+class="history-list"
+id="historyList"
+>
+</div>
 
 </section>
 
@@ -2425,16 +3304,30 @@ CREATE OBJECTIVE
 
 <!-- PROFILE -->
 
-<main id="profileView" class="view">
+<main
+id="profileView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">PROFILE</div>
-<div class="desc">SYSTEM USER</div>
+
+<div class="section-title">
+PROFILE
 </div>
 
-<div class="profile" id="profileCard"></div>
+<div class="desc">
+SYSTEM USER
+</div>
+
+</div>
+
+<div
+class="profile"
+id="profileCard"
+>
+</div>
 
 </section>
 
@@ -2443,13 +3336,23 @@ CREATE OBJECTIVE
 
 <!-- SETTINGS -->
 
-<main id="settingsView" class="view">
+<main
+id="settingsView"
+class="view"
+>
 
 <section class="section">
 
 <div class="section-head">
-<div class="section-title">SETTINGS</div>
-<div class="desc">SYSTEM CONFIGURATION</div>
+
+<div class="section-title">
+SETTINGS
+</div>
+
+<div class="desc">
+SYSTEM CONFIGURATION
+</div>
+
 </div>
 
 <div class="settings">
@@ -2457,6 +3360,7 @@ CREATE OBJECTIVE
 <div class="setting-row">
 
 <div>
+
 <div class="setting-name">
 ADAPTIVE GUIDANCE
 </div>
@@ -2464,9 +3368,13 @@ ADAPTIVE GUIDANCE
 <div class="setting-desc">
 Allow SENRAI to adjust recommendations based on activity.
 </div>
+
 </div>
 
-<button class="small" id="guidance">
+<button
+class="small"
+id="guidance"
+>
 ON
 </button>
 
@@ -2476,6 +3384,7 @@ ON
 <div class="setting-row">
 
 <div>
+
 <div class="setting-name">
 MOTION
 </div>
@@ -2483,9 +3392,13 @@ MOTION
 <div class="setting-desc">
 Enable system animations and visual effects.
 </div>
+
 </div>
 
-<button class="small" id="motion">
+<button
+class="small"
+id="motion"
+>
 ON
 </button>
 
@@ -2495,6 +3408,7 @@ ON
 <div class="setting-row">
 
 <div>
+
 <div class="setting-name">
 NOTIFICATIONS
 </div>
@@ -2502,9 +3416,13 @@ NOTIFICATIONS
 <div class="setting-desc">
 Allow SENRAI to send system notifications.
 </div>
+
 </div>
 
-<button class="small" id="notifications">
+<button
+class="small"
+id="notifications"
+>
 OFF
 </button>
 
@@ -2514,16 +3432,21 @@ OFF
 <div class="setting-row">
 
 <div>
+
 <div class="setting-name">
 RESET SYSTEM
 </div>
 
 <div class="setting-desc">
-Erase all local SENRAI progress from this device.
-</div>
+Erase all local SENRAI progress on this device.
 </div>
 
-<button class="small danger" id="reset">
+</div>
+
+<button
+class="small danger"
+id="reset"
+>
 RESET
 </button>
 
@@ -2547,61 +3470,120 @@ SENRAI — THE SYSTEM THAT MOVES YOU FORWARD
 
 <nav class="nav">
 
-<button data-view="home" class="active">
-<span class="nav-icon">⌂</span>
+<button
+data-view="home"
+class="active"
+>
+
+<span class="nav-icon">
+⌂
+</span>
+
 HOME
+
 </button>
 
-<button data-view="quests">
-<span class="nav-icon">◇</span>
+
+<button
+data-view="quests"
+>
+
+<span class="nav-icon">
+◇
+</span>
+
 QUESTS
+
 </button>
 
-<button data-view="life" class="life-nav">
-<span class="nav-icon">✦</span>
+
+<button
+data-view="life"
+class="life-nav"
+>
+
+<span class="nav-icon">
+✦
+</span>
+
 LIFE
+
 </button>
 
-<button data-view="stats">
-<span class="nav-icon">△</span>
+
+<button
+data-view="stats"
+>
+
+<span class="nav-icon">
+△
+</span>
+
 STATS
+
 </button>
 
-<button data-view="moments">
-<span class="nav-icon">◌</span>
+
+<button
+data-view="moments"
+>
+
+<span class="nav-icon">
+◌
+</span>
+
 MOMENTS
+
 </button>
 
 </nav>
 
 
-<div class="floatxp" id="floatxp">
+<div
+class="floatxp"
+id="floatxp"
+>
 +25 XP
 </div>
 
 
-<div class="toast" id="toast">
+<div
+class="toast"
+id="toast"
+>
 SYSTEM
 </div>
 
 
-<div class="modal-bg hidden" id="modalBg">
+<div
+class="modal-bg hidden"
+id="modalBg"
+>
 
 <div class="modal">
 
 <div class="modal-head">
 
-<div class="modal-title" id="modalTitle">
+<div
+class="modal-title"
+id="modalTitle"
+>
 SYSTEM
 </div>
 
-<button class="close" id="modalClose">
+<button
+class="close"
+id="modalClose"
+>
 ×
 </button>
 
 </div>
 
-<div class="modal-body" id="modalBody">
+<div
+class="modal-body"
+id="modalBody"
+>
 </div>
 
 </div>
@@ -2611,7 +3593,7 @@ SYSTEM
 
 <script>
 
-const KEY="senrai_living_v1";
+const KEY="senrai_next_v1";
 
 const STAT_NAMES={
 STR:"STRENGTH",
@@ -2639,63 +3621,304 @@ NORMAL:25,
 HARD:40
 };
 
-const LIFE=[
-["EXPLORE","Take a different route somewhere you normally go.","DEX",15],
-["EXPERIENCE","Visit a place you've never been inside before.","EXP",20],
-["RESET","Put your phone away for 20 minutes and just exist.","WIS",15],
-["CONNECT","Start a conversation with someone you normally wouldn't.","CHA",20],
-["CREATE","Make something small without worrying if it's good.","CRE",20],
-["FOLLOW THROUGH","Finish one thing you've been putting off.","STR",25],
-["REFLECT","Sit somewhere quiet and think about what you actually want.","WIS",20],
-["OBSERVE","Go somewhere familiar and notice five things you've never paid attention to.","WIS",15],
-["CHANGE","Do one part of your normal routine differently today.","DEX",15],
-["CURIOSITY","Look up something you've wondered about for a long time.","INT",15]
-];
 
 const DAILY=[
-["MOVE","Move your body for 10 minutes.","VIT",15],
-["RESET","Clean or organize one small area.","DEX",15],
-["LEARN","Learn something for 10 minutes.","INT",15],
-["CREATE","Make something instead of consuming something.","CRE",20],
-["CONNECT","Reach out to someone.","CHA",20],
-["REFLECT","Write down one thing on your mind.","WIS",15],
-["FOLLOW THROUGH","Finish one task you've been avoiding.","STR",20]
-];
 
-const REFLECTIONS=[
 [
-"The System has noticed the pause.",
-"You don't need to make up for lost time. One small action is enough to start moving again.",
-"Do one thing you've been putting off.",
+"MOVE",
+"Move your body for 10 minutes.",
+"VIT",
 15
 ],
+
+[
+"RESET",
+"Clean or organize one small area.",
+"DEX",
+15
+],
+
+[
+"LEARN",
+"Learn something for 10 minutes.",
+"INT",
+15
+],
+
+[
+"CREATE",
+"Make something instead of consuming something.",
+"CRE",
+20
+],
+
+[
+"CONNECT",
+"Reach out to someone.",
+"CHA",
+20
+],
+
+[
+"REFLECT",
+"Write down one thing on your mind.",
+"WIS",
+15
+],
+
+[
+"FOLLOW THROUGH",
+"Finish one task you have been avoiding.",
+"STR",
+20
+]
+
+];
+
+
+const LIFE=[
+
+[
+"EXPLORE",
+"Take a different route somewhere you normally go.",
+"DEX",
+15
+],
+
+[
+"EXPERIENCE",
+"Visit a place you have never been inside before.",
+"EXP",
+20
+],
+
+[
+"RESET",
+"Put your phone away for 20 minutes and just exist.",
+"WIS",
+15
+],
+
+[
+"CONNECT",
+"Start a conversation with someone you normally would not.",
+"CHA",
+20
+],
+
+[
+"CREATE",
+"Make something small without worrying if it is good.",
+"CRE",
+20
+],
+
+[
+"FOLLOW THROUGH",
+"Finish one thing you have been putting off.",
+"STR",
+25
+],
+
+[
+"REFLECT",
+"Sit somewhere quiet and think about what you actually want.",
+"WIS",
+20
+],
+
+[
+"OBSERVE",
+"Go somewhere familiar and notice five things you have never paid attention to.",
+"WIS",
+15
+],
+
+[
+"CHANGE",
+"Do one part of your normal routine differently today.",
+"DEX",
+15
+],
+
+[
+"CURIOSITY",
+"Look up something you have wondered about for a long time.",
+"INT",
+15
+]
+
+];
+
+
+const REFLECTIONS=[
+
+[
+"The System has noticed the pause.",
+"You do not need to make up for lost time. One small action is enough to start moving again.",
+"Do one thing you have been putting off.",
+15
+],
+
 [
 "Momentum detected.",
-"You've started moving. Don't worry about optimizing the entire journey. Keep the next step simple.",
+"You have started moving. Do not worry about optimizing the entire journey. Keep the next step simple.",
 "Complete one small task.",
 15
 ],
+
 [
 "Pattern detected.",
 "Your recent actions are beginning to tell SENRAI what matters to you.",
 "Try something slightly outside your routine.",
 20
 ],
+
 [
 "The System is learning.",
 "Your behavior matters more than your intentions. SENRAI is beginning to recognize your tendencies.",
-"Complete a quest that strengthens a weaker stat.",
+"Strengthen a weaker area.",
 20
 ],
+
 [
 "Direction is forming.",
-"You don't need to know exactly where you're going yet. Movement creates clarity.",
+"You do not need to know exactly where you are going yet. Movement creates clarity.",
 "Take one meaningful action toward something you care about.",
 25
 ]
+
 ];
 
-let d=JSON.parse(localStorage.getItem(KEY)||"null");
+
+const PATHS={
+
+INITIATE:{
+desc:"Your direction is still forming. SENRAI is learning from what you actually do.",
+tags:["BEGINNING","DISCOVERY","POTENTIAL"],
+stages:[
+"UNKNOWN",
+"CURIOUS",
+"INITIATE",
+"WAYFINDER",
+"AWAKENED"
+]
+},
+
+BUILDER:{
+desc:"You tend to create, finish, organize, and turn ideas into something real.",
+tags:["CREATION","EXECUTION","PROGRESS"],
+stages:[
+"SPARK",
+"MAKER",
+"BUILDER",
+"ARCHITECT",
+"FORGER"
+]
+},
+
+EXPLORER:{
+desc:"You tend to seek experiences, novelty, perspective, and things outside your normal routine.",
+tags:["CURIOSITY","EXPERIENCE","DISCOVERY"],
+stages:[
+"CURIOUS",
+"ROAMER",
+"EXPLORER",
+"WAYFINDER",
+"HORIZON"
+]
+},
+
+SEEKER:{
+desc:"You tend to learn, reflect, question, and look beneath the surface.",
+tags:["LEARNING","REFLECTION","UNDERSTANDING"],
+stages:[
+"QUESTIONER",
+"STUDENT",
+"SEEKER",
+"SAGE",
+"ORACLE"
+]
+},
+
+CONNECTOR:{
+desc:"You tend to invest in people, communication, trust, and shared experiences.",
+tags:["PEOPLE","COMMUNICATION","RELATIONSHIPS"],
+stages:[
+"OPEN",
+"BRIDGE",
+"CONNECTOR",
+"ANCHOR",
+"BEACON"
+]
+},
+
+DISCIPLINED:{
+desc:"You tend to return, follow through, and turn intention into action.",
+tags:["CONSISTENCY","ACTION","FOLLOW THROUGH"],
+stages:[
+"RETURNING",
+"STEADY",
+"DISCIPLINED",
+"RESOLUTE",
+"UNBREAKABLE"
+]
+}
+
+};
+
+
+const BOSS_POOL=[
+
+[
+"LEAVE THE COMFORT ZONE",
+"Do one thing you have been avoiding because it feels uncomfortable.",
+"STR",
+150
+],
+
+[
+"FINISH WHAT YOU STARTED",
+"Complete a task that has been sitting unfinished.",
+"DEX",
+150
+],
+
+[
+"MAKE SOMETHING REAL",
+"Turn an idea into a finished, tangible result.",
+"CRE",
+175
+],
+
+[
+"HAVE THE CONVERSATION",
+"Have a conversation you have been putting off.",
+"CHA",
+150
+],
+
+[
+"LEARN SOMETHING DEEP",
+"Spend 30 minutes seriously learning something you care about.",
+"INT",
+150
+],
+
+[
+"CHOOSE YOURSELF",
+"Take a meaningful action that improves your own life.",
+"WIS",
+175
+]
+
+];
+
+
+let d=JSON.parse(
+localStorage.getItem(KEY)||"null"
+);
+
 
 if(!d){
 
@@ -2717,50 +3940,159 @@ activeLife:null,
 guidance:true,
 motion:true,
 notifications:false,
-stats:{},
-path:"INITIATE"
+path:{
+id:"INITIATE",
+stage:0,
+history:[]
+},
+boss:null,
+bossHistory:[],
+learning:{},
+awakening:false,
+createdAt:new Date().toISOString()
 };
 
-Object.keys(STAT_NAMES).forEach(s=>{
-d.stats[s]={progress:0}
-});
+Object.keys(STAT_NAMES).forEach(
+s=>d.learning[s]=0
+);
 
 }
+
+
+function normalize(){
+
+d.actions=d.actions||[];
+
+d.custom=d.custom||[];
+
+d.objectives=d.objectives||[];
+
+d.moments=d.moments||[];
+
+d.seen=d.seen||[];
+
+d.bossHistory=d.bossHistory||[];
+
+d.learning=d.learning||{};
+
+Object.keys(STAT_NAMES).forEach(
+s=>{
+if(!d.learning[s])
+d.learning[s]=0
+}
+);
+
+if(typeof d.path==="string"){
+
+d.path={
+id:d.path,
+stage:0,
+history:[]
+};
+
+}
+
+d.path=d.path||{
+id:"INITIATE",
+stage:0,
+history:[]
+};
+
+d.path.history=d.path.history||[];
+
+d.boss=d.boss||null;
+
+d.awakening=!!d.awakening;
+
+d.guidance=d.guidance!==false;
+
+d.motion=d.motion!==false;
+
+d.notifications=!!d.notifications;
+
+}
+
+
+normalize();
+
+
+if(!d.stats){
+
+d.stats={};
+
+Object.keys(STAT_NAMES).forEach(
+s=>d.stats[s]={
+progress:0
+}
+);
+
+}else{
+
+Object.keys(STAT_NAMES).forEach(
+s=>{
+if(!d.stats[s])
+d.stats[s]={
+progress:0
+}
+}
+);
+
+}
+
 
 function save(){
-localStorage.setItem(KEY,JSON.stringify(d));
+
+localStorage.setItem(
+KEY,
+JSON.stringify(d)
+);
+
 }
+
 
 function todayKey(){
-return new Date().toISOString().slice(0,10);
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
 }
+
 
 function uid(){
-return Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+return Date.now()
+.toString(36)+
+Math.random()
+.toString(36)
+.slice(2,8);
+
 }
 
+
 function esc(s){
+
 return String(s??"")
-.replace(/[&<>"']/g,c=>({
+.replace(
+/[&<>"']/g,
+c=>({
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
 '"':"&quot;",
 "'":"&#39;"
-}[c]));
+}[c])
+);
+
 }
+
 
 function xpNeed(level){
+
 return 100+(level-1)*50;
+
 }
 
-function levelFromXP(){
-while(d.xp>=xpNeed(d.level)){
-d.xp-=xpNeed(d.level);
-d.level++;
-levelUp(d.level);
-}
-}
 
 function ensureDay(){
 
@@ -2769,36 +4101,46 @@ const today=todayKey();
 if(d.day!==today){
 
 d.day=today;
+
 d.todayXP=0;
+
 d.todayCount=0;
 
 if(d.lastActive){
 
 const prev=new Date(d.lastActive);
-const now=new Date();
+
+const now=new Date(today);
 
 prev.setHours(0,0,0,0);
+
 now.setHours(0,0,0,0);
 
-const days=Math.round(
+if(
+Math.round(
 (now-prev)/86400000
-);
+)>1
+){
 
-if(days>1){
 d.streak=0;
+
 }
+
 }
 
 save();
+
 }
 
 }
+
 
 function updateStreak(){
 
 const today=todayKey();
 
-if(d.lastActive===today)return;
+if(d.lastActive===today)
+return;
 
 if(!d.lastActive){
 
@@ -2807,9 +4149,11 @@ d.streak=1;
 }else{
 
 const last=new Date(d.lastActive);
+
 const now=new Date(today);
 
 last.setHours(0,0,0,0);
+
 now.setHours(0,0,0,0);
 
 const diff=Math.round(
@@ -2817,261 +4161,881 @@ const diff=Math.round(
 );
 
 if(diff===1){
+
 d.streak++;
+
 }else if(diff>1){
+
 d.streak=1;
+
 }
 
 }
 
 d.lastActive=today;
+
 }
 
-function reward(title,xp,stat,source,id){
+
+function levelFromXP(){
+
+let leveled=false;
+
+while(
+d.xp>=xpNeed(d.level)
+){
+
+d.xp-=xpNeed(d.level);
+
+d.level++;
+
+leveled=true;
+
+}
+
+if(leveled){
+
+setTimeout(
+()=>levelUp(d.level),
+120
+);
+
+if(
+d.level>=10 &&
+!d.awakening
+){
+
+d.awakening=true;
+
+setTimeout(
+()=>awakeningEvent(),
+700
+);
+
+}
+
+}
+
+}
+
+
+function reward(
+title,
+xp,
+stat,
+source,
+id
+){
 
 ensureDay();
 
-if(id&&d.actions.some(x=>x.id===id))return;
+if(
+id &&
+d.actions.some(
+a=>a.id===id
+)
+)
+return;
 
-if(id){
-d.actions.unshift({
-id,
+
+const action={
+
+id:id||uid(),
+
 title,
+
 xp,
+
 stat,
+
 source,
+
 date:new Date().toISOString()
-});
-}else{
-d.actions.unshift({
-id:uid(),
-title,
-xp,
-stat,
-source,
-date:new Date().toISOString()
-});
-}
+
+};
+
+
+d.actions.unshift(action);
 
 d.xp+=xp;
+
 d.totalXP+=xp;
+
 d.todayXP+=xp;
+
 d.todayCount++;
 
-if(stat&&d.stats[stat]){
+
+if(
+stat &&
+d.stats?.[stat]
+){
+
 d.stats[stat].progress+=xp;
+
 }
 
+
+if(stat){
+
+d.learning[stat]=
+(d.learning[stat]||0)+1;
+
+}
+
+
 updateStreak();
+
 levelFromXP();
+
+updateLearning();
+
+updatePath(true);
+
+generateBossIfNeeded();
+
 save();
 
 floatXP(xp);
+
 pulse();
 
 render();
 
-if(d.totalXP===xp){
-setTimeout(()=>systemEvent(),450);
-}
+checkAchievements();
 
 }
+
 
 function levelFromStatProgress(p){
 
 let level=1;
+
 let need=100;
+
 let remaining=p;
 
-while(remaining>=need){
+while(
+remaining>=need
+){
 
 remaining-=need;
+
 level++;
+
 need+=50;
 
 }
 
 return{
+
 level,
-pct:Math.min(100,remaining/need*100),
+
+pct:
+Math.min(
+100,
+remaining/need*100
+),
+
 remaining,
+
 need
+
 };
 
 }
 
+
 function momentum(){
 
-const cutoff=Date.now()-7*86400000;
+const cutoff=
+Date.now()-7*86400000;
 
 return Math.min(
 100,
 d.actions.filter(
-a=>new Date(a.date).getTime()>=cutoff
+a=>
+new Date(a.date).getTime()>=cutoff
 ).length*8
 );
 
 }
 
-function currentPath(){
 
-if(d.actions.length<5)return"INITIATE";
+function pathScore(){
 
-const counts={
+const c={
+
 BUILDER:0,
+
 EXPLORER:0,
+
 SEEKER:0,
+
 CONNECTOR:0,
+
 DISCIPLINED:0
+
 };
 
-d.actions.slice(0,40).forEach(a=>{
 
-if(a.source==="LIFE"){
-counts.EXPLORER+=3;
-}
+d.actions
+.slice(0,60)
+.forEach(a=>{
 
-if(a.stat==="CHA"){
-counts.CONNECTOR+=3;
-}
+if(a.source==="LIFE")
+c.EXPLORER+=4;
 
-if(a.stat==="INT"||a.stat==="WIS"){
-counts.SEEKER+=2;
-}
+if(a.stat==="CHA")
+c.CONNECTOR+=4;
 
-if(a.stat==="CRE"||a.stat==="DEX"){
-counts.BUILDER+=2;
-}
+if(
+a.stat==="INT" ||
+a.stat==="WIS"
+)
+c.SEEKER+=3;
 
-if(a.stat==="STR"||a.stat==="VIT"){
-counts.DISCIPLINED+=2;
-}
+if(
+a.stat==="CRE" ||
+a.stat==="DEX"
+)
+c.BUILDER+=3;
+
+if(
+a.stat==="STR" ||
+a.stat==="VIT"
+)
+c.DISCIPLINED+=3;
 
 });
 
-counts.DISCIPLINED+=d.streak*2;
 
-return Object.entries(counts)
-.sort((a,b)=>b[1]-a[1])[0][0];
+c.DISCIPLINED+=
+d.streak*2;
+
+
+return c;
 
 }
 
+
+function currentPath(){
+
+if(
+d.actions.length<5
+)
+return"INITIATE";
+
+
+const c=pathScore();
+
+
+return Object.entries(c)
+.sort(
+(a,b)=>b[1]-a[1]
+)[0][0];
+
+}
+
+
+function pathStage(path){
+
+const total=d.actions.length;
+
+const thresholds=[
+0,
+5,
+15,
+30,
+60
+];
+
+let s=0;
+
+for(
+let i=0;
+i<thresholds.length;
+i++
+){
+
+if(
+total>=thresholds[i]
+)
+s=i;
+
+}
+
+return s;
+
+}
+
+
+function updatePath(
+showShift=false
+){
+
+const next=currentPath();
+
+const stage=pathStage(next);
+
+const old=d.path.id;
+
+
+d.path.id=next;
+
+d.path.stage=stage;
+
+
+if(
+!d.path.history.includes(next)
+)
+d.path.history.push(next);
+
+
+if(
+showShift &&
+old!==next &&
+d.actions.length>=5
+){
+
+setTimeout(
+()=>openModal(
+"PATH SHIFT",
+`
+<div style="
+text-align:center;
+padding:14px
+">
+
+<div class="label">
+NEW DIRECTION DETECTED
+</div>
+
+<div style="
+font-size:23px;
+font-weight:950;
+margin-top:10px
+">
+${next}
+</div>
+
+<p style="
+margin-top:10px
+">
+Your recent behavior is pulling your Path in a different direction.
+Nothing is permanent.
+</p>
+
+<span
+class="system-chip"
+style="
+display:inline-block;
+margin-top:15px
+"
+>
+✦ PATH EVOLVED
+</span>
+
+</div>
+`
+),
+250
+);
+
+}
+
+save();
+
+}
+
+
 function currentTitle(){
 
-if(d.level>=20)return"AWAKENED";
+if(
+d.awakening ||
+d.level>=20
+)
+return"AWAKENED";
 
-if(d.level>=10)return"ASCENDED";
+if(
+d.level>=10
+)
+return"ASCENDED";
 
-if(d.totalXP>=1000)return"BUILDER";
+if(
+d.totalXP>=1000
+)
+return"BUILDER";
 
-if(d.streak>=7)return"CONSISTENT";
+if(
+d.streak>=7
+)
+return"CONSISTENT";
 
-if(d.actions.length>=5)return"EXPLORER";
+if(
+d.actions.length>=5
+)
+return"EXPLORER";
 
 return"INITIATE";
 
 }
 
+
+function updateLearning(){
+
+const total=d.actions.length;
+
+if(!total)
+return;
+
+
+const counts={};
+
+
+d.actions.forEach(a=>{
+
+const k=a.source||"OTHER";
+
+counts[k]=(counts[k]||0)+1;
+
+});
+
+
+const fav=
+Object.entries(counts)
+.sort(
+(a,b)=>b[1]-a[1]
+)[0]?.[0]||"—";
+
+
+const weakest=
+Object.entries(d.stats)
+.sort(
+(a,b)=>
+a[1].progress-b[1].progress
+)[0]?.[0]||"—";
+
+
+d.learning.favorite=fav;
+
+d.learning.weak=weakest;
+
+d.learning.activeHours=
+d.actions.map(
+a=>new Date(a.date).getHours()
+);
+
+d.learning.recent=
+d.actions
+.slice(0,12)
+.map(a=>a.stat);
+
+}
+
+
+function intelligenceText(){
+
+const n=d.actions.length;
+
+
+if(n===0){
+
+return[
+"No pattern established yet.",
+
+"Complete a few actions and SENRAI will begin recognizing what naturally pulls you forward.",
+
+"Your behavior will become the data behind your System."
+];
+
+}
+
+
+if(n<5){
+
+return[
+"Early pattern detected.",
+
+"SENRAI is learning from your first decisions. Keep exploring different types of action.",
+
+"The System is collecting signals, not judging you."
+];
+
+}
+
+
+const path=currentPath();
+
+
+return[
+
+`Your behavior leans toward ${path}.`,
+
+`Recent actions are creating a recognizable pattern. SENRAI will use it to make future suggestions more relevant.`,
+
+"Your Path is a reflection of behavior—not a permanent identity."
+
+];
+
+}
+
+
 function renderCore(){
 
 const path=currentPath();
 
-d.path=path;
+const stage=pathStage(path);
 
-document.getElementById("coreLevel").textContent=d.level;
 
-document.getElementById("corePath").textContent=path;
+const state=
+d.awakening ||
+d.level>=20
+?"AWAKENED"
+:
+d.level>=10
+?"ASCENDING"
+:
+d.actions.length>=5
+?"ACTIVE"
+:
+d.actions.length
+?"ONLINE"
+:
+"READY";
 
-let state="ONLINE";
 
-if(d.level>=20)state="AWAKENED";
-else if(d.level>=10)state="ASCENDING";
-else if(d.actions.length>=5)state="ACTIVE";
-else if(d.actions.length===0)state="READY";
+document.getElementById(
+"coreLevel"
+).textContent=d.level;
 
-document.getElementById("coreState").textContent=state;
 
-document.getElementById("systemHeaderStatus").textContent=
-state==="AWAKENED"?"SYSTEM AWAKENED":
-state==="ASCENDING"?"SYSTEM ASCENDING":
+document.getElementById(
+"corePath"
+).textContent=path;
+
+
+document.getElementById(
+"coreState"
+).textContent=state;
+
+
+document.getElementById(
+"systemHeaderStatus"
+).textContent=
+state==="AWAKENED"
+?"SYSTEM AWAKENED"
+:
+state==="ASCENDING"
+?"SYSTEM ASCENDING"
+:
 "SYSTEM ONLINE";
 
-document.getElementById("statusTitle").textContent=
-state==="AWAKENED"?"SYSTEM AWAKENED":
-state==="ASCENDING"?"SYSTEM ASCENDING":
-state==="ACTIVE"?"SYSTEM ACTIVE":
+
+document.getElementById(
+"statusTitle"
+).textContent=
+state==="AWAKENED"
+?"SYSTEM AWAKENED"
+:
+state==="ASCENDING"
+?"SYSTEM ASCENDING"
+:
+state==="ACTIVE"
+?"SYSTEM ACTIVE"
+:
 "SYSTEM ONLINE";
 
-document.getElementById("awareness").textContent=
-d.actions.length>=10?"HIGH":
-d.actions.length>=5?"DEVELOPING":
+
+document.getElementById(
+"awareness"
+).textContent=
+d.actions.length>=15
+?"HIGH"
+:
+d.actions.length>=5
+?"DEVELOPING"
+:
 "STABLE";
 
-document.getElementById("statusMomentum").textContent=
+
+document.getElementById(
+"statusMomentum"
+).textContent=
 momentum()+"%";
 
-document.getElementById("statusPath").textContent=
-d.actions.length>=5?"DEVELOPING":"FORMING";
 
-document.getElementById("core").classList.toggle(
+document.getElementById(
+"statusPath"
+).textContent=
+stage>=3
+?"EVOLVING"
+:
+d.actions.length>=5
+?"DEVELOPING"
+:
+"FORMING";
+
+
+document.getElementById(
+"core"
+).classList.toggle(
 "awake",
+d.awakening ||
 d.level>=10
 );
 
 }
 
+
 function renderTop(){
 
 const need=xpNeed(d.level);
 
-document.getElementById("level").textContent=d.level;
 
-document.getElementById("xp").textContent=d.xp;
+document.getElementById(
+"level"
+).textContent=d.level;
 
-document.getElementById("todayCount").textContent=d.todayCount;
 
-document.getElementById("todayXP").textContent=d.todayXP;
+document.getElementById(
+"xp"
+).textContent=d.xp;
 
-document.getElementById("streak").textContent=d.streak;
 
-document.getElementById("momentum").textContent=momentum();
+document.getElementById(
+"todayCount"
+).textContent=d.todayCount;
 
-document.getElementById("xpBar").style.width=
-Math.min(100,d.xp/need*100)+"%";
 
-document.getElementById("xpProgress").textContent=
+document.getElementById(
+"todayXP"
+).textContent=d.todayXP;
+
+
+document.getElementById(
+"streak"
+).textContent=d.streak;
+
+
+document.getElementById(
+"momentum"
+).textContent=momentum();
+
+
+document.getElementById(
+"xpBar"
+).style.width=
+Math.min(
+100,
+d.xp/need*100
+)+"%";
+
+
+document.getElementById(
+"xpProgress"
+).textContent=
 d.xp+" / "+need+" XP";
 
-document.getElementById("nextLevel").textContent=
+
+document.getElementById(
+"nextLevel"
+).textContent=
 "LEVEL "+(d.level+1);
 
 }
 
-function renderObjective(){
 
-const el=document.getElementById("homeObjective");
+function renderIntelligence(){
 
-const active=d.objectives.find(x=>!x.done);
+updateLearning();
 
-if(!active){
+const x=intelligenceText();
+
+
+document.getElementById(
+"intelTitle"
+).textContent=x[0];
+
+
+document.getElementById(
+"intelText"
+).textContent=x[1];
+
+
+document.getElementById(
+"intelFavorite"
+).textContent=
+(
+d.learning.favorite||"—"
+)
+.replace(
+"OBJECTIVE",
+"PATH"
+)
+.replace(
+"SMART",
+"SMART QUEST"
+);
+
+
+document.getElementById(
+"intelWeak"
+).textContent=
+d.learning.weak
+?
+STAT_NAMES[d.learning.weak]
+:
+"—";
+
+
+const hours=
+d.learning.activeHours||[];
+
+
+let routine="—";
+
+
+if(hours.length>=3){
+
+const avg=
+hours.reduce(
+(a,b)=>a+b,
+0
+)/hours.length;
+
+
+routine=
+avg<12
+?"MORNING"
+:
+avg<18
+?"AFTERNOON"
+:
+"EVENING";
+
+}
+
+
+document.getElementById(
+"intelRoutine"
+).textContent=
+routine;
+
+
+document.getElementById(
+"intelInsight"
+).textContent=x[2];
+
+}
+
+
+function renderFeed(){
+
+const el=
+document.getElementById(
+"homeFeed"
+);
+
+
+if(!d.actions.length){
 
 el.innerHTML=`
-<div class="label">MAIN QUEST</div>
-<h2>Become better than yesterday.</h2>
-<p>
-Create an objective when you know what you want to move toward.
-SENRAI will turn it into a path.
-</p>
-<div style="margin-top:14px">
-<button class="primary" onclick="openView('objectives');newObjective()">
-CREATE OBJECTIVE
-</button>
+<div class="empty">
+NO SYSTEM ACTIVITY YET.
 </div>
 `;
 
 return;
 
 }
+
+
+el.innerHTML=
+d.actions
+.slice(0,5)
+.map(
+a=>`
+
+<div class="feed">
+
+<div class="feed-dot"></div>
+
+<div class="feed-main">
+
+<div class="feed-title">
+${esc(a.title)}
+</div>
+
+<div class="feed-meta">
+${esc(a.source)}
+•
+${esc(a.stat||"SYSTEM")}
+</div>
+
+</div>
+
+<div class="feed-xp">
++${a.xp}
+</div>
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+
+function renderObjective(){
+
+const el=
+document.getElementById(
+"homeObjective"
+);
+
+
+const active=
+d.objectives.find(
+x=>!x.done
+);
+
+
+if(!active){
+
+el.innerHTML=`
+
+<div class="label">
+MAIN QUEST
+</div>
+
+<h2>
+Become better than yesterday.
+</h2>
+
+<p>
+Create an objective when you know what you want to move toward.
+SENRAI will turn it into a path.
+</p>
+
+<div style="margin-top:14px">
+
+<button
+class="primary"
+onclick="openView('objectives');newObjective()"
+>
+CREATE OBJECTIVE
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
 
 el.innerHTML=`
 
@@ -3084,87 +5048,156 @@ ${esc(active.name)}
 </h2>
 
 <p>
-${esc(active.reason||"Keep moving forward one action at a time.")}
+${esc(
+active.reason||
+"Keep moving forward one action at a time."
+)}
 </p>
 
-<div class="track" style="margin-top:13px">
-<div class="fill" style="width:${active.progress}%"></div>
+<div
+class="track"
+style="margin-top:13px"
+>
+
+<div
+class="fill"
+style="width:${active.progress}%"
+></div>
+
 </div>
 
 <div class="meta">
-<span>${active.progress}% COMPLETE</span>
+
 <span>
-${active.steps.filter(x=>!x.done).length} STEPS REMAINING
+${active.progress}% COMPLETE
 </span>
+
+<span>
+${active.steps.filter(
+x=>!x.done
+).length}
+STEPS REMAINING
+</span>
+
 </div>
 
 <div style="margin-top:12px">
-<button class="primary"
-onclick="openView('objectives');openObjective('${active.id}')">
+
+<button
+class="primary"
+onclick="openView('objectives');openObjective('${active.id}')"
+>
 OPEN PATH
 </button>
+
 </div>
+
 `;
 
 }
 
+
 function renderReflection(){
 
-let index=0;
+let i=
+d.actions.length>=10
+?4
+:
+d.actions.length>=5
+?3
+:
+d.actions.length>=2
+?2
+:
+d.actions.length>=1
+?1
+:
+0;
 
-if(d.actions.length>=10)index=4;
-else if(d.actions.length>=5)index=3;
-else if(d.actions.length>=2)index=2;
-else if(d.actions.length>=1)index=1;
 
-if(!d.guidance)index=0;
+if(!d.guidance)
+i=0;
 
-const r=REFLECTIONS[index];
 
-document.getElementById("reflectionTitle").textContent=r[0];
+const r=REFLECTIONS[i];
 
-document.getElementById("reflectionText").textContent=r[1];
 
-document.getElementById("reflectionSuggestion").textContent=r[2];
+document.getElementById(
+"reflectionTitle"
+).textContent=r[0];
 
-document.getElementById("reflectionReward").textContent=
+
+document.getElementById(
+"reflectionText"
+).textContent=r[1];
+
+
+document.getElementById(
+"reflectionSuggestion"
+).textContent=r[2];
+
+
+document.getElementById(
+"reflectionReward"
+).textContent=
 "+"+r[3]+" XP";
 
 }
 
+
 function acceptReflection(){
 
-const title=document.getElementById("reflectionSuggestion").textContent;
+const title=
+document.getElementById(
+"reflectionSuggestion"
+).textContent;
 
-const xp=parseInt(
-document.getElementById("reflectionReward").textContent
+
+const xp=
+parseInt(
+document.getElementById(
+"reflectionReward"
+).textContent
 )||15;
+
 
 reward(
 title,
 xp,
 "WIS",
-"SMART"
+"SMART",
+"reflection-"+todayKey()
 );
 
 }
+
 
 function renderPath(){
 
 const path=currentPath();
 
-const descriptions={
-INITIATE:"Your direction is still forming. SENRAI is learning from what you actually do.",
-BUILDER:"You tend to create, finish, organize, and turn ideas into something real.",
-EXPLORER:"You tend to seek experiences, novelty, perspective, and things outside your routine.",
-SEEKER:"You tend to learn, reflect, question, and look beneath the surface.",
-CONNECTOR:"You tend to invest in people, communication, trust, and shared experiences.",
-DISCIPLINED:"You tend to return, follow through, and turn intention into action."
-};
+const cfg=PATHS[path];
 
-document.getElementById("homePath").innerHTML=`
+const stage=pathStage(path);
 
-<div class="path">
+
+document.getElementById(
+"pathStatus"
+).textContent=
+stage>=3
+?"EVOLVING"
+:
+d.actions.length>=5
+?"DEVELOPING"
+:
+"FORMING";
+
+
+document.getElementById(
+"homePath"
+).innerHTML=`
+
+<div class="path-card">
 
 <div class="path-head">
 
@@ -3179,127 +5212,156 @@ ${path}
 </div>
 
 <div class="path-desc">
-${descriptions[path]}
+${cfg.desc}
 </div>
 
 </div>
 
-<div class="chip">
-${d.actions.length<5?"FORMING":"DEVELOPING"}
-</div>
+<span class="chip">
+STAGE ${stage+1}/5
+</span>
 
 </div>
 
-<div class="track" style="margin-top:14px">
-<div class="fill"
-style="
-width:${Math.min(100,d.actions.length*5)}%;
-background:linear-gradient(90deg,var(--blue),var(--purple))
-">
+
+<div class="stage-list">
+
+${cfg.stages.map(
+(s,i)=>`
+
+<div
+class="stage
+${i<stage?"done":""}
+${i===stage?"current":""}"
+>
+
+<div class="mark">
+${i<stage
+?"✓"
+:
+i===stage
+?"✦"
+:
+"○"}
 </div>
+
+<strong>
+${s}
+</strong>
+
+<small>
+${i===stage
+?"CURRENT"
+:
+i<stage
+?"CLEARED"
+:
+"LOCKED"}
+</small>
+
 </div>
+
+`
+).join("")}
+
+</div>
+
 
 <div class="path-tags">
 
-<span class="pill">DISCOVERY</span>
-<span class="pill">PROGRESS</span>
-<span class="pill">EVOLVING</span>
+${cfg.tags.map(
+t=>`
+<span class="pill">
+${t}
+</span>
+`
+).join("")}
 
 </div>
+
 
 <div style="
 color:#596272;
 font-size:8px;
 margin-top:12px
 ">
+
 Your Path can change as you change.
 Nothing here locks you into an identity.
+
 </div>
 
 </div>
+
 `;
 
 }
 
-function renderFeed(){
 
-const feed=document.getElementById("homeFeed");
-
-if(!d.actions.length){
-
-feed.innerHTML=`
-<div class="empty">
-NO SYSTEM ACTIVITY YET.
-</div>
-`;
-
-return;
-
-}
-
-feed.innerHTML=d.actions
-.slice(0,5)
-.map(a=>`
-
-<div class="feed">
-
-<div class="feed-dot"></div>
-
-<div class="feed-main">
-
-<div class="feed-title">
-${esc(a.title)}
-</div>
-
-<div class="feed-meta">
-${esc(a.source)} • ${esc(a.stat)}
-</div>
-
-</div>
-
-<div class="feed-xp">
-+${a.xp}
-</div>
-
-</div>
-
-`)
-.join("");
-
-}
+/* DAILY QUESTS */
 
 function renderDaily(){
 
 ensureDay();
 
-const list=document.getElementById("dailyQuests");
 
 const today=todayKey();
 
+
 const seed=
-today.split("-").join("")
+today
+.replaceAll("-","")
 .split("")
-.reduce((a,b)=>a+Number(b),0);
+.reduce(
+(a,b)=>a+Number(b),
+0
+);
+
 
 const selected=[];
 
-for(let i=0;i<4;i++){
 
-const q=DAILY[(seed+i*3)%DAILY.length];
+for(
+let i=0;
+i<4;
+i++
+){
 
-selected.push(q);
+selected.push(
+DAILY[
+(seed+i*3)%
+DAILY.length
+]
+);
 
 }
 
-list.innerHTML=selected.map((q,i)=>{
 
-const id="daily-"+today+"-"+i;
+document.getElementById(
+"dailyQuests"
+).innerHTML=
+selected.map(
+(q,i)=>{
 
-const done=d.actions.some(a=>a.id===id);
+const id=
+"daily-"+
+today+
+"-"+
+i;
+
+
+const done=
+d.actions.some(
+a=>a.id===id
+);
+
 
 return`
 
-<div class="quest ${done?"complete":""}">
+<div
+class="quest
+${done?"complete":""}"
+>
 
 <div class="quest-main">
 
@@ -3325,8 +5387,10 @@ ${q[2]}
 
 </div>
 
+
 <button
-class="small ${done?"":"primary"}"
+class="small
+${done?"":"primary"}"
 ${done?"disabled":""}
 onclick="completeDaily('${id}',${i})"
 >
@@ -3337,22 +5401,41 @@ ${done?"DONE":"COMPLETE"}
 
 `;
 
-}).join("");
+}
+).join("");
 
 }
 
-function completeDaily(id,index){
 
-if(d.actions.some(a=>a.id===id))return;
+function completeDaily(
+id,
+index
+){
 
-const today=todayKey();
+if(
+d.actions.some(
+a=>a.id===id
+)
+)
+return;
+
 
 const seed=
-today.split("-").join("")
+todayKey()
+.replaceAll("-","")
 .split("")
-.reduce((a,b)=>a+Number(b),0);
+.reduce(
+(a,b)=>a+Number(b),
+0
+);
 
-const q=DAILY[(seed+index*3)%DAILY.length];
+
+const q=
+DAILY[
+(seed+index*3)%
+DAILY.length
+];
+
 
 reward(
 q[0],
@@ -3364,48 +5447,85 @@ id
 
 }
 
+
+/* SMART QUESTS */
+
 function smartQuests(){
 
-const weak=Object.entries(d.stats)
-.sort((a,b)=>a[1].progress-b[1].progress)[0][0];
+const weak=
+Object.entries(d.stats)
+.sort(
+(a,b)=>
+a[1].progress-
+b[1].progress
+)[0][0];
+
 
 const names={
-STR:"Do one thing that requires effort.",
-INT:"Learn something new for 15 minutes.",
-WIS:"Write down something you've learned recently.",
-CHA:"Reach out to someone.",
-DEX:"Finish one practical task.",
-CRE:"Make something small.",
-VIT:"Take care of your body for 15 minutes."
+
+STR:
+"Do one thing that requires effort.",
+
+INT:
+"Learn something new for 15 minutes.",
+
+WIS:
+"Write down something you have learned recently.",
+
+CHA:
+"Reach out to someone.",
+
+DEX:
+"Finish one practical task.",
+
+CRE:
+"Make something small.",
+
+VIT:
+"Take care of your body for 15 minutes."
+
 };
 
+
+const primary=names[weak];
+
+
 return[
+
 [
 "STRENGTHEN",
-names[weak],
+primary,
 weak,
 20
 ],
+
 [
 "OUTSIDE ROUTINE",
-"Do something today that you normally wouldn't.",
+"Do something today that you normally would not.",
 "DEX",
 20
 ],
+
 [
 "SMALL WIN",
-"Finish one task you've been avoiding.",
+"Finish one task you have been avoiding.",
 "STR",
 20
 ]
+
 ];
 
 }
 
+
 function renderSmart(){
 
-document.getElementById("smartQuests").innerHTML=
-smartQuests().map((q,i)=>`
+document.getElementById(
+"smartQuests"
+).innerHTML=
+smartQuests()
+.map(
+(q,i)=>`
 
 <div class="quest">
 
@@ -3433,20 +5553,38 @@ ${q[2]}
 
 </div>
 
-<button class="small primary"
-onclick="reward('${esc(q[0])}',${q[3]},'${q[2]}','SMART','smart-${todayKey()}-${i}')">
+
+<button
+class="small primary"
+onclick="reward(
+'${esc(q[0])}',
+${q[3]},
+'${q[2]}',
+'SMART',
+'smart-${todayKey()}-${i}'
+)"
+>
 START
 </button>
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 }
 
+
+/* CUSTOM QUESTS */
+
 function renderCustom(){
 
-const el=document.getElementById("customQuests");
+const el=
+document.getElementById(
+"customQuests"
+);
+
 
 if(!d.custom.length){
 
@@ -3460,9 +5598,16 @@ return;
 
 }
 
-el.innerHTML=d.custom.map(q=>`
 
-<div class="quest ${q.done?"complete":""}">
+el.innerHTML=
+d.custom
+.map(
+q=>`
+
+<div
+class="quest
+${q.done?"complete":""}"
+>
 
 <div class="quest-main">
 
@@ -3488,8 +5633,10 @@ ${q.stat}
 
 </div>
 
+
 <button
-class="small ${q.done?"":"primary"}"
+class="small
+${q.done?"":"primary"}"
 ${q.done?"disabled":""}
 onclick="completeCustom('${q.id}')"
 >
@@ -3498,48 +5645,97 @@ ${q.done?"DONE":"COMPLETE"}
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 }
+
 
 function createQuest(){
 
-const name=document.getElementById("qName").value.trim();
+const name=
+document.getElementById(
+"qName"
+).value.trim();
+
 
 if(!name){
-toast("ENTER A QUEST NAME");
-return;
+
+return toast(
+"ENTER A QUEST NAME"
+);
+
 }
 
-const diff=document.getElementById("qDiff").value;
-const stat=document.getElementById("qStat").value;
+
+const diff=
+document.getElementById(
+"qDiff"
+).value;
+
+
+const stat=
+document.getElementById(
+"qStat"
+).value;
+
 
 d.custom.unshift({
+
 id:uid(),
+
 name,
-desc:document.getElementById("qDesc").value.trim(),
+
+desc:
+document.getElementById(
+"qDesc"
+).value.trim(),
+
 xp:DIFF[diff],
+
 stat,
+
 done:false
+
 });
 
-document.getElementById("qName").value="";
-document.getElementById("qDesc").value="";
+
+document.getElementById(
+"qName"
+).value="";
+
+
+document.getElementById(
+"qDesc"
+).value="";
+
 
 save();
+
 renderCustom();
 
-toast("QUEST CREATED");
+toast(
+"QUEST CREATED"
+);
 
 }
+
 
 function completeCustom(id){
 
-const q=d.custom.find(x=>x.id===id);
+const q=
+d.custom.find(
+x=>x.id===id
+);
 
-if(!q||q.done)return;
+
+if(!q||q.done)
+return;
+
 
 q.done=true;
+
 
 reward(
 q.name,
@@ -3551,39 +5747,73 @@ q.stat,
 
 }
 
+
+/* LIFE */
+
 function generateLife(){
 
 const q=
-LIFE[Math.floor(Math.random()*LIFE.length)];
+LIFE[
+Math.floor(
+Math.random()*LIFE.length
+)
+];
+
 
 d.activeLife={
+
 type:q[0],
+
 text:q[1],
+
 stat:q[2],
+
 xp:q[3]
+
 };
+
 
 save();
 
-document.getElementById("lifeText").textContent=q[1];
 
-document.getElementById("homeLifeText").textContent=q[1];
+document.getElementById(
+"lifeText"
+).textContent=q[1];
 
-document.getElementById("lifeDone").disabled=false;
 
-document.getElementById("homeLifeDone").disabled=false;
+document.getElementById(
+"homeLifeText"
+).textContent=q[1];
 
-toast("LIFE ENCOUNTER GENERATED");
+
+document.getElementById(
+"lifeDone"
+).disabled=false;
+
+
+document.getElementById(
+"homeLifeDone"
+).disabled=false;
+
+
+toast(
+"LIFE ENCOUNTER GENERATED"
+);
 
 }
 
+
 function completeLife(){
 
-if(!d.activeLife)return;
+if(!d.activeLife)
+return;
+
 
 const q=d.activeLife;
 
+
 d.activeLife=null;
+
 
 reward(
 q.text,
@@ -3593,22 +5823,35 @@ q.stat,
 "life-"+uid()
 );
 
-document.getElementById("lifeDone").disabled=true;
 
-document.getElementById("homeLifeDone").disabled=true;
+document.getElementById(
+"lifeDone"
+).disabled=true;
+
+
+document.getElementById(
+"homeLifeDone"
+).disabled=true;
 
 }
 
+
+/* STATS */
+
 function renderStats(){
 
-const el=document.getElementById("statsGrid");
+document.getElementById(
+"statsGrid"
+).innerHTML=
+Object.keys(STAT_NAMES)
+.map(
+s=>{
 
-el.innerHTML=
-Object.keys(STAT_NAMES).map(s=>{
-
-const x=levelFromStatProgress(
+const x=
+levelFromStatProgress(
 d.stats[s].progress
 );
+
 
 return`
 
@@ -3642,7 +5885,10 @@ style="width:${x.pct}%"
 <div class="meta">
 
 <span>
-${Math.floor(x.remaining)} / ${x.need} PROGRESS
+${Math.floor(x.remaining)}
+/
+${x.need}
+PROGRESS
 </span>
 
 <span>
@@ -3655,42 +5901,65 @@ LVL ${x.level+1}
 
 `;
 
-}).join("");
+}
+)
+.join("");
 
 }
 
+
+/* WEEKLY */
+
 function weekKey(){
 
-const dte=new Date();
+const x=new Date();
 
-const one=new Date(
-dte.getFullYear(),
+const one=
+new Date(
+x.getFullYear(),
 0,
 1
 );
 
-return dte.getFullYear()+
+
+return x.getFullYear()+
 "-W"+
 Math.ceil(
-(((dte-one)/86400000)+one.getDay()+1)/7
+(
+(
+(x-one)/86400000
+)+
+one.getDay()+
+1
+)/7
 );
 
 }
+
 
 function renderWeekly(){
 
 const key=weekKey();
 
-let w=JSON.parse(
-localStorage.getItem("senrai_weekly")||"null"
+
+let w=
+JSON.parse(
+localStorage.getItem(
+"senrai_weekly"
+)||"null"
 );
+
 
 if(!w||w.key!==key){
 
 w={
+
 key,
+
 claimed:[],
+
 missions:[
+
 {
 id:"w1",
 title:"COMPLETE 5 ACTIONS",
@@ -3698,6 +5967,7 @@ desc:"Any completed action counts.",
 target:5,
 xp:100
 },
+
 {
 id:"w2",
 title:"TOUCH 3 STATS",
@@ -3705,6 +5975,7 @@ desc:"Complete actions across three stats.",
 target:3,
 xp:100
 },
+
 {
 id:"w3",
 title:"CREATE A MOMENT",
@@ -3712,70 +5983,82 @@ desc:"Record one meaningful moment.",
 target:1,
 xp:75
 }
+
 ]
+
 };
 
 }
 
-const weekStart=new Date();
 
-const day=weekStart.getDay();
+const start=new Date();
 
-const diff=day===0?-6:1-day;
+const day=start.getDay();
 
-weekStart.setDate(
-weekStart.getDate()+diff
+const diff=
+day===0
+?-6
+:
+1-day;
+
+
+start.setDate(
+start.getDate()+diff
 );
 
-weekStart.setHours(0,0,0,0);
-
-const recent=d.actions.filter(
-a=>new Date(a.date)>=weekStart
+start.setHours(
+0,0,0,0
 );
 
-const statSet=new Set(
-recent.map(a=>a.stat)
+
+const recent=
+d.actions.filter(
+a=>new Date(a.date)>=start
 );
+
+
+const stats=
+new Set(
+recent.map(
+a=>a.stat
+)
+);
+
 
 w.missions[0].progress=
-Math.min(5,recent.length);
+Math.min(
+5,
+recent.length
+);
+
 
 w.missions[1].progress=
-Math.min(3,statSet.size);
+Math.min(
+3,
+stats.size
+);
+
 
 w.missions[2].progress=
 d.moments.some(
-m=>new Date(m.date)>=weekStart
-)?1:0;
+m=>new Date(m.date)>=start
+)
+?1
+:0;
 
-w.missions.forEach(m=>{
-
-if(
-m.progress>=m.target &&
-!w.claimed.includes(m.id)
-){
-
-w.claimed.push(m.id);
-
-reward(
-m.title,
-m.xp,
-"WIS",
-"WEEKLY",
-"weekly-"+key+"-"+m.id
-);
-
-}
-
-});
 
 localStorage.setItem(
 "senrai_weekly",
 JSON.stringify(w)
 );
 
-document.getElementById("weeklyGrid").innerHTML=
-w.missions.map(m=>`
+
+document.getElementById(
+"weeklyGrid"
+).innerHTML=
+w.missions
+.map(
+m=>`
 
 <div class="week">
 
@@ -3797,37 +6080,53 @@ ${m.desc}
 
 <div class="track">
 
-<div class="fill"
-style="width:${Math.min(
+<div
+class="fill"
+style="
+width:${Math.min(
 100,
 m.progress/m.target*100
-)}%">
-</div>
+)}%
+"
+></div>
 
 </div>
 
 <div class="meta">
 
 <span>
-${m.progress} / ${m.target}
+${m.progress}
+/
+${m.target}
 </span>
 
 <span>
-${m.progress>=m.target?
-"COMPLETE":"IN PROGRESS"}
+${m.progress>=m.target
+?"COMPLETE"
+:
+"IN PROGRESS"}
 </span>
 
 </div>
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 }
 
+
+/* MOMENTS */
+
 function renderMoments(){
 
-const el=document.getElementById("momentList");
+const el=
+document.getElementById(
+"momentList"
+);
+
 
 if(!d.moments.length){
 
@@ -3841,10 +6140,13 @@ return;
 
 }
 
-el.innerHTML=d.moments
+
+el.innerHTML=
+d.moments
 .slice()
 .reverse()
-.map(m=>`
+.map(
+m=>`
 
 <div class="moment">
 
@@ -3858,50 +6160,81 @@ ${esc(m.text)}
 
 </div>
 
-`)
+`
+)
 .join("");
 
 }
 
+
 function saveMoment(){
 
-const text=document.getElementById("momentInput").value.trim();
+const text=
+document.getElementById(
+"momentInput"
+).value.trim();
+
 
 if(!text){
 
-toast("WRITE SOMETHING FIRST");
-
-return;
+return toast(
+"WRITE SOMETHING FIRST"
+);
 
 }
 
+
 d.moments.push({
+
 id:uid(),
+
 text,
+
 date:new Date().toISOString()
+
 });
 
-document.getElementById("momentInput").value="";
+
+document.getElementById(
+"momentInput"
+).value="";
+
 
 save();
 
-toast("MOMENT RECORDED");
+toast(
+"MOMENT RECORDED"
+);
+
 
 renderMoments();
 
-systemEvent(true);
+
+recordJourney(
+"MOMENT",
+"A moment was recorded.",
+"You chose to remember something instead of letting it disappear."
+);
+
+
+checkAchievements();
+
+renderWeekly();
 
 }
 
-const ACHIEVEMENTS=[
+
+/* ACHIEVEMENTS */
+
+const ACH=[
 
 {
 id:"first",
 icon:"◇",
 name:"FIRST STEP",
 desc:"Complete your first action.",
-check:()=>d.actions.length>=1,
-reward:25
+reward:25,
+check:()=>d.actions.length>=1
 },
 
 {
@@ -3909,8 +6242,8 @@ id:"five",
 icon:"◆",
 name:"GETTING STARTED",
 desc:"Complete 5 actions.",
-check:()=>d.actions.length>=5,
-reward:50
+reward:50,
+check:()=>d.actions.length>=5
 },
 
 {
@@ -3918,8 +6251,8 @@ id:"level5",
 icon:"△",
 name:"RISING",
 desc:"Reach level 5.",
-check:()=>d.level>=5,
-reward:100
+reward:100,
+check:()=>d.level>=5
 },
 
 {
@@ -3927,8 +6260,8 @@ id:"streak7",
 icon:"✦",
 name:"CONSISTENT",
 desc:"Reach a 7-day active streak.",
-check:()=>d.streak>=7,
-reward:100
+reward:100,
+check:()=>d.streak>=7
 },
 
 {
@@ -3936,8 +6269,8 @@ id:"xp1000",
 icon:"✧",
 name:"BUILDER",
 desc:"Earn 1,000 total XP.",
-check:()=>d.totalXP>=1000,
-reward:150
+reward:150,
+check:()=>d.totalXP>=1000
 },
 
 {
@@ -3945,45 +6278,59 @@ id:"moment",
 icon:"◎",
 name:"REMEMBER THIS",
 desc:"Record your first Moment.",
-check:()=>d.moments.length>=1,
-reward:50
+reward:50,
+check:()=>d.moments.length>=1
 },
 
 {
 id:"awakening",
 icon:"☼",
 name:"AWAKENING",
-desc:"Reach level 10.",
-check:()=>d.level>=10,
-reward:300
+desc:"Reach the Awakening threshold.",
+reward:300,
+check:()=>d.awakening
 }
 
 ];
 
+
 function checkAchievements(){
 
-let unlocked=JSON.parse(
-localStorage.getItem("senrai_achievements")||"{}"
+let unlocked=
+JSON.parse(
+localStorage.getItem(
+"senrai_achievements"
+)||"{}"
 );
+
 
 let changed=false;
 
-ACHIEVEMENTS.forEach(a=>{
 
-if(a.check()&&!unlocked[a.id]){
+ACH.forEach(
+a=>{
+
+if(
+a.check() &&
+!unlocked[a.id]
+){
 
 unlocked[a.id]=true;
 
 d.xp+=a.reward;
+
 d.totalXP+=a.reward;
 
 changed=true;
 
-toast("ACHIEVEMENT — "+a.name);
+toast(
+"ACHIEVEMENT — "+a.name
+);
 
 }
 
 });
+
 
 if(changed){
 
@@ -4000,34 +6347,54 @@ save();
 
 }
 
+
 function renderAchievements(){
 
-const unlocked=JSON.parse(
-localStorage.getItem("senrai_achievements")||"{}"
+const unlocked=
+JSON.parse(
+localStorage.getItem(
+"senrai_achievements"
+)||"{}"
 );
 
-document.getElementById("achievementGrid").innerHTML=
-ACHIEVEMENTS.map(a=>{
+
+document.getElementById(
+"achievementGrid"
+).innerHTML=
+ACH.map(
+a=>{
 
 const ok=!!unlocked[a.id];
 
+
 return`
 
-<div class="achievement ${ok?"":"locked"}">
+<div
+class="achievement
+${ok?"":"locked"}"
+>
 
 <div class="achievement-icon">
 ${a.icon}
 </div>
 
-<div style="
+<div
+style="
 position:absolute;
 right:12px;
 top:12px;
-color:${ok?"var(--green)":"var(--muted)"};
+color:${ok
+?"var(--green)"
+:
+"var(--muted)"};
 font-size:7px;
 letter-spacing:1px
-">
-${ok?"UNLOCKED":"LOCKED"}
+"
+>
+${ok
+?"UNLOCKED"
+:
+"LOCKED"}
 </div>
 
 <div class="achievement-title">
@@ -4046,25 +6413,61 @@ ${a.desc}
 
 `;
 
-}).join("");
+}
+)
+.join("");
 
 }
 
+
+/* TITLES */
+
 const TITLES=[
-["INITIATE","Begin your journey."],
-["EXPLORER","Complete 5 actions."],
-["CONSISTENT","Reach a 7-day streak."],
-["BUILDER","Earn 1,000 XP."],
-["ASCENDED","Reach level 10."],
-["AWAKENED","Reach level 20."]
+
+[
+"INITIATE",
+"Begin your journey."
+],
+
+[
+"EXPLORER",
+"Complete 5 actions."
+],
+
+[
+"CONSISTENT",
+"Reach a 7-day streak."
+],
+
+[
+"BUILDER",
+"Earn 1,000 XP."
+],
+
+[
+"ASCENDED",
+"Reach level 10."
+],
+
+[
+"AWAKENED",
+"Reach the Awakening threshold."
+]
+
 ];
+
 
 function renderTitles(){
 
 const current=currentTitle();
 
-document.getElementById("titlesGrid").innerHTML=
-TITLES.map(t=>`
+
+document.getElementById(
+"titlesGrid"
+).innerHTML=
+TITLES
+.map(
+t=>`
 
 <div class="week">
 
@@ -4075,7 +6478,10 @@ ${t[0]}
 </div>
 
 <div class="week-xp">
-${current===t[0]?"EQUIPPED":"TITLE"}
+${current===t[0]
+?"EQUIPPED"
+:
+"TITLE"}
 </div>
 
 </div>
@@ -4086,13 +6492,22 @@ ${t[1]}
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 }
 
+
+/* HISTORY */
+
 function renderHistory(){
 
-const el=document.getElementById("historyList");
+const el=
+document.getElementById(
+"historyList"
+);
+
 
 if(!d.actions.length){
 
@@ -4106,9 +6521,12 @@ return;
 
 }
 
-el.innerHTML=d.actions
+
+el.innerHTML=
+d.actions
 .slice(0,50)
-.map(a=>`
+.map(
+a=>`
 
 <div class="history">
 
@@ -4119,11 +6537,13 @@ ${esc(a.title)}
 </div>
 
 <div class="history-meta">
+
 ${esc(a.source)}
 •
-${esc(a.stat)}
+${esc(a.stat||"SYSTEM")}
 •
 ${new Date(a.date).toLocaleString()}
+
 </div>
 
 </div>
@@ -4134,14 +6554,20 @@ ${new Date(a.date).toLocaleString()}
 
 </div>
 
-`)
+`
+)
 .join("");
 
 }
 
+
+/* PROFILE */
+
 function renderProfile(){
 
-document.getElementById("profileCard").innerHTML=`
+document.getElementById(
+"profileCard"
+).innerHTML=`
 
 <div class="avatar">
 S
@@ -4152,24 +6578,49 @@ SENRAI USER
 </div>
 
 <div class="profile-sub">
-${currentTitle()} • LEVEL ${d.level}
+${currentTitle()}
+•
+LEVEL ${d.level}
 </div>
 
 <div class="profile-grid">
 
 <div class="profile-stat">
-<strong>${d.totalXP}</strong>
-<span>TOTAL XP</span>
+
+<strong>
+${d.totalXP}
+</strong>
+
+<span>
+TOTAL XP
+</span>
+
 </div>
 
-<div class="profile-stat">
-<strong>${d.actions.length}</strong>
-<span>ACTIONS</span>
-</div>
 
 <div class="profile-stat">
-<strong>${d.streak}</strong>
-<span>STREAK</span>
+
+<strong>
+${d.actions.length}
+</strong>
+
+<span>
+ACTIONS
+</span>
+
+</div>
+
+
+<div class="profile-stat">
+
+<strong>
+${d.streak}
+</strong>
+
+<span>
+STREAK
+</span>
+
 </div>
 
 </div>
@@ -4178,27 +6629,84 @@ ${currentTitle()} • LEVEL ${d.level}
 
 }
 
+
+/* SETTINGS */
+
 function renderSettings(){
 
-const g=document.getElementById("guidance");
+const g=
+document.getElementById(
+"guidance"
+);
 
-const m=document.getElementById("motion");
+const m=
+document.getElementById(
+"motion"
+);
 
-const n=document.getElementById("notifications");
+const n=
+document.getElementById(
+"notifications"
+);
 
-g.textContent=d.guidance?"ON":"OFF";
 
-g.className="small "+(d.guidance?"primary":"");
+g.textContent=
+d.guidance
+?"ON"
+:
+"OFF";
 
-m.textContent=d.motion?"ON":"OFF";
+g.className=
+"small "+
+(
+d.guidance
+?"primary"
+:
+""
+);
 
-m.className="small "+(d.motion?"primary":"");
 
-n.textContent=d.notifications?"ON":"OFF";
+m.textContent=
+d.motion
+?"ON"
+:
+"OFF";
 
-n.className="small "+(d.notifications?"primary":"");
+m.className=
+"small "+
+(
+d.motion
+?"primary"
+:
+""
+);
+
+
+n.textContent=
+d.notifications
+?"ON"
+:
+"OFF";
+
+n.className=
+"small "+
+(
+d.notifications
+?"primary"
+:
+""
+);
+
+
+document.body.classList.toggle(
+"reduced",
+!d.motion
+);
 
 }
+
+
+/* OBJECTIVES */
 
 function newObjective(){
 
@@ -4222,6 +6730,7 @@ placeholder="What are you moving toward?"
 
 </div>
 
+
 <div class="form-group">
 
 <label>
@@ -4230,19 +6739,46 @@ CATEGORY
 
 <select id="objCat">
 
-<option>CAREER</option>
-<option>LEARNING</option>
-<option>FITNESS</option>
-<option>FINANCE</option>
-<option>HEALTH</option>
-<option>CREATIVE</option>
-<option>RELATIONSHIPS</option>
-<option>PRODUCTIVITY</option>
-<option>LIFE</option>
+<option>
+CAREER
+</option>
+
+<option>
+LEARNING
+</option>
+
+<option>
+FITNESS
+</option>
+
+<option>
+FINANCE
+</option>
+
+<option>
+HEALTH
+</option>
+
+<option>
+CREATIVE
+</option>
+
+<option>
+RELATIONSHIPS
+</option>
+
+<option>
+PRODUCTIVITY
+</option>
+
+<option>
+LIFE
+</option>
 
 </select>
 
 </div>
+
 
 <div class="form-group">
 
@@ -4260,6 +6796,7 @@ placeholder="Why does it matter?"
 
 </div>
 
+
 <button
 class="primary"
 style="width:100%;margin-top:12px"
@@ -4273,37 +6810,56 @@ BUILD PATH
 
 }
 
+
 function createObjective(){
 
 const name=
-document.getElementById("objName").value.trim();
+document.getElementById(
+"objName"
+).value.trim();
+
 
 if(!name){
 
-toast("ENTER AN OBJECTIVE");
-
-return;
+return toast(
+"ENTER AN OBJECTIVE"
+);
 
 }
 
+
 const cat=
-document.getElementById("objCat").value;
+document.getElementById(
+"objCat"
+).value;
+
 
 const reason=
-document.getElementById("objReason").value.trim();
+document.getElementById(
+"objReason"
+).value.trim();
+
 
 const short=
-name.length>32?
-name.slice(0,32)+"…":
+name.length>32
+?
+name.slice(0,32)+"…"
+:
 name;
+
 
 d.objectives.unshift({
 
 id:uid(),
+
 name,
+
 category:cat,
+
 reason,
+
 progress:0,
+
 done:false,
 
 steps:[
@@ -4329,18 +6885,26 @@ steps:[
 75
 ]
 
-].map(x=>({
+].map(
+x=>({
 
 id:uid(),
+
 phase:x[0],
+
 name:x[1],
+
 stat:x[2],
+
 xp:x[3],
+
 done:false
 
-}))
+})
+)
 
 });
+
 
 save();
 
@@ -4348,13 +6912,27 @@ closeModal();
 
 render();
 
-toast("OBJECTIVE CREATED");
+toast(
+"OBJECTIVE CREATED"
+);
+
+
+recordJourney(
+"OBJECTIVE",
+"A new objective was created.",
+"SENRAI built a path from your intention."
+);
 
 }
 
+
 function renderObjectives(){
 
-const el=document.getElementById("objectivesList");
+const el=
+document.getElementById(
+"objectivesList"
+);
+
 
 if(!d.objectives.length){
 
@@ -4369,9 +6947,16 @@ return;
 
 }
 
-el.innerHTML=d.objectives.map(o=>`
 
-<div class="path" style="margin-bottom:10px">
+el.innerHTML=
+d.objectives
+.map(
+o=>`
+
+<div
+class="path-card"
+style="margin-bottom:10px"
+>
 
 <div class="path-head">
 
@@ -4393,7 +6978,11 @@ ${o.progress}%
 
 </div>
 
-<div class="track" style="margin-top:13px">
+
+<div
+class="track"
+style="margin-top:13px"
+>
 
 <div
 class="fill"
@@ -4402,12 +6991,16 @@ style="width:${o.progress}%"
 
 </div>
 
+
 <div class="meta">
 
 <span>
-${o.steps.filter(x=>x.done).length}/${o.steps.length}
+${o.steps.filter(
+x=>x.done
+).length}/${o.steps.length}
 STEPS
 </span>
+
 
 <button
 class="small"
@@ -4420,25 +7013,43 @@ OPEN PATH
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 }
 
+
 function openObjective(id){
 
-const o=d.objectives.find(x=>x.id===id);
+const o=
+d.objectives.find(
+x=>x.id===id
+);
 
-if(!o)return;
 
-document.getElementById("objectivePathSection")
-.classList.remove("hidden");
+if(!o)
+return;
 
-document.getElementById("objectivePath").innerHTML=`
 
-<div class="path">
+document.getElementById(
+"objectivePathSection"
+)
+.classList.remove(
+"hidden"
+);
+
+
+document.getElementById(
+"objectivePath"
+).innerHTML=`
+
+<div class="path-card">
 
 <div class="label">
-${esc(o.category)} • OBJECTIVE
+${esc(o.category)}
+•
+OBJECTIVE
 </div>
 
 <div class="path-name">
@@ -4446,13 +7057,21 @@ ${esc(o.name)}
 </div>
 
 <p style="margin-top:7px">
-${esc(o.reason||"A goal worth moving toward.")}
+${esc(
+o.reason||
+"A goal worth moving toward."
+)}
 </p>
 
-${o.steps.map(s=>`
 
-<div class="quest ${s.done?"complete":""}"
-style="margin-top:9px">
+${o.steps.map(
+s=>`
+
+<div
+class="quest
+${s.done?"complete":""}"
+style="margin-top:9px"
+>
 
 <div class="quest-main">
 
@@ -4478,101 +7097,808 @@ ${s.stat}
 
 </div>
 
+
 <button
-class="small ${s.done?"":"primary"}"
+class="small
+${s.done?"":"primary"}"
 ${s.done?"disabled":""}
-onclick="completeStep('${o.id}','${s.id}')"
+onclick="completeStep(
+'${o.id}',
+'${s.id}'
+)"
 >
 ${s.done?"DONE":"COMPLETE"}
 </button>
 
 </div>
 
-`).join("")}
+`
+)
+.join("")}
 
 </div>
+
 `;
+
 
 document.getElementById(
 "objectivePathSection"
-).scrollIntoView({
+)
+.scrollIntoView({
 behavior:"smooth"
 });
 
 }
 
-function completeStep(oid,sid){
 
-const o=d.objectives.find(x=>x.id===oid);
+function completeStep(
+oid,
+sid
+){
 
-const s=o?.steps.find(x=>x.id===sid);
+const o=
+d.objectives.find(
+x=>x.id===oid
+);
 
-if(!s||s.done)return;
+const s=
+o?.steps.find(
+x=>x.id===sid
+);
+
+
+if(!s||s.done)
+return;
+
 
 s.done=true;
 
+
 o.progress=
 Math.round(
-o.steps.filter(x=>x.done).length/
-o.steps.length*100
+o.steps.filter(
+x=>x.done
+).length/
+o.steps.length*
+100
 );
 
-o.done=o.progress===100;
+
+o.done=
+o.progress===100;
+
 
 reward(
 s.name,
 s.xp,
 s.stat,
 "OBJECTIVE",
-"objective-"+sid
+sid
 );
+
+
+save();
 
 openObjective(oid);
 
+
+if(o.done){
+
+recordJourney(
+"OBJECTIVE COMPLETE",
+o.name,
+"You moved a real objective across the finish line."
+);
+
 }
 
-function systemEvent(force=false){
+}
 
-const completed=d.actions.length;
+
+/* BOSS QUESTS */
+
+function bossTier(){
+
+if(d.level>=10)
+return 2;
+
+if(d.level>=5)
+return 1;
+
+return 0;
+
+}
+
+
+function generateBossIfNeeded(){
+
+if(
+d.boss &&
+d.boss.status==="ACTIVE"
+)
+return;
+
+
+if(
+d.actions.length<5
+)
+return;
+
+
+const last=
+d.bossHistory[
+d.bossHistory.length-1
+];
+
+
+const choices=
+BOSS_POOL.filter(
+x=>x[0]!==last?.title
+);
+
+
+const q=
+choices[
+Math.floor(
+Math.random()*choices.length
+)
+];
+
+
+d.boss={
+
+id:uid(),
+
+title:q[0],
+
+desc:q[1],
+
+stat:q[2],
+
+xp:
+q[3]+
+bossTier()*25,
+
+status:"ACTIVE",
+
+created:
+new Date().toISOString()
+
+};
+
+
+save();
+
+
+recordJourney(
+"BOSS APPEARED",
+d.boss.title,
+"An optional challenge has entered the System."
+);
+
+}
+
+
+function renderBoss(){
+
+const el=
+document.getElementById(
+"homeBoss"
+);
+
+
+if(
+!d.boss ||
+d.boss.status!=="ACTIVE"
+){
+
+el.innerHTML=`
+
+<div class="empty">
+
+No Boss Quest available yet.
+Keep moving.
+The System will reveal one when the time is right.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+el.innerHTML=`
+
+<div class="boss">
+
+<div class="boss-tag">
+OPTIONAL BOSS QUEST
+</div>
+
+<div class="boss-title">
+${esc(d.boss.title)}
+</div>
+
+<p>
+${esc(d.boss.desc)}
+</p>
+
+
+<div
+class="pills"
+style="margin-top:10px"
+>
+
+<span class="pill xp">
++${d.boss.xp} XP
+</span>
+
+<span class="pill">
+${d.boss.stat}
+</span>
+
+<span class="pill">
+NO PENALTY
+</span>
+
+</div>
+
+
+<div class="boss-actions">
+
+<button
+class="primary"
+onclick="completeBoss()"
+>
+DEFEAT BOSS
+</button>
+
+<button
+onclick="dismissBoss()"
+>
+LEAVE FOR LATER
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function completeBoss(){
+
+if(
+!d.boss ||
+d.boss.status!=="ACTIVE"
+)
+return;
+
+
+const q=d.boss;
+
+
+d.boss.status="COMPLETE";
+
+
+d.bossHistory.push({
+
+title:q.title,
+
+date:new Date().toISOString()
+
+});
+
+
+save();
+
+
+reward(
+q.title,
+q.xp,
+q.stat,
+"BOSS",
+"boss-"+q.id
+);
+
+
+recordJourney(
+"BOSS DEFEATED",
+q.title,
+"You chose to take on an optional challenge."
+);
+
+
+d.boss=null;
+
+save();
+
+render();
+
+toast(
+"BOSS DEFEATED"
+);
+
+}
+
+
+function dismissBoss(){
+
+if(!d.boss)
+return;
+
+
+d.boss.status="DISMISSED";
+
+
+d.bossHistory.push({
+
+title:d.boss.title,
+
+date:new Date().toISOString()
+
+});
+
+
+d.boss=null;
+
+save();
+
+renderBoss();
+
+toast(
+"BOSS REMAINS OPTIONAL"
+);
+
+}
+
+
+/* JOURNEY */
+
+function journeySeed(){
+
+const out=[];
+
+
+if(d.createdAt){
+
+out.push({
+
+date:d.createdAt,
+
+title:"SYSTEM ACTIVATED",
+
+type:"ORIGIN",
+
+text:
+"SENRAI was initialized. Your journey began before you knew what direction it would take."
+
+});
+
+}
+
+
+if(d.actions.length){
+
+out.push({
+
+date:
+d.actions[
+d.actions.length-1
+].date,
+
+title:"FIRST ACTION",
+
+type:"MILESTONE",
+
+text:
+"The first recorded action connected your behavior to the System."
+
+});
+
+}
+
+
+if(d.streak>=7){
+
+out.push({
+
+date:new Date().toISOString(),
+
+title:"CONSISTENCY DETECTED",
+
+type:"MILESTONE",
+
+text:
+"A 7-day active streak has been reached."
+
+});
+
+}
+
+
+if(d.level>=5){
+
+out.push({
+
+date:new Date().toISOString(),
+
+title:"SYSTEM RESPONSE",
+
+type:"MILESTONE",
+
+text:
+"Your progress crossed a threshold and deeper System behavior became available."
+
+});
+
+}
+
+
+if(d.path.stage>=2){
+
+out.push({
+
+date:new Date().toISOString(),
+
+title:"PATH EMERGED",
+
+type:"DISCOVERY",
+
+text:
+`Your actions are currently leaning toward the ${currentPath()} Path.`
+
+});
+
+}
+
+
+if(d.bossHistory.length){
+
+out.push({
+
+date:
+d.bossHistory[
+d.bossHistory.length-1
+].date,
+
+title:"FIRST BOSS DEFEATED",
+
+type:"MILESTONE",
+
+text:
+d.bossHistory[
+d.bossHistory.length-1
+].title
+
+});
+
+}
+
+
+if(d.awakening){
+
+out.push({
+
+date:new Date().toISOString(),
+
+title:"AWAKENING",
+
+type:"DISCOVERY",
+
+text:
+"The System recognized enough progression to change its relationship with you."
+
+});
+
+}
+
+
+d.moments
+.slice(-8)
+.forEach(
+m=>{
+
+out.push({
+
+date:m.date,
+
+title:"MOMENT RECORDED",
+
+type:"MEMORY",
+
+text:m.text
+
+});
+
+}
+);
+
+
+return out.sort(
+(a,b)=>
+new Date(a.date)-
+new Date(b.date)
+);
+
+}
+
+
+function recordJourney(
+type,
+title,
+text
+){
+
+d.journey=d.journey||[];
+
+
+d.journey.push({
+
+id:uid(),
+
+date:new Date().toISOString(),
+
+type,
+
+title,
+
+text
+
+});
+
+
+save();
+
+renderJourney();
+
+}
+
+
+function renderJourney(){
+
+const el=
+document.getElementById(
+"journeyTimeline"
+);
+
+
+const events=[
+
+...journeySeed(),
+
+...(d.journey||[])
+
+].sort(
+(a,b)=>
+new Date(a.date)-
+new Date(b.date)
+);
+
+
+if(!events.length){
+
+el.innerHTML=`
+
+<div class="journey-empty">
+YOUR STORY HAS NOT STARTED YET.
+</div>
+
+`;
+
+return;
+
+}
+
+
+const unique=[];
+
+const keys=new Set();
+
+
+events.forEach(
+e=>{
+
+const k=
+e.title+
+"|"+
+e.type;
+
+
+if(
+!keys.has(k)
+){
+
+keys.add(k);
+
+unique.push(e);
+
+}
+
+}
+);
+
+
+el.innerHTML=
+unique
+.map(
+e=>`
+
+<div class="journey-card">
+
+<div class="journey-date">
+${new Date(e.date).toLocaleDateString(
+[],
+{
+month:"short",
+day:"numeric",
+year:"numeric"
+}
+)}
+</div>
+
+<div class="journey-title">
+${esc(e.title)}
+</div>
+
+<p>
+${esc(e.text)}
+</p>
+
+<div class="journey-type">
+${esc(e.type)}
+</div>
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+
+/* AWAKENING */
+
+function awakeningEvent(){
+
+openModal(
+"AWAKENING",
+`
+
+<div
+style="
+text-align:center;
+padding:18px
+"
+>
+
+<div
+class="label"
+style="color:var(--purple)"
+>
+SYSTEM ANALYSIS COMPLETE
+</div>
+
+<div
+style="
+font-size:29px;
+font-weight:950;
+margin-top:12px
+"
+>
+AWAKENING
+</div>
+
+<p style="margin-top:12px">
+
+You are no longer using the System the same way you were when you started.
+
+SENRAI has enough history to recognize a pattern in how you move through life.
+
+</p>
+
+
+<div style="margin-top:16px">
+
+<span
+class="system-chip"
+style="
+display:inline-block;
+color:var(--purple);
+border-color:rgba(168,124,255,.25)
+"
+>
+✦ NEW LAYER UNLOCKED
+</span>
+
+</div>
+
+
+<div
+style="
+color:#596272;
+font-size:8px;
+margin-top:13px
+"
+>
+PATH • BOSS QUESTS • DEEPER INTELLIGENCE • JOURNEY
+</div>
+
+</div>
+
+`
+);
+
+
+recordJourney(
+"AWAKENING",
+"SYSTEM AWAKENED",
+"A new layer of SENRAI became available."
+);
+
+}
+
+
+/* SYSTEM EVENTS */
+
+function systemEvent(){
+
+const completed=
+d.actions.length;
+
 
 let e;
 
-if(d.level>=20){
+
+if(d.awakening){
 
 e=[
-"awakening",
+"AWAKENING",
 "THE SYSTEM HAS AWAKENED.",
 "SENRAI is no longer simply tracking your progress. Your actions have shaped the System itself."
 ];
 
-}else if(completed>=10){
+}else if(
+completed>=10
+){
 
 e=[
-"pattern",
+"PATTERN",
 "A PATTERN HAS EMERGED.",
 "SENRAI has enough information to recognize the direction your actions are creating."
 ];
 
-}else if(d.streak>=7){
+}else if(
+d.streak>=7
+){
 
 e=[
-"streak",
+"CONSISTENCY",
 "CONSISTENCY HAS WEIGHT.",
 "Seven active days changes the shape of a habit. You do not need to be perfect. You only need to keep returning."
 ];
 
-}else if(d.level>=5){
+}else if(
+d.level>=5
+){
 
 e=[
-"level5",
+"SYSTEM",
 "THE SYSTEM IS RESPONDING.",
 "Your progress has reached a threshold. Rarer discoveries are beginning to become available."
 ];
 
-}else if(completed>=1){
+}else if(
+completed>=1
+){
 
 e=[
-"first",
+"CONNECTION",
 "SYSTEM CONNECTION ESTABLISHED.",
 "Your first action is recorded. SENRAI will use what you actually do—not what you promise—to shape future guidance."
 ];
@@ -4580,38 +7906,47 @@ e=[
 }else{
 
 e=[
-"ready",
+"READY",
 "THE SYSTEM IS AWAKE.",
 "There is nothing you need to prove. Start small. Do something that makes your life better."
 ];
 
 }
 
-if(!force&&d.seen.includes(e[0]))return;
 
-if(!d.seen.includes(e[0])){
+if(
+d.seen.includes(e[0])
+)
+return;
+
+
 d.seen.push(e[0]);
+
 save();
-}
+
 
 openModal(
 "SYSTEM EVENT",
 `
 
-<div style="
+<div
+style="
 text-align:center;
 padding:14px
-">
+"
+>
 
 <div class="label">
-${e[0]==="awakening"?"DISCOVERY":"SYSTEM EVENT"}
+SYSTEM EVENT
 </div>
 
-<div style="
+<div
+style="
 font-size:21px;
 font-weight:900;
 margin-top:10px
-">
+"
+>
 ${e[1]}
 </div>
 
@@ -4620,73 +7955,104 @@ ${e[2]}
 </p>
 
 <span
-class="system-chip active"
-style="display:inline-block;margin-top:15px"
+class="system-chip"
+style="
+display:inline-block;
+margin-top:15px
+"
 >
 ✦ SENRAI
 </span>
 
 </div>
+
 `
 );
 
 }
 
-function levelUp(level){
+
+/* LEVEL UP */
+
+function levelUp(l){
 
 openModal(
 "LEVEL UP",
 `
 
-<div style="
+<div
+style="
 text-align:center;
 padding:18px
-">
+"
+>
 
-<div class="label" style="color:var(--cyan)">
+<div
+class="label"
+style="color:var(--cyan)"
+>
 SYSTEM EVOLUTION
 </div>
 
-<div style="
+<div
+style="
 font-size:50px;
 font-weight:950;
 margin-top:10px
-">
-${level}
+"
+>
+${l}
 </div>
 
-<div style="
+<div
+style="
 color:var(--muted);
 font-size:10px;
 letter-spacing:2px
-">
-LEVEL ${level} REACHED
+"
+>
+LEVEL ${l} REACHED
 </div>
 
 <p style="margin-top:16px">
+
 Your progress has changed.
+
 Keep moving forward.
+
 The System will reveal what comes next.
+
 </p>
 
 <span
-class="system-chip active"
-style="display:inline-block;margin-top:15px"
+class="system-chip"
+style="
+display:inline-block;
+margin-top:15px
+"
 >
 ✦ CORE SYNCHRONIZED
 </span>
 
 </div>
+
 `
 );
+
 
 pulse();
 
 }
 
+
+/* VISUAL EFFECTS */
+
 function pulse(){
 
-const c=document.getElementById("core");
+const c=
+document.getElementById(
+"core"
+);
 
 c.classList.remove("pop");
 
@@ -4694,17 +8060,25 @@ void c.offsetWidth;
 
 c.classList.add("pop");
 
-setTimeout(()=>{
-c.classList.remove("pop");
-},900);
+setTimeout(
+()=>{
+c.classList.remove("pop")
+},
+900
+);
 
 }
 
+
 function floatXP(x){
 
-const e=document.getElementById("floatxp");
+const e=
+document.getElementById(
+"floatxp"
+);
 
-e.textContent="+"+x+" XP";
+e.textContent=
+"+"+x+" XP";
 
 e.classList.remove("show");
 
@@ -4712,64 +8086,116 @@ void e.offsetWidth;
 
 e.classList.add("show");
 
-setTimeout(()=>{
-e.classList.remove("show");
-},900);
+setTimeout(
+()=>{
+e.classList.remove("show")
+},
+900
+);
 
 }
 
+
 function toast(x){
 
-const e=document.getElementById("toast");
+const e=
+document.getElementById(
+"toast"
+);
 
 e.textContent=x;
 
 e.classList.add("show");
 
-clearTimeout(window.tt);
+clearTimeout(
+window.tt
+);
 
-window.tt=setTimeout(()=>{
-e.classList.remove("show");
-},2200);
+window.tt=
+setTimeout(
+()=>{
+e.classList.remove("show")
+},
+2200
+);
+
+}
+
+
+/* MODALS */
+
+function openModal(
+t,
+b
+){
+
+document.getElementById(
+"modalTitle"
+).textContent=t;
+
+document.getElementById(
+"modalBody"
+).innerHTML=b;
+
+document.getElementById(
+"modalBg"
+).classList.remove(
+"hidden"
+);
 
 }
 
-function openModal(t,b){
-
-document.getElementById("modalTitle").textContent=t;
-
-document.getElementById("modalBody").innerHTML=b;
-
-document.getElementById("modalBg")
-.classList.remove("hidden");
-
-}
 
 function closeModal(){
 
-document.getElementById("modalBg")
-.classList.add("hidden");
+document.getElementById(
+"modalBg"
+).classList.add(
+"hidden"
+);
 
 }
 
+
+/* NAVIGATION */
+
 function openView(v){
 
-document.getElementById("menuPanel")
-.classList.add("hidden");
+document.getElementById(
+"menuPanel"
+).classList.add(
+"hidden"
+);
 
-document.querySelectorAll(".view")
-.forEach(x=>x.classList.remove("active"));
 
-document.getElementById(v+"View")
-?.classList.add("active");
+document.querySelectorAll(
+".view"
+)
+.forEach(
+x=>x.classList.remove(
+"active"
+)
+);
 
-document.querySelectorAll(".nav button")
-.forEach(x=>
+
+document.getElementById(
+v+"View"
+)?.classList.add(
+"active"
+);
+
+
+document.querySelectorAll(
+".nav button"
+)
+.forEach(
+x=>
 x.classList.toggle(
 "active",
 x.dataset.view===v
 )
 );
+
 
 scrollTo({
 top:0,
@@ -4778,26 +8204,47 @@ behavior:"smooth"
 
 }
 
+
+/* CLOCK */
+
 function updateClock(){
 
-document.getElementById("clock")
-.textContent=
-new Date().toLocaleTimeString([],{
+document.getElementById(
+"clock"
+).textContent=
+new Date()
+.toLocaleTimeString(
+[],
+{
 hour:"2-digit",
 minute:"2-digit"
-});
+}
+);
 
 }
 
+
+/* RESET */
+
 function resetAll(){
 
-if(confirm(
+if(
+confirm(
 "Reset all SENRAI data on this device? This cannot be undone."
-)){
+)
+){
 
-localStorage.removeItem(KEY);
-localStorage.removeItem("senrai_weekly");
-localStorage.removeItem("senrai_achievements");
+localStorage.removeItem(
+KEY
+);
+
+localStorage.removeItem(
+"senrai_weekly"
+);
+
+localStorage.removeItem(
+"senrai_achievements"
+);
 
 location.reload();
 
@@ -4805,166 +8252,300 @@ location.reload();
 
 }
 
+
+/* RENDER EVERYTHING */
+
 function render(){
 
 ensureDay();
 
+updateLearning();
+
+updatePath(false);
+
 renderTop();
+
 renderCore();
-renderObjective();
-renderReflection();
-renderPath();
+
+renderIntelligence();
+
 renderFeed();
 
+renderObjective();
+
+renderReflection();
+
+renderPath();
+
+renderBoss();
+
 renderDaily();
+
 renderSmart();
+
 renderCustom();
 
 renderStats();
+
 renderWeekly();
 
 renderMoments();
 
+renderObjectives();
+
 renderAchievements();
+
 renderTitles();
+
 renderHistory();
+
+renderJourney();
+
 renderProfile();
+
 renderSettings();
+
+
+if(d.activeLife){
+
+document.getElementById(
+"lifeText"
+).textContent=
+d.activeLife.text;
+
+document.getElementById(
+"homeLifeText"
+).textContent=
+d.activeLife.text;
+
+document.getElementById(
+"lifeDone"
+).disabled=false;
+
+document.getElementById(
+"homeLifeDone"
+).disabled=false;
 
 }
 
-document.getElementById("menuBtn").onclick=e=>{
+}
+
+
+/* EVENTS */
+
+document.getElementById(
+"menuBtn"
+).onclick=e=>{
 
 e.stopPropagation();
 
-document.getElementById("menuPanel")
-.classList.toggle("hidden");
+document.getElementById(
+"menuPanel"
+).classList.toggle(
+"hidden"
+);
 
 };
 
+
 document.onclick=e=>{
 
-if(!e.target.closest(".menu")){
+if(
+!e.target.closest(".menu")
+){
 
-document.getElementById("menuPanel")
-.classList.add("hidden");
+document.getElementById(
+"menuPanel"
+).classList.add(
+"hidden"
+);
 
 }
 
 };
 
-document.querySelectorAll(".nav button")
-.forEach(b=>{
 
-b.onclick=()=>{
-openView(b.dataset.view);
+document.querySelectorAll(
+".nav button"
+)
+.forEach(
+b=>
+b.onclick=
+()=>openView(
+b.dataset.view
+)
+);
+
+
+document.getElementById(
+"createQuest"
+).onclick=
+createQuest;
+
+
+document.getElementById(
+"qName"
+).onkeydown=
+e=>{
+
+if(e.key==="Enter")
+createQuest();
+
 };
 
-});
 
-document.getElementById("createQuest")
-.onclick=createQuest;
+document.getElementById(
+"homeSurprise"
+).onclick=
+generateLife;
 
-document.getElementById("qName")
-.onkeydown=e=>{
-if(e.key==="Enter")createQuest();
-};
 
-document.getElementById("homeSurprise")
-.onclick=generateLife;
+document.getElementById(
+"surprise"
+).onclick=
+generateLife;
 
-document.getElementById("surprise")
-.onclick=generateLife;
 
-document.getElementById("homeLifeDone")
-.onclick=completeLife;
+document.getElementById(
+"homeLifeDone"
+).onclick=
+completeLife;
 
-document.getElementById("lifeDone")
-.onclick=completeLife;
 
-document.getElementById("sideQuest")
-.onclick=()=>{
-reward(
-"Reconnect with someone.",
+document.getElementById(
+"lifeDone"
+).onclick=
+completeLife;
+
+
+document.getElementById(
+"sideQuest"
+).onclick=
+()=>reward(
+"Reconnect with someone you have not talked to recently.",
 20,
 "CHA",
 "SIDE",
 "side-"+todayKey()
 );
-};
 
-document.getElementById("acceptReflection")
-.onclick=acceptReflection;
 
-document.getElementById("anotherReflection")
-.onclick=()=>{
+document.getElementById(
+"acceptReflection"
+).onclick=
+acceptReflection;
+
+
+document.getElementById(
+"anotherReflection"
+).onclick=
+()=>{
+
 renderReflection();
-toast("ANALYSIS REFRESHED");
-};
 
-document.getElementById("saveMoment")
-.onclick=saveMoment;
-
-document.getElementById("guidance")
-.onclick=()=>{
-d.guidance=!d.guidance;
-save();
-renderSettings();
-renderReflection();
-};
-
-document.getElementById("motion")
-.onclick=()=>{
-d.motion=!d.motion;
-save();
-document.body.classList.toggle(
-"reduced",
-!d.motion
+toast(
+"ANALYSIS REFRESHED"
 );
-renderSettings();
+
 };
 
-document.getElementById("reset")
-.onclick=resetAll;
 
-document.getElementById("notifications")
-.onclick=async()=>{
+document.getElementById(
+"saveMoment"
+).onclick=
+saveMoment;
 
-if(!("Notification" in window)){
 
-toast("NOTIFICATIONS NOT SUPPORTED");
+document.getElementById(
+"guidance"
+).onclick=
+()=>{
 
-return;
+d.guidance=!d.guidance;
+
+save();
+
+renderSettings();
+
+renderReflection();
+
+};
+
+
+document.getElementById(
+"motion"
+).onclick=
+()=>{
+
+d.motion=!d.motion;
+
+save();
+
+renderSettings();
+
+};
+
+
+document.getElementById(
+"reset"
+).onclick=
+resetAll;
+
+
+document.getElementById(
+"notifications"
+).onclick=
+async()=>{
+
+if(
+!("Notification" in window)
+){
+
+return toast(
+"NOTIFICATIONS NOT SUPPORTED"
+);
 
 }
 
-if(Notification.permission!=="granted"){
+
+if(
+Notification.permission!=="granted"
+){
 
 const p=
 await Notification.requestPermission();
 
-if(p!=="granted"){
+if(
+p!=="granted"
+){
 
-toast("PERMISSION NOT GRANTED");
-
-return;
+return toast(
+"PERMISSION NOT GRANTED"
+);
 
 }
 
 }
 
-d.notifications=!d.notifications;
+
+d.notifications=
+!d.notifications;
+
 
 save();
 
 renderSettings();
 
-if(d.notifications){
+
+if(
+d.notifications
+){
 
 new Notification(
 "SENRAI",
 {
-body:"System notifications are enabled."
+body:
+"System notifications are enabled."
 }
 );
 
@@ -4972,82 +8553,147 @@ body:"System notifications are enabled."
 
 };
 
-document.getElementById("modalClose")
-.onclick=closeModal;
 
-document.getElementById("modalBg")
-.onclick=e=>{
+document.getElementById(
+"modalClose"
+).onclick=
+closeModal;
 
-if(e.target.id==="modalBg"){
+
+document.getElementById(
+"modalBg"
+).onclick=
+e=>{
+
+if(
+e.target.id==="modalBg"
+){
+
 closeModal();
+
 }
 
 };
 
+
+/* BOOT */
 
 function boot(){
 
 render();
 
+
+if(
+d.actions.length===0 &&
+!d.seen.includes("READY")
+){
+
 systemEvent();
 
-let bar=document.getElementById("loadBar");
+}
 
-let pct=document.getElementById("loadPct");
 
-let txt=document.getElementById("loadText");
+if(
+d.actions.length>=5
+){
+
+generateBossIfNeeded();
+
+}
+
+
+let bar=
+document.getElementById(
+"loadBar"
+);
+
+let pct=
+document.getElementById(
+"loadPct"
+);
+
+let txt=
+document.getElementById(
+"loadText"
+);
 
 let p=0;
 
-const messages=[
+
+const msg=[
+
 "SYSTEM INITIALIZING",
+
 "LOADING PROFILE",
+
 "SYNCING PROGRESS",
-"CALIBRATING INTELLIGENCE",
-"BUILDING QUEST PATHS",
+
+"LEARNING BEHAVIOR",
+
+"BUILDING PATHS",
+
 "SYSTEM READY"
+
 ];
 
-const i=setInterval(()=>{
 
-p=Math.min(
+const i=
+setInterval(
+()=>{
+
+p=
+Math.min(
 100,
-p+Math.floor(Math.random()*10)+8
+p+
+Math.floor(
+Math.random()*10
+)+8
 );
 
-bar.style.width=p+"%";
 
-pct.textContent=p+"%";
+bar.style.width=
+p+"%";
+
+
+pct.textContent=
+p+"%";
+
 
 txt.textContent=
-messages[
+msg[
 Math.min(
 5,
-Math.floor(p/20)
+Math.floor(
+p/20
+)
 )
 ];
+
 
 if(p>=100){
 
 clearInterval(i);
 
-setTimeout(()=>{
 
-document.getElementById("splash")
-.style.opacity="0";
+setTimeout(
+()=>{
 
-setTimeout(()=>{
+document.getElementById(
+"splash"
+).classList.add(
+"hidden"
+);
 
-document.getElementById("splash")
-.classList.add("hidden");
-
-},700);
-
-},400);
+},
+400
+);
 
 }
 
-},120);
+},
+120
+);
+
 
 updateClock();
 
@@ -5057,6 +8703,7 @@ updateClock,
 );
 
 }
+
 
 boot();
 
