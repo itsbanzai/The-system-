@@ -55,7 +55,10 @@ overflow:hidden;
 transition:opacity .8s,visibility .8s
 }
 
-#splash.hidden{opacity:0;visibility:hidden}
+#splash.hidden{
+opacity:0;
+visibility:hidden
+}
 
 .smoke,.smoke:before,.smoke:after{
 content:"";
@@ -137,7 +140,10 @@ padding:8px 4px 20px;
 border-bottom:1px solid var(--line)
 }
 
-.brand{display:flex;align-items:center}
+.brand{
+display:flex;
+align-items:center
+}
 
 .brand-name{
 font-size:19px;
@@ -145,6 +151,22 @@ font-weight:950;
 letter-spacing:5.5px;
 color:#f1f3f7;
 text-shadow:0 0 22px rgba(230,238,255,.08)
+}
+
+.system-status{
+font-size:8px;
+color:var(--green);
+letter-spacing:2px
+}
+
+.status-dot{
+display:inline-block;
+width:6px;
+height:6px;
+border-radius:50%;
+background:var(--green);
+margin-right:6px;
+box-shadow:0 0 8px var(--green)
 }
 
 .view{display:none}
@@ -166,29 +188,13 @@ letter-spacing:3px;
 font-weight:900
 }
 
-.section-description,
-.summary-label,
-.form-label{
+.section-description,.summary-label,.form-label{
 color:var(--muted);
 font-size:8px;
 letter-spacing:1.8px
 }
 
-.hero,
-.panel,
-.summary-card,
-.quest,
-.stat,
-.achievement,
-.life-quest,
-.objective,
-.week-card,
-.title-card,
-.history-item,
-.menu-panel,
-.path-card,
-.profile-card,
-.setting-card{
+.hero,.panel,.summary-card,.quest,.stat,.achievement,.life-quest,.objective,.week-card,.title-card,.history-item,.menu-panel,.path-card,.profile-card,.setting-card{
 border:1px solid var(--line);
 background:var(--panel);
 backdrop-filter:blur(12px);
@@ -244,10 +250,7 @@ letter-spacing:2px;
 margin-top:3px
 }
 
-.xp-track,
-.stat-track,
-.week-track,
-.objective-track{
+.xp-track,.stat-track,.week-track,.objective-track{
 height:6px;
 background:#181c24;
 border-radius:99px;
@@ -256,10 +259,7 @@ overflow:hidden
 
 .xp-track{margin-top:22px}
 
-.xp-fill,
-.stat-fill,
-.week-fill,
-.objective-fill{
+.xp-fill,.stat-fill,.week-fill,.objective-fill{
 height:100%;
 background:linear-gradient(90deg,#697589,#edf2f8);
 border-radius:99px;
@@ -303,11 +303,7 @@ padding:18px;
 border-left:2px solid var(--blue)
 }
 
-.objective-tag,
-.reflection-label,
-.life-label,
-.quest-tag,
-.path-tag{
+.objective-tag,.reflection-label,.life-label,.quest-tag,.path-tag{
 color:var(--blue);
 font-size:8px;
 letter-spacing:2px
@@ -318,12 +314,7 @@ font-size:18px;
 margin:7px 0
 }
 
-.objective p,
-.reflection-text,
-.quest-desc,
-.life-text,
-.milestone-desc,
-.history-text{
+.objective p,.reflection-text,.quest-desc,.life-text,.milestone-desc,.history-text{
 color:#aeb5c1;
 font-size:10px;
 line-height:1.55
@@ -469,9 +460,7 @@ gap:6px
 
 .form-label{display:block}
 
-input,
-select,
-textarea{
+input,select,textarea{
 width:100%;
 border:1px solid #2a303b;
 background:#0a0d12;
@@ -482,9 +471,7 @@ font-size:10px;
 outline:none
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+input:focus,select:focus,textarea:focus{
 border-color:#66758a
 }
 
@@ -586,28 +573,22 @@ grid-template-columns:1fr 1fr;
 gap:10px
 }
 
-.week-card,
-.title-card,
-.profile-card,
-.setting-card{
+.week-card,.title-card,.profile-card,.setting-card{
 padding:17px
 }
 
-.week-top,
-.title-top{
+.week-top,.title-top{
 display:flex;
 justify-content:space-between;
 gap:10px
 }
 
-.week-title,
-.title-name{
+.week-title,.title-name{
 font-size:12px;
 font-weight:900
 }
 
-.week-xp,
-.title-reward{
+.week-xp,.title-reward{
 color:var(--green);
 font-size:8px;
 letter-spacing:1px
@@ -784,9 +765,7 @@ font-size:7px;
 letter-spacing:1px
 }
 
-.achievement.unlocked .achievement-status{
-color:var(--green)
-}
+.achievement.unlocked .achievement-status{color:var(--green)}
 
 .achievement-progress{
 height:3px;
@@ -904,7 +883,6 @@ color:var(--muted);
 margin-top:3px
 }
 
-/* BOTTOM NAVIGATION */
 .navbar{
 position:fixed;
 left:50%;
@@ -945,7 +923,6 @@ font-size:15px;
 margin-bottom:4px
 }
 
-/* LIFE IS THE CENTERPIECE */
 .nav-button.life-nav{
 background:transparent!important;
 overflow:visible;
@@ -959,12 +936,7 @@ border-radius:50%;
 display:grid;
 place-items:center;
 margin:-24px auto 6px;
-background:
-radial-gradient(
-circle at 35% 30%,
-#202733,
-#0c0f15 72%
-);
+background:radial-gradient(circle at 35% 30%,#202733,#0c0f15 72%);
 border:1px solid #4b5565;
 color:#e9eef6;
 font-size:20px;
@@ -989,9 +961,7 @@ transform:translateY(-1px);
 border-color:#697589
 }
 
-.nav-button.life-nav{
-color:#687180
-}
+.nav-button.life-nav{color:#687180}
 
 .toast{
 position:fixed;
@@ -1065,6 +1035,106 @@ font-size:10px;
 line-height:1.6
 }
 
+.system-event-card{
+border:1px solid #303845;
+border-radius:20px;
+padding:18px;
+background:
+radial-gradient(circle at 85% 10%,rgba(168,124,255,.11),transparent 38%),
+linear-gradient(135deg,rgba(255,255,255,.025),transparent),
+var(--panel);
+position:relative;
+overflow:hidden
+}
+
+.system-event-card:before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+bottom:0;
+width:2px;
+background:linear-gradient(180deg,var(--purple),var(--cyan))
+}
+
+.event-kicker{
+color:var(--purple);
+font-size:8px;
+letter-spacing:2px
+}
+
+.event-title{
+font-size:17px;
+font-weight:900;
+margin-top:7px
+}
+
+.event-text{
+color:#aeb5c1;
+font-size:10px;
+line-height:1.55;
+margin-top:7px
+}
+
+.unlock-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
+}
+
+.unlock-card{
+border:1px solid var(--line);
+background:var(--panel);
+border-radius:18px;
+padding:15px
+}
+
+.unlock-level{
+color:var(--cyan);
+font-size:8px;
+letter-spacing:2px
+}
+
+.unlock-name{
+font-size:11px;
+font-weight:900;
+margin-top:6px
+}
+
+.unlock-desc{
+color:var(--muted);
+font-size:8px;
+line-height:1.45;
+margin-top:5px
+}
+
+.system-chip{
+display:inline-flex;
+align-items:center;
+gap:6px;
+border:1px solid #303744;
+border-radius:99px;
+padding:5px 8px;
+color:var(--muted);
+font-size:7px;
+letter-spacing:1px;
+margin-top:9px
+}
+
+.system-chip.active{
+color:var(--green);
+border-color:#315d49
+}
+
+.event-glow{
+animation:eventGlow 2.4s ease-in-out infinite alternate
+}
+
+@keyframes eventGlow{
+from{box-shadow:0 0 0 rgba(168,124,255,0)}
+to{box-shadow:0 0 28px rgba(168,124,255,.08)}
+}
+
 footer{
 text-align:center;
 color:#343a45;
@@ -1074,7 +1144,6 @@ margin-top:40px
 }
 
 @media(max-width:700px){
-
 .brand-name{
 font-size:17px;
 letter-spacing:4.5px
@@ -1088,9 +1157,7 @@ padding:16px 11px 100px
 grid-template-columns:repeat(2,1fr)
 }
 
-.stats-grid,
-.achievement-grid,
-.grid-2{
+.stats-grid,.achievement-grid,.grid-2{
 grid-template-columns:1fr
 }
 
@@ -1102,33 +1169,28 @@ grid-template-columns:1fr
 grid-column:auto
 }
 
-.hero{
-padding:18px
-}
+.hero{padding:18px}
 
-.level{
-font-size:32px
-}
+.level{font-size:32px}
 
-.reflection-actions,
-.button-row{
+.reflection-actions,.button-row{
 flex-direction:column
 }
 
-.reflection-actions button,
-.button-row>*{
+.reflection-actions button,.button-row>*{
 width:100%
 }
 
-.splash-logo{
-width:230px
-}
+.splash-logo{width:230px}
 
 .nav-button.life-nav .nav-icon{
 width:48px;
 height:48px
 }
 
+.unlock-grid{
+grid-template-columns:1fr
+}
 }
 </style>
 </head>
@@ -1139,36 +1201,21 @@ height:48px
 <div class="smoke"></div>
 
 <div class="splash-content">
-
-<img
-class="splash-logo"
-src="senrai-logo.png"
-alt="SENRAI"
->
+<img class="splash-logo" src="senrai-logo.png" alt="SENRAI">
 
 <div class="splash-subtitle">
 PERSONAL PROGRESSION SYSTEM
 </div>
 
 <div class="loading-container">
-
 <div class="loading-bar">
-<div
-class="loading-fill"
-id="loadingFill"
-></div>
+<div class="loading-fill" id="loadingFill"></div>
 </div>
 
 <div class="loading-text">
-<span id="loadingStatus">
-SYSTEM INITIALIZING
-</span>
-
-<span id="loadingPercent">
-0%
-</span>
+<span id="loadingStatus">SYSTEM INITIALIZING</span>
+<span id="loadingPercent">0%</span>
 </div>
-
 </div>
 </div>
 </div>
@@ -1176,80 +1223,48 @@ SYSTEM INITIALIZING
 <div id="app">
 
 <header>
-
 <div class="brand">
-<div class="brand-name">
-SENRAI
-</div>
+<div class="brand-name">SENRAI</div>
 </div>
 
 <div class="menu-wrap">
-
-<button
-class="system-button"
-id="systemMenuButton"
->
+<button class="system-button" id="systemMenuButton">
 SYSTEM ▾
 </button>
 
-<div
-class="menu-panel hidden"
-id="systemMenu"
->
+<div class="menu-panel hidden" id="systemMenu">
 
 <div class="menu-section">
 SYSTEM
 </div>
 
-<button onclick="openSystem('objectives')">
-OBJECTIVES
-</button>
-
-<button onclick="openSystem('achievements')">
-ACHIEVEMENTS
-</button>
-
-<button onclick="openSystem('history')">
-HISTORY
-</button>
-
-<button onclick="openSystem('profile')">
-PROFILE
-</button>
-
-<button onclick="openSystem('settings')">
-SETTINGS
-</button>
+<button onclick="openSystem('objectives')">OBJECTIVES</button>
+<button onclick="openSystem('achievements')">ACHIEVEMENTS</button>
+<button onclick="openSystem('history')">HISTORY</button>
+<button onclick="openSystem('profile')">PROFILE</button>
+<button onclick="openSystem('settings')">SETTINGS</button>
+<button onclick="showSystemEvent(true)">SYSTEM EVENT</button>
 
 </div>
 </div>
-
 </header>
 
-<main
-id="homeView"
-class="view active"
->
+<main id="homeView" class="view active">
 
 <section class="hero">
 
 <div class="hero-top">
 
 <div>
-
-<div class="hero-label">
-CURRENT LEVEL
-</div>
+<div class="hero-label">CURRENT LEVEL</div>
 
 <div class="level">
 <span id="level">1</span>
 <span>LVL</span>
 </div>
-
 </div>
 
 <div class="hero-xp">
-
 <div class="hero-xp-number">
 <span id="xp">0</span> XP
 </div>
@@ -1257,30 +1272,17 @@ CURRENT LEVEL
 <div class="hero-xp-label">
 CURRENT EXPERIENCE
 </div>
-
 </div>
 
 </div>
 
 <div class="xp-track">
-
-<div
-class="xp-fill"
-id="xpBar"
-></div>
-
+<div class="xp-fill" id="xpBar"></div>
 </div>
 
 <div class="xp-footer">
-
-<span id="xpProgress">
-0 / 100 XP
-</span>
-
-<span id="nextLevel">
-LEVEL 2
-</span>
-
+<span id="xpProgress">0 / 100 XP</span>
+<span id="nextLevel">LEVEL 2</span>
 </div>
 
 </section>
@@ -1288,67 +1290,35 @@ LEVEL 2
 <section class="summary-grid">
 
 <div class="summary-card">
-
-<div class="summary-label">
-TODAY
-</div>
-
+<div class="summary-label">TODAY</div>
 <div class="summary-value">
 <span id="todayCount">0</span>
 </div>
-
-<div class="summary-sub">
-QUESTS COMPLETE
-</div>
-
+<div class="summary-sub">QUESTS COMPLETE</div>
 </div>
 
 <div class="summary-card">
-
-<div class="summary-label">
-STREAK
-</div>
-
+<div class="summary-label">STREAK</div>
 <div class="summary-value streak-value">
 <span id="streak">0</span>
 </div>
-
-<div class="summary-sub">
-DAYS ACTIVE
-</div>
-
+<div class="summary-sub">DAYS ACTIVE</div>
 </div>
 
 <div class="summary-card">
-
-<div class="summary-label">
-TODAY XP
-</div>
-
+<div class="summary-label">TODAY XP</div>
 <div class="summary-value">
 <span id="todayXP">0</span>
 </div>
-
-<div class="summary-sub">
-EXPERIENCE
-</div>
-
+<div class="summary-sub">EXPERIENCE</div>
 </div>
 
 <div class="summary-card">
-
-<div class="summary-label">
-MOMENTUM
-</div>
-
+<div class="summary-label">MOMENTUM</div>
 <div class="summary-value">
 <span id="momentum">0</span>
 </div>
-
-<div class="summary-sub">
-RECENT ACTIVITY
-</div>
-
+<div class="summary-sub">RECENT ACTIVITY</div>
 </div>
 
 </section>
@@ -1356,36 +1326,19 @@ RECENT ACTIVITY
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-CURRENT OBJECTIVE
+<div class="section-title">CURRENT OBJECTIVE</div>
+<div class="section-description">MAIN PATH</div>
 </div>
 
-<div class="section-description">
-MAIN PATH
-</div>
-
-</div>
-
-<div
-class="objective"
-id="homeObjective"
-></div>
+<div class="objective" id="homeObjective"></div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-SYSTEM REFLECTION
-</div>
-
-<div class="section-description">
-ADAPTIVE GUIDANCE
-</div>
-
+<div class="section-title">SYSTEM REFLECTION</div>
+<div class="section-description">ADAPTIVE GUIDANCE</div>
 </div>
 
 <div class="reflection-card">
@@ -1394,15 +1347,9 @@ ADAPTIVE GUIDANCE
 SYSTEM INSIGHT
 </div>
 
-<div
-class="reflection-title"
-id="reflectionTitle"
-></div>
+<div class="reflection-title" id="reflectionTitle"></div>
 
-<div
-class="reflection-text"
-id="reflectionText"
-></div>
+<div class="reflection-text" id="reflectionText"></div>
 
 <div class="reflection-divider"></div>
 
@@ -1410,32 +1357,18 @@ id="reflectionText"
 RECOMMENDED QUEST
 </div>
 
-<div
-class="reflection-suggestion"
-id="reflectionSuggestion"
-></div>
+<div class="reflection-suggestion" id="reflectionSuggestion"></div>
 
-<div
-class="reflection-reward"
-id="reflectionReward"
-></div>
+<div class="reflection-reward" id="reflectionReward"></div>
 
 <div class="reflection-actions">
-
-<button
-class="primary"
-id="acceptReflectionButton"
->
+<button class="primary" id="acceptReflectionButton">
 ACCEPT QUEST
 </button>
 
-<button
-class="ghost"
-id="refreshReflectionButton"
->
+<button class="ghost" id="refreshReflectionButton">
 ANOTHER SUGGESTION
 </button>
-
 </div>
 
 </div>
@@ -1445,95 +1378,85 @@ ANOTHER SUGGESTION
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-CURRENT PATH
-</div>
-
-<div
-class="section-description"
-id="pathStatusLabel"
->
+<div class="section-title">CURRENT PATH</div>
+<div class="section-description" id="pathStatusLabel">
 FORMING
 </div>
-
 </div>
 
-<div
-class="path-card"
-id="homePathCard"
-></div>
+<div class="path-card" id="homePathCard"></div>
+
+</section>
+
+<section class="section" id="homeEventSection">
+
+<div class="section-header">
+<div class="section-title">SYSTEM EVENT</div>
+<div class="section-description">WHEN IT MATTERS</div>
+</div>
+
+<div id="homeEventCard">
+<div class="system-event-card">
+<div class="event-kicker">SYSTEM</div>
+<div class="event-title">Waiting for a meaningful moment.</div>
+<div class="event-text">
+SENRAI does not interrupt you for everything. Some things are worth surfacing when they matter.
+</div>
+</div>
+</div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-QUICK QUESTS
+<div class="section-title">UNLOCKS</div>
+<div class="section-description">
+YOUR SYSTEM GROWS WITH YOU
+</div>
 </div>
 
-<button
-class="small"
-onclick="showView('quests')"
->
+<div class="unlock-grid" id="homeUnlockGrid"></div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+<div class="section-title">QUICK QUESTS</div>
+<button class="small" onclick="showView('quests')">
 VIEW ALL
 </button>
-
 </div>
 
-<div
-class="quest-list"
-id="homeDailyQuests"
-></div>
+<div class="quest-list" id="homeDailyQuests"></div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-LIFE QUEST
+<div class="section-title">LIFE QUEST</div>
+<div class="section-description">OPTIONAL</div>
 </div>
 
-<div class="section-description">
-OPTIONAL
-</div>
-
-</div>
-
-<div
-class="life-quest"
-style="padding:17px"
->
+<div class="life-quest" style="padding:17px">
 
 <div class="life-label">
 RANDOM ENCOUNTER
 </div>
 
-<div
-class="life-text"
-id="homeLifeText"
-style="margin-top:6px"
->
+<div class="life-text" id="homeLifeText" style="margin-top:6px">
 Generate an optional real-world quest.
 </div>
 
 <div class="button-row">
 
-<button
-class="primary"
-id="homeSurprise"
->
+<button class="primary" id="homeSurprise">
 🎲 SURPRISE ME
 </button>
 
-<button
-id="homeCompleteLife"
-disabled
->
+<button id="homeCompleteLife" disabled>
 COMPLETE
 </button>
 
@@ -1545,44 +1468,24 @@ COMPLETE
 
 </main>
 
-<main
-id="questsView"
-class="view"
->
+<main id="questsView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-DAILY QUESTS
+<div class="section-title">DAILY QUESTS</div>
+<div class="section-description">RESET DAILY</div>
 </div>
 
-<div class="section-description">
-RESET DAILY
-</div>
-
-</div>
-
-<div
-class="quest-list"
-id="dailyQuests"
-></div>
+<div class="quest-list" id="dailyQuests"></div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-CREATE QUEST
-</div>
-
-<div class="section-description">
-DEFINE YOUR OWN PATH
-</div>
-
+<div class="section-title">CREATE QUEST</div>
+<div class="section-description">DEFINE YOUR OWN PATH</div>
 </div>
 
 <div class="panel create-quest">
@@ -1590,131 +1493,53 @@ DEFINE YOUR OWN PATH
 <div class="form-grid">
 
 <div class="form-group full">
-
-<label class="form-label">
-QUEST NAME
-</label>
-
-<input
-id="questNameInput"
-maxlength="80"
-placeholder="What do you want to accomplish?"
->
-
+<label class="form-label">QUEST NAME</label>
+<input id="questNameInput" maxlength="80" placeholder="What do you want to accomplish?">
 </div>
 
 <div class="form-group">
-
-<label class="form-label">
-TYPE
-</label>
+<label class="form-label">TYPE</label>
 
 <select id="questTypeInput">
-
-<option value="MAIN">
-MAIN QUEST
-</option>
-
-<option value="DAILY">
-DAILY QUEST
-</option>
-
-<option value="SIDE">
-SIDE QUEST
-</option>
-
+<option value="MAIN">MAIN QUEST</option>
+<option value="DAILY">DAILY QUEST</option>
+<option value="SIDE">SIDE QUEST</option>
 </select>
-
 </div>
 
 <div class="form-group">
-
-<label class="form-label">
-DIFFICULTY
-</label>
+<label class="form-label">DIFFICULTY</label>
 
 <select id="questDifficultyInput">
-
-<option value="EASY">
-EASY • +10 XP
-</option>
-
-<option value="NORMAL">
-NORMAL • +25 XP
-</option>
-
-<option value="HARD">
-HARD • +50 XP
-</option>
-
-<option value="EXTREME">
-EXTREME • +100 XP
-</option>
-
+<option value="EASY">EASY • +10 XP</option>
+<option value="NORMAL">NORMAL • +25 XP</option>
+<option value="HARD">HARD • +50 XP</option>
+<option value="EXTREME">EXTREME • +100 XP</option>
 </select>
-
 </div>
 
 <div class="form-group">
-
-<label class="form-label">
-STAT
-</label>
+<label class="form-label">STAT</label>
 
 <select id="questStatInput">
-
-<option value="STR">
-STR • FITNESS
-</option>
-
-<option value="INT">
-INT • LEARNING
-</option>
-
-<option value="WIS">
-WIS • GROWTH
-</option>
-
-<option value="CHA">
-CHA • SOCIAL
-</option>
-
-<option value="DEX">
-DEX • PRODUCTIVITY
-</option>
-
-<option value="CRE">
-CRE • CREATIVITY
-</option>
-
-<option value="VIT">
-VIT • HEALTH
-</option>
-
+<option value="STR">STR • FITNESS</option>
+<option value="INT">INT • LEARNING</option>
+<option value="WIS">WIS • GROWTH</option>
+<option value="CHA">CHA • SOCIAL</option>
+<option value="DEX">DEX • PRODUCTIVITY</option>
+<option value="CRE">CRE • CREATIVITY</option>
+<option value="VIT">VIT • HEALTH</option>
 </select>
-
 </div>
 
 <div class="form-group">
-
-<label class="form-label">
-DESCRIPTION
-</label>
-
-<input
-id="questDescInput"
-maxlength="120"
-placeholder="Optional details"
->
-
+<label class="form-label">DESCRIPTION</label>
+<input id="questDescInput" maxlength="120" placeholder="Optional details">
 </div>
 
 </div>
 
-<button
-class="create-button primary"
-id="createQuestButton"
->
+<button class="create-button primary" id="createQuestButton">
 + CREATE QUEST
 </button>
 
@@ -1725,48 +1550,28 @@ id="createQuestButton"
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-YOUR QUESTS
+<div class="section-title">YOUR QUESTS</div>
+<div class="section-description">PERSONAL</div>
 </div>
 
-<div class="section-description">
-PERSONAL
-</div>
-
-</div>
-
-<div
-id="customQuestList"
-class="quest-list"
-></div>
+<div id="customQuestList" class="quest-list"></div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-SIDE QUEST
-</div>
-
-<div class="section-description">
-SOCIAL
-</div>
-
+<div class="section-title">SIDE QUEST</div>
+<div class="section-description">SOCIAL</div>
 </div>
 
 <div class="side-card">
 
 <div class="side-left">
 
-<div class="side-icon">
-☎
-</div>
+<div class="side-icon">☎</div>
 
 <div>
-
 <div class="side-name">
 Call someone you haven't talked to recently
 </div>
@@ -1774,7 +1579,6 @@ Call someone you haven't talked to recently
 <div class="side-meta">
 +20 XP • +1 CHA
 </div>
-
 </div>
 
 </div>
@@ -1789,104 +1593,64 @@ COMPLETE
 
 </main>
 
-<main
-id="statsView"
-class="view"
->
+<main id="statsView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-CHARACTER STATS
-</div>
-
+<div class="section-title">CHARACTER STATS</div>
 <div class="section-description">
 LONG-TERM DEVELOPMENT
 </div>
-
 </div>
 
-<div
-class="stats-grid"
-id="statsGrid"
-></div>
+<div class="stats-grid" id="statsGrid"></div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-WEEKLY MISSIONS
-</div>
-
+<div class="section-title">WEEKLY MISSIONS</div>
 <div class="section-description">
 BONUS PROGRESSION
 </div>
-
 </div>
 
-<div
-class="grid-2"
-id="weeklyGrid"
-></div>
+<div class="grid-2" id="weeklyGrid"></div>
 
 </section>
 
 </main>
 
-<main
-id="lifeView"
-class="view"
->
+<main id="lifeView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-LIFE QUESTS
-</div>
-
+<div class="section-title">LIFE QUESTS</div>
 <div class="section-description">
 OPTIONAL • NO PENALTY
 </div>
-
 </div>
 
-<div
-class="life-quest"
-style="padding:18px"
->
+<div class="life-quest" style="padding:18px">
 
 <div class="life-label">
 SYSTEM GENERATOR
 </div>
 
-<div
-class="life-text"
-id="lifeText"
-style="margin-top:6px"
->
+<div class="life-text" id="lifeText" style="margin-top:6px">
 Generate something small that makes your day better.
 </div>
 
 <div class="button-row">
 
-<button
-class="primary"
-id="surpriseButton"
->
+<button class="primary" id="surpriseButton">
 🎲 SURPRISE ME
 </button>
 
-<button
-id="completeLifeButton"
-disabled
->
+<button id="completeLifeButton" disabled>
 COMPLETE QUEST
 </button>
 
@@ -1899,43 +1663,24 @@ COMPLETE QUEST
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-WEEKLY LIFE CHALLENGE
+<div class="section-title">WEEKLY LIFE CHALLENGE</div>
+<div class="section-description">OPTIONAL</div>
 </div>
 
-<div class="section-description">
-OPTIONAL
-</div>
-
-</div>
-
-<div
-class="week-card"
-id="lifeWeeklyCard"
-></div>
+<div class="week-card" id="lifeWeeklyCard"></div>
 
 </section>
 
 </main>
 
-<main
-id="objectivesView"
-class="view"
->
+<main id="objectivesView" class="view">
 
 <section class="section">
 
 <div class="section-header">
+<div class="section-title">OBJECTIVES</div>
 
-<div class="section-title">
-OBJECTIVES
-</div>
-
-<button
-class="small primary"
-onclick="openObjectiveForm()"
->
+<button class="small primary" onclick="openObjectiveForm()">
 + NEW OBJECTIVE
 </button>
 
@@ -1945,10 +1690,7 @@ onclick="openObjectiveForm()"
 
 </section>
 
-<section
-class="section hidden"
-id="objectivePathSection"
->
+<section class="section hidden" id="objectivePathSection">
 
 <div class="section-header">
 
@@ -1956,10 +1698,7 @@ id="objectivePathSection"
 OBJECTIVE PATH
 </div>
 
-<button
-class="small"
-onclick="closeObjectivePath()"
->
+<button class="small" onclick="closeObjectivePath()">
 CLOSE
 </button>
 
@@ -1971,140 +1710,83 @@ CLOSE
 
 </main>
 
-<main
-id="achievementsView"
-class="view"
->
+<main id="achievementsView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-ACHIEVEMENTS
-</div>
-
+<div class="section-title">ACHIEVEMENTS</div>
 <div class="section-description">
 UNLOCK THROUGH ACTION
 </div>
-
 </div>
 
-<div
-class="achievement-grid"
-id="achievementGrid"
-></div>
+<div class="achievement-grid" id="achievementGrid"></div>
 
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-TITLES
-</div>
-
+<div class="section-title">TITLES</div>
 <div class="section-description">
 YOUR REPUTATION
 </div>
-
 </div>
 
-<div
-class="grid-2"
-id="titlesGrid"
-></div>
+<div class="grid-2" id="titlesGrid"></div>
 
 </section>
 
 </main>
 
-<main
-id="historyView"
-class="view"
->
+<main id="historyView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-HISTORY
-</div>
-
+<div class="section-title">HISTORY</div>
 <div class="section-description">
 RECENT SYSTEM LOG
 </div>
-
 </div>
 
-<div
-class="history-list"
-id="historyList"
-></div>
+<div class="history-list" id="historyList"></div>
 
 </section>
 
 </main>
 
-<main
-id="profileView"
-class="view"
->
+<main id="profileView" class="view">
 
 <section class="section">
-
-<div
-class="profile-card"
-id="profileCard"
-></div>
-
+<div class="profile-card" id="profileCard"></div>
 </section>
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-SYSTEM SUMMARY
+<div class="section-title">SYSTEM SUMMARY</div>
 </div>
 
-</div>
-
-<div
-class="grid-2"
-id="profileSummary"
-></div>
+<div class="grid-2" id="profileSummary"></div>
 
 </section>
 
 </main>
 
-<!-- MOMENTS -->
-<main
-id="momentsView"
-class="view"
->
+<main id="momentsView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-MOMENTS
-</div>
-
+<div class="section-title">MOMENTS</div>
 <div class="section-description">
 KEEP WHAT MATTERS
 </div>
-
 </div>
 
-<div
-class="panel"
-style="padding:18px"
->
+<div class="panel" style="padding:18px">
 
 <div class="form-label">
 NEW MOMENT
@@ -2118,10 +1800,7 @@ placeholder="Write something you want to remember..."
 style="margin-top:8px"
 ></textarea>
 
-<button
-class="primary create-button"
-id="saveMomentButton"
->
+<button class="primary create-button" id="saveMomentButton">
 SAVE MOMENT
 </button>
 
@@ -2132,43 +1811,25 @@ SAVE MOMENT
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-LOOKING BACK
-</div>
-
+<div class="section-title">LOOKING BACK</div>
 <div class="section-description">
 YOUR RECORD
 </div>
-
 </div>
 
-<div
-class="history-list"
-id="momentsList"
-></div>
+<div class="history-list" id="momentsList"></div>
 
 </section>
 
 </main>
 
-<main
-id="settingsView"
-class="view"
->
+<main id="settingsView" class="view">
 
 <section class="section">
 
 <div class="section-header">
-
-<div class="section-title">
-SETTINGS
-</div>
-
-<div class="section-description">
-LOCAL DEVICE
-</div>
-
+<div class="section-title">SETTINGS</div>
+<div class="section-description">LOCAL DEVICE</div>
 </div>
 
 <div class="setting-card">
@@ -2176,7 +1837,6 @@ LOCAL DEVICE
 <div class="setting-row">
 
 <div>
-
 <div class="setting-name">
 SYSTEM GUIDANCE
 </div>
@@ -2184,20 +1844,15 @@ SYSTEM GUIDANCE
 <div class="setting-desc">
 Allow adaptive recommendations to change based on your activity.
 </div>
-
 </div>
 
-<button
-id="guidanceToggle"
-class="small"
-></button>
+<button id="guidanceToggle" class="small"></button>
 
 </div>
 
 <div class="setting-row">
 
 <div>
-
 <div class="setting-name">
 REDUCE SYSTEM MOTION
 </div>
@@ -2205,20 +1860,15 @@ REDUCE SYSTEM MOTION
 <div class="setting-desc">
 Reduce loading and interface animation.
 </div>
-
 </div>
 
-<button
-id="motionToggle"
-class="small"
-></button>
+<button id="motionToggle" class="small"></button>
 
 </div>
 
 <div class="setting-row">
 
 <div>
-
 <div class="setting-name">
 BROWSER NOTIFICATIONS
 </div>
@@ -2226,13 +1876,9 @@ BROWSER NOTIFICATIONS
 <div class="setting-desc">
 Allow SENRAI to request permission for local browser notifications where supported.
 </div>
-
 </div>
 
-<button
-id="notificationToggle"
-class="small"
->
+<button id="notificationToggle" class="small">
 OFF
 </button>
 
@@ -2241,7 +1887,6 @@ OFF
 <div class="setting-row">
 
 <div>
-
 <div class="setting-name">
 RESET LOCAL DATA
 </div>
@@ -2249,13 +1894,9 @@ RESET LOCAL DATA
 <div class="setting-desc">
 Erase SENRAI progress stored on this device.
 </div>
-
 </div>
 
-<button
-id="resetButton"
-class="small danger"
->
+<button id="resetButton" class="small danger">
 RESET
 </button>
 
@@ -2267,91 +1908,58 @@ RESET
 
 </main>
 
-<footer>
-SENRAI — THE SYSTEM THAT MOVES YOU FORWARD
-</footer>
-
-</div>
-
-<!-- HOME → QUESTS → LIFE → STATS → MOMENTS -->
 <nav class="navbar">
 
-<button
-class="nav-button active"
-data-view="home"
->
+<button class="nav-button active" data-view="home">
 <span class="nav-icon">⌂</span>
 HOME
 </button>
 
-<button
-class="nav-button"
-data-view="quests"
->
+<button class="nav-button" data-view="quests">
 <span class="nav-icon">◆</span>
 QUESTS
 </button>
 
-<button
-class="nav-button life-nav"
-data-view="life"
->
+<button class="nav-button life-nav" data-view="life">
 <span class="nav-icon">✦</span>
 LIFE
 </button>
 
-<button
-class="nav-button"
-data-view="stats"
->
+<button class="nav-button" data-view="stats">
 <span class="nav-icon">▥</span>
 STATS
 </button>
 
-<button
-class="nav-button"
-data-view="moments"
->
+<button class="nav-button" data-view="moments">
 <span class="nav-icon">◌</span>
 MOMENTS
 </button>
 
 </nav>
 
-<div
-class="toast"
-id="toast"
-></div>
+<footer>
+SENRAI
+</footer>
 
-<div
-class="modal-backdrop hidden"
-id="modalBackdrop"
->
+<div class="toast" id="toast"></div>
+
+<div class="modal-backdrop hidden" id="modalBackdrop">
 
 <div class="modal">
 
 <div class="modal-head">
 
-<div
-class="modal-title"
-id="modalTitle"
->
+<div class="modal-title" id="modalTitle">
 SYSTEM
 </div>
 
-<button
-class="close"
-id="modalClose"
->
+<button class="close" id="modalClose">
 ×
 </button>
 
 </div>
 
-<div
-class="modal-body"
-id="modalBody"
-></div>
+<div class="modal-body" id="modalBody"></div>
 
 </div>
 
@@ -2371,13 +1979,10 @@ weekly:'senraiWeeklyMissions',
 moments:'senraiMoments'
 };
 
-const today=()=>
-new Date().toISOString().slice(0,10);
+const today=()=>new Date().toISOString().slice(0,10);
 
 const uid=(p='id')=>
-p+'_'+
-Date.now().toString(36)+'_'+
-Math.random().toString(36).slice(2,7);
+p+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
 
 const read=(k,f)=>{
 try{
@@ -2389,10 +1994,9 @@ return f
 };
 
 const save=(k,v)=>
-localStorage.setItem(
-k,
-JSON.stringify(v)
-);
+localStorage.setItem(k,JSON.stringify(v));
+
+const clone=o=>JSON.parse(JSON.stringify(o));
 
 const xpNeededForLevel=l=>
 100+((l-1)*50);
@@ -2468,26 +2072,27 @@ stat:'WIS'
 ];
 
 const LIFE=[
-['Take a different route somewhere today.','WIS',20],
-['Try a food or drink you have never had.','WIS',20],
-['Spend 20 minutes outside without scrolling.','VIT',20],
-['Send a genuine compliment to someone.','CHA',20],
-['Visit a place nearby you have never explored.','WIS',25],
-['Make something just because you can.','CRE',25],
-['Put your phone away for one hour.','WIS',20],
-['Do one small thing you have been putting off.','DEX',25],
-['Listen to an album from start to finish.','CRE',20],
-['Write down three things you want your future self to have.','WIS',20]
+['Take a different route somewhere today.','WIS',20,'EXPLORE'],
+['Try a food or drink you have never had.','WIS',20,'EXPERIENCE'],
+['Spend 20 minutes outside without scrolling.','VIT',20,'RESET'],
+['Send a genuine compliment to someone.','CHA',20,'CONNECT'],
+['Visit a place nearby you have never explored.','WIS',25,'EXPLORE'],
+['Make something just because you can.','CRE',25,'CREATE'],
+['Put your phone away for one hour.','WIS',20,'RESET'],
+['Do one small thing you have been putting off.','DEX',25,'FOLLOW THROUGH'],
+['Listen to an album from start to finish.','CRE',20,'EXPERIENCE'],
+['Write down three things you want your future self to have.','WIS',20,'REFLECT'],
+['Ask someone a question you genuinely want the answer to.','CHA',20,'CONNECT'],
+['Go somewhere nearby at a time of day you normally never do.','WIS',25,'EXPLORE'],
+['Rearrange one part of your space so it feels better to be in.','DEX',20,'RESET'],
+['Take yourself somewhere simple and enjoy being there without rushing.','VIT',25,'EXPERIENCE'],
+['Write one sentence about something you are proud you survived.','WIS',25,'REFLECT']
 ];
 
 let notificationEnabled=
-localStorage.getItem(
-'senraiNotifications'
-)==='true';
+localStorage.getItem('senraiNotifications')==='true';
 
-let data=read(
-STORAGE.data,
-{
+let data=read(STORAGE.data,{
 level:1,
 xp:0,
 totalXP:0,
@@ -2495,7 +2100,6 @@ completedToday:0,
 todayXP:0,
 streak:0,
 lastActiveDate:null,
-
 stats:{
 STR:{progress:0},
 INT:{progress:0},
@@ -2505,40 +2109,23 @@ DEX:{progress:0},
 CRE:{progress:0},
 VIT:{progress:0}
 },
-
 completedQuestIds:[],
 dailyDate:today(),
-
 path:{
 current:'INITIATE',
 score:0,
 history:[]
 }
-}
-);
+});
 
-let custom=
-read(STORAGE.custom,[]);
-
-let history=
-read(STORAGE.history,[]);
-
-let objectives=
-read(STORAGE.objectives,[]);
-
-let profile=
-read(
-STORAGE.profile,
-{
+let custom=read(STORAGE.custom,[]),
+history=read(STORAGE.history,[]),
+objectives=read(STORAGE.objectives,[]),
+profile=read(STORAGE.profile,{
 name:'PLAYER',
 title:'INITIATE'
-}
-);
-
-let state=
-read(
-STORAGE.state,
-{
+}),
+state=read(STORAGE.state,{
 guidance:true,
 motion:false,
 lastRecommendationId:null,
@@ -2546,32 +2133,28 @@ lastRecommendationAt:0,
 shownRecommendationIds:[],
 acceptedRecommendationIds:[],
 dismissedRecommendationIds:[],
-activeLife:null
-}
-);
-
-let moments=
-read(
-STORAGE.moments,
-[]
-);
+activeLife:null,
+eventsSeen:[],
+unlocks:[],
+awakeningShown:false,
+lastLifeIndex:-1
+}),
+moments=read(STORAGE.moments,[]);
 
 let currentReflectionIndex=0;
 let currentObjectiveId=null;
 
 function migrate(){
 
-if(!data.path){
+if(!data.path)
 data.path={
 current:'INITIATE',
 score:0,
 history:[]
 };
-}
 
-if(!Array.isArray(data.path.history)){
+if(!Array.isArray(data.path.history))
 data.path.history=[];
-}
 
 if(!data.stats||typeof data.stats.STR==='number'){
 
@@ -2579,31 +2162,20 @@ const old=data.stats||{};
 
 data.stats={};
 
-Object.keys(STAT_NAMES)
-.forEach(
-s=>{
+Object.keys(STAT_NAMES).forEach(s=>
 data.stats[s]={
 progress:Number(old[s]||0)*10
-};
-}
-);
+});
 
 }
 
-Object.keys(STAT_NAMES)
-.forEach(
-s=>{
-if(!data.stats[s]){
-data.stats[s]={
-progress:0
-};
-}
-}
-);
+Object.keys(STAT_NAMES).forEach(s=>{
+if(!data.stats[s])
+data.stats[s]={progress:0};
+});
 
-if(!Array.isArray(data.completedQuestIds)){
+if(!Array.isArray(data.completedQuestIds))
 data.completedQuestIds=[];
-}
 
 if(!Array.isArray(custom))
 custom=[];
@@ -2616,6 +2188,15 @@ history=[];
 
 if(!Array.isArray(moments))
 moments=[];
+
+if(!Array.isArray(state.eventsSeen))
+state.eventsSeen=[];
+
+if(!Array.isArray(state.unlocks))
+state.unlocks=[];
+
+if(typeof state.lastLifeIndex!=='number')
+state.lastLifeIndex=-1;
 
 save(STORAGE.data,data);
 save(STORAGE.custom,custom);
@@ -2632,13 +2213,8 @@ function levelFromStatProgress(p){
 let level=1;
 let remaining=p;
 
-while(
-remaining>=statXPNeededForLevel(level)
-){
-
-remaining-=
-statXPNeededForLevel(level);
-
+while(remaining>=statXPNeededForLevel(level)){
+remaining-=statXPNeededForLevel(level);
 level++;
 }
 
@@ -2648,103 +2224,71 @@ remaining,
 need:statXPNeededForLevel(level),
 pct:Math.min(
 100,
-(remaining/
-statXPNeededForLevel(level))*100
+(remaining/statXPNeededForLevel(level))*100
 )
-};
+}
 }
 
-function addXP(
-amount,
-countToday=true
-){
+function addXP(amount,countToday=true){
+
+const previousLevel=data.level;
 
 data.totalXP+=amount;
 data.xp+=amount;
 
-while(
-data.xp>=
-xpNeededForLevel(
-data.level
-)
-){
+while(data.xp>=xpNeededForLevel(data.level)){
 
-data.xp-=
-xpNeededForLevel(
-data.level
-);
-
+data.xp-=xpNeededForLevel(data.level);
 data.level++;
 
-toast(
-'LEVEL UP — LEVEL '+
-data.level
-);
+toast('LEVEL UP — LEVEL '+data.level);
 }
 
 if(countToday)
 data.todayXP+=amount;
+
+if(data.level>previousLevel)
+checkUnlockEvents(previousLevel);
 }
 
-function addStat(
-stat,
-xp
-){
+function addStat(stat,xp){
 
-if(!data.stats[stat]){
-data.stats[stat]={
-progress:0
-};
-}
+if(!data.stats[stat])
+data.stats[stat]={progress:0};
 
 data.stats[stat].progress+=
-statGain[xp]||
-Math.max(
-5,
-Math.round(xp*.55)
-);
+statGain[xp]||Math.max(5,Math.round(xp*.55));
+}
+
+function activeDate(){
+return today();
 }
 
 function checkDailyReset(){
 
-if(
-data.dailyDate!==today()
-){
+if(data.dailyDate!==activeDate()){
 
-data.dailyDate=today();
+data.dailyDate=activeDate();
 data.completedToday=0;
 data.todayXP=0;
 
-save(
-STORAGE.data,
-data
-);
+save(STORAGE.data,data);
 }
-
 }
 
 function registerActivity(){
 
 const t=today();
 
-if(
-data.lastActiveDate!==t
-){
+if(data.lastActiveDate!==t){
 
 if(data.lastActiveDate){
 
-const prev=
-new Date(
-data.lastActiveDate
-);
-
-const now=
-new Date(t);
+const prev=new Date(data.lastActiveDate);
+const now=new Date(t);
 
 const diff=
-Math.round(
-(now-prev)/86400000
-);
+Math.round((now-prev)/86400000);
 
 data.streak=
 diff===1
@@ -2760,18 +2304,10 @@ data.streak=1;
 data.lastActiveDate=t;
 }
 
-save(
-STORAGE.data,
-data
-);
+save(STORAGE.data,data);
 }
 
-function record(
-title,
-xp,
-stat,
-source='QUEST'
-){
+function record(title,xp,stat,source='QUEST'){
 
 history.unshift({
 id:uid('h'),
@@ -2782,13 +2318,9 @@ source,
 date:new Date().toISOString()
 });
 
-history=
-history.slice(0,100);
+history=history.slice(0,100);
 
-save(
-STORAGE.history,
-history
-);
+save(STORAGE.history,history);
 }
 
 function completeReward({
@@ -2800,63 +2332,47 @@ source='QUEST',
 objectiveQuestId=null
 }){
 
-if(
-id&&
-data.completedQuestIds
-.includes(id)
-){
+if(id&&data.completedQuestIds.includes(id))
 return false;
-}
+
+const previousLevel=data.level;
 
 checkDailyReset();
 
-if(id){
+if(id)
 data.completedQuestIds.push(id);
-}
 
 data.completedToday++;
 
 addXP(xp);
+
 addStat(stat,xp);
+
 registerActivity();
 
-record(
-title,
-xp,
-stat,
-source
-);
+record(title,xp,stat,source);
 
-if(objectiveQuestId){
-markObjectiveQuest(
-objectiveQuestId
-);
-}
+if(objectiveQuestId)
+markObjectiveQuest(objectiveQuestId);
 
-save(
-STORAGE.data,
-data
-);
-
-save(
-STORAGE.history,
-history
-);
+save(STORAGE.data,data);
+save(STORAGE.history,history);
 
 checkAchievements();
+
 renderAll();
 
-toast(
-'QUEST COMPLETE  +'+
-xp+
-' XP'
-);
+checkUnlockEvents(previousLevel);
+
+if(data.completedQuestIds.length>=1)
+checkSystemEvents();
+
+toast('QUEST COMPLETE  +'+xp+' XP');
 
 if(
 notificationEnabled&&
 'Notification' in window&&
-Notification.permission===
-'granted'
+Notification.permission==='granted'
 ){
 
 try{
@@ -2864,11 +2380,7 @@ try{
 new Notification(
 'SENRAI — QUEST COMPLETE',
 {
-body:
-title+
-'  •  +'+
-xp+
-' XP'
+body:title+'  •  +'+xp+' XP'
 }
 );
 
@@ -2879,10 +2391,7 @@ xp+
 return true;
 }
 
-function objectiveTemplates(
-category,
-name
-){
+function objectiveTemplates(category,name){
 
 const short=
 name.length>35
@@ -2890,96 +2399,62 @@ name.length>35
 :name;
 
 const t={
-
 CAREER:[
-['PREPARE',
-'Get your materials, résumé, plan, or tools ready.'],
-['BUILD',
-'Complete a meaningful piece of work toward it.'],
-['EXECUTE',
-'Take the real-world action that moves it forward.']
+['PREPARE','Get your materials, résumé, plan, or tools ready.'],
+['BUILD','Complete a meaningful piece of work toward it.'],
+['EXECUTE','Take the real-world action that moves it forward.']
 ],
 
 LEARNING:[
-['FOUNDATION',
-'Build the basic knowledge needed to understand it.'],
-['PRACTICE',
-'Practice the skill instead of only consuming information.'],
-['PROVE IT',
-'Use the skill in a small real-world test.']
+['FOUNDATION','Build the basic knowledge needed to understand it.'],
+['PRACTICE','Practice the skill instead of only consuming information.'],
+['PROVE IT','Use the skill in a small real-world test.']
 ],
 
 FITNESS:[
-['FOUNDATION',
-'Set up a simple routine you can actually repeat.'],
-['CONSISTENCY',
-'Complete several sessions and make movement normal.'],
-['PROGRESS',
-'Increase the challenge or measure your improvement.']
+['FOUNDATION','Set up a simple routine you can actually repeat.'],
+['CONSISTENCY','Complete several sessions and make movement normal.'],
+['PROGRESS','Increase the challenge or measure your improvement.']
 ],
 
 FINANCE:[
-['ASSESS',
-'Understand where your money is going.'],
-['PLAN',
-'Choose one realistic financial action.'],
-['EXECUTE',
-'Complete the action and verify the result.']
+['ASSESS','Understand where your money is going.'],
+['PLAN','Choose one realistic financial action.'],
+['EXECUTE','Complete the action and verify the result.']
 ],
 
 HEALTH:[
-['PREPARE',
-'Remove one obstacle to taking care of yourself.'],
-['CONSISTENCY',
-'Repeat a healthy action enough to build momentum.'],
-['CHECK IN',
-'Review how you feel and adjust your approach.']
+['PREPARE','Remove one obstacle to taking care of yourself.'],
+['CONSISTENCY','Repeat a healthy action enough to build momentum.'],
+['CHECK IN','Review how you feel and adjust your approach.']
 ],
 
 CREATIVE:[
-['CONCEPT',
-'Define the idea and what finished means.'],
-['CREATE',
-'Make the thing without waiting for perfect.'],
-['FINISH',
-'Complete, polish, or share it.']
+['CONCEPT','Define the idea and what finished means.'],
+['CREATE','Make the thing without waiting for perfect.'],
+['FINISH','Complete, polish, or share it.']
 ],
 
 RELATIONSHIPS:[
-['REACH OUT',
-'Start the conversation or make the invitation.'],
-['NURTURE',
-'Follow through and give the relationship attention.'],
-['DEEPEN',
-'Create a meaningful shared experience.']
+['REACH OUT','Start the conversation or make the invitation.'],
+['NURTURE','Follow through and give the relationship attention.'],
+['DEEPEN','Create a meaningful shared experience.']
 ],
 
 PRODUCTIVITY:[
-['CLARIFY',
-'Decide exactly what done looks like.'],
-['BUILD MOMENTUM',
-'Complete the first focused block of work.'],
-['FINISH',
-'Close the loop instead of leaving it half-done.']
+['CLARIFY','Decide exactly what done looks like.'],
+['BUILD MOMENTUM','Complete the first focused block of work.'],
+['FINISH','Close the loop instead of leaving it half-done.']
 ],
 
 LIFE:[
-['EXPLORE',
-'Take the first step toward the experience.'],
-['EXPERIENCE',
-'Actually do the thing.'],
-['REFLECT',
-'Capture what you learned or how it felt.']
+['EXPLORE','Take the first step toward the experience.'],
+['EXPERIENCE','Actually do the thing.'],
+['REFLECT','Capture what you learned or how it felt.']
 ]
-
 };
 
-return(
-t[category]||
-t.LIFE
-)
-.map(
-(m,i)=>({
+return(t[category]||t.LIFE).map((m,i)=>({
 
 id:uid('milestone'),
 
@@ -2999,61 +2474,36 @@ name:[
 `Move ${short} forward`
 ][i],
 
-xp:[
-25,
-50,
-75
-][i],
+xp:[25,50,75][i],
 
-stat:[
-'WIS',
-'DEX',
-'WIS'
-][i],
+stat:['WIS','DEX','WIS'][i],
 
-difficulty:[
-'NORMAL',
-'HARD',
-'HARD'
-][i],
+difficulty:['NORMAL','HARD','HARD'][i],
 
 completed:false
 
 }]
 
-})
-);
+}));
+
 }
 
 function createObjective(){
 
 const name=
-document
-.getElementById('objName')
-.value
-.trim();
+document.getElementById('objName').value.trim();
 
-if(!name){
-return toast(
-'ENTER AN OBJECTIVE'
-);
-}
+if(!name)
+return toast('ENTER AN OBJECTIVE');
 
 const category=
-document
-.getElementById('objCategory')
-.value;
+document.getElementById('objCategory').value;
 
 const target=
-document
-.getElementById('objDate')
-.value;
+document.getElementById('objDate').value;
 
 const reason=
-document
-.getElementById('objReason')
-.value
-.trim();
+document.getElementById('objReason').value.trim();
 
 const o={
 id:uid('obj'),
@@ -3064,78 +2514,52 @@ reason,
 progress:0,
 completed:false,
 createdDate:today(),
-milestones:
-objectiveTemplates(
-category,
-name
-)
+milestones:objectiveTemplates(category,name)
 };
 
 objectives.unshift(o);
 
-save(
-STORAGE.objectives,
-objectives
-);
+save(STORAGE.objectives,objectives);
 
 closeModal();
+
 renderAll();
 
-toast(
-'OBJECTIVE CREATED'
-);
+toast('OBJECTIVE CREATED');
 }
 
-function markObjectiveQuest(
-qid
-){
+function markObjectiveQuest(qid){
 
-for(
-const o of objectives
-){
+for(const o of objectives){
 
-for(
-const m of o.milestones
-){
+for(const m of o.milestones){
 
-for(
-const q of m.quests
-){
+for(const q of m.quests){
 
 if(q.id===qid){
 
 q.completed=true;
 
 m.completed=
-m.quests.every(
-x=>x.completed
-);
-
-const all=
-o.milestones
-.flatMap(
-x=>x.quests
-);
-
-const done=
-all.filter(
-x=>x.completed
-).length;
+m.quests.every(x=>x.completed);
 
 o.progress=
 Math.round(
-done/
-all.length*
-100
+(
+o.milestones
+.flatMap(x=>x.quests)
+.filter(x=>x.completed)
+.length
+/
+o.milestones
+.flatMap(x=>x.quests)
+.length
+)*100
 );
 
-o.completed=
-o.progress===100;
+o.completed=o.progress===100;
 
-save(
-STORAGE.objectives,
-objectives
-);
+save(STORAGE.objectives,objectives);
 
 return;
 }
@@ -3148,67 +2572,41 @@ return;
 
 }
 
-function completePathQuest(
-oid,
-qid
-){
+function completePathQuest(oid,qid){
 
-const o=
-objectives.find(
-x=>x.id===oid
-);
+const o=objectives.find(x=>x.id===oid);
 
 if(!o)return;
 
 const q=
 o.milestones
-.flatMap(
-m=>m.quests
-)
-.find(
-x=>x.id===qid
-);
+.flatMap(m=>m.quests)
+.find(x=>x.id===qid);
 
 if(!q||q.completed)return;
 
 q.completed=true;
 
 const m=
-o.milestones.find(
-x=>
-x.quests.some(
-y=>y.id===qid
-)
-);
+o.milestones
+.find(x=>x.quests.some(y=>y.id===qid));
 
-if(m){
-
+if(m)
 m.completed=
-m.quests.every(
-x=>x.completed
-);
-
-}
+m.quests.every(x=>x.completed);
 
 const all=
-o.milestones
-.flatMap(
-x=>x.quests
-);
+o.milestones.flatMap(x=>x.quests);
 
 o.progress=
 Math.round(
-all.filter(
-x=>x.completed
-).length/
-all.length*
-100
+all.filter(x=>x.completed).length/all.length*100
 );
 
-o.completed=
-o.progress===100;
+o.completed=o.progress===100;
 
 addXP(q.xp);
+
 addStat(q.stat,q.xp);
 
 data.completedToday++;
@@ -3222,80 +2620,46 @@ q.stat,
 'OBJECTIVE PATH'
 );
 
-save(
-STORAGE.objectives,
-objectives
-);
-
-save(
-STORAGE.data,
-data
-);
+save(STORAGE.objectives,objectives);
+save(STORAGE.data,data);
 
 checkAchievements();
+
 renderAll();
 
-toast(
-'PATH PROGRESS  +'+
-q.xp+
-' XP'
-);
+toast('PATH PROGRESS  +'+q.xp+' XP');
 }
 
 function getActiveObjective(){
 
-return objectives.find(
-o=>!o.completed
-)||null;
+return objectives.find(o=>!o.completed)||null;
 
 }
 
 function nextObjectiveQuest(o){
 
-return o
-?o.milestones
-.flatMap(
-m=>m.quests
-)
-.find(
-q=>!q.completed
-)||null
-:null;
+if(!o)return null;
+
+return o.milestones
+.flatMap(m=>m.quests)
+.find(q=>!q.completed)||null;
 
 }
 
 function objectiveCard(o){
 
-const total=
-o.milestones
-.flatMap(
-m=>m.quests
-)
-.length;
-
-const done=
-o.milestones
-.flatMap(
-m=>m.quests
-)
-.filter(
-q=>q.completed
-)
-.length;
+const next=nextObjectiveQuest(o);
 
 return`
 
-<div
-class="path-card"
-style="margin-bottom:10px"
->
+<div class="path-card" style="margin-bottom:10px">
 
 <div class="path-header">
 
 <div>
 
 <div class="path-tag">
-${o.category} • OBJECTIVE
+${esc(o.category)}
 </div>
 
 <div class="path-title">
@@ -3303,113 +2667,59 @@ ${esc(o.name)}
 </div>
 
 <div class="path-reason">
-${esc(
-o.reason||
-'A goal worth moving toward.'
-)}
+${esc(o.reason||'Keep moving forward one action at a time.')}
 </div>
 
 </div>
 
 <div class="pill">
-${done}/${total}
+${o.progress}%
 </div>
 
 </div>
 
-<div
-class="objective-track"
-style="margin-top:14px"
->
-
-<div
-class="objective-fill"
-style="width:${o.progress}%"
-></div>
-
+<div class="objective-track" style="margin-top:14px">
+<div class="objective-fill"
+style="width:${o.progress}%;background:linear-gradient(90deg,#65a9ff,#a87cff)">
+</div>
 </div>
 
 <div class="objective-meta">
-
-<span>
-${o.progress}% COMPLETE
-</span>
-
-<span>
-${
-o.targetDate
-?esc(o.targetDate)
-:'NO DEADLINE'
-}
-</span>
-
+<span>${o.progress}% COMPLETE</span>
+<span>${o.completed?'COMPLETE':'IN PROGRESS'}</span>
 </div>
 
 <div class="button-row">
 
 <button
-onclick="viewObjective('${o.id}')"
 class="primary"
->
+onclick="viewObjective('${o.id}')">
 OPEN PATH
 </button>
 
-<button
-onclick="removeObjective('${o.id}')"
-class="danger"
->
-DELETE
-</button>
-
 </div>
 
 </div>
-
 `;
 }
 
 function viewObjective(id){
 
-currentObjectiveId=id;
-
-const o=
-objectives.find(
-x=>x.id===id
-);
+const o=objectives.find(x=>x.id===id);
 
 if(!o)return;
 
-document
-.getElementById(
-'objectivePathSection'
-)
-.classList
-.remove('hidden');
+currentObjectiveId=id;
 
-document
-.getElementById(
-'objectivePath'
-)
-.innerHTML=
-renderPath(o);
+document.getElementById('objectivePathSection')
+.classList.remove('hidden');
 
-document
-.getElementById(
-'objectivePathSection'
-)
-.scrollIntoView({
-behavior:'smooth'
-});
-}
-
-function renderPath(o){
-
-return`
+document.getElementById('objectivePath').innerHTML=`
 
 <div class="path-card">
 
 <div class="path-tag">
-${o.category} • MAIN PATH
+${esc(o.category)} • ${o.progress}% COMPLETE
 </div>
 
 <div class="path-title">
@@ -3417,59 +2727,32 @@ ${esc(o.name)}
 </div>
 
 <div class="path-reason">
-${esc(
-o.reason||
-'Keep moving forward. Skipping is allowed. There is no penalty.'
-)}
+${esc(o.reason||'Your path is built from small actions.')}
 </div>
 
-${
-o.milestones
-.map(
-(m,mi)=>`
+${o.milestones.map(m=>`
 
 <div class="milestone">
 
 <div class="milestone-head">
 
-<div>
-
 <div class="milestone-name">
-${mi+1}. ${esc(m.title)}
+${esc(m.title)}
+</div>
+
+<div class="milestone-status ${m.completed?'done':''}">
+${m.completed?'COMPLETE':'IN PROGRESS'}
+</div>
+
 </div>
 
 <div class="milestone-desc">
 ${esc(m.description)}
 </div>
 
-</div>
+${m.quests.map(q=>`
 
-<div
-class="milestone-status ${
-m.completed?'done':''
-}"
->
-
-${
-m.completed
-?'COMPLETE'
-:'ACTIVE'
-}
-
-</div>
-
-</div>
-
-${
-m.quests
-.map(
-q=>`
-
-<div
-class="path-quest ${
-q.completed?'done':''
-}"
->
+<div class="path-quest ${q.completed?'done':''}">
 
 <div>
 
@@ -3478,92 +2761,43 @@ ${esc(q.name)}
 </div>
 
 <div class="path-quest-meta">
-+${q.xp} XP • ${q.stat} • ${q.difficulty}
++${q.xp} XP • ${q.stat}
 </div>
 
 </div>
 
 <button
-class="small ${
-q.completed?'':'primary'
-}"
+class="small ${q.completed?'':'primary'}"
 ${q.completed?'disabled':''}
-onclick="
-completePathQuest(
-'${o.id}',
-'${q.id}'
-)
-"
->
-
-${
-q.completed
-?'DONE'
-:'COMPLETE'
-}
-
+onclick="completePathQuest('${o.id}','${q.id}')">
+${q.completed?'DONE':'DO IT'}
 </button>
 
 </div>
 
-`
-)
-.join('')
-}
+`).join('')}
 
 </div>
 
-`
-)
-.join('')
-}
+`).join('')}
 
 </div>
-
 `;
-}
 
-function removeObjective(id){
+document
+.getElementById('objectivePathSection')
+.scrollIntoView({
+behavior:'smooth'
+});
 
-if(
-!confirm(
-'Delete this objective?'
-)
-)return;
-
-objectives=
-objectives.filter(
-o=>o.id!==id
-);
-
-save(
-STORAGE.objectives,
-objectives
-);
-
-if(
-currentObjectiveId===id
-){
-closeObjectivePath();
-}
-
-renderAll();
-
-toast(
-'OBJECTIVE REMOVED'
-);
 }
 
 function closeObjectivePath(){
 
 document
-.getElementById(
-'objectivePathSection'
-)
-.classList
-.add('hidden');
+.getElementById('objectivePathSection')
+.classList.add('hidden');
 
-currentObjectiveId=null;
 }
 
 function openObjectiveForm(){
@@ -3582,7 +2816,8 @@ OBJECTIVE
 
 <input
 id="objName"
-placeholder="What do you want to make real?"
+maxlength="100"
+placeholder="What are you moving toward?"
 >
 
 </div>
@@ -3595,15 +2830,15 @@ CATEGORY
 
 <select id="objCategory">
 
-<option>CAREER</option>
-<option>LEARNING</option>
-<option>FITNESS</option>
-<option>FINANCE</option>
-<option>HEALTH</option>
-<option>CREATIVE</option>
-<option>RELATIONSHIPS</option>
-<option>PRODUCTIVITY</option>
-<option>LIFE</option>
+<option value="LIFE">LIFE</option>
+<option value="CAREER">CAREER</option>
+<option value="LEARNING">LEARNING</option>
+<option value="FITNESS">FITNESS</option>
+<option value="FINANCE">FINANCE</option>
+<option value="HEALTH">HEALTH</option>
+<option value="CREATIVE">CREATIVE</option>
+<option value="RELATIONSHIPS">RELATIONSHIPS</option>
+<option value="PRODUCTIVITY">PRODUCTIVITY</option>
 
 </select>
 
@@ -3615,10 +2850,7 @@ CATEGORY
 TARGET DATE
 </label>
 
-<input
-id="objDate"
-type="date"
->
+<input id="objDate" type="date">
 
 </div>
 
@@ -3640,16 +2872,11 @@ placeholder="Why is this worth doing?"
 
 <div class="button-row">
 
-<button
-class="primary"
-onclick="createObjective()"
->
+<button class="primary" onclick="createObjective()">
 CREATE OBJECTIVE
 </button>
 
-<button
-onclick="closeModal()"
->
+<button onclick="closeModal()">
 CANCEL
 </button>
 
@@ -3657,82 +2884,57 @@ CANCEL
 
 `
 );
+
 }
 
 function buildRecommendations(){
 
 const opts=[];
 
-const active=
-getActiveObjective();
+const active=getActiveObjective();
 
 if(active){
 
-const q=
-nextObjectiveQuest(active);
+const q=nextObjectiveQuest(active);
 
-if(q){
+if(q)
 
 opts.push({
 
 id:'objective_'+q.id,
 
-title:
-'YOUR MAIN PATH IS WAITING.',
+title:'YOUR MAIN PATH IS WAITING.',
 
 text:
 `You said ${active.name} matters. The next step is small on purpose: move the objective forward without needing to finish everything today.`,
 
 quest:q.name,
-
 xp:q.xp,
-
 stat:q.stat,
-
 source:'OBJECTIVE',
-
 objectiveId:active.id,
-
 objectiveQuestId:q.id
 
 });
 
 }
 
-}
-
 const recent=
 history.filter(
-h=>
-Date.now()-
-new Date(h.date).getTime()
-<
-7*86400000
+h=>Date.now()-new Date(h.date).getTime()<7*86400000
 );
 
 const counts={};
 
-Object.keys(
-STAT_NAMES
-).forEach(
-s=>
-counts[s]=
-recent.filter(
-h=>h.stat===s
-).length
+Object.keys(STAT_NAMES).forEach(s=>
+counts[s]=recent.filter(h=>h.stat===s).length
 );
 
 const weakest=
 Object.keys(counts)
-.sort(
-(a,b)=>
-counts[a]-
-counts[b]
-)[0];
+.sort((a,b)=>counts[a]-counts[b])[0];
 
-if(
-counts[weakest]<2
-){
+if(counts[weakest]<2)
 
 opts.push({
 
@@ -3746,12 +2948,8 @@ text:
 
 quest:{
 name:
-'Do one small '+
-STAT_NAMES[weakest].toLowerCase()+
-' action',
-
+'Do one small '+STAT_NAMES[weakest].toLowerCase()+' action',
 xp:20,
-
 stat:weakest
 },
 
@@ -3759,28 +2957,20 @@ source:'BALANCE'
 
 });
 
-}
-
-if(
-data.completedToday>=4
-){
+if(data.completedToday>=4)
 
 opts.push({
 
 id:'recovery',
 
-title:
-'MOMENTUM DOESN’T REQUIRE MORE GRIND.',
+title:'MOMENTUM DOESN’T REQUIRE MORE GRIND.',
 
 text:
 'You have already put in real work today. SENRAI recommends something restorative instead of stacking more pressure.',
 
 quest:{
-name:
-'Take 20 minutes to genuinely recharge',
-
+name:'Take 20 minutes to genuinely recharge',
 xp:20,
-
 stat:'VIT'
 },
 
@@ -3788,28 +2978,20 @@ source:'RECOVERY'
 
 });
 
-}
-
-if(
-data.streak>=3
-){
+if(data.streak>=3)
 
 opts.push({
 
 id:'streak_'+data.streak,
 
-title:
-'YOU ARE BUILDING MOMENTUM.',
+title:'YOU ARE BUILDING MOMENTUM.',
 
 text:
 `You have been active for ${data.streak} days. Keep the next action small enough that consistency stays easy.`,
 
 quest:{
-name:
-'Protect your momentum with one intentional action',
-
+name:'Protect your momentum with one intentional action',
 xp:20,
-
 stat:'WIS'
 },
 
@@ -3817,24 +2999,18 @@ source:'MOMENTUM'
 
 });
 
-}
-
 opts.push({
 
 id:'life_quality',
 
-title:
-'MAKE YOUR DAY A LITTLE BETTER.',
+title:'MAKE YOUR DAY A LITTLE BETTER.',
 
 text:
 'Not every quest needs to be productive. SENRAI also tracks actions that make life feel better.',
 
 quest:{
-name:
-'Do one small thing you genuinely enjoy',
-
+name:'Do one small thing you genuinely enjoy',
 xp:20,
-
 stat:'WIS'
 },
 
@@ -3843,14 +3019,12 @@ source:'LIFE'
 });
 
 return opts;
+
 }
 
-function chooseRecommendation(
-force=false
-){
+function chooseRecommendation(force=false){
 
-let opts=
-buildRecommendations();
+let opts=buildRecommendations();
 
 if(!opts.length)return null;
 
@@ -3858,109 +3032,70 @@ const now=Date.now();
 
 const cooldown=
 state.lastRecommendationAt&&
-now-state.lastRecommendationAt<
-86400000&&
+now-state.lastRecommendationAt<86400000&&
 !force;
 
 let filtered=
 opts.filter(
-o=>
-!state.dismissedRecommendationIds
-.includes(o.id)
+o=>!state.dismissedRecommendationIds.includes(o.id)
 );
 
 if(cooldown){
 
 const unseen=
 filtered.filter(
-o=>
-!state.shownRecommendationIds
-.includes(o.id)
+o=>!state.shownRecommendationIds.includes(o.id)
 );
 
-if(unseen.length){
+if(unseen.length)
 filtered=unseen;
-}
 
 }
 
-if(!filtered.length){
+if(!filtered.length)
 filtered=opts;
-}
 
 const choice=
-filtered[
-currentReflectionIndex%
-filtered.length
-];
+filtered[currentReflectionIndex%filtered.length];
 
 if(choice){
 
-state.lastRecommendationId=
-choice.id;
+state.lastRecommendationId=choice.id;
+state.lastRecommendationAt=now;
 
-state.lastRecommendationAt=
-now;
+if(!state.shownRecommendationIds.includes(choice.id))
+state.shownRecommendationIds.push(choice.id);
 
-if(
-!state.shownRecommendationIds
-.includes(choice.id)
-){
-
-state.shownRecommendationIds
-.push(choice.id);
-
-}
-
-save(
-STORAGE.state,
-state
-);
+save(STORAGE.state,state);
 
 }
 
 return choice;
+
 }
 
 let currentRecommendation=null;
 
-function renderReflection(
-force=false
-){
+function renderReflection(force=false){
 
 if(!state.guidance){
 
-document
-.getElementById(
-'reflectionTitle'
-)
+document.getElementById('reflectionTitle')
 .textContent=
 'SYSTEM GUIDANCE IS OFF.';
 
-document
-.getElementById(
-'reflectionText'
-)
+document.getElementById('reflectionText')
 .textContent=
 'You can still use every quest, objective, and stat manually.';
 
-document
-.getElementById(
-'reflectionSuggestion'
-)
+document.getElementById('reflectionSuggestion')
 .textContent=
 'Turn guidance back on in SETTINGS when you want adaptive recommendations.';
 
-document
-.getElementById(
-'reflectionReward'
-)
+document.getElementById('reflectionReward')
 .textContent='';
 
-document
-.getElementById(
-'acceptReflectionButton'
-)
+document.getElementById('acceptReflectionButton')
 .disabled=true;
 
 return;
@@ -3969,55 +3104,40 @@ return;
 currentRecommendation=
 chooseRecommendation(force);
 
-if(!currentRecommendation)return;
+if(!currentRecommendation)
+return;
 
-document
-.getElementById(
-'reflectionTitle'
-)
+document.getElementById('reflectionTitle')
 .textContent=
 currentRecommendation.title;
 
-document
-.getElementById(
-'reflectionText'
-)
+document.getElementById('reflectionText')
 .textContent=
 currentRecommendation.text;
 
-document
-.getElementById(
-'reflectionSuggestion'
-)
+document.getElementById('reflectionSuggestion')
 .textContent=
 currentRecommendation.quest.name;
 
-document
-.getElementById(
-'reflectionReward'
-)
+document.getElementById('reflectionReward')
 .textContent=
 '+'+
 currentRecommendation.quest.xp+
 ' XP • +'+
 currentRecommendation.quest.stat;
 
-document
-.getElementById(
-'acceptReflectionButton'
-)
+document.getElementById('acceptReflectionButton')
 .disabled=false;
+
 }
 
 function acceptReflection(){
 
 if(!currentRecommendation)return;
 
-const q=
-currentRecommendation.quest;
+const q=currentRecommendation.quest;
 
-const id=
-uid('rec');
+const id=uid('rec');
 
 custom.unshift({
 
@@ -4025,8 +3145,7 @@ id,
 
 name:q.name,
 
-desc:
-'Accepted from System Reflection.',
+desc:'Accepted from System Reflection.',
 
 type:'SIDE',
 
@@ -4046,39 +3165,28 @@ completed:false,
 source:'SYSTEM_RECOMMENDATION',
 
 objectiveId:
-currentRecommendation.objectiveId||
-null,
+currentRecommendation.objectiveId||null,
 
 objectiveQuestId:
-currentRecommendation.objectiveQuestId||
-null,
+currentRecommendation.objectiveQuestId||null,
 
 createdDate:today()
 
 });
 
-state.acceptedRecommendationIds
-.push(
+state.acceptedRecommendationIds.push(
 currentRecommendation.id
 );
 
-save(
-STORAGE.custom,
-custom
-);
-
-save(
-STORAGE.state,
-state
-);
+save(STORAGE.custom,custom);
+save(STORAGE.state,state);
 
 renderAll();
 
 showView('quests');
 
-toast(
-'QUEST ACCEPTED'
-);
+toast('QUEST ACCEPTED');
+
 }
 
 function renderDaily(){
@@ -4086,48 +3194,30 @@ function renderDaily(){
 checkDailyReset();
 
 const html=
-DAILY
-.map(
-q=>{
+DAILY.map(q=>{
 
 const done=
-data.completedQuestIds
-.includes(
+data.completedQuestIds.includes(
 q.id+'_'+data.dailyDate
 );
 
 return questHTML(
 {
 ...q,
-id:
-q.id+'_'+data.dailyDate
+id:q.id+'_'+data.dailyDate
 },
 done,
 true
 );
 
-}
-)
-.join('');
+}).join('');
 
-document
-.getElementById(
-'dailyQuests'
-)
-.innerHTML=html;
+document.getElementById('dailyQuests').innerHTML=html;
+document.getElementById('homeDailyQuests').innerHTML=html;
 
-document
-.getElementById(
-'homeDailyQuests'
-)
-.innerHTML=html;
 }
 
-function questHTML(
-q,
-done,
-compact=false
-){
+function questHTML(q,done,compact=false){
 
 const action=
 q.source
@@ -4136,11 +3226,7 @@ q.source
 
 return`
 
-<div
-class="quest ${
-done?'complete':''
-}"
->
+<div class="quest ${done?'complete':''}">
 
 <div class="quest-main">
 
@@ -4148,15 +3234,9 @@ done?'complete':''
 ${esc(q.name)}
 </div>
 
-${
-q.desc
-?`
-<div class="quest-desc">
-${esc(q.desc)}
-</div>
-`
-:''
-}
+${q.desc?
+`<div class="quest-desc">${esc(q.desc)}</div>`
+:''}
 
 <div class="quest-meta">
 
@@ -4168,51 +3248,28 @@ ${esc(q.desc)}
 ${q.stat}
 </span>
 
-${
-q.type
-?`
-<span class="pill ${
-q.type==='MAIN'
-?'main'
-:''
-}">
+${q.type?
+`<span class="pill ${q.type==='MAIN'?'main':''}">
 ${q.type}
-</span>
-`
-:''
-}
+</span>`
+:''}
 
 </div>
 
 </div>
 
 <button
-class="small ${
-done?'':'primary'
-}"
+class="small ${done?'':'primary'}"
 ${done?'disabled':''}
-onclick="
-${action}(
-'${q.id}',
-'${escAttr(q.name)}',
-${q.xp},
-'${q.stat}',
-'${q.objectiveQuestId||''}'
-)
-"
->
+onclick="${action}('${q.id}','${escAttr(q.name)}',${q.xp},'${q.stat}','${q.objectiveQuestId||''}')">
 
-${
-done
-?'DONE'
-:'COMPLETE'
-}
+${done?'DONE':'COMPLETE'}
 
 </button>
 
 </div>
-
 `;
+
 }
 
 function completeQuest(
@@ -4223,46 +3280,31 @@ stat,
 objectiveQuestId=''
 ){
 
-if(
-data.completedQuestIds
-.includes(id)
-)return;
+if(data.completedQuestIds.includes(id))
+return;
 
 completeReward({
-
 id,
 title:name,
 xp,
 stat,
-
 objectiveQuestId:
-objectiveQuestId||
-null
-
+objectiveQuestId||null
 });
+
 }
 
 function createCustomQuest(){
 
 const name=
-document
-.getElementById(
-'questNameInput'
-)
-.value
-.trim();
+document.getElementById('questNameInput')
+.value.trim();
 
-if(!name){
-return toast(
-'ENTER A QUEST NAME'
-);
-}
+if(!name)
+return toast('ENTER A QUEST NAME');
 
 const difficulty=
-document
-.getElementById(
-'questDifficultyInput'
-)
+document.getElementById('questDifficultyInput')
 .value;
 
 custom.unshift({
@@ -4272,27 +3314,17 @@ id:uid('quest'),
 name,
 
 desc:
-document
-.getElementById(
-'questDescInput'
-)
-.value
-.trim(),
+document.getElementById('questDescInput')
+.value.trim(),
 
 type:
-document
-.getElementById(
-'questTypeInput'
-)
+document.getElementById('questTypeInput')
 .value,
 
 difficulty,
 
 stat:
-document
-.getElementById(
-'questStatInput'
-)
+document.getElementById('questStatInput')
 .value,
 
 xp:
@@ -4306,79 +3338,52 @@ source:'CUSTOM'
 
 });
 
-save(
-STORAGE.custom,
-custom
-);
+save(STORAGE.custom,custom);
 
 [
 'questNameInput',
 'questDescInput'
-]
-.forEach(
-id=>
-document
-.getElementById(id)
-.value=''
+].forEach(id=>
+document.getElementById(id).value=''
 );
 
 renderCustom();
 
-toast(
-'QUEST CREATED'
-);
+toast('QUEST CREATED');
+
 }
 
 function renderCustom(){
 
-document
-.getElementById(
-'customQuestList'
-)
+document.getElementById('customQuestList')
 .innerHTML=
 custom.length
-?custom
-.map(
-q=>
-questHTML(
-q,
-q.completed
-)
-)
-.join('')
+?custom.map(q=>
+questHTML(q,q.completed)
+).join('')
+:
+`
+<div class="panel"
+style="padding:18px;color:var(--muted);font-size:9px;border-radius:18px">
 
-:`
+No custom quests yet.
+Create one when you want to define your own path.
 
-<div
-class="panel"
-style="
-padding:18px;
-color:var(--muted);
-font-size:9px;
-border-radius:18px
-"
->
-No custom quests yet. Create one when you want to define your own path.
 </div>
-
 `;
+
 }
 
 function completeCustom(id){
 
-const q=
-custom.find(
-x=>x.id===id
-);
+const q=custom.find(x=>x.id===id);
 
-if(!q||q.completed)return;
+if(!q||q.completed)
+return;
 
 q.completed=true;
 
-save(
-STORAGE.custom,
-custom
-);
+save(STORAGE.custom,custom);
 
 completeReward({
 
@@ -4390,75 +3395,65 @@ xp:q.xp,
 
 stat:q.stat,
 
-source:
-q.source||
-'CUSTOM',
+source:q.source||'CUSTOM',
 
 objectiveQuestId:
-q.objectiveQuestId||
-null
+q.objectiveQuestId||null
 
 });
+
 }
 
 function generateLife(){
 
-const x=
-LIFE[
-Math.floor(
-Math.random()*LIFE.length
+let index=
+Math.floor(Math.random()*LIFE.length);
+
+if(
+LIFE.length>1&&
+index===state.lastLifeIndex
 )
-];
+index=(index+1)%LIFE.length;
+
+state.lastLifeIndex=index;
+
+const x=LIFE[index];
 
 state.activeLife={
 text:x[0],
 stat:x[1],
-xp:x[2]
+xp:x[2],
+type:x[3]
 };
 
-save(
-STORAGE.state,
-state
-);
+save(STORAGE.state,state);
 
-document
-.getElementById(
-'lifeText'
-)
+document.getElementById('lifeText')
 .textContent=x[0];
 
-document
-.getElementById(
-'homeLifeText'
-)
+document.getElementById('homeLifeText')
 .textContent=x[0];
 
-document
-.getElementById(
-'completeLifeButton'
-)
+document.getElementById('completeLifeButton')
 .disabled=false;
 
-document
-.getElementById(
-'homeCompleteLife'
-)
+document.getElementById('homeCompleteLife')
 .disabled=false;
+
+toast('LIFE ENCOUNTER — '+x[3]);
+
 }
 
 function completeLife(){
 
-if(!state.activeLife)return;
+if(!state.activeLife)
+return;
 
-const q=
-state.activeLife;
+const q=state.activeLife;
 
 state.activeLife=null;
 
-save(
-STORAGE.state,
-state
-);
+save(STORAGE.state,state);
 
 completeReward({
 
@@ -4474,17 +3469,12 @@ source:'LIFE QUEST'
 
 });
 
-document
-.getElementById(
-'completeLifeButton'
-)
+document.getElementById('completeLifeButton')
 .disabled=true;
 
-document
-.getElementById(
-'homeCompleteLife'
-)
+document.getElementById('homeCompleteLife')
 .disabled=true;
+
 }
 
 function completeSide(){
@@ -4493,21 +3483,19 @@ completeReward({
 
 id:uid('side'),
 
-title:
-"Call someone you haven't talked to recently",
+title:"Call someone you haven't talked to recently",
 
 xp:20,
 
 stat:'CHA',
 
 source:'SIDE QUEST'
+
 });
 
-document
-.getElementById(
-'sideQuestButton'
-)
+document.getElementById('sideQuestButton')
 .disabled=true;
+
 }
 
 const ACH=[
@@ -4519,10 +3507,7 @@ name:'FIRST STEP',
 desc:'Complete your first quest.',
 reward:25,
 check:d=>d.totalXP>0,
-progress:d=>Math.min(
-1,
-d.totalXP
-)
+progress:d=>Math.min(1,d.totalXP)
 },
 
 {
@@ -4531,13 +3516,8 @@ icon:'◆',
 name:'GETTING STARTED',
 desc:'Complete 10 quests.',
 reward:50,
-check:d=>
-d.completedQuestIds.length>=10,
-progress:d=>
-Math.min(
-10,
-d.completedQuestIds.length
-)
+check:d=>d.completedQuestIds.length>=10,
+progress:d=>Math.min(10,d.completedQuestIds.length)
 },
 
 {
@@ -4547,8 +3527,7 @@ name:'RISING',
 desc:'Reach level 5.',
 reward:100,
 check:d=>d.level>=5,
-progress:d=>
-Math.min(5,d.level)
+progress:d=>Math.min(5,d.level)
 },
 
 {
@@ -4558,11 +3537,7 @@ name:'CONSISTENT',
 desc:'Reach a 7-day active streak.',
 reward:100,
 check:d=>d.streak>=7,
-progress:d=>
-Math.min(
-7,
-d.streak
-)
+progress:d=>Math.min(7,d.streak)
 },
 
 {
@@ -4572,11 +3547,7 @@ name:'BUILDER',
 desc:'Earn 1,000 total XP.',
 reward:150,
 check:d=>d.totalXP>=1000,
-progress:d=>
-Math.min(
-1000,
-d.totalXP
-)
+progress:d=>Math.min(1000,d.totalXP)
 },
 
 {
@@ -4585,14 +3556,8 @@ icon:'◎',
 name:'PATHFINDER',
 desc:'Complete an objective.',
 reward:200,
-check:d=>
-objectives.some(
-o=>o.completed
-),
-progress:d=>
-objectives.filter(
-o=>o.completed
-).length
+check:d=>objectives.some(o=>o.completed),
+progress:d=>objectives.filter(o=>o.completed).length
 },
 
 {
@@ -4604,71 +3569,118 @@ reward:200,
 check:d=>
 Object.keys(STAT_NAMES)
 .every(
-s=>
-levelFromStatProgress(
+s=>levelFromStatProgress(
 d.stats[s].progress
 ).level>=2
 ),
 progress:d=>
 Object.keys(STAT_NAMES)
 .filter(
-s=>
-levelFromStatProgress(
+s=>levelFromStatProgress(
 d.stats[s].progress
 ).level>=2
 ).length
+},
+
+{
+id:'first_life',
+icon:'☾',
+name:'STEP OUTSIDE',
+desc:'Complete your first Life quest.',
+reward:40,
+check:d=>
+history.some(
+h=>h.source==='LIFE QUEST'
+),
+progress:d=>
+history.some(
+h=>h.source==='LIFE QUEST'
+)?1:0
+},
+
+{
+id:'five_life',
+icon:'✦',
+name:'OPEN HORIZONS',
+desc:'Complete 5 Life quests.',
+reward:100,
+check:d=>
+history.filter(
+h=>h.source==='LIFE QUEST'
+).length>=5,
+progress:d=>
+Math.min(
+5,
+history.filter(
+h=>h.source==='LIFE QUEST'
+).length
+)
+},
+
+{
+id:'first_moment',
+icon:'◌',
+name:'REMEMBER THIS',
+desc:'Save your first Moment.',
+reward:35,
+check:d=>moments.length>=1,
+progress:d=>Math.min(1,moments.length)
+},
+
+{
+id:'ten_moments',
+icon:'◉',
+name:'KEEPING RECORD',
+desc:'Save 10 Moments.',
+reward:100,
+check:d=>moments.length>=10,
+progress:d=>Math.min(10,moments.length)
+},
+
+{
+id:'awakening',
+icon:'✧',
+name:'AWAKENING',
+desc:'Complete 10 actions and discover your first System shift.',
+reward:150,
+check:d=>d.completedQuestIds.length>=10,
+progress:d=>Math.min(10,d.completedQuestIds.length)
 }
 
 ];
 
 let unlocked=
-read(
-STORAGE.achievements,
-{}
-);
+read(STORAGE.achievements,{});
 
 function checkAchievements(){
 
 let changed=false;
 
-ACH.forEach(
-a=>{
+ACH.forEach(a=>{
 
-if(
-a.check(data)&&
-!unlocked[a.id]
-){
+if(a.check(data)&&!unlocked[a.id]){
 
 unlocked[a.id]=true;
 
-data.totalXP+=
-a.reward;
+data.totalXP+=a.reward;
 
 changed=true;
 
 toast(
-'ACHIEVEMENT — '+
-a.name
+'ACHIEVEMENT — '+a.name
 );
 
 }
 
-}
-);
+});
 
 if(changed){
 
-save(
-STORAGE.achievements,
-unlocked
-);
-
-save(
-STORAGE.data,
-data
-);
+save(STORAGE.achievements,unlocked);
+save(STORAGE.data,data);
 
 }
+
 }
 
 const TITLES=[
@@ -4682,8 +3694,7 @@ d=>d.level>=1
 [
 'EXPLORER',
 'Complete 5 quests',
-d=>
-d.completedQuestIds.length>=5
+d=>d.completedQuestIds.length>=5
 ],
 
 [
@@ -4701,10 +3712,7 @@ d=>d.totalXP>=1000
 [
 'PATHFINDER',
 'Complete an objective',
-d=>
-objectives.some(
-o=>o.completed
-)
+d=>objectives.some(o=>o.completed)
 ],
 
 [
@@ -4713,12 +3721,10 @@ o=>o.completed
 d=>
 Object.keys(STAT_NAMES)
 .every(
-s=>
-levelFromStatProgress(
+s=>levelFromStatProgress(
 d.stats[s].progress
 ).level>=2
 )
-
 ]
 
 ];
@@ -4727,62 +3733,44 @@ const PATH_PROFILES={
 
 INITIATE:{
 name:'INITIATE',
-desc:'Your direction is still forming. SENRAI is learning from what you actually do.',
-tags:[
-'BEGINNING',
-'DISCOVERY',
-'POTENTIAL'
-]
+desc:
+'Your direction is still forming. SENRAI is learning from what you actually do.',
+tags:['BEGINNING','DISCOVERY','POTENTIAL']
 },
 
 BUILDER:{
 name:'BUILDER',
-desc:'You tend to create, finish, organize, and turn ideas into something real.',
-tags:[
-'CREATION',
-'EXECUTION',
-'PROGRESS'
-]
+desc:
+'You tend to create, finish, organize, and turn ideas into something real.',
+tags:['CREATION','EXECUTION','PROGRESS']
 },
 
 EXPLORER:{
 name:'EXPLORER',
-desc:'You tend to seek experiences, novelty, perspective, and things outside your normal routine.',
-tags:[
-'CURIOSITY',
-'EXPERIENCE',
-'DISCOVERY'
-]
+desc:
+'You tend to seek experiences, novelty, perspective, and things outside your normal routine.',
+tags:['CURIOSITY','EXPERIENCE','DISCOVERY']
 },
 
 SEEKER:{
 name:'SEEKER',
-desc:'You tend to learn, reflect, question, and look beneath the surface.',
-tags:[
-'LEARNING',
-'REFLECTION',
-'UNDERSTANDING'
-]
+desc:
+'You tend to learn, reflect, question, and look beneath the surface.',
+tags:['LEARNING','REFLECTION','UNDERSTANDING']
 },
 
 CONNECTOR:{
 name:'CONNECTOR',
-desc:'You tend to invest in people, communication, trust, and shared experiences.',
-tags:[
-'PEOPLE',
-'COMMUNICATION',
-'RELATIONSHIPS'
-]
+desc:
+'You tend to invest in people, communication, trust, and shared experiences.',
+tags:['PEOPLE','COMMUNICATION','RELATIONSHIPS']
 },
 
 DISCIPLINED:{
 name:'DISCIPLINED',
-desc:'You tend to return, follow through, and turn intention into action.',
-tags:[
-'CONSISTENCY',
-'ACTION',
-'FOLLOW THROUGH'
-]
+desc:
+'You tend to return, follow through, and turn intention into action.',
+tags:['CONSISTENCY','ACTION','FOLLOW THROUGH']
 }
 
 };
@@ -4806,10 +3794,8 @@ CONNECTOR:0,
 DISCIPLINED:0
 };
 
-Object
-.entries(data.stats)
-.forEach(
-([s,v])=>{
+Object.entries(data.stats)
+.forEach(([s,v])=>{
 
 const level=
 levelFromStatProgress(
@@ -4817,64 +3803,28 @@ v.progress
 ).level;
 
 const weights={
-
-STR:{
-DISCIPLINED:2
-},
-
-INT:{
-SEEKER:3,
-EXPLORER:1
-},
-
-WIS:{
-SEEKER:3,
-EXPLORER:2
-},
-
-CHA:{
-CONNECTOR:4,
-EXPLORER:1
-},
-
-DEX:{
-BUILDER:4,
-DISCIPLINED:2
-},
-
-CRE:{
-BUILDER:4,
-EXPLORER:2,
-SEEKER:1
-},
-
-VIT:{
-DISCIPLINED:3
-}
-
+STR:{DISCIPLINED:2},
+INT:{SEEKER:3,EXPLORER:1},
+WIS:{SEEKER:3,EXPLORER:2},
+CHA:{CONNECTOR:4,EXPLORER:1},
+DEX:{BUILDER:4,DISCIPLINED:2},
+CRE:{BUILDER:4,EXPLORER:2,SEEKER:1},
+VIT:{DISCIPLINED:3}
 }[s]||{};
 
-Object
-.entries(weights)
-.forEach(
-([path,weight])=>
+Object.entries(weights)
+.forEach(([path,weight])=>
 scores[path]+=level*weight
 );
 
-}
-);
+});
 
 const recent=
 history.slice(0,30);
 
 scores.BUILDER+=
 recent.filter(
-h=>
-[
-'QUEST',
-'CUSTOM',
-'OBJECTIVE PATH'
-]
+h=>['QUEST','CUSTOM','OBJECTIVE PATH']
 .includes(h.source)
 ).length*1.5;
 
@@ -4890,31 +3840,28 @@ h=>h.stat==='CHA'
 
 scores.SEEKER+=
 recent.filter(
-h=>
-h.stat==='INT'||
-h.stat==='WIS'
+h=>h.stat==='INT'||h.stat==='WIS'
 ).length*1.5;
 
 scores.DISCIPLINED+=
-Math.min(
-20,
-data.streak*2
-);
+Math.min(20,data.streak*2);
 
 let best='BUILDER';
+
 let bestScore=
 scores.BUILDER;
 
-Object
-.entries(scores)
-.forEach(
-([id,score])=>{
+Object.entries(scores)
+.forEach(([id,score])=>{
+
 if(score>bestScore){
+
 best=id;
 bestScore=score;
+
 }
-}
-);
+
+});
 
 const max=
 Math.max(
@@ -4924,13 +3871,15 @@ Math.max(
 
 return{
 id:best,
-score:Math.min(
+score:
+Math.min(
 100,
 Math.round(
 (bestScore/max)*100
 )
 )
 };
+
 }
 
 function updatePath(){
@@ -4947,20 +3896,10 @@ result.id;
 data.path.score=
 result.score;
 
-if(
-!data.path.history
-.includes(result.id)
-){
+if(!data.path.history.includes(result.id))
+data.path.history.push(result.id);
 
-data.path.history
-.push(result.id);
-
-}
-
-save(
-STORAGE.data,
-data
-);
+save(STORAGE.data,data);
 
 if(
 previous&&
@@ -4969,68 +3908,37 @@ previous!==result.id&&
 result.id!=='INITIATE'
 ){
 
-setTimeout(
-()=>openModal(
+setTimeout(()=>{
+
+openModal(
 'PATH SHIFT',
-
 `
-<div
-style="
-text-align:center;
-padding:12px
-"
->
+<div style="text-align:center;padding:12px">
 
-<div
-style="
-font-size:28px;
-color:#a87cff
-"
->
+<div style="font-size:28px;color:#a87cff">
 ✦
 </div>
 
-<div
-style="
-font-size:20px;
-font-weight:900;
-margin-top:10px
-"
->
+<div style="font-size:20px;font-weight:900;margin-top:10px">
 YOUR DIRECTION IS CHANGING
 </div>
 
-<div
-style="
-color:#7d8694;
-margin-top:10px
-"
->
+<div style="color:#7d8694;margin-top:10px">
 Your recent actions are pulling your Path in a different direction.
 </div>
 
-<div
-style="
-color:#69e2dc;
-font-size:8px;
-letter-spacing:2px;
-margin-top:16px
-"
->
-${esc(
-PATH_PROFILES[
-result.id
-].name
-)}
+<div style="color:#69e2dc;font-size:8px;letter-spacing:2px;margin-top:16px">
+${esc(PATH_PROFILES[result.id].name)}
 </div>
 
 </div>
-`
-),
-300
+`,
 );
 
+},300);
+
 }
+
 }
 
 function renderPathHome(){
@@ -5038,27 +3946,19 @@ function renderPathHome(){
 updatePath();
 
 const path=
-PATH_PROFILES[
-data.path.current
-]||
+PATH_PROFILES[data.path.current]||
 PATH_PROFILES.INITIATE;
 
 const forming=
 data.completedQuestIds.length<10;
 
-document
-.getElementById(
-'pathStatusLabel'
-)
+document.getElementById('pathStatusLabel')
 .textContent=
 forming
 ?'FORMING'
 :'DEVELOPING';
 
-document
-.getElementById(
-'homePathCard'
-)
+document.getElementById('homePathCard')
 .innerHTML=`
 
 <div class="path-header">
@@ -5066,11 +3966,7 @@ document
 <div>
 
 <div class="path-tag">
-${
-forming
-?'DIRECTION FORMING'
-:'CURRENT DIRECTION'
-}
+${forming?'DIRECTION FORMING':'CURRENT DIRECTION'}
 </div>
 
 <div class="path-title">
@@ -5089,83 +3985,319 @@ ${data.path.score}%
 
 </div>
 
-<div
-class="objective-track"
-style="margin-top:14px"
->
+<div class="objective-track" style="margin-top:14px">
 
 <div
 class="objective-fill"
 style="
 width:${data.path.score}%;
-background:
-linear-gradient(
-90deg,
-#65a9ff,
-#a87cff
-)
-"
-></div>
+background:linear-gradient(90deg,#65a9ff,#a87cff)
+">
+</div>
 
 </div>
 
-<div
-class="path-tags"
-style="
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-margin-top:12px
-"
->
+<div class="path-tags">
 
-${
-path.tags
-.map(
-t=>
+${path.tags.map(t=>
 `<span class="pill">${t}</span>`
-)
-.join('')
-}
+).join('')}
 
 </div>
 
 ${
 forming
-?`
-<div
-style="
-color:#596272;
-font-size:8px;
-margin-top:12px
-"
->
+?
+`
+<div style="color:#596272;font-size:8px;margin-top:12px">
+
 SENRAI is still learning from you.
-Complete ${
-Math.max(
+Complete ${Math.max(
 0,
-10-
-data.completedQuestIds.length
-)
-}
-more actions and your direction will begin to emerge.
+10-data.completedQuestIds.length
+)} more actions and your direction will begin to emerge.
+
 </div>
 `
-:`
-<div
-style="
-color:#596272;
-font-size:8px;
-margin-top:12px
-"
->
+:
+`
+<div style="color:#596272;font-size:8px;margin-top:12px">
+
 Your Path can change as you change.
 Nothing here locks you into an identity.
+
 </div>
 `
 }
 
 `;
+
+}
+
+const UNLOCKS=[
+
+{
+level:2,
+name:'DEEPER REFLECTION',
+desc:
+'Adaptive recommendations begin responding more strongly to your recent behavior.'
+},
+
+{
+level:3,
+name:'LIFE ENCOUNTERS',
+desc:
+'More varied real-world encounters become available.'
+},
+
+{
+level:5,
+name:'SYSTEM EVENTS',
+desc:
+'Milestones can trigger rare System Events.'
+},
+
+{
+level:7,
+name:'HIDDEN DISCOVERIES',
+desc:
+'Additional achievements and discoveries begin to surface.'
+},
+
+{
+level:10,
+name:'FULL SYSTEM',
+desc:
+'Your progression identity becomes significantly more defined.'
+}
+
+];
+
+function unlockedLevel(level){
+return data.level>=level;
+}
+
+function renderUnlocks(){
+
+const el=
+document.getElementById('homeUnlockGrid');
+
+if(!el)return;
+
+el.innerHTML=
+UNLOCKS.map(u=>`
+
+<div class="unlock-card">
+
+<div class="unlock-level">
+LEVEL ${u.level}
+</div>
+
+<div class="unlock-name">
+${u.name}
+</div>
+
+<div class="unlock-desc">
+${u.desc}
+</div>
+
+<div class="system-chip ${unlockedLevel(u.level)?'active':''}">
+${unlockedLevel(u.level)?'✓ UNLOCKED':'LOCKED'}
+</div>
+
+</div>
+
+`).join('');
+
+}
+
+function eventData(){
+
+const completed=
+data.completedQuestIds.length;
+
+if(data.level>=10)
+
+return{
+id:'full_system',
+title:'THE SYSTEM IS LISTENING.',
+text:
+'You have built enough history for SENRAI to recognize a real pattern in the way you move. Your next chapter is not a preset class. It is being written by your actions.'
+};
+
+if(completed>=10)
+
+return{
+id:'awakening',
+title:'A PATTERN HAS EMERGED.',
+text:
+'SENRAI has enough information to see that your direction is no longer random. Your Path is beginning to reflect the person your actions are becoming.'
+};
+
+if(data.streak>=7)
+
+return{
+id:'streak7',
+title:'CONSISTENCY HAS WEIGHT.',
+text:
+'Seven active days changes the shape of a habit. You do not need to be perfect. You only need to keep returning.'
+};
+
+if(data.level>=5)
+
+return{
+id:'level5',
+title:'THE SYSTEM IS RESPONDING.',
+text:
+'Your progress has reached a threshold. From here, SENRAI will surface rarer events and more meaningful discoveries.'
+};
+
+if(data.level>=3)
+
+return{
+id:'level3',
+title:'YOUR WORLD IS GETTING BIGGER.',
+text:
+'You have enough progress for SENRAI to open more Life encounters. Progress does not have to happen inside the app.'
+};
+
+if(completed>=1)
+
+return{
+id:'first_action',
+title:'SYSTEM CONNECTION ESTABLISHED.',
+text:
+'Your first action is recorded. SENRAI will use what you actually do—not what you promise—to shape future guidance.'
+};
+
+return{
+id:'system_ready',
+title:'THE SYSTEM IS AWAKE.',
+text:
+'There is nothing you need to prove. Start small. Do something that makes your life better.'
+};
+
+}
+
+function showSystemEvent(force=false){
+
+const e=
+eventData();
+
+if(
+!force&&
+state.eventsSeen.includes(e.id)
+)
+return false;
+
+openModal(
+'SYSTEM EVENT',
+`
+<div class="system-event-card event-glow">
+
+<div class="event-kicker">
+${e.id==='awakening'?'DISCOVERY':'SYSTEM EVENT'}
+</div>
+
+<div class="event-title">
+${e.title}
+</div>
+
+<div class="event-text">
+${e.text}
+</div>
+
+<div class="system-chip active">
+✦ SENRAI
+</div>
+
+</div>
+`
+);
+
+if(!state.eventsSeen.includes(e.id)){
+
+state.eventsSeen.push(e.id);
+
+save(STORAGE.state,state);
+
+}
+
+return true;
+
+}
+
+function checkSystemEvents(){
+
+const e=
+eventData();
+
+if(!state.eventsSeen.includes(e.id)){
+
+setTimeout(
+()=>showSystemEvent(false),
+350
+);
+
+return true;
+
+}
+
+return false;
+
+}
+
+function checkUnlockEvents(previousLevel){
+
+if(data.level>previousLevel){
+
+const hit=
+UNLOCKS.filter(
+u=>u.level>previousLevel&&u.level<=data.level
+);
+
+if(hit.length){
+
+const u=
+hit[hit.length-1];
+
+setTimeout(()=>{
+
+openModal(
+'SYSTEM UNLOCK',
+`
+<div style="text-align:center;padding:10px">
+
+<div style="font-size:30px;color:#69e2dc">
+✦
+</div>
+
+<div style="font-size:19px;font-weight:900;margin-top:10px">
+${u.name}
+</div>
+
+<div style="color:#7d8694;font-size:10px;line-height:1.6;margin-top:8px">
+${u.desc}
+</div>
+
+<div class="system-chip active">
+LEVEL ${u.level} UNLOCKED
+</div>
+
+</div>
+`
+);
+
+},250);
+
+return true;
+
+}
+
+}
+
+return false;
+
 }
 
 function currentTitle(){
@@ -5176,9 +4308,7 @@ t=>t[2](data)
 );
 
 return eligible.length
-?eligible[
-eligible.length-1
-][0]
+?eligible[eligible.length-1][0]
 :'INITIATE';
 
 }
@@ -5186,14 +4316,11 @@ eligible.length-1
 function renderStats(){
 
 const c=
-document.getElementById(
-'statsGrid'
-);
+document.getElementById('statsGrid');
 
 c.innerHTML=
 Object.keys(STAT_NAMES)
-.map(
-s=>{
+.map(s=>{
 
 const x=
 levelFromStatProgress(
@@ -5224,8 +4351,8 @@ ${STAT_NOTES[s]}
 
 <div
 class="stat-fill ${s.toLowerCase()}"
-style="width:${x.pct}%"
-></div>
+style="width:${x.pct}%">
+</div>
 
 </div>
 
@@ -5245,9 +4372,9 @@ LVL ${x.level+1}
 
 `;
 
-}
-)
+})
 .join('');
+
 }
 
 function weekKey(){
@@ -5261,16 +4388,16 @@ d.getFullYear(),
 1
 );
 
-return(
-d.getFullYear()+
+return d.getFullYear()+
 '-W'+
 Math.ceil(
 (
-((d-one)/86400000)+
+(
+(d-one)/86400000
+)+
 one.getDay()+
 1
 )/7
-)
 );
 
 }
@@ -5280,15 +4407,9 @@ function buildWeekly(){
 const key=weekKey();
 
 let w=
-read(
-STORAGE.weekly,
-null
-);
+read(STORAGE.weekly,null);
 
-if(
-!w||
-w.key!==key
-){
+if(!w||w.key!==key){
 
 w={
 key,
@@ -5325,69 +4446,52 @@ xp:125
 ]
 };
 
-save(
-STORAGE.weekly,
-w
-);
+save(STORAGE.weekly,w);
 
 }
 
 return w;
+
 }
 
 function renderWeekly(){
 
-const w=
-buildWeekly();
+const w=buildWeekly();
 
-if(
-!Array.isArray(w.claimed)
-)
+if(!Array.isArray(w.claimed))
 w.claimed=[];
 
 const statSet=
 new Set(
 history
 .filter(
-h=>
-new Date(h.date)>=
-startOfWeek()
+h=>new Date(h.date)>=startOfWeek()
 )
-.map(
-h=>h.stat
-)
+.map(h=>h.stat)
 );
 
 w.missions[0].progress=
 Math.min(
 5,
 history.filter(
-h=>
-new Date(h.date)>=
-startOfWeek()
+h=>new Date(h.date)>=startOfWeek()
 ).length
 );
 
 w.missions[1].progress=
-Math.min(
-3,
-statSet.size
-);
+Math.min(3,statSet.size);
 
 w.missions[2].progress=
 Math.min(
 1,
 history.filter(
 h=>
-h.source===
-'OBJECTIVE PATH'&&
-new Date(h.date)>=
-startOfWeek()
+h.source==='OBJECTIVE PATH'&&
+new Date(h.date)>=startOfWeek()
 ).length
 );
 
-w.missions.forEach(
-m=>{
+w.missions.forEach(m=>{
 
 if(
 m.progress>=m.target&&
@@ -5407,32 +4511,15 @@ m.xp,
 
 }
 
-}
-);
+});
 
-save(
-STORAGE.weekly,
-w
-);
+save(STORAGE.weekly,w);
+save(STORAGE.data,data);
+save(STORAGE.history,history);
 
-save(
-STORAGE.data,
-data
-);
-
-save(
-STORAGE.history,
-history
-);
-
-document
-.getElementById(
-'weeklyGrid'
-)
+document.getElementById('weeklyGrid')
 .innerHTML=
-w.missions
-.map(
-m=>`
+w.missions.map(m=>`
 
 <div class="week-card">
 
@@ -5456,17 +4543,11 @@ ${m.desc}
 
 <div
 class="week-fill"
-style="
-width:${
-Math.min(
+style="width:${Math.min(
 100,
-m.progress/
-m.target*
-100
-)
-}%
-"
-></div>
+m.progress/m.target*100
+)}%">
+</div>
 
 </div>
 
@@ -5477,25 +4558,21 @@ ${m.progress} / ${m.target}
 </span>
 
 <span>
-${
-m.progress>=m.target
-?'COMPLETE'
-:'IN PROGRESS'
-}
+${m.progress>=m.target?'COMPLETE':'IN PROGRESS'}
 </span>
 
 </div>
 
 </div>
 
-`
-)
-.join('');
+`).join('');
+
 }
 
 function startOfWeek(){
 
 const d=new Date();
+
 const day=d.getDay();
 
 const diff=
@@ -5503,39 +4580,25 @@ day===0
 ?-6
 :1-day;
 
-const x=
-new Date(d);
+const x=new Date(d);
 
-x.setDate(
-d.getDate()+diff
-);
+x.setDate(d.getDate()+diff);
 
-x.setHours(
-0,
-0,
-0,
-0
-);
+x.setHours(0,0,0,0);
 
 return x;
+
 }
 
 function renderAchievements(){
 
-document
-.getElementById(
-'achievementGrid'
-)
+document.getElementById('achievementGrid')
 .innerHTML=
-ACH
-.map(
-a=>{
+ACH.map(a=>{
 
-const ok=
-!!unlocked[a.id];
+const ok=!!unlocked[a.id];
 
-const p=
-a.progress(data);
+const p=a.progress(data);
 
 const target=
 a.id==='first'
@@ -5550,26 +4613,28 @@ a.id==='first'
 ?1000
 :a.id==='objective'
 ?1
-:7;
+:a.id==='balanced'
+?7
+:a.id==='first_life'
+?1
+:a.id==='five_life'
+?5
+:a.id==='first_moment'
+?1
+:a.id==='ten_moments'
+?10
+:10;
 
 return`
 
-<div
-class="achievement ${
-ok?'unlocked':'locked'
-}"
->
+<div class="achievement ${ok?'unlocked':'locked'}">
 
 <div class="achievement-icon">
 ${a.icon}
 </div>
 
 <div class="achievement-status">
-${
-ok
-?'UNLOCKED'
-:'LOCKED'
-}
+${ok?'UNLOCKED':'LOCKED'}
 </div>
 
 <div class="achievement-title">
@@ -5586,16 +4651,11 @@ ${a.desc}
 
 <div class="achievement-progress">
 
-<div
-style="
-width:${
-Math.min(
+<div style="width:${Math.min(
 100,
 p/target*100
-)
-}%
-"
-></div>
+)}%">
+</div>
 
 </div>
 
@@ -5603,24 +4663,17 @@ p/target*100
 
 `;
 
-}
-)
-.join('');
+}).join('');
+
 }
 
 function renderTitles(){
 
-const cur=
-currentTitle();
+const cur=currentTitle();
 
-document
-.getElementById(
-'titlesGrid'
-)
+document.getElementById('titlesGrid')
 .innerHTML=
-TITLES
-.map(
-t=>`
+TITLES.map(t=>`
 
 <div class="title-card">
 
@@ -5631,11 +4684,7 @@ ${t[0]}
 </div>
 
 <div class="title-reward">
-${
-cur===t[0]
-?'EQUIPPED'
-:'TITLE'
-}
+${cur===t[0]?'EQUIPPED':'TITLE'}
 </div>
 
 </div>
@@ -5646,24 +4695,19 @@ ${t[1]}
 
 </div>
 
-`
-)
-.join('');
+`).join('');
+
 }
 
 function renderHistory(){
 
-document
-.getElementById(
-'historyList'
-)
+document.getElementById('historyList')
 .innerHTML=
 history.length
-
-?history
+?
+history
 .slice(0,40)
-.map(
-h=>`
+.map(h=>`
 
 <div class="history-item">
 
@@ -5674,13 +4718,9 @@ ${esc(h.title)}
 </div>
 
 <div class="history-text">
-${h.source}
-•
-${STAT_NAMES[h.stat]||h.stat}
-•
-${new Date(
-h.date
-).toLocaleString()}
+${h.source} •
+${STAT_NAMES[h.stat]||h.stat} •
+${new Date(h.date).toLocaleString()}
 </div>
 
 </div>
@@ -5691,42 +4731,30 @@ h.date
 
 </div>
 
-`
-)
+`)
 .join('')
+:
+`
+<div class="panel"
+style="padding:18px;color:var(--muted);font-size:9px">
 
-:`
-
-<div
-class="panel"
-style="
-padding:18px;
-color:var(--muted);
-font-size:9px
-"
->
 No system activity yet.
-</div>
 
+</div>
 `;
+
 }
 
-/* MOMENTS */
 function saveMoment(){
 
 const input=
-document.getElementById(
-'momentInput'
-);
+document.getElementById('momentInput');
 
 const text=
 input.value.trim();
 
-if(!text){
-return toast(
-'WRITE SOMETHING FIRST'
-);
-}
+if(!text)
+return toast('WRITE SOMETHING FIRST');
 
 moments.unshift({
 
@@ -5734,29 +4762,26 @@ id:uid('moment'),
 
 text,
 
-date:
-new Date().toISOString()
+date:new Date().toISOString()
 
 });
 
 moments=
-moments.slice(
-0,
-100
-);
+moments.slice(0,100);
 
-save(
-STORAGE.moments,
-moments
-);
+save(STORAGE.moments,moments);
 
 input.value='';
 
 renderMoments();
 
-toast(
-'MOMENT SAVED'
-);
+toast('MOMENT SAVED');
+
+checkAchievements();
+
+if(moments.length===1)
+showSystemEvent(true);
+
 }
 
 function deleteMoment(id){
@@ -5766,29 +4791,23 @@ moments.filter(
 m=>m.id!==id
 );
 
-save(
-STORAGE.moments,
-moments
-);
+save(STORAGE.moments,moments);
 
 renderMoments();
+
 }
 
 function renderMoments(){
 
 const el=
-document.getElementById(
-'momentsList'
-);
+document.getElementById('momentsList');
 
 if(!el)return;
 
 el.innerHTML=
 moments.length
-
-?moments
-.map(
-m=>`
+?
+moments.map(m=>`
 
 <div class="history-item">
 
@@ -5799,43 +4818,31 @@ ${esc(m.text)}
 </div>
 
 <div class="history-text">
-${new Date(
-m.date
-).toLocaleString()}
+${new Date(m.date).toLocaleString()}
 </div>
 
 </div>
 
 <button
 class="small danger"
-onclick="
-deleteMoment('${m.id}')
-"
->
+onclick="deleteMoment('${m.id}')">
 DELETE
 </button>
 
 </div>
 
+`).join('')
+:
 `
-)
-.join('')
+<div class="panel"
+style="padding:18px;color:var(--muted);font-size:9px">
 
-:`
-
-<div
-class="panel"
-style="
-padding:18px;
-color:var(--muted);
-font-size:9px
-"
->
 No moments yet.
 Save something worth remembering.
-</div>
 
+</div>
 `;
+
 }
 
 function renderProfile(){
@@ -5843,10 +4850,7 @@ function renderProfile(){
 const total=
 history.length;
 
-document
-.getElementById(
-'profileCard'
-)
+document.getElementById('profileCard')
 .innerHTML=`
 
 <div class="profile-avatar">
@@ -5854,16 +4858,11 @@ S
 </div>
 
 <div class="profile-name">
-${esc(
-profile.name||
-'PLAYER'
-)}
+${esc(profile.name||'PLAYER')}
 </div>
 
 <div class="profile-sub">
-${esc(
-currentTitle()
-)}
+${esc(currentTitle())}
 •
 LEVEL ${data.level}
 </div>
@@ -5871,49 +4870,25 @@ LEVEL ${data.level}
 <div class="profile-grid">
 
 <div class="profile-stat">
-
-<strong>
-${data.totalXP}
-</strong>
-
-<span>
-TOTAL XP
-</span>
-
+<strong>${data.totalXP}</strong>
+<span>TOTAL XP</span>
 </div>
 
 <div class="profile-stat">
-
-<strong>
-${total}
-</strong>
-
-<span>
-QUESTS
-</span>
-
+<strong>${total}</strong>
+<span>QUESTS</span>
 </div>
 
 <div class="profile-stat">
-
-<strong>
-${data.streak}
-</strong>
-
-<span>
-STREAK
-</span>
-
+<strong>${data.streak}</strong>
+<span>STREAK</span>
 </div>
 
 </div>
 
 `;
 
-document
-.getElementById(
-'profileSummary'
-)
+document.getElementById('profileSummary')
 .innerHTML=`
 
 <div class="week-card">
@@ -5923,21 +4898,10 @@ OBJECTIVES
 </div>
 
 <div class="week-desc">
-
-${
-objectives.filter(
-o=>o.completed
-).length
-}
+${objectives.filter(o=>o.completed).length}
 completed •
-
-${
-objectives.filter(
-o=>!o.completed
-).length
-}
+${objectives.filter(o=>!o.completed).length}
 active
-
 </div>
 
 </div>
@@ -5949,52 +4913,34 @@ ACHIEVEMENTS
 </div>
 
 <div class="week-desc">
-
-${
-Object.keys(
+${Object.keys(unlocked).length}
 unlocked
-).length
-}
-unlocked
-
 </div>
 
 </div>
 
 `;
+
 }
 
 function renderObjectives(){
 
-document
-.getElementById(
-'objectivesList'
-)
+document.getElementById('objectivesList')
 .innerHTML=
 objectives.length
+?
+objectives.map(objectiveCard).join('')
+:
+`
+<div class="panel"
+style="padding:18px;color:var(--muted);font-size:9px;border-radius:18px">
 
-?objectives
-.map(
-objectiveCard
-)
-.join('')
-
-:`
-
-<div
-class="panel"
-style="
-padding:18px;
-color:var(--muted);
-font-size:9px;
-border-radius:18px
-"
->
 No objectives yet.
 Create one and SENRAI will generate a path.
-</div>
 
+</div>
 `;
+
 }
 
 function renderHomeObjective(){
@@ -6003,9 +4949,7 @@ const o=
 getActiveObjective();
 
 const el=
-document.getElementById(
-'homeObjective'
-);
+document.getElementById('homeObjective');
 
 if(!o){
 
@@ -6027,6 +4971,7 @@ SENRAI will turn it into a path.
 `;
 
 return;
+
 }
 
 const q=
@@ -6053,8 +4998,8 @@ o.reason||
 
 <div
 class="objective-fill"
-style="width:${o.progress}%"
-></div>
+style="width:${o.progress}%">
+</div>
 
 </div>
 
@@ -6065,11 +5010,9 @@ ${o.progress}% COMPLETE
 </span>
 
 <span>
-${
-q
+${q
 ?'NEXT: '+esc(q.name)
-:'COMPLETE'
-}
+:'COMPLETE'}
 </span>
 
 </div>
@@ -6078,28 +5021,85 @@ q
 
 <button
 class="primary"
-onclick="
-showView('objectives');
-setTimeout(
-()=>viewObjective('${o.id}'),
-100
-)
-"
->
+onclick="showView('objectives');setTimeout(()=>viewObjective('${o.id}'),100)">
 OPEN PATH
 </button>
 
 </div>
 
 `;
+
+}
+
+function renderLifeWeekly(){
+
+const el=
+document.getElementById('lifeWeeklyCard');
+
+if(!el)return;
+
+const n=
+history.filter(
+h=>
+h.source==='LIFE QUEST'&&
+new Date(h.date)>=startOfWeek()
+).length;
+
+const target=3;
+
+el.innerHTML=`
+
+<div class="week-top">
+
+<div class="week-title">
+THREE REAL-WORLD MOMENTS
+</div>
+
+<div class="week-xp">
+OPTIONAL
+</div>
+
+</div>
+
+<div class="week-desc">
+
+Complete three Life encounters this week.
+No streak, no penalty—just experiences.
+
+</div>
+
+<div class="week-track">
+
+<div
+class="week-fill"
+style="width:${Math.min(
+100,
+n/target*100
+)}%">
+</div>
+
+</div>
+
+<div class="week-meta">
+
+<span>
+${Math.min(n,target)} / ${target}
+</span>
+
+<span>
+${n>=target?'COMPLETE':'IN PROGRESS'}
+</span>
+
+</div>
+
+`;
+
 }
 
 function renderSettings(){
 
 const n=
-document.getElementById(
-'notificationToggle'
-);
+document.getElementById('notificationToggle');
 
 if(n){
 
@@ -6119,14 +5119,10 @@ notificationEnabled
 }
 
 const g=
-document.getElementById(
-'guidanceToggle'
-);
+document.getElementById('guidanceToggle');
 
 const m=
-document.getElementById(
-'motionToggle'
-);
+document.getElementById('motionToggle');
 
 g.textContent=
 state.guidance
@@ -6161,84 +5157,79 @@ function renderAll(){
 checkDailyReset();
 
 renderDaily();
+
 renderCustom();
+
 renderStats();
+
 renderWeekly();
+
 renderAchievements();
+
 renderTitles();
+
 renderHistory();
+
 renderMoments();
+
 renderProfile();
+
 renderObjectives();
+
 renderHomeObjective();
+
 renderPathHome();
+
 renderReflection(false);
+
+renderUnlocks();
+
 renderSettings();
+
+renderLifeWeekly();
+
 updateTop();
 
 }
 
 function updateTop(){
 
-document
-.getElementById('level')
-.textContent=
-data.level;
+document.getElementById('level')
+.textContent=data.level;
 
-document
-.getElementById('xp')
-.textContent=
-data.xp;
+document.getElementById('xp')
+.textContent=data.xp;
 
-document
-.getElementById('todayCount')
-.textContent=
-data.completedToday;
+document.getElementById('todayCount')
+.textContent=data.completedToday;
 
-document
-.getElementById('todayXP')
-.textContent=
-data.todayXP;
+document.getElementById('todayXP')
+.textContent=data.todayXP;
 
-document
-.getElementById('streak')
-.textContent=
-data.streak;
+document.getElementById('streak')
+.textContent=data.streak;
 
-document
-.getElementById('momentum')
-.textContent=
-momentum();
+document.getElementById('momentum')
+.textContent=momentum();
 
 const need=
-xpNeededForLevel(
-data.level
-);
+xpNeededForLevel(data.level);
 
-document
-.getElementById('xpBar')
-.style
-.width=
+document.getElementById('xpBar')
+.style.width=
 Math.min(
 100,
-data.xp/
-need*
-100
+data.xp/need*100
 )+'%';
 
-document
-.getElementById('xpProgress')
+document.getElementById('xpProgress')
 .textContent=
-data.xp+
-' / '+
-need+
-' XP';
+data.xp+' / '+need+' XP';
 
-document
-.getElementById('nextLevel')
+document.getElementById('nextLevel')
 .textContent=
-'LEVEL '+
-(data.level+1);
+'LEVEL '+(data.level+1);
+
 }
 
 function momentum(){
@@ -6246,46 +5237,38 @@ function momentum(){
 if(
 data.totalXP<=0||
 history.length===0
-){
+)
 return 0;
-}
 
 const cutoff=
-Date.now()-
-7*86400000;
+Date.now()-7*86400000;
 
 const n=
 history.filter(
 h=>
-new Date(
-h.date
-).getTime()>=cutoff
+new Date(h.date).getTime()>=cutoff
 ).length;
 
 return Math.min(
 100,
 n*8
 );
+
 }
 
 function openSystem(v){
 
-document
-.getElementById(
-'systemMenu'
-)
-.classList
-.add('hidden');
+document.getElementById('systemMenu')
+.classList.add('hidden');
 
 showView(v);
+
 }
 
 function showView(v){
 
 document
-.querySelectorAll(
-'.nav-button'
-)
+.querySelectorAll('.nav-button')
 .forEach(
 b=>
 b.classList.toggle(
@@ -6295,14 +5278,9 @@ b.dataset.view===v
 );
 
 document
-.querySelectorAll(
-'.view'
-)
+.querySelectorAll('.view')
 .forEach(
-x=>
-x.classList.remove(
-'active'
-)
+x=>x.classList.remove('active')
 );
 
 const el=
@@ -6310,83 +5288,58 @@ document.getElementById(
 v+'View'
 );
 
-if(el){
+if(el)
 el.classList.add('active');
-}
 
 window.scrollTo({
 top:0,
 behavior:'smooth'
 });
+
 }
 
-function openModal(
-title,
-body
-){
+function openModal(title,body){
 
-document
-.getElementById(
-'modalTitle'
-)
-.textContent=
-title;
+document.getElementById('modalTitle')
+.textContent=title;
 
-document
-.getElementById(
-'modalBody'
-)
-.innerHTML=
-body;
+document.getElementById('modalBody')
+.innerHTML=body;
 
-document
-.getElementById(
-'modalBackdrop'
-)
-.classList
-.remove('hidden');
+document.getElementById('modalBackdrop')
+.classList.remove('hidden');
+
 }
 
 function closeModal(){
 
-document
-.getElementById(
-'modalBackdrop'
-)
-.classList
-.add('hidden');
+document.getElementById('modalBackdrop')
+.classList.add('hidden');
+
 }
 
 function toast(msg){
 
 const t=
-document.getElementById(
-'toast'
-);
+document.getElementById('toast');
 
 t.textContent=msg;
 
 t.classList.add('show');
 
-clearTimeout(
-window.__toast
-);
+clearTimeout(window.__toast);
 
 window.__toast=
 setTimeout(
-()=>
-t.classList.remove(
-'show'
-),
+()=>t.classList.remove('show'),
 2200
 );
+
 }
 
 function esc(s){
 
-return String(
-s??''
-)
+return String(s??'')
 .replace(
 /[&<>"']/g,
 c=>({
@@ -6397,17 +5350,14 @@ c=>({
 "'":'&#39;'
 }[c])
 );
+
 }
 
 function escAttr(s){
 
-return String(
-s??''
-)
-.replace(
-/'/g,
-"\\'"
-);
+return String(s??'')
+.replace(/'/g,"\\'");
+
 }
 
 function resetData(){
@@ -6416,13 +5366,12 @@ if(
 !confirm(
 'Reset all SENRAI data on this device? This cannot be undone.'
 )
-)return;
+)
+return;
 
-Object
-.values(STORAGE)
+Object.values(STORAGE)
 .forEach(
-k=>
-localStorage.removeItem(k)
+k=>localStorage.removeItem(k)
 );
 
 localStorage.removeItem(
@@ -6430,12 +5379,11 @@ localStorage.removeItem(
 );
 
 location.reload();
+
 }
 
 document
-.getElementById(
-'systemMenuButton'
-)
+.getElementById('systemMenuButton')
 .addEventListener(
 'click',
 e=>{
@@ -6443,11 +5391,8 @@ e=>{
 e.stopPropagation();
 
 document
-.getElementById(
-'systemMenu'
-)
-.classList
-.toggle('hidden');
+.getElementById('systemMenu')
+.classList.toggle('hidden');
 
 }
 );
@@ -6456,237 +5401,177 @@ document.addEventListener(
 'click',
 e=>{
 
-if(
-!e.target.closest(
-'.menu-wrap'
-)
-){
+if(!e.target.closest('.menu-wrap'))
 
 document
-.getElementById(
-'systemMenu'
-)
-.classList
-.add('hidden');
-
-}
+.getElementById('systemMenu')
+.classList.add('hidden');
 
 }
 );
 
 document
-.querySelectorAll(
-'.nav-button'
-)
+.querySelectorAll('.nav-button')
 .forEach(
 b=>
 b.addEventListener(
 'click',
-()=>
-showView(
-b.dataset.view
-)
+()=>showView(b.dataset.view)
 )
 );
 
 document
-.getElementById(
-'saveMomentButton'
-)
+.getElementById('saveMomentButton')
 .addEventListener(
 'click',
 saveMoment
 );
 
 document
-.getElementById(
-'createQuestButton'
-)
+.getElementById('createQuestButton')
 .addEventListener(
 'click',
 createCustomQuest
 );
 
 document
-.getElementById(
-'questNameInput'
-)
+.getElementById('questNameInput')
 .addEventListener(
 'keydown',
 e=>{
 if(e.key==='Enter')
-createCustomQuest();
+createCustomQuest()
 }
 );
 
 document
-.getElementById(
-'homeSurprise'
-)
+.getElementById('homeSurprise')
 .addEventListener(
 'click',
 generateLife
 );
 
 document
-.getElementById(
-'homeCompleteLife'
-)
+.getElementById('homeCompleteLife')
 .addEventListener(
 'click',
 completeLife
 );
 
 document
-.getElementById(
-'surpriseButton'
-)
+.getElementById('surpriseButton')
 .addEventListener(
 'click',
 generateLife
 );
 
 document
-.getElementById(
-'completeLifeButton'
-)
+.getElementById('completeLifeButton')
 .addEventListener(
 'click',
 completeLife
 );
 
 document
-.getElementById(
-'sideQuestButton'
-)
+.getElementById('sideQuestButton')
 .addEventListener(
 'click',
 completeSide
 );
 
 document
-.getElementById(
-'acceptReflectionButton'
-)
+.getElementById('acceptReflectionButton')
 .addEventListener(
 'click',
 acceptReflection
 );
 
 document
-.getElementById(
-'refreshReflectionButton'
-)
+.getElementById('refreshReflectionButton')
 .addEventListener(
 'click',
 ()=>{
 currentReflectionIndex++;
-renderReflection(true);
+renderReflection(true)
 }
 );
 
 document
-.getElementById(
-'modalClose'
-)
+.getElementById('modalClose')
 .addEventListener(
 'click',
 closeModal
 );
 
 document
-.getElementById(
-'modalBackdrop'
-)
+.getElementById('modalBackdrop')
 .addEventListener(
 'click',
 e=>{
-if(
-e.target.id===
-'modalBackdrop'
-){
-closeModal();
-}
+if(e.target.id==='modalBackdrop')
+closeModal()
 }
 );
 
 document
-.getElementById(
-'guidanceToggle'
-)
+.getElementById('guidanceToggle')
 .addEventListener(
 'click',
 ()=>{
+
 state.guidance=
 !state.guidance;
 
-save(
-STORAGE.state,
-state
-);
+save(STORAGE.state,state);
 
 renderSettings();
+
 renderReflection(true);
+
 }
 );
 
 document
-.getElementById(
-'motionToggle'
-)
+.getElementById('motionToggle')
 .addEventListener(
 'click',
 ()=>{
+
 state.motion=
 !state.motion;
 
-save(
-STORAGE.state,
-state
-);
-
-document.body.style.setProperty(
-'--motion',
-state.motion
-?'0s'
-:''
-);
+save(STORAGE.state,state);
 
 renderSettings();
+
 }
 );
 
 document
-.getElementById(
-'resetButton'
-)
+.getElementById('resetButton')
 .addEventListener(
 'click',
 resetData
 );
 
 document
-.getElementById(
-'notificationToggle'
-)
+.getElementById('notificationToggle')
 .addEventListener(
 'click',
 async()=>{
 
-if(
-!('Notification' in window)
-){
+if(!('Notification' in window)){
 
 toast(
 'NOTIFICATIONS NOT SUPPORTED'
 );
 
 return;
+
 }
 
 if(
-Notification.permission===
-'denied'
+Notification.permission==='denied'
 ){
 
 toast(
@@ -6694,26 +5579,24 @@ toast(
 );
 
 return;
+
 }
 
 if(
-Notification.permission!==
-'granted'
+Notification.permission!=='granted'
 ){
 
 const p=
-await Notification
-.requestPermission();
+await Notification.requestPermission();
 
-if(
-p!=='granted'
-){
+if(p!=='granted'){
 
 toast(
 'NOTIFICATION PERMISSION NOT GRANTED'
 );
 
 return;
+
 }
 
 }
@@ -6728,7 +5611,7 @@ notificationEnabled
 
 renderSettings();
 
-if(notificationEnabled){
+if(notificationEnabled)
 
 new Notification(
 'SENRAI',
@@ -6739,8 +5622,6 @@ body:
 );
 
 }
-
-}
 );
 
 function boot(){
@@ -6749,34 +5630,20 @@ checkAchievements();
 
 renderAll();
 
-if(
-state.activeLife
-){
+if(state.activeLife){
 
-document
-.getElementById(
-'lifeText'
-)
+document.getElementById('lifeText')
 .textContent=
 state.activeLife.text;
 
-document
-.getElementById(
-'homeLifeText'
-)
+document.getElementById('homeLifeText')
 .textContent=
 state.activeLife.text;
 
-document
-.getElementById(
-'completeLifeButton'
-)
+document.getElementById('completeLifeButton')
 .disabled=false;
 
-document
-.getElementById(
-'homeCompleteLife'
-)
+document.getElementById('homeCompleteLife')
 .disabled=false;
 
 }
@@ -6784,15 +5651,10 @@ document
 const messages=[
 
 'SYSTEM INITIALIZING',
-
 'LOADING PROFILE',
-
 'SYNCING PROGRESS DATA',
-
 'CALIBRATING INTELLIGENCE',
-
 'BUILDING QUEST PATHS',
-
 'SYSTEM READY'
 
 ];
@@ -6800,32 +5662,22 @@ const messages=[
 let p=0;
 
 const fill=
-document.getElementById(
-'loadingFill'
-);
+document.getElementById('loadingFill');
 
 const pct=
-document.getElementById(
-'loadingPercent'
-);
+document.getElementById('loadingPercent');
 
 const status=
-document.getElementById(
-'loadingStatus'
-);
+document.getElementById('loadingStatus');
 
 const interval=
-setInterval(
-()=>{
+setInterval(()=>{
 
 p=
 Math.min(
 100,
 p+
-Math.floor(
-Math.random()*10
-)+
-8
+Math.floor(Math.random()*10)+8
 );
 
 fill.style.width=
@@ -6844,27 +5696,18 @@ Math.floor(p/20)
 
 if(p>=100){
 
-clearInterval(
-interval
-);
+clearInterval(interval);
 
 setTimeout(
-()=>{
-document
-.getElementById(
-'splash'
-)
-.classList
-.add('hidden');
-},
+()=>document
+.getElementById('splash')
+.classList.add('hidden'),
 450
 );
 
 }
 
-},
-120
-);
+},120);
 
 }
 
