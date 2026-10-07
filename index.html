@@ -14,15 +14,14 @@
 
 :root{
   --bg:#020204;
-  --surface:rgba(13,15,21,.72);
-  --surface-strong:rgba(18,20,27,.88);
-  --surface-soft:rgba(255,255,255,.035);
+  --surface:rgba(13,15,21,.76);
+  --surface2:rgba(18,20,27,.9);
   --line:rgba(255,255,255,.075);
   --line-soft:rgba(255,255,255,.045);
 
   --text:#f4f5f7;
   --muted:#858b97;
-  --dim:#535965;
+  --dim:#555b67;
 
   --green:#63efaa;
   --blue:#6caeff;
@@ -33,11 +32,10 @@
   --pink:#ff7fbe;
 
   --radius:22px;
-  --radius-small:15px;
 }
 
 html{
-  background:var(--bg);
+  background:#000;
 }
 
 body{
@@ -45,12 +43,12 @@ body{
   background:
     radial-gradient(
       ellipse at 50% -15%,
-      rgba(91,107,145,.13),
+      rgba(91,107,145,.12),
       transparent 42%
     ),
     radial-gradient(
       ellipse at 100% 80%,
-      rgba(96,65,150,.055),
+      rgba(96,65,150,.05),
       transparent 35%
     ),
     var(--bg);
@@ -65,25 +63,10 @@ body{
   overflow-x:hidden;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255,255,255,.012) 50%,
-      transparent 100%
-    );
-  opacity:.5;
-  z-index:-1;
-}
-
 button,
 input,
-select{
+select,
+textarea{
   font:inherit;
 }
 
@@ -94,13 +77,9 @@ button{
   border-radius:999px;
   padding:11px 16px;
   font-size:9px;
-  letter-spacing:1.5px;
+  letter-spacing:1.4px;
   cursor:pointer;
-  transition:
-    background .2s ease,
-    border-color .2s ease,
-    transform .2s ease,
-    box-shadow .2s ease;
+  transition:.2s ease;
 }
 
 button:hover{
@@ -110,7 +89,7 @@ button:hover{
 }
 
 button:active{
-  transform:translateY(0) scale(.98);
+  transform:scale(.98);
 }
 
 button:disabled{
@@ -124,17 +103,41 @@ button.primary{
   color:#050507;
   border-color:#eef1f6;
   font-weight:800;
-  box-shadow:0 8px 25px rgba(255,255,255,.06);
 }
 
-button.primary:hover{
-  background:#fff;
-  border-color:#fff;
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  padding:12px 13px;
+  outline:none;
+  font-size:11px;
 }
 
-/* =========================================================
-   SPLASH / LOADING
-========================================================= */
+textarea{
+  resize:vertical;
+  min-height:80px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:rgba(255,255,255,.22);
+  background:rgba(255,255,255,.035);
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#4f5560;
+}
+
+/* =====================================================
+   SPLASH
+===================================================== */
 
 #splash{
   position:fixed;
@@ -143,8 +146,8 @@ button.primary:hover{
   overflow:hidden;
   background:#000;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   transition:
     opacity 1s ease,
     visibility 1s ease;
@@ -156,14 +159,11 @@ button.primary:hover{
   pointer-events:none;
 }
 
-/* ATMOSPHERIC SMOKE */
-
 .smoke{
   position:absolute;
   inset:-25%;
-  pointer-events:none;
   filter:blur(55px);
-  opacity:.6;
+  opacity:.65;
 }
 
 .smoke:before,
@@ -176,8 +176,8 @@ button.primary:hover{
   background:
     radial-gradient(
       ellipse,
-      rgba(100,100,110,.12),
-      rgba(30,30,35,.06) 35%,
+      rgba(110,110,120,.12),
+      rgba(35,35,40,.05) 40%,
       transparent 72%
     );
 }
@@ -185,15 +185,13 @@ button.primary:hover{
 .smoke:before{
   left:-10%;
   top:15%;
-  animation:
-    smokeOne 13s ease-in-out infinite alternate;
+  animation:smokeOne 13s ease-in-out infinite alternate;
 }
 
 .smoke:after{
   right:-15%;
   bottom:5%;
-  animation:
-    smokeTwo 17s ease-in-out infinite alternate;
+  animation:smokeTwo 17s ease-in-out infinite alternate;
 }
 
 .smoke-layer{
@@ -207,12 +205,11 @@ button.primary:hover{
     radial-gradient(
       ellipse,
       rgba(90,90,98,.09),
-      rgba(30,30,35,.035) 45%,
+      rgba(30,30,35,.03) 45%,
       transparent 72%
     );
   filter:blur(65px);
-  animation:
-    smokeThree 19s ease-in-out infinite alternate;
+  animation:smokeThree 19s ease-in-out infinite alternate;
 }
 
 @keyframes smokeOne{
@@ -252,9 +249,8 @@ button.primary:hover{
       circle at center,
       transparent 15%,
       rgba(0,0,0,.3) 55%,
-      rgba(0,0,0,.92) 100%
+      rgba(0,0,0,.94) 100%
     );
-  pointer-events:none;
 }
 
 .splash-content{
@@ -266,14 +262,14 @@ button.primary:hover{
 
 .splash-logo{
   display:block;
-  width:115px;
-  height:115px;
-  margin:0 auto 24px;
+  width:120px;
+  height:120px;
+  margin:0 auto;
   object-fit:contain;
-  filter:
-    drop-shadow(0 0 25px rgba(255,255,255,.08));
-  animation:
-    logoFloat 4s ease-in-out infinite;
+  filter:drop-shadow(
+    0 0 28px rgba(255,255,255,.09)
+  );
+  animation:logoFloat 4s ease-in-out infinite;
 }
 
 @keyframes logoFloat{
@@ -285,24 +281,8 @@ button.primary:hover{
   }
 }
 
-.splash-title{
-  font-size:39px;
-  font-weight:800;
-  letter-spacing:10px;
-  margin-left:10px;
-  text-shadow:
-    0 0 35px rgba(255,255,255,.08);
-}
-
-.splash-subtitle{
-  color:#666a73;
-  font-size:9px;
-  letter-spacing:3.5px;
-  margin-top:10px;
-}
-
 .loading-container{
-  margin-top:52px;
+  margin-top:55px;
 }
 
 .loading-bar{
@@ -330,14 +310,14 @@ button.primary:hover{
   letter-spacing:2px;
 }
 
-/* =========================================================
+/* =====================================================
    APP
-========================================================= */
+===================================================== */
 
 #app{
   width:min(1080px,100%);
   margin:auto;
-  padding:22px 18px 115px;
+  padding:22px 18px 120px;
 }
 
 header{
@@ -362,8 +342,6 @@ header{
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:
-    0 0 20px rgba(255,255,255,.025);
 }
 
 .brand-mark span{
@@ -396,36 +374,22 @@ header{
   height:6px;
   border-radius:50%;
   background:var(--green);
-  box-shadow:
-    0 0 9px var(--green);
+  box-shadow:0 0 9px var(--green);
 }
 
 .system-menu{
   position:absolute;
   right:0;
   top:47px;
-  width:205px;
+  width:215px;
   padding:7px;
   border:1px solid var(--line);
   border-radius:19px;
-  background:rgba(11,13,18,.9);
+  background:rgba(11,13,18,.94);
   backdrop-filter:blur(25px);
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.55);
+  box-shadow:0 25px 70px rgba(0,0,0,.55);
   z-index:800;
   display:none;
-  animation:menuIn .18s ease;
-}
-
-@keyframes menuIn{
-  from{
-    opacity:0;
-    transform:translateY(-5px) scale(.98);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
 }
 
 .system-menu.open{
@@ -447,16 +411,15 @@ header{
   text-align:left;
   padding:12px;
   font-size:9px;
-  letter-spacing:1px;
 }
 
 .system-menu button:hover{
   background:rgba(255,255,255,.055);
 }
 
-/* =========================================================
+/* =====================================================
    VIEWS
-========================================================= */
+===================================================== */
 
 .view{
   display:none;
@@ -477,10 +440,6 @@ header{
     transform:none;
   }
 }
-
-/* =========================================================
-   SHARED
-========================================================= */
 
 .section{
   margin-top:26px;
@@ -511,7 +470,6 @@ header{
   font-size:8px;
 }
 
-.panel,
 .hero,
 .summary-card,
 .objective,
@@ -523,7 +481,9 @@ header{
 .history-item,
 .profile-card,
 .settings-card,
-.custom-quest{
+.custom-quest,
+.panel,
+.objective-card{
   background:
     linear-gradient(
       135deg,
@@ -534,13 +494,12 @@ header{
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
   border:1px solid var(--line-soft);
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.18);
+  box-shadow:0 15px 45px rgba(0,0,0,.18);
 }
 
-/* =========================================================
-   HOME HERO
-========================================================= */
+/* =====================================================
+   HOME
+===================================================== */
 
 .hero{
   position:relative;
@@ -563,7 +522,6 @@ header{
       rgba(105,135,190,.12),
       transparent 68%
     );
-  pointer-events:none;
 }
 
 .hero-top{
@@ -586,7 +544,6 @@ header{
   font-weight:850;
   line-height:1;
   margin-top:5px;
-  letter-spacing:-1px;
 }
 
 .level span{
@@ -612,7 +569,6 @@ header{
 }
 
 .xp-track{
-  position:relative;
   margin-top:24px;
   height:5px;
   border-radius:999px;
@@ -624,14 +580,8 @@ header{
   width:0;
   height:100%;
   border-radius:999px;
-  background:
-    linear-gradient(
-      90deg,
-      #626c7c,
-      #f2f4f8
-    );
-  box-shadow:
-    0 0 15px rgba(255,255,255,.15);
+  background:linear-gradient(90deg,#626c7c,#f2f4f8);
+  box-shadow:0 0 15px rgba(255,255,255,.15);
   transition:width .45s ease;
 }
 
@@ -643,10 +593,6 @@ header{
   margin-top:9px;
   letter-spacing:1px;
 }
-
-/* =========================================================
-   SUMMARY
-========================================================= */
 
 .summary-grid{
   display:grid;
@@ -670,16 +616,11 @@ header{
   color:#5d6370;
   font-size:8px;
   margin-top:4px;
-  letter-spacing:.7px;
 }
 
 .streak-value{
   color:var(--orange);
 }
-
-/* =========================================================
-   OBJECTIVE
-========================================================= */
 
 .objective{
   position:relative;
@@ -718,9 +659,9 @@ header{
   line-height:1.65;
 }
 
-/* =========================================================
-   REFLECTION
-========================================================= */
+/* =====================================================
+   REFLECTION / SMART RECOMMENDATIONS
+===================================================== */
 
 .reflection-card{
   position:relative;
@@ -732,10 +673,10 @@ header{
 .reflection-card:before{
   content:"";
   position:absolute;
-  width:240px;
-  height:240px;
+  width:260px;
+  height:260px;
   right:-120px;
-  top:-130px;
+  top:-140px;
   border-radius:50%;
   background:
     radial-gradient(
@@ -794,6 +735,13 @@ header{
   margin-top:7px;
 }
 
+.reflection-source{
+  color:#646b77;
+  font-size:7px;
+  letter-spacing:1px;
+  margin-top:7px;
+}
+
 .reflection-actions{
   display:flex;
   gap:8px;
@@ -804,9 +752,9 @@ header{
   flex:1;
 }
 
-/* =========================================================
+/* =====================================================
    QUESTS
-========================================================= */
+===================================================== */
 
 .quest-list{
   display:grid;
@@ -820,10 +768,7 @@ header{
   display:flex;
   align-items:center;
   gap:13px;
-  transition:
-    transform .2s ease,
-    background .2s ease,
-    border-color .2s ease;
+  transition:.2s ease;
   cursor:pointer;
 }
 
@@ -853,7 +798,6 @@ header{
   justify-content:center;
   align-items:center;
   flex-shrink:0;
-  transition:.2s;
 }
 
 .quest.completed .quest-check{
@@ -895,28 +839,24 @@ header{
 }
 
 .quest.easy{
-  box-shadow:
-    inset 2px 0 0 rgba(99,239,170,.75);
+  box-shadow:inset 2px 0 0 rgba(99,239,170,.75);
 }
 
 .quest.normal{
-  box-shadow:
-    inset 2px 0 0 rgba(108,174,255,.75);
+  box-shadow:inset 2px 0 0 rgba(108,174,255,.75);
 }
 
 .quest.hard{
-  box-shadow:
-    inset 2px 0 0 rgba(169,128,255,.75);
+  box-shadow:inset 2px 0 0 rgba(169,128,255,.75);
 }
 
 .quest.extreme{
-  box-shadow:
-    inset 2px 0 0 rgba(255,111,130,.75);
+  box-shadow:inset 2px 0 0 rgba(255,111,130,.75);
 }
 
-/* =========================================================
+/* =====================================================
    CREATE QUEST
-========================================================= */
+===================================================== */
 
 .panel{
   border-radius:22px;
@@ -942,29 +882,6 @@ header{
   grid-column:1/-1;
 }
 
-input,
-select{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:rgba(0,0,0,.25);
-  color:var(--text);
-  padding:12px 13px;
-  outline:none;
-  font-size:11px;
-  transition:.2s;
-}
-
-input:focus,
-select:focus{
-  border-color:rgba(255,255,255,.22);
-  background:rgba(255,255,255,.035);
-}
-
-input::placeholder{
-  color:#4f5560;
-}
-
 .create-button{
   margin-top:14px;
   width:100%;
@@ -975,9 +892,9 @@ input::placeholder{
   padding:13px;
 }
 
-/* =========================================================
+/* =====================================================
    CUSTOM QUESTS
-========================================================= */
+===================================================== */
 
 .custom-quest{
   border-radius:17px;
@@ -1029,9 +946,164 @@ input::placeholder{
   letter-spacing:1px;
 }
 
-/* =========================================================
+/* =====================================================
+   OBJECTIVES
+===================================================== */
+
+.objective-card{
+  border-radius:23px;
+  padding:21px;
+  margin-bottom:10px;
+  position:relative;
+  overflow:hidden;
+}
+
+.objective-card.active{
+  border-color:rgba(108,174,255,.14);
+}
+
+.objective-card.completed{
+  opacity:.55;
+}
+
+.objective-card:before{
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  right:-130px;
+  top:-140px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(108,174,255,.08),
+      transparent 70%
+    );
+}
+
+.objective-top{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+}
+
+.objective-name{
+  font-size:17px;
+  font-weight:800;
+  line-height:1.35;
+}
+
+.objective-status{
+  color:var(--green);
+  font-size:7px;
+  letter-spacing:1.5px;
+  white-space:nowrap;
+  padding-top:3px;
+}
+
+.objective-reason{
+  position:relative;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+  margin-top:8px;
+}
+
+.objective-meta{
+  position:relative;
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  color:#656c78;
+  font-size:8px;
+  letter-spacing:.7px;
+  margin-top:13px;
+}
+
+.objective-progress{
+  position:relative;
+  height:5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
+  margin-top:17px;
+}
+
+.objective-progress-fill{
+  height:100%;
+  width:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  transition:width .4s ease;
+}
+
+.objective-footer{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:9px;
+}
+
+.objective-percent{
+  color:var(--muted);
+  font-size:8px;
+}
+
+.objective-actions{
+  display:flex;
+  gap:7px;
+}
+
+.objective-actions button{
+  padding:8px 11px;
+  font-size:7px;
+}
+
+.objective-form{
+  padding:20px;
+  border-radius:22px;
+}
+
+.objective-form-title{
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.objective-form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.objective-form-grid .full{
+  grid-column:1/-1;
+}
+
+.objective-hint{
+  color:#5e6570;
+  font-size:8px;
+  line-height:1.5;
+  margin-top:7px;
+}
+
+.no-objectives{
+  border:1px dashed rgba(255,255,255,.08);
+  border-radius:19px;
+  padding:30px 20px;
+  text-align:center;
+  color:#565c68;
+  font-size:9px;
+  line-height:1.7;
+}
+
+/* =====================================================
    LIFE
-========================================================= */
+===================================================== */
 
 .life-quest{
   position:relative;
@@ -1102,23 +1174,11 @@ input::placeholder{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:16px;
 }
 
-.side-name{
-  font-size:12px;
-  font-weight:700;
-}
-
-.side-meta{
-  color:var(--muted);
-  font-size:8px;
-  margin-top:5px;
-}
-
-/* =========================================================
+/* =====================================================
    STATS
-========================================================= */
+===================================================== */
 
 .stats-grid{
   display:grid;
@@ -1129,16 +1189,6 @@ input::placeholder{
 .stat{
   border-radius:19px;
   padding:17px;
-  transition:.2s;
-}
-
-.stat:hover{
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.055),
-      rgba(255,255,255,.012)
-    );
 }
 
 .stat-top{
@@ -1157,7 +1207,6 @@ input::placeholder{
 .stat-value{
   font-size:9px;
   color:var(--muted);
-  text-align:right;
 }
 
 .stat-bar{
@@ -1172,54 +1221,25 @@ input::placeholder{
   width:0;
   border-radius:999px;
   transition:width .5s ease;
-  box-shadow:0 0 10px currentColor;
 }
 
 .stat-progress-label{
   color:#5d6370;
   font-size:7px;
   margin-top:8px;
-  letter-spacing:.7px;
 }
 
-.str{
-  background:var(--red);
-  color:var(--red);
-}
+.str{background:var(--red)}
+.int{background:var(--blue)}
+.wis{background:var(--purple)}
+.cha{background:var(--pink)}
+.dex{background:var(--green)}
+.cre{background:var(--orange)}
+.vit{background:var(--cyan)}
 
-.int{
-  background:var(--blue);
-  color:var(--blue);
-}
-
-.wis{
-  background:var(--purple);
-  color:var(--purple);
-}
-
-.cha{
-  background:var(--pink);
-  color:var(--pink);
-}
-
-.dex{
-  background:var(--green);
-  color:var(--green);
-}
-
-.cre{
-  background:var(--orange);
-  color:var(--orange);
-}
-
-.vit{
-  background:var(--cyan);
-  color:var(--cyan);
-}
-
-/* =========================================================
+/* =====================================================
    ACHIEVEMENTS
-========================================================= */
+===================================================== */
 
 .achievement-grid{
   display:grid;
@@ -1263,7 +1283,6 @@ input::placeholder{
   font-size:8px;
   color:var(--green);
   margin-top:10px;
-  letter-spacing:1px;
 }
 
 .achievement-progress{
@@ -1285,7 +1304,6 @@ input::placeholder{
   right:14px;
   top:14px;
   font-size:7px;
-  letter-spacing:1px;
   color:var(--muted);
 }
 
@@ -1293,9 +1311,9 @@ input::placeholder{
   color:var(--green);
 }
 
-/* =========================================================
+/* =====================================================
    HISTORY
-========================================================= */
+===================================================== */
 
 .history-list{
   display:grid;
@@ -1345,19 +1363,9 @@ input::placeholder{
   font-weight:800;
 }
 
-.history-empty{
-  border:1px dashed rgba(255,255,255,.08);
-  border-radius:17px;
-  padding:30px;
-  text-align:center;
-  color:#565c68;
-  font-size:9px;
-  letter-spacing:1px;
-}
-
-/* =========================================================
+/* =====================================================
    PROFILE / SETTINGS
-========================================================= */
+===================================================== */
 
 .profile-card,
 .settings-card{
@@ -1369,13 +1377,11 @@ input::placeholder{
   font-size:26px;
   font-weight:850;
   margin:8px 0 5px;
-  letter-spacing:-.5px;
 }
 
 .profile-sub{
   color:var(--muted);
   font-size:8px;
-  letter-spacing:1px;
 }
 
 .setting-row{
@@ -1405,22 +1411,24 @@ input::placeholder{
 
 .danger-button{
   color:var(--red);
-  border-color:rgba(255,111,130,.14);
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
 .navbar{
   position:fixed;
   left:50%;
   bottom:13px;
   transform:translateX(-50%);
-  width:min(600px,calc(100% - 20px));
+  width:min(620px,calc(100% - 20px));
   z-index:500;
 
-  background:rgba(12,14,19,.82);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  background:rgba(12,14,19,.88);
   border:1px solid rgba(255,255,255,.09);
   border-radius:25px;
   padding:5px;
@@ -1432,28 +1440,22 @@ input::placeholder{
     0 20px 55px rgba(0,0,0,.45);
 }
 
-.navbar:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.04),
-      transparent
-    );
-}
-
 .nav-button{
-  position:relative;
+  width:100%;
+  min-width:0;
+  height:60px;
   border:0;
   border-radius:19px;
   background:transparent;
   color:#68707d;
-  padding:10px 4px;
-  font-size:7px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  padding:7px 2px;
+  font-size:8px;
   letter-spacing:1.3px;
 }
 
@@ -1466,24 +1468,23 @@ input::placeholder{
 .nav-button.active{
   color:#f1f3f7;
   background:rgba(255,255,255,.075);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .nav-icon{
   display:block;
-  font-size:15px;
-  margin-bottom:4px;
+  font-size:18px;
+  line-height:1;
+  margin-bottom:5px;
 }
 
-/* =========================================================
+/* =====================================================
    NOTIFICATION
-========================================================= */
+===================================================== */
 
 .notification{
   position:fixed;
   left:50%;
-  bottom:90px;
+  bottom:91px;
   transform:translate(-50%,120px);
   background:rgba(240,243,248,.96);
   color:#050507;
@@ -1495,8 +1496,7 @@ input::placeholder{
   z-index:10000;
   opacity:0;
   transition:.35s;
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.45);
+  box-shadow:0 15px 45px rgba(0,0,0,.45);
   text-align:center;
   white-space:nowrap;
 }
@@ -1514,17 +1514,14 @@ footer{
   margin-top:43px;
 }
 
-/* =========================================================
+/* =====================================================
    MOBILE
-========================================================= */
+===================================================== */
 
 @media(max-width:600px){
 
   #app{
-    padding:
-      16px
-      12px
-      105px;
+    padding:16px 12px 108px;
   }
 
   header{
@@ -1533,11 +1530,6 @@ footer{
 
   .brand-name{
     font-size:15px;
-  }
-
-  .brand-mark{
-    width:28px;
-    height:28px;
   }
 
   .hero{
@@ -1571,11 +1563,13 @@ footer{
     grid-template-columns:1fr;
   }
 
-  .form-grid{
+  .form-grid,
+  .objective-form-grid{
     grid-template-columns:1fr;
   }
 
-  .form-group.full{
+  .form-group.full,
+  .objective-form-grid .full{
     grid-column:auto;
   }
 
@@ -1590,22 +1584,13 @@ footer{
   }
 
   .splash-logo{
-    width:95px;
-    height:95px;
-  }
-
-  .splash-title{
-    font-size:31px;
-    letter-spacing:7px;
-  }
-
-  .splash-subtitle{
-    font-size:8px;
+    width:100px;
+    height:100px;
   }
 
   .system-menu{
     right:-3px;
-    width:195px;
+    width:200px;
   }
 
   .custom-quest{
@@ -1628,14 +1613,33 @@ footer{
     flex-shrink:0;
   }
 
+  .objective-top{
+    flex-direction:column;
+    gap:7px;
+  }
+
+  .objective-footer{
+    align-items:flex-start;
+    gap:10px;
+    flex-direction:column;
+  }
+
   .navbar{
-    bottom:9px;
-    border-radius:22px;
+    width:calc(100% - 18px);
+    bottom:8px;
+    border-radius:23px;
+  }
+
+  .nav-button{
+    height:62px;
+  }
+
+  .nav-icon{
+    font-size:17px;
   }
 
   .notification{
-    max-width:
-      calc(100% - 30px);
+    max-width:calc(100% - 30px);
     white-space:normal;
   }
 }
@@ -1644,9 +1648,9 @@ footer{
 
 <body>
 
-<!-- =======================================================
+<!-- =====================================================
      SPLASH
-======================================================= -->
+===================================================== -->
 
 <div id="splash">
 
@@ -1663,14 +1667,6 @@ footer{
       alt="SENRAI"
       class="splash-logo"
     >
-
-    <div class="splash-title">
-      SENRAI
-    </div>
-
-    <div class="splash-subtitle">
-      THE SYSTEM THAT MOVES YOU FORWARD
-    </div>
 
     <div class="loading-container">
 
@@ -1700,9 +1696,9 @@ footer{
 </div>
 
 
-<!-- =======================================================
-     APPLICATION
-======================================================= -->
+<!-- =====================================================
+     APP
+===================================================== -->
 
 <div id="app">
 
@@ -1724,13 +1720,9 @@ footer{
   <div class="system-button">
 
     <button id="systemMenuButton">
-
       <span class="system-dot"></span>
-
       SYSTEM
-
       <span>⌄</span>
-
     </button>
 
 
@@ -1742,6 +1734,10 @@ footer{
       <div class="system-menu-title">
         SYSTEM MENU
       </div>
+
+      <button data-system-view="objectives">
+        ◇ OBJECTIVES
+      </button>
 
       <button data-system-view="achievements">
         🏆 ACHIEVEMENTS
@@ -1766,9 +1762,9 @@ footer{
 </header>
 
 
-<!-- =======================================================
+<!-- =====================================================
      HOME
-======================================================= -->
+===================================================== -->
 
 <main
   id="homeView"
@@ -1786,15 +1782,8 @@ footer{
       </div>
 
       <div class="level">
-
-        <span id="level">
-          1
-        </span>
-
-        <span>
-          LVL
-        </span>
-
+        <span id="level">1</span>
+        <span>LVL</span>
       </div>
 
     </div>
@@ -1803,13 +1792,7 @@ footer{
     <div class="hero-xp">
 
       <div class="hero-xp-number">
-
-        <span id="xp">
-          0
-        </span>
-
-        XP
-
+        <span id="xp">0</span> XP
       </div>
 
       <div class="hero-xp-label">
@@ -1822,12 +1805,10 @@ footer{
 
 
   <div class="xp-track">
-
     <div
       class="xp-fill"
       id="xpBar"
     ></div>
-
   </div>
 
 
@@ -1849,28 +1830,20 @@ footer{
 <section class="summary-grid">
 
   <div class="summary-card">
-
-    <div class="summary-label">
-      TODAY
-    </div>
+    <div class="summary-label">TODAY</div>
 
     <div class="summary-value">
-      <span id="todayCount">0</span>
-      / 4
+      <span id="todayCount">0</span> / 4
     </div>
 
     <div class="summary-sub">
       DAILY QUESTS
     </div>
-
   </div>
 
 
   <div class="summary-card">
-
-    <div class="summary-label">
-      STREAK
-    </div>
+    <div class="summary-label">STREAK</div>
 
     <div class="summary-value streak-value">
       <span id="streak">0</span>
@@ -1879,15 +1852,11 @@ footer{
     <div class="summary-sub">
       DAYS ACTIVE
     </div>
-
   </div>
 
 
   <div class="summary-card">
-
-    <div class="summary-label">
-      TODAY XP
-    </div>
+    <div class="summary-label">TODAY XP</div>
 
     <div class="summary-value">
       <span id="todayXP">0</span>
@@ -1896,41 +1865,44 @@ footer{
     <div class="summary-sub">
       EXPERIENCE
     </div>
-
   </div>
 
 </section>
 
+
+<!-- ACTIVE OBJECTIVE PREVIEW -->
 
 <section class="section">
 
   <div class="section-header">
 
     <div class="section-title">
-      CURRENT OBJECTIVE
+      ACTIVE OBJECTIVE
     </div>
 
-    <div class="section-description">
-      MAKE PROGRESS
-    </div>
+    <button onclick="showView('objectives')">
+      VIEW
+    </button>
 
   </div>
 
 
-  <div class="objective">
+  <div
+    class="objective"
+    id="homeObjective"
+  >
 
     <div class="objective-tag">
-      MAIN QUEST
+      MAIN OBJECTIVE
     </div>
 
-    <h2>
-      Become better than yesterday.
+    <h2 id="homeObjectiveName">
+      No objective yet.
     </h2>
 
-    <p>
-      You don't need to change your entire life today.
-      Complete a few meaningful actions and keep moving
-      forward.
+    <p id="homeObjectiveText">
+      Create a long-term objective and SENRAI will
+      use it to make your daily recommendations smarter.
     </p>
 
   </div>
@@ -1947,7 +1919,7 @@ footer{
     </div>
 
     <div class="section-description">
-      ADAPTIVE GUIDANCE
+      SMART GUIDANCE
     </div>
 
   </div>
@@ -1956,7 +1928,7 @@ footer{
   <div class="reflection-card">
 
     <div class="reflection-label">
-      SYSTEM REFLECTION
+      SENRAI RECOMMENDATION
     </div>
 
     <div
@@ -1977,7 +1949,7 @@ footer{
     <div class="reflection-divider"></div>
 
     <div class="reflection-suggestion-label">
-      SUGGESTED SIDE QUEST
+      RECOMMENDED NEXT STEP
     </div>
 
     <div
@@ -1991,7 +1963,14 @@ footer{
       class="reflection-reward"
       id="reflectionReward"
     >
-      +25 XP • +20 WIS PROGRESS
+      +25 XP
+    </div>
+
+    <div
+      class="reflection-source"
+      id="reflectionSource"
+    >
+      BASED ON YOUR CURRENT PROGRESS
     </div>
 
     <div class="reflection-actions">
@@ -2006,7 +1985,7 @@ footer{
       <button
         id="refreshReflectionButton"
       >
-        REFRESH REFLECTION
+        ANOTHER SUGGESTION
       </button>
 
     </div>
@@ -2091,9 +2070,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      QUESTS
-======================================================= -->
+===================================================== -->
 
 <main
   id="questsView"
@@ -2103,15 +2082,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      DAILY QUESTS
-    </div>
-
-    <div class="section-description">
-      RESET DAILY
-    </div>
-
+    <div class="section-title">DAILY QUESTS</div>
+    <div class="section-description">RESET DAILY</div>
   </div>
 
   <div
@@ -2125,15 +2097,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      CREATE QUEST
-    </div>
-
-    <div class="section-description">
-      DEFINE YOUR OWN PATH
-    </div>
-
+    <div class="section-title">CREATE QUEST</div>
+    <div class="section-description">DEFINE YOUR OWN PATH</div>
   </div>
 
 
@@ -2269,15 +2234,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      YOUR QUESTS
-    </div>
-
-    <div class="section-description">
-      PERSONAL OBJECTIVES
-    </div>
-
+    <div class="section-title">YOUR QUESTS</div>
+    <div class="section-description">PERSONAL OBJECTIVES</div>
   </div>
 
   <div id="customQuestList"></div>
@@ -2288,15 +2246,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      SIDE QUEST
-    </div>
-
-    <div class="section-description">
-      SOCIAL
-    </div>
-
+    <div class="section-title">SIDE QUEST</div>
+    <div class="section-description">SOCIAL</div>
   </div>
 
 
@@ -2310,11 +2261,11 @@ footer{
 
       <div>
 
-        <div class="side-name">
+        <div class="quest-name">
           Call someone you haven't talked to recently
         </div>
 
-        <div class="side-meta">
+        <div class="quest-meta">
           +20 XP • +15 CHA PROGRESS
         </div>
 
@@ -2333,9 +2284,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      STATS
-======================================================= -->
+===================================================== -->
 
 <main
   id="statsView"
@@ -2345,15 +2296,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      CHARACTER STATS
-    </div>
-
-    <div class="section-description">
-      LONG-TERM DEVELOPMENT
-    </div>
-
+    <div class="section-title">CHARACTER STATS</div>
+    <div class="section-description">LONG-TERM DEVELOPMENT</div>
   </div>
 
   <div
@@ -2365,19 +2309,6 @@ footer{
 
 
 <section class="section">
-
-  <div class="section-header">
-
-    <div class="section-title">
-      PROGRESSION
-    </div>
-
-    <div class="section-description">
-      KEEP BUILDING
-    </div>
-
-  </div>
-
 
   <div class="objective">
 
@@ -2404,9 +2335,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      LIFE
-======================================================= -->
+===================================================== -->
 
 <main
   id="lifeView"
@@ -2416,15 +2347,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      LIFE QUEST
-    </div>
-
-    <div class="section-description">
-      RANDOM ENCOUNTER
-    </div>
-
+    <div class="section-title">LIFE QUEST</div>
+    <div class="section-description">RANDOM ENCOUNTER</div>
   </div>
 
 
@@ -2466,19 +2390,6 @@ footer{
 
 <section class="section">
 
-  <div class="section-header">
-
-    <div class="section-title">
-      THE IDEA
-    </div>
-
-    <div class="section-description">
-      SENRAI
-    </div>
-
-  </div>
-
-
   <div class="objective">
 
     <div class="objective-tag">
@@ -2503,9 +2414,176 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
+     OBJECTIVES
+===================================================== -->
+
+<main
+  id="objectivesView"
+  class="view"
+>
+
+<section class="section">
+
+  <div class="section-header">
+
+    <div>
+
+      <div class="section-title">
+        OBJECTIVES
+      </div>
+
+      <div
+        class="section-description"
+        style="margin-top:5px;"
+      >
+        LONG-TERM DIRECTION
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="panel objective-form"
+  >
+
+    <div class="objective-form-title">
+      CREATE AN OBJECTIVE
+    </div>
+
+
+    <div class="objective-form-grid">
+
+      <div class="form-group full">
+
+        <label class="form-label">
+          WHAT DO YOU WANT TO ACHIEVE?
+        </label>
+
+        <input
+          id="objectiveNameInput"
+          type="text"
+          maxlength="80"
+          placeholder="Get my driver's license"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          TARGET DATE
+        </label>
+
+        <input
+          id="objectiveDateInput"
+          type="date"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          MAIN AREA
+        </label>
+
+        <select id="objectiveStatInput">
+
+          <option value="DEX">
+            DEX • PRODUCTIVITY
+          </option>
+
+          <option value="INT">
+            INT • LEARNING
+          </option>
+
+          <option value="STR">
+            STR • FITNESS
+          </option>
+
+          <option value="WIS">
+            WIS • PERSONAL GROWTH
+          </option>
+
+          <option value="CHA">
+            CHA • SOCIAL
+          </option>
+
+          <option value="CRE">
+            CRE • CREATIVITY
+          </option>
+
+          <option value="VIT">
+            VIT • HEALTH
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group full">
+
+        <label class="form-label">
+          WHY DOES THIS MATTER?
+        </label>
+
+        <textarea
+          id="objectiveReasonInput"
+          maxlength="300"
+          placeholder="I want more independence and want to feel like I'm moving forward."
+        ></textarea>
+
+        <div class="objective-hint">
+          This gives SENRAI context for future recommendations.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="create-button"
+      id="createObjectiveButton"
+    >
+      + CREATE OBJECTIVE
+    </button>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="section-header">
+
+    <div class="section-title">
+      YOUR OBJECTIVES
+    </div>
+
+    <div class="section-description">
+      YOUR DIRECTION
+    </div>
+
+  </div>
+
+  <div id="objectiveList"></div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
      ACHIEVEMENTS
-======================================================= -->
+===================================================== -->
 
 <main
   id="achievementsView"
@@ -2542,9 +2620,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      HISTORY
-======================================================= -->
+===================================================== -->
 
 <main
   id="historyView"
@@ -2575,9 +2653,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      PROFILE
-======================================================= -->
+===================================================== -->
 
 <main
   id="profileView"
@@ -2587,15 +2665,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      PROFILE
-    </div>
-
-    <div class="section-description">
-      YOUR SYSTEM
-    </div>
-
+    <div class="section-title">PROFILE</div>
+    <div class="section-description">YOUR SYSTEM</div>
   </div>
 
 
@@ -2613,13 +2684,8 @@ footer{
     </div>
 
     <div class="profile-sub">
-
       SENRAI USER • LEVEL
-
-      <span id="profileLevel">
-        1
-      </span>
-
+      <span id="profileLevel">1</span>
     </div>
 
 
@@ -2656,9 +2722,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =====================================================
      SETTINGS
-======================================================= -->
+===================================================== -->
 
 <main
   id="settingsView"
@@ -2668,15 +2734,8 @@ footer{
 <section class="section">
 
   <div class="section-header">
-
-    <div class="section-title">
-      SETTINGS
-    </div>
-
-    <div class="section-description">
-      SYSTEM CONFIGURATION
-    </div>
-
+    <div class="section-title">SETTINGS</div>
+    <div class="section-description">SYSTEM CONFIGURATION</div>
   </div>
 
 
@@ -2733,7 +2792,7 @@ footer{
         </div>
 
         <div class="setting-description">
-          Clear your locally stored activity history.
+          Clear locally stored activity history.
         </div>
 
       </div>
@@ -2761,9 +2820,9 @@ footer{
 </div>
 
 
-<!-- =======================================================
-     NAVIGATION
-======================================================= -->
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
 
 <nav class="navbar">
 
@@ -2771,13 +2830,8 @@ footer{
     class="nav-button active"
     data-view="home"
   >
-
-    <span class="nav-icon">
-      ⌂
-    </span>
-
+    <span class="nav-icon">⌂</span>
     HOME
-
   </button>
 
 
@@ -2785,13 +2839,8 @@ footer{
     class="nav-button"
     data-view="quests"
   >
-
-    <span class="nav-icon">
-      ⚔
-    </span>
-
+    <span class="nav-icon">⚔</span>
     QUESTS
-
   </button>
 
 
@@ -2799,13 +2848,8 @@ footer{
     class="nav-button"
     data-view="stats"
   >
-
-    <span class="nav-icon">
-      ◈
-    </span>
-
+    <span class="nav-icon">◈</span>
     STATS
-
   </button>
 
 
@@ -2813,13 +2857,8 @@ footer{
     class="nav-button"
     data-view="life"
   >
-
-    <span class="nav-icon">
-      ✦
-    </span>
-
+    <span class="nav-icon">✦</span>
     LIFE
-
   </button>
 
 </nav>
@@ -2833,16 +2872,21 @@ footer{
 
 <script>
 
-/* =========================================================
+/* =====================================================
    STORAGE
-========================================================= */
+===================================================== */
 
 const STORAGE_KEY="theSystemData";
 const CUSTOM_QUESTS_KEY="senraiCustomQuests";
 const ACHIEVEMENTS_KEY="senraiAchievements";
 const HISTORY_KEY="senraiHistory";
 const PROFILE_KEY="senraiProfile";
+const OBJECTIVES_KEY="senraiObjectives";
 
+
+/* =====================================================
+   CORE DATA
+===================================================== */
 
 let data=
 JSON.parse(
@@ -2850,9 +2894,7 @@ JSON.parse(
 ) || {
 
   level:1,
-
   xp:0,
-
   completed:[],
 
   stats:{
@@ -2876,21 +2918,13 @@ JSON.parse(
   },
 
   streak:0,
-
   lastActiveDate:null,
-
   lastResetDate:null,
-
   completedToday:0,
-
   todayXP:0,
-
   totalXP:0,
-
   totalQuestsCompleted:0,
-
   lifeQuestCompletions:0,
-
   socialCompletions:0
 };
 
@@ -2948,9 +2982,9 @@ data.completedToday=
 Number(data.completedToday)||0;
 
 
-/* =========================================================
+/* =====================================================
    STAT PROGRESSION
-========================================================= */
+===================================================== */
 
 function statXPNeededForLevel(level){
 
@@ -3030,15 +3064,10 @@ function statGainForQuest(xp){
   const gains={
 
     10:10,
-
     15:12,
-
     20:15,
-
     25:20,
-
     50:35,
-
     100:55
 
   };
@@ -3063,9 +3092,9 @@ STAT_KEYS.forEach(stat=>{
 });
 
 
-/* =========================================================
-   OTHER DATA
-========================================================= */
+/* =====================================================
+   STORED COLLECTIONS
+===================================================== */
 
 let customQuests=
   JSON.parse(
@@ -3101,16 +3130,22 @@ let profile=
   };
 
 
+let objectives=
+  JSON.parse(
+    localStorage.getItem(
+      OBJECTIVES_KEY
+    )
+  ) || [];
+
+
 let currentLifeQuest=null;
-
 let currentReflectionQuest=null;
-
 let currentReflectionIndex=0;
 
 
-/* =========================================================
+/* =====================================================
    DAILY QUESTS
-========================================================= */
+===================================================== */
 
 const dailyData=[
 
@@ -3149,50 +3184,35 @@ const dailyData=[
 ];
 
 
-/* =========================================================
+/* =====================================================
    LIFE QUESTS
-========================================================= */
+===================================================== */
 
 const lifeQuests=[
 
   "Call or text someone you haven't talked to in a while.",
-
   "Call a family member just to say hi.",
-
   "Tell someone you appreciate them.",
-
   "Go outside for 5 minutes and just breathe.",
-
   "Watch the sunset if you get the chance.",
-
   "Take a different route somewhere today.",
-
   "Learn one completely random fact.",
-
   "Put your phone down for 20 minutes.",
-
   "Take a photo of something you think looks cool.",
-
   "Do something kind for someone without expecting anything back.",
-
   "Spend 15 minutes working on a hobby.",
-
   "Clean one thing you've been ignoring.",
-
   "Listen to a song you haven't heard in a long time.",
-
   "Write down one thing you're grateful for.",
-
   "Try something you've never tried before.",
-
   "Take a few minutes to think about where you want to be a year from now."
 
 ];
 
 
-/* =========================================================
+/* =====================================================
    ACHIEVEMENTS
-========================================================= */
+===================================================== */
 
 const achievementDefs=[
 
@@ -3203,10 +3223,7 @@ const achievementDefs=[
     desc:"Complete your first quest.",
     reward:50,
     check:()=>data.totalQuestsCompleted>=1,
-    progress:()=>Math.min(
-      data.totalQuestsCompleted,
-      1
-    ),
+    progress:()=>Math.min(data.totalQuestsCompleted,1),
     max:1
   },
 
@@ -3217,10 +3234,7 @@ const achievementDefs=[
     desc:"Earn 100 total XP.",
     reward:50,
     check:()=>data.totalXP>=100,
-    progress:()=>Math.min(
-      data.totalXP,
-      100
-    ),
+    progress:()=>Math.min(data.totalXP,100),
     max:100
   },
 
@@ -3231,10 +3245,7 @@ const achievementDefs=[
     desc:"Reach Level 5.",
     reward:100,
     check:()=>data.level>=5,
-    progress:()=>Math.min(
-      data.level,
-      5
-    ),
+    progress:()=>Math.min(data.level,5),
     max:5
   },
 
@@ -3245,10 +3256,7 @@ const achievementDefs=[
     desc:"Reach a 7-day streak.",
     reward:100,
     check:()=>data.streak>=7,
-    progress:()=>Math.min(
-      data.streak,
-      7
-    ),
+    progress:()=>Math.min(data.streak,7),
     max:7
   },
 
@@ -3259,10 +3267,7 @@ const achievementDefs=[
     desc:"Complete 10 Life Quests.",
     reward:100,
     check:()=>data.lifeQuestCompletions>=10,
-    progress:()=>Math.min(
-      data.lifeQuestCompletions,
-      10
-    ),
+    progress:()=>Math.min(data.lifeQuestCompletions,10),
     max:10
   },
 
@@ -3273,10 +3278,7 @@ const achievementDefs=[
     desc:"Complete 5 social quests.",
     reward:100,
     check:()=>data.socialCompletions>=5,
-    progress:()=>Math.min(
-      data.socialCompletions,
-      5
-    ),
+    progress:()=>Math.min(data.socialCompletions,5),
     max:5
   },
 
@@ -3297,76 +3299,72 @@ const achievementDefs=[
 ];
 
 
-/* =========================================================
-   SAVE FUNCTIONS
-========================================================= */
+/* =====================================================
+   SAVE
+===================================================== */
 
 function save(){
-
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify(data)
   );
-
 }
 
 
 function saveCustom(){
-
   localStorage.setItem(
     CUSTOM_QUESTS_KEY,
     JSON.stringify(customQuests)
   );
-
 }
 
 
 function saveAchievements(){
-
   localStorage.setItem(
     ACHIEVEMENTS_KEY,
     JSON.stringify(unlockedAchievements)
   );
-
 }
 
 
 function saveHistory(){
-
   localStorage.setItem(
     HISTORY_KEY,
     JSON.stringify(history)
   );
-
 }
 
 
 function saveProfile(){
-
   localStorage.setItem(
     PROFILE_KEY,
     JSON.stringify(profile)
   );
-
 }
 
 
-/* =========================================================
+function saveObjectives(){
+  localStorage.setItem(
+    OBJECTIVES_KEY,
+    JSON.stringify(objectives)
+  );
+}
+
+
+/* =====================================================
    DATE
-========================================================= */
+===================================================== */
 
 function todayString(){
 
   const d=new Date();
 
   return (
-    d.getFullYear()
-    +"-"
-    +String(d.getMonth()+1)
-      .padStart(2,"0")
-    +"-"
-    +String(d.getDate())
-      .padStart(2,"0")
+    d.getFullYear()+
+    "-"+
+    String(d.getMonth()+1).padStart(2,"0")+
+    "-"+
+    String(d.getDate()).padStart(2,"0")
   );
 
 }
@@ -3376,18 +3374,14 @@ function yesterdayString(){
 
   const d=new Date();
 
-  d.setDate(
-    d.getDate()-1
-  );
+  d.setDate(d.getDate()-1);
 
   return (
-    d.getFullYear()
-    +"-"
-    +String(d.getMonth()+1)
-      .padStart(2,"0")
-    +"-"
-    +String(d.getDate())
-      .padStart(2,"0")
+    d.getFullYear()+
+    "-"+
+    String(d.getMonth()+1).padStart(2,"0")+
+    "-"+
+    String(d.getDate()).padStart(2,"0")
   );
 
 }
@@ -3395,20 +3389,13 @@ function yesterdayString(){
 
 function checkDailyReset(){
 
-  const today=
-    todayString();
+  const today=todayString();
 
-
-  if(
-    data.lastResetDate!==today
-  ){
+  if(data.lastResetDate!==today){
 
     data.completed=[];
-
     data.completedToday=0;
-
     data.todayXP=0;
-
     data.lastResetDate=today;
 
     save();
@@ -3418,78 +3405,57 @@ function checkDailyReset(){
 }
 
 
-/* =========================================================
+/* =====================================================
    XP
-========================================================= */
+===================================================== */
 
 function xpNeededForLevel(level){
-
   return level*100;
-
 }
 
 
 function addXP(
   amount,
-  title="XP EARNED",
-  shouldLog=true
+  title="XP EARNED"
 ){
 
-  const oldLevel=
-    data.level;
-
+  const oldLevel=data.level;
 
   data.xp+=amount;
-
   data.totalXP+=amount;
 
 
   while(
-    data.xp >=
+    data.xp>=
     xpNeededForLevel(data.level)
   ){
 
-    data.xp -=
-      xpNeededForLevel(
-        data.level
-      );
+    data.xp-=
+      xpNeededForLevel(data.level);
 
     data.level++;
 
   }
 
 
-  if(shouldLog){
+  addHistory(
+    title,
+    "QUEST",
+    amount
+  );
+
+
+  if(data.level>oldLevel){
 
     addHistory(
-      title,
-      "XP",
-      amount
+      "Reached Level "+data.level,
+      "LEVEL_UP"
     );
 
   }
 
 
   save();
-
-
-  if(
-    data.level>oldLevel
-  ){
-
-    addHistory(
-      "Reached Level "+
-      data.level,
-      "LEVEL_UP"
-    );
-
-    showNotification(
-      "SENRAI LEVEL UP • LEVEL "+
-      data.level
-    );
-
-  }
-
 
   checkAchievements();
 
@@ -3498,59 +3464,37 @@ function addXP(
 }
 
 
-/* =========================================================
+/* =====================================================
    STREAK
-========================================================= */
+===================================================== */
 
 function updateStreak(){
 
-  const today=
-    todayString();
+  const today=todayString();
 
-
-  if(
-    data.lastActiveDate===
-    today
-  ){
-
+  if(data.lastActiveDate===today){
     return;
-
   }
 
-
-  if(
-    data.lastActiveDate===
-    yesterdayString()
-  ){
-
+  if(data.lastActiveDate===yesterdayString()){
     data.streak++;
-
   }else{
-
     data.streak=1;
-
   }
 
-
-  data.lastActiveDate=
-    today;
+  data.lastActiveDate=today;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    STAT PROGRESS
-========================================================= */
+===================================================== */
 
 function addStatProgress(
   stat,
   amount
 ){
-
-  if(!data.statProgress){
-    data.statProgress={};
-  }
-
 
   const before=
     statLevelFromProgress(
@@ -3586,9 +3530,9 @@ function addStatProgress(
 }
 
 
-/* =========================================================
+/* =====================================================
    HISTORY
-========================================================= */
+===================================================== */
 
 function addHistory(
   title,
@@ -3605,13 +3549,9 @@ function addHistory(
       Math.random(),
 
     title,
-
     type,
-
     xp,
-
     stat,
-
     statProgress,
 
     date:
@@ -3621,21 +3561,17 @@ function addHistory(
 
 
   if(history.length>500){
-
-    history=
-      history.slice(0,500);
-
+    history=history.slice(0,500);
   }
-
 
   saveHistory();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    COMPLETE QUEST
-========================================================= */
+===================================================== */
 
 function completeQuestRecord(
   stat,
@@ -3655,16 +3591,12 @@ function completeQuestRecord(
 
 
   data.completedToday++;
-
   data.todayXP+=xp;
-
   data.totalQuestsCompleted++;
 
 
   if(isSocial){
-
     data.socialCompletions++;
-
   }
 
 
@@ -3673,31 +3605,21 @@ function completeQuestRecord(
 
   addXP(
     xp,
-    title,
-    true
+    title
   );
 
-
-  /*
-    addXP already creates the XP history entry.
-    The stat information is added separately so the
-    history still records the stat progression.
-  */
 
   const latest=
     history.find(
       item=>
         item.title===title &&
-        item.type==="XP"
+        item.type==="QUEST"
     );
 
 
   if(latest){
 
-    latest.type="QUEST";
-
     latest.stat=stat;
-
     latest.statProgress=statGain;
 
     saveHistory();
@@ -3705,23 +3627,21 @@ function completeQuestRecord(
   }
 
 
+  updateObjectiveProgress();
+
   save();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    DAILY QUEST
-========================================================= */
+===================================================== */
 
 function completeDaily(id){
 
-  if(
-    data.completed.includes(id)
-  ){
-
+  if(data.completed.includes(id)){
     return;
-
   }
 
 
@@ -3734,9 +3654,7 @@ function completeDaily(id){
   if(!q)return;
 
 
-  data.completed.push(
-    q.id
-  );
+  data.completed.push(q.id);
 
 
   completeQuestRecord(
@@ -3748,7 +3666,6 @@ function completeDaily(id){
 
 
   renderDaily();
-
   updateUI();
 
 
@@ -3761,24 +3678,17 @@ function completeDaily(id){
 }
 
 
-/* =========================================================
+/* =====================================================
    CUSTOM QUEST
-========================================================= */
+===================================================== */
 
-function getQuestXP(
-  difficulty
-){
+function getQuestXP(difficulty){
 
   return {
-
     EASY:10,
-
     NORMAL:25,
-
     HARD:50,
-
     EXTREME:100
-
   }[difficulty]||10;
 
 }
@@ -3788,9 +3698,7 @@ function createCustomQuest(){
 
   const name=
     document
-      .getElementById(
-        "questNameInput"
-      )
+      .getElementById("questNameInput")
       .value
       .trim();
 
@@ -3808,17 +3716,13 @@ function createCustomQuest(){
 
   const difficulty=
     document
-      .getElementById(
-        "questDifficultyInput"
-      )
+      .getElementById("questDifficultyInput")
       .value;
 
 
   const stat=
     document
-      .getElementById(
-        "questStatInput"
-      )
+      .getElementById("questStatInput")
       .value;
 
 
@@ -3834,19 +3738,14 @@ function createCustomQuest(){
 
     type:
       document
-        .getElementById(
-          "questTypeInput"
-        )
+        .getElementById("questTypeInput")
         .value,
 
     difficulty,
-
     stat,
 
     xp:
-      getQuestXP(
-        difficulty
-      ),
+      getQuestXP(difficulty),
 
     completed:false
 
@@ -3857,9 +3756,7 @@ function createCustomQuest(){
 
 
   document
-    .getElementById(
-      "questNameInput"
-    )
+    .getElementById("questNameInput")
     .value="";
 
 
@@ -3881,48 +3778,19 @@ function completeCustom(id){
     );
 
 
-  if(
-    !q ||
-    q.completed
-  ){
-
+  if(!q || q.completed){
     return;
-
   }
 
 
   q.completed=true;
 
 
-  const statGain=
-    statGainForQuest(
-      q.xp
-    );
-
-
-  addStatProgress(
+  completeQuestRecord(
     q.stat,
-    statGain
-  );
-
-
-  data.totalQuestsCompleted++;
-
-
-  if(q.stat==="CHA"){
-
-    data.socialCompletions++;
-
-  }
-
-
-  updateStreak();
-
-
-  addXP(
     q.xp,
     q.name,
-    true
+    q.stat==="CHA"
   );
 
 
@@ -3930,29 +3798,20 @@ function completeCustom(id){
     history.find(
       item=>
         item.title===q.name &&
-        item.type==="XP"
+        item.type==="QUEST"
     );
 
 
   if(latest){
-
     latest.type="CUSTOM QUEST";
-
-    latest.stat=q.stat;
-
-    latest.statProgress=statGain;
-
     saveHistory();
-
   }
 
 
   saveCustom();
-
   save();
 
   renderCustom();
-
   updateUI();
 
 
@@ -3972,11 +3831,9 @@ function deleteCustom(id){
       q=>q.id!==id
     );
 
-
   saveCustom();
 
   renderCustom();
-
 
   showNotification(
     "QUEST REMOVED"
@@ -3988,9 +3845,7 @@ function deleteCustom(id){
 function escapeHTML(text){
 
   const div=
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   div.textContent=text;
 
@@ -3999,120 +3854,107 @@ function escapeHTML(text){
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDER DAILY
-========================================================= */
+===================================================== */
 
 function renderDaily(){
 
   const targets=[
 
-    document.getElementById(
-      "dailyQuests"
-    ),
+    document.getElementById("dailyQuests"),
 
-    document.getElementById(
-      "homeDailyQuests"
-    )
+    document.getElementById("homeDailyQuests")
 
   ];
 
 
-  targets.forEach(
-    container=>{
+  targets.forEach(container=>{
 
-      if(!container)return;
+    if(!container)return;
 
-
-      container.innerHTML="";
+    container.innerHTML="";
 
 
-      dailyData.forEach(q=>{
+    dailyData.forEach(q=>{
 
-        const completed=
-          data.completed.includes(
-            q.id
-          );
+      const completed=
+        data.completed.includes(q.id);
 
 
-        const element=
-          document.createElement(
-            "div"
-          );
+      const element=
+        document.createElement("div");
 
 
-        element.className=
-          "quest "+
-          q.difficulty.toLowerCase()+
-          (
-            completed
-              ?" completed"
-              :""
-          );
-
-
-        element.innerHTML=`
-
-          <div class="quest-check">
-            ${completed?"✓":""}
-          </div>
-
-          <div class="quest-info">
-
-            <div class="quest-name">
-              ${q.name}
-            </div>
-
-            <div class="quest-meta">
-              ${q.difficulty}
-              •
-              ${q.stat}
-            </div>
-
-          </div>
-
-          <div class="quest-reward">
-
-            <div class="xp-reward">
-              +${q.xp} XP
-            </div>
-
-            <div class="stat-reward">
-              +${statGainForQuest(q.xp)}
-              ${q.stat}
-              PROGRESS
-            </div>
-
-          </div>
-
-        `;
-
-
-        if(!completed){
-
-          element.addEventListener(
-            "click",
-            ()=>completeDaily(q.id)
-          );
-
-        }
-
-
-        container.appendChild(
-          element
+      element.className=
+        "quest "+
+        q.difficulty.toLowerCase()+
+        (
+          completed
+            ?" completed"
+            :""
         );
 
-      });
 
-    }
-  );
+      element.innerHTML=`
+
+        <div class="quest-check">
+          ${completed?"✓":""}
+        </div>
+
+        <div class="quest-info">
+
+          <div class="quest-name">
+            ${q.name}
+          </div>
+
+          <div class="quest-meta">
+            ${q.difficulty}
+            •
+            ${q.stat}
+          </div>
+
+        </div>
+
+        <div class="quest-reward">
+
+          <div class="xp-reward">
+            +${q.xp} XP
+          </div>
+
+          <div class="stat-reward">
+            +${statGainForQuest(q.xp)}
+            ${q.stat}
+            PROGRESS
+          </div>
+
+        </div>
+
+      `;
+
+
+      if(!completed){
+
+        element.addEventListener(
+          "click",
+          ()=>completeDaily(q.id)
+        );
+
+      }
+
+
+      container.appendChild(element);
+
+    });
+
+  });
 
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDER CUSTOM
-========================================================= */
+===================================================== */
 
 function renderCustom(){
 
@@ -4125,17 +3967,14 @@ function renderCustom(){
   container.innerHTML="";
 
 
-  if(
-    !customQuests.length
-  ){
+  if(!customQuests.length){
 
-    container.innerHTML=
-      `
+    container.innerHTML=`
       <div class="empty-state">
         NO CUSTOM QUESTS YET.
         CREATE ONE ABOVE.
       </div>
-      `;
+    `;
 
     return;
 
@@ -4145,13 +3984,10 @@ function renderCustom(){
   customQuests.forEach(q=>{
 
     const element=
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
 
-    element.className=
-      "custom-quest";
+    element.className="custom-quest";
 
 
     element.innerHTML=`
@@ -4179,18 +4015,13 @@ function renderCustom(){
 
       </div>
 
-
       <div class="custom-quest-actions">
 
         <button
           class="custom-complete"
           ${q.completed?"disabled":""}
         >
-          ${
-            q.completed
-              ?"COMPLETED"
-              :"COMPLETE"
-          }
+          ${q.completed?"COMPLETED":"COMPLETE"}
         </button>
 
         <button
@@ -4205,9 +4036,7 @@ function renderCustom(){
 
 
     element
-      .querySelector(
-        ".custom-complete"
-      )
+      .querySelector(".custom-complete")
       .addEventListener(
         "click",
         ()=>completeCustom(q.id)
@@ -4215,119 +4044,733 @@ function renderCustom(){
 
 
     element
-      .querySelector(
-        ".delete-button"
-      )
+      .querySelector(".delete-button")
       .addEventListener(
         "click",
         ()=>deleteCustom(q.id)
       );
 
 
-    container.appendChild(
-      element
-    );
+    container.appendChild(element);
 
   });
 
 }
 
 
-/* =========================================================
-   REFLECTION SYSTEM
-========================================================= */
+/* =====================================================
+   OBJECTIVES
+===================================================== */
+
+function getActiveObjectives(){
+
+  return objectives.filter(
+    o=>!o.completed
+  );
+
+}
+
+
+function getPrimaryObjective(){
+
+  return getActiveObjectives()[0]||null;
+
+}
+
+
+function objectiveProgress(objective){
+
+  if(!objective){
+    return 0;
+  }
+
+
+  const relevant=
+    history.filter(
+      item=>
+        item.type==="QUEST" ||
+        item.type==="CUSTOM QUEST"
+    );
+
+
+  if(!relevant.length){
+    return 0;
+  }
+
+
+  let matching=0;
+
+
+  relevant.forEach(item=>{
+
+    if(
+      objective.stat &&
+      item.stat===objective.stat
+    ){
+
+      matching++;
+
+    }
+
+  });
+
+
+  /*
+    Objective progress is intentionally slow.
+    Every relevant completed action contributes 5%.
+    A dedicated objective quest can contribute more.
+  */
+
+  const questProgress=
+    matching*5;
+
+
+  return Math.min(
+    95,
+    Math.round(
+      objective.progress+
+      questProgress
+    )
+  );
+
+}
+
+
+function updateObjectiveProgress(){
+
+  let changed=false;
+
+
+  objectives.forEach(objective=>{
+
+    if(objective.completed){
+      return;
+    }
+
+
+    const previous=
+      objective.progress||0;
+
+
+    const progress=
+      objectiveProgress(objective);
+
+
+    if(progress>previous){
+
+      objective.progress=progress;
+
+      changed=true;
+
+    }
+
+
+    if(objective.progress>=100){
+
+      objective.progress=100;
+      objective.completed=true;
+      objective.completedDate=
+        todayString();
+
+      changed=true;
+
+      showNotification(
+        "OBJECTIVE COMPLETE • "+
+        objective.name
+      );
+
+    }
+
+  });
+
+
+  if(changed){
+    saveObjectives();
+  }
+
+}
+
+
+function createObjective(){
+
+  const name=
+    document
+      .getElementById(
+        "objectiveNameInput"
+      )
+      .value
+      .trim();
+
+
+  if(!name){
+
+    showNotification(
+      "ENTER AN OBJECTIVE"
+    );
+
+    return;
+
+  }
+
+
+  const date=
+    document
+      .getElementById(
+        "objectiveDateInput"
+      )
+      .value;
+
+
+  const stat=
+    document
+      .getElementById(
+        "objectiveStatInput"
+      )
+      .value;
+
+
+  const reason=
+    document
+      .getElementById(
+        "objectiveReasonInput"
+      )
+      .value
+      .trim();
+
+
+  objectives.push({
+
+    id:
+      Date.now()+
+      Math.random()
+        .toString(36)
+        .slice(2),
+
+    name,
+
+    targetDate:
+      date||null,
+
+    stat,
+
+    reason:
+
+      reason||
+      "I want to make progress in this area.",
+
+    progress:0,
+
+    completed:false,
+
+    createdDate:
+      todayString()
+
+  });
+
+
+  saveObjectives();
+
+
+  document
+    .getElementById(
+      "objectiveNameInput"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "objectiveDateInput"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "objectiveReasonInput"
+    )
+    .value="";
+
+
+  renderObjectives();
+  renderHomeObjective();
+  renderReflection();
+
+
+  showNotification(
+    "OBJECTIVE CREATED"
+  );
+
+}
+
+
+function deleteObjective(id){
+
+  objectives=
+    objectives.filter(
+      o=>o.id!==id
+    );
+
+
+  saveObjectives();
+
+  renderObjectives();
+  renderHomeObjective();
+  renderReflection();
+
+
+  showNotification(
+    "OBJECTIVE REMOVED"
+  );
+
+}
+
+
+function completeObjective(id){
+
+  const objective=
+    objectives.find(
+      o=>o.id===id
+    );
+
+
+  if(!objective)return;
+
+
+  objective.progress=100;
+  objective.completed=true;
+  objective.completedDate=
+    todayString();
+
+
+  saveObjectives();
+
+  renderObjectives();
+  renderHomeObjective();
+  renderReflection();
+
+
+  showNotification(
+    "OBJECTIVE COMPLETE"
+  );
+
+}
+
+
+function renderObjectives(){
+
+  const container=
+    document.getElementById(
+      "objectiveList"
+    );
+
+
+  if(!container)return;
+
+
+  container.innerHTML="";
+
+
+  if(!objectives.length){
+
+    container.innerHTML=`
+
+      <div class="no-objectives">
+
+        NO OBJECTIVES YET.<br><br>
+
+        An objective gives SENRAI a destination
+        to work toward with you.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  objectives.forEach(objective=>{
+
+    const progress=
+      Math.min(
+        100,
+        objective.progress||0
+      );
+
+
+    const element=
+      document.createElement("div");
+
+
+    element.className=
+      "objective-card "+
+      (
+        objective.completed
+          ?"completed"
+          :"active"
+      );
+
+
+    const target=
+      objective.targetDate
+        ?new Date(
+          objective.targetDate+
+          "T00:00:00"
+        ).toLocaleDateString()
+        :"NO TARGET DATE";
+
+
+    element.innerHTML=`
+
+      <div class="objective-top">
+
+        <div class="objective-name">
+          ${escapeHTML(objective.name)}
+        </div>
+
+        <div class="objective-status">
+          ${
+            objective.completed
+              ?"COMPLETE"
+              :"ACTIVE"
+          }
+        </div>
+
+      </div>
+
+
+      <div class="objective-reason">
+        ${escapeHTML(objective.reason)}
+      </div>
+
+
+      <div class="objective-meta">
+
+        <span>
+          TARGET • ${target}
+        </span>
+
+        <span>
+          AREA • ${objective.stat}
+        </span>
+
+      </div>
+
+
+      <div class="objective-progress">
+
+        <div
+          class="objective-progress-fill"
+          style="width:${progress}%"
+        ></div>
+
+      </div>
+
+
+      <div class="objective-footer">
+
+        <div class="objective-percent">
+          ${progress}% COMPLETE
+        </div>
+
+        <div class="objective-actions">
+
+          ${
+            !objective.completed
+              ?`
+                <button
+                  class="objective-complete"
+                >
+                  COMPLETE
+                </button>
+              `
+              :""
+          }
+
+          <button
+            class="objective-delete"
+          >
+            DELETE
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    const completeButton=
+      element.querySelector(
+        ".objective-complete"
+      );
+
+
+    if(completeButton){
+
+      completeButton.addEventListener(
+        "click",
+        ()=>completeObjective(
+          objective.id
+        )
+      );
+
+    }
+
+
+    element
+      .querySelector(
+        ".objective-delete"
+      )
+      .addEventListener(
+        "click",
+        ()=>deleteObjective(
+          objective.id
+        )
+      );
+
+
+    container.appendChild(element);
+
+  });
+
+}
+
+
+function renderHomeObjective(){
+
+  const objective=
+    getPrimaryObjective();
+
+
+  const name=
+    document.getElementById(
+      "homeObjectiveName"
+    );
+
+  const text=
+    document.getElementById(
+      "homeObjectiveText"
+    );
+
+
+  if(!objective){
+
+    name.textContent=
+      "No objective yet.";
+
+    text.textContent=
+      "Create a long-term objective and SENRAI will use it to make your daily recommendations smarter.";
+
+    return;
+
+  }
+
+
+  name.textContent=
+    objective.name;
+
+
+  const progress=
+    objective.progress||0;
+
+
+  text.textContent=
+    progress+
+    "% complete • "+
+    objective.reason;
+
+}
+
+
+/* =====================================================
+   SMART RECOMMENDATION ENGINE
+===================================================== */
 
 function buildReflectionOptions(){
 
-  const stats=
-    data.stats||{};
+  const options=[];
 
 
-  const entries=
-    Object.keys(stats)
+  const activeObjectives=
+    getActiveObjectives();
+
+
+  /*
+    PRIORITY 1:
+    Objective-based recommendations.
+  */
+
+  activeObjectives.forEach(objective=>{
+
+    const progress=
+      objective.progress||0;
+
+
+    if(progress<25){
+
+      options.push({
+
+        title:
+          "Your objective needs a first step.",
+
+        text:
+          "SENRAI is focusing on your objective: "+
+          objective.name+
+          ". The best move right now is something small enough to actually start.",
+
+        quest:
+          objective.stat==="INT"
+            ? "Spend 20 minutes learning something directly related to \""+
+              objective.name+
+              "\"."
+            :objective.stat==="STR"
+              ? "Spend 15 minutes taking one physical step toward \""+
+                objective.name+
+                "\"."
+              :"Spend 20 minutes doing one concrete thing that moves you closer to \""+
+                objective.name+
+                "\".",
+
+        xp:25,
+
+        stat:objective.stat,
+
+        source:
+          "YOUR ACTIVE OBJECTIVE"
+
+      });
+
+    }else{
+
+      options.push({
+
+        title:
+          "Keep the objective moving.",
+
+        text:
+          objective.name+
+          " is already "+
+          progress+
+          "% complete. SENRAI recommends another concrete step instead of trying to finish everything at once.",
+
+        quest:
+          "Complete one small action that directly advances \""+
+          objective.name+
+          "\".",
+
+        xp:25,
+
+        stat:objective.stat,
+
+        source:
+          "YOUR OBJECTIVE • "+
+          progress+
+          "% COMPLETE"
+
+      });
+
+    }
+
+  });
+
+
+  /*
+    PRIORITY 2:
+    Weakest stat.
+  */
+
+  const statEntries=
+    STAT_KEYS
       .map(stat=>({
 
         stat,
 
         value:
-          Number(
-            stats[stat]
-          )||0
+          Number(data.stats[stat])||0
 
       }))
       .sort(
-        (a,b)=>
-          b.value-a.value
+        (a,b)=>a.value-b.value
       );
 
 
-  const highest=
-    entries[0]||
-    {
-      stat:"DEX",
-      value:0
-    };
+  const weakest=
+    statEntries[0];
 
 
-  const lowest=
-    entries[
-      entries.length-1
-    ]||
-    {
-      stat:"CRE",
-      value:0
-    };
-
-
-  const labels={
+  const statNames={
 
     STR:"Strength",
-
     INT:"Intelligence",
-
     WIS:"Wisdom",
-
     CHA:"Charisma",
-
     DEX:"Dexterity",
-
     CRE:"Creativity",
-
     VIT:"Vitality"
 
   };
 
 
-  const options=[];
+  if(weakest){
 
+    const statQuests={
 
-  if(
-    data.totalQuestsCompleted<1
-  ){
+      STR:
+        "Do 15 minutes of exercise or another physical activity.",
+
+      INT:
+        "Spend 20 minutes learning something useful.",
+
+      WIS:
+        "Take 10 minutes to reflect on something you've learned recently.",
+
+      CHA:
+        "Reach out to someone you care about.",
+
+      DEX:
+        "Finish one small task you've been putting off.",
+
+      CRE:
+        "Spend 20 minutes creating something without worrying about the result.",
+
+      VIT:
+        "Spend 15 minutes outside or doing something that supports your health."
+
+    };
+
 
     options.push({
 
       title:
-        "Every journey starts with one action.",
+        "Your "+statNames[weakest.stat]+" needs attention.",
 
       text:
-        "SENRAI doesn't need you to have everything figured out. Start small, complete one meaningful quest, and let the system learn from what you choose.",
+        "Your "+statNames[weakest.stat]+" stat has received less development than your other areas. SENRAI isn't trying to balance you perfectly — it's offering another direction.",
 
       quest:
-        "Complete one small task you've been avoiding.",
+        statQuests[weakest.stat],
 
       xp:25,
 
-      stat:"DEX"
+      stat:weakest.stat,
+
+      source:
+        "YOUR CURRENT STAT BALANCE"
 
     });
 
   }
 
 
-  if(
-    data.streak>=3
-  ){
+  /*
+    PRIORITY 3:
+    Consistency.
+  */
+
+  if(data.streak>=3){
 
     options.push({
 
@@ -4336,79 +4779,61 @@ function buildReflectionOptions(){
         " days of momentum.",
 
       text:
-        "You've shown that consistency is possible. You don't need to make today perfect — just keep the pattern alive.",
+        "You've already demonstrated consistency. The next useful move is simply keeping the pattern alive without making today unnecessarily difficult.",
 
       quest:
         "Take 10 minutes to prepare something that will make tomorrow easier.",
 
       xp:25,
 
-      stat:"DEX"
+      stat:"DEX",
+
+      source:
+        "YOUR CURRENT STREAK"
 
     });
 
   }
 
 
-  if(
-    data.totalQuestsCompleted>=2
-  ){
+  /*
+    PRIORITY 4:
+    Low activity.
+  */
+
+  if(data.completedToday===0){
 
     options.push({
 
       title:
-        "You're building momentum.",
+        "Start small today.",
 
       text:
-        "Your recent activity is starting to form a pattern. Keep the next step small enough that you actually want to do it.",
+        "Nothing has been completed today yet. SENRAI isn't judging that — it simply means there's an easy opportunity to create some momentum.",
 
       quest:
-        "Finish one small task before you move on to something else.",
+        "Complete one small task you've been avoiding.",
 
       xp:25,
 
-      stat:"DEX"
+      stat:"DEX",
+
+      source:
+        "TODAY'S ACTIVITY"
 
     });
 
   }
 
 
-  if(
-    entries.length &&
-    highest.value >
-    lowest.value+2
-  ){
-
-    options.push({
-
-      title:
-        "Your build is taking shape.",
-
-      text:
-        "You've been developing "+
-        labels[highest.stat]+
-        " more than "+
-        labels[lowest.stat]+
-        ". SENRAI isn't asking you to become balanced — just giving you another path to explore.",
-
-      quest:
-        "Spend 20 minutes doing something that develops "+
-        labels[lowest.stat]+
-        ".",
-
-      xp:25,
-
-      stat:lowest.stat
-
-    });
-
-  }
-
+  /*
+    PRIORITY 5:
+    Creative/social/health development.
+  */
 
   if(
-    (stats.CRE||0)<=1 &&
-    data.totalQuestsCompleted>=3
+    data.totalQuestsCompleted>=3 &&
+    (data.stats.CRE||0)<=1
   ){
 
     options.push({
@@ -4417,14 +4842,17 @@ function buildReflectionOptions(){
         "Not everything has to be productive.",
 
       text:
-        "Your Creativity hasn't moved much yet. Maybe make something simply because you enjoy making it.",
+        "Your Creativity hasn't moved much yet. SENRAI thinks there may be value in doing something simply because you enjoy making it.",
 
       quest:
-        "Spend 30 minutes on a hobby with no productivity goal.",
+        "Spend 30 minutes on a creative hobby with no productivity goal.",
 
       xp:25,
 
-      stat:"CRE"
+      stat:"CRE",
+
+      source:
+        "YOUR DEVELOPMENT PATTERN"
 
     });
 
@@ -4432,8 +4860,8 @@ function buildReflectionOptions(){
 
 
   if(
-    (stats.CHA||0)<=1 &&
-    data.totalQuestsCompleted>=5
+    data.totalQuestsCompleted>=5 &&
+    (data.stats.CHA||0)<=1
   ){
 
     options.push({
@@ -4442,73 +4870,29 @@ function buildReflectionOptions(){
         "Your world could use another connection.",
 
       text:
-        "You've been progressing mostly on your own. A small social action can still count as progress.",
+        "You've been progressing mostly on your own. A small social action can still count as meaningful progress.",
 
       quest:
         "Reach out to someone you haven't talked to in a while.",
 
       xp:25,
 
-      stat:"CHA"
+      stat:"CHA",
+
+      source:
+        "YOUR DEVELOPMENT PATTERN"
 
     });
 
   }
 
 
-  if(
-    (stats.WIS||0)<=1 &&
-    data.totalQuestsCompleted>=5
-  ){
+  /*
+    PRIORITY 6:
+    Recovery.
+  */
 
-    options.push({
-
-      title:
-        "Slow down for a moment.",
-
-      text:
-        "You've been taking action, but reflection is part of progress too. Give yourself a little space to think.",
-
-      quest:
-        "Write down one thing you learned about yourself this week.",
-
-      xp:25,
-
-      stat:"WIS"
-
-    });
-
-  }
-
-
-  if(
-    (stats.VIT||0)<=1 &&
-    data.totalQuestsCompleted>=5
-  ){
-
-    options.push({
-
-      title:
-        "Your body is part of the system.",
-
-      text:
-        "Progress isn't only about getting more done. Recovery and basic health give everything else a stronger foundation.",
-
-      quest:
-        "Take a 15-minute walk or spend 15 minutes outside.",
-
-      xp:25,
-
-      stat:"VIT"
-
-    });
-
-  }
-
-
-  if(
-    data.completedToday>=4
-  ){
+  if(data.completedToday>=4){
 
     options.push({
 
@@ -4516,19 +4900,26 @@ function buildReflectionOptions(){
         "You've done enough for today.",
 
       text:
-        "You've already completed your daily quests. You don't need to turn every free moment into another task.",
+        "You've already completed your daily quests. Progress doesn't require turning every free moment into another task.",
 
       quest:
         "Do something you genuinely enjoy for 30 minutes with no goal attached.",
 
       xp:25,
 
-      stat:"WIS"
+      stat:"WIS",
+
+      source:
+        "TODAY'S COMPLETION"
 
     });
 
   }
 
+
+  /*
+    Fallback.
+  */
 
   if(!options.length){
 
@@ -4538,14 +4929,17 @@ function buildReflectionOptions(){
         "Keep discovering your build.",
 
       text:
-        "SENRAI is still learning how you move. Your choices will shape what the system notices next.",
+        "SENRAI is still learning how you move. Your choices will shape what the system recommends next.",
 
       quest:
         "Try something slightly outside your normal routine.",
 
       xp:25,
 
-      stat:"WIS"
+      stat:"WIS",
+
+      source:
+        "GENERAL GUIDANCE"
 
     });
 
@@ -4579,6 +4973,21 @@ function renderReflection(){
       "reflectionReward"
     );
 
+  const source=
+    document.getElementById(
+      "reflectionSource"
+    );
+
+
+  if(
+    !title ||
+    !text ||
+    !suggestion ||
+    !reward
+  ){
+    return;
+  }
+
 
   const options=
     buildReflectionOptions();
@@ -4594,54 +5003,51 @@ function renderReflection(){
   }
 
 
-  const reflection=
+  const r=
     options[
       currentReflectionIndex
     ];
 
 
-  currentReflectionQuest=
-    reflection;
+  currentReflectionQuest=r;
 
 
   title.textContent=
-    reflection.title.toUpperCase();
+    r.title.toUpperCase();
 
 
   text.textContent=
-    reflection.text;
+    r.text;
 
 
   suggestion.textContent=
-    reflection.quest;
+    r.quest;
 
 
   reward.textContent=
     "+"+
-    reflection.xp+
+    r.xp+
     " XP • +"+
-    statGainForQuest(
-      reflection.xp
-    )+
+    statGainForQuest(r.xp)+
     " "+
-    reflection.stat+
+    r.stat+
     " PROGRESS";
+
+
+  source.textContent=
+    r.source;
 
 }
 
 
-/* =========================================================
-   ACCEPT REFLECTION QUEST
-========================================================= */
+/* =====================================================
+   ACCEPT SMART RECOMMENDATION
+===================================================== */
 
 function acceptReflectionQuest(){
 
-  if(
-    !currentReflectionQuest
-  ){
-
+  if(!currentReflectionQuest){
     return;
-
   }
 
 
@@ -4669,8 +5075,11 @@ function acceptReflectionQuest(){
 
     completed:false,
 
-    source:
-      "SYSTEM_REFLECTION"
+    source:"SYSTEM_RECOMMENDATION",
+
+    objectiveId:
+      getPrimaryObjective()
+        ?.id||null
 
   });
 
@@ -4699,9 +5108,9 @@ function acceptReflectionQuest(){
 }
 
 
-/* =========================================================
+/* =====================================================
    LIFE QUEST
-========================================================= */
+===================================================== */
 
 function generateLife(){
 
@@ -4739,12 +5148,8 @@ function generateLife(){
 
 function completeLife(){
 
-  if(
-    !currentLifeQuest
-  ){
-
+  if(!currentLifeQuest){
     return;
-
   }
 
 
@@ -4768,7 +5173,6 @@ function completeLife(){
 
 
   data.lifeQuestCompletions++;
-
   data.totalQuestsCompleted++;
 
 
@@ -4777,8 +5181,7 @@ function completeLife(){
 
   addXP(
     xp,
-    quest,
-    true
+    quest
   );
 
 
@@ -4786,16 +5189,14 @@ function completeLife(){
     history.find(
       item=>
         item.title===quest &&
-        item.type==="XP"
+        item.type==="QUEST"
     );
 
 
   if(latest){
 
     latest.type="LIFE QUEST";
-
     latest.stat="WIS";
-
     latest.statProgress=statGain;
 
     saveHistory();
@@ -4826,6 +5227,8 @@ function completeLife(){
 
   save();
 
+  updateUI();
+
 
   showNotification(
     "+15 XP • LIFE QUEST COMPLETE"
@@ -4834,9 +5237,9 @@ function completeLife(){
 }
 
 
-/* =========================================================
+/* =====================================================
    SOCIAL QUEST
-========================================================= */
+===================================================== */
 
 function completeSide(){
 
@@ -4847,9 +5250,7 @@ function completeSide(){
 
 
   if(button.disabled){
-
     return;
-
   }
 
 
@@ -4866,35 +5267,34 @@ function completeSide(){
 
 
   data.socialCompletions++;
-
   data.totalQuestsCompleted++;
 
 
   updateStreak();
 
 
+  const title=
+    "Call someone you haven't talked to recently";
+
+
   addXP(
     xp,
-    "Call someone you haven't talked to recently",
-    true
+    title
   );
 
 
   const latest=
     history.find(
       item=>
-        item.title===
-        "Call someone you haven't talked to recently" &&
-        item.type==="XP"
+        item.title===title &&
+        item.type==="QUEST"
     );
 
 
   if(latest){
 
     latest.type="SOCIAL QUEST";
-
     latest.stat="CHA";
-
     latest.statProgress=statGain;
 
     saveHistory();
@@ -4902,13 +5302,13 @@ function completeSide(){
   }
 
 
-  button.textContent=
-    "COMPLETED";
-
+  button.textContent="COMPLETED";
   button.disabled=true;
 
 
   save();
+
+  updateUI();
 
 
   showNotification(
@@ -4918,14 +5318,11 @@ function completeSide(){
 }
 
 
-/* =========================================================
+/* =====================================================
    ACHIEVEMENTS
-========================================================= */
+===================================================== */
 
 function checkAchievements(){
-
-  let unlockedSomething=false;
-
 
   achievementDefs.forEach(
     achievement=>{
@@ -4954,7 +5351,6 @@ function checkAchievements(){
 
 
         data.xp+=reward;
-
         data.totalXP+=reward;
 
 
@@ -4967,25 +5363,19 @@ function checkAchievements(){
 
 
         while(
-          data.xp >=
-          xpNeededForLevel(
-            data.level
-          )
+          data.xp>=
+          xpNeededForLevel(data.level)
         ){
 
-          data.xp -=
-            xpNeededForLevel(
-              data.level
-            );
+          data.xp-=
+            xpNeededForLevel(data.level);
 
           data.level++;
 
         }
 
 
-        if(
-          data.level>oldLevel
-        ){
+        if(data.level>oldLevel){
 
           addHistory(
             "Reached Level "+
@@ -4997,9 +5387,6 @@ function checkAchievements(){
 
 
         save();
-
-
-        unlockedSomething=true;
 
 
         showNotification(
@@ -5021,9 +5408,9 @@ function checkAchievements(){
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDER ACHIEVEMENTS
-========================================================= */
+===================================================== */
 
 function renderAchievements(){
 
@@ -5031,6 +5418,9 @@ function renderAchievements(){
     document.getElementById(
       "achievementGrid"
     );
+
+
+  if(!container)return;
 
 
   container.innerHTML="";
@@ -5049,9 +5439,7 @@ function renderAchievements(){
 
 
       if(unlocked){
-
         count++;
-
       }
 
 
@@ -5076,9 +5464,7 @@ function renderAchievements(){
 
 
       const element=
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       element.className=
@@ -5093,27 +5479,15 @@ function renderAchievements(){
       element.innerHTML=`
 
         <div class="achievement-status">
-          ${
-            unlocked
-              ?"UNLOCKED"
-              :"LOCKED"
-          }
+          ${unlocked?"UNLOCKED":"LOCKED"}
         </div>
 
         <div class="achievement-icon">
-          ${
-            hidden
-              ?"🔒"
-              :achievement.icon
-          }
+          ${hidden?"🔒":achievement.icon}
         </div>
 
         <div class="achievement-title">
-          ${
-            hidden
-              ?"???"
-              :achievement.title
-          }
+          ${hidden?"???":achievement.title}
         </div>
 
         <div class="achievement-desc">
@@ -5129,27 +5503,23 @@ function renderAchievements(){
         </div>
 
         ${
-          !unlocked && !hidden
-          ?`
-            <div class="achievement-progress">
-              <div
-                style="width:${percentage}%"
-              ></div>
-            </div>
+          !unlocked&&!hidden
+            ?`
+              <div class="achievement-progress">
+                <div style="width:${percentage}%"></div>
+              </div>
 
-            <div class="achievement-desc">
-              ${current} / ${achievement.max}
-            </div>
-          `
-          :""
+              <div class="achievement-desc">
+                ${current} / ${achievement.max}
+              </div>
+            `
+            :""
         }
 
       `;
 
 
-      container.appendChild(
-        element
-      );
+      container.appendChild(element);
 
     }
   );
@@ -5168,26 +5538,20 @@ function renderAchievements(){
 }
 
 
-/* =========================================================
+/* =====================================================
    STATS
-========================================================= */
+===================================================== */
 
 function renderStats(){
 
   const names={
 
     STR:"STR • FITNESS",
-
     INT:"INT • LEARNING",
-
     WIS:"WIS • PERSONAL GROWTH",
-
     CHA:"CHA • SOCIAL",
-
     DEX:"DEX • PRODUCTIVITY",
-
     CRE:"CRE • CREATIVITY",
-
     VIT:"VIT • HEALTH"
 
   };
@@ -5196,17 +5560,11 @@ function renderStats(){
   const classes={
 
     STR:"str",
-
     INT:"int",
-
     WIS:"wis",
-
     CHA:"cha",
-
     DEX:"dex",
-
     CRE:"cre",
-
     VIT:"vit"
 
   };
@@ -5239,13 +5597,10 @@ function renderStats(){
 
 
     const element=
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
 
-    element.className=
-      "stat";
+    element.className="stat";
 
 
     element.innerHTML=`
@@ -5286,18 +5641,16 @@ function renderStats(){
     `;
 
 
-    container.appendChild(
-      element
-    );
+    container.appendChild(element);
 
   });
 
 }
 
 
-/* =========================================================
+/* =====================================================
    HISTORY
-========================================================= */
+===================================================== */
 
 function renderHistory(){
 
@@ -5314,7 +5667,7 @@ function renderHistory(){
 
     container.innerHTML=`
 
-      <div class="history-empty">
+      <div class="empty-state">
         YOUR JOURNEY HASN'T BEEN RECORDED YET.
         COMPLETE A QUEST TO BEGIN YOUR HISTORY.
       </div>
@@ -5329,9 +5682,7 @@ function renderHistory(){
   history.forEach(item=>{
 
     const element=
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
 
     element.className=
@@ -5405,18 +5756,16 @@ function renderHistory(){
     `;
 
 
-    container.appendChild(
-      element
-    );
+    container.appendChild(element);
 
   });
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PROFILE
-========================================================= */
+===================================================== */
 
 function renderProfile(){
 
@@ -5446,56 +5795,90 @@ function renderProfile(){
 }
 
 
-/* =========================================================
-   UI
-========================================================= */
+/* =====================================================
+   HOME OBJECTIVE
+===================================================== */
+
+function renderHomeObjective(){
+
+  const objective=
+    getPrimaryObjective();
+
+
+  const name=
+    document.getElementById(
+      "homeObjectiveName"
+    );
+
+  const text=
+    document.getElementById(
+      "homeObjectiveText"
+    );
+
+
+  if(!objective){
+
+    name.textContent=
+      "No objective yet.";
+
+    text.textContent=
+      "Create a long-term objective and SENRAI will use it to make your daily recommendations smarter.";
+
+    return;
+
+  }
+
+
+  name.textContent=
+    objective.name;
+
+
+  text.textContent=
+    (objective.progress||0)+
+    "% complete • "+
+    objective.reason;
+
+}
+
+
+/* =====================================================
+   UPDATE UI
+===================================================== */
 
 function updateUI(){
 
   document
-    .getElementById(
-      "level"
-    )
+    .getElementById("level")
     .textContent=
       data.level;
 
 
   document
-    .getElementById(
-      "xp"
-    )
+    .getElementById("xp")
     .textContent=
       data.xp;
 
 
   document
-    .getElementById(
-      "todayCount"
-    )
+    .getElementById("todayCount")
     .textContent=
       data.completedToday;
 
 
   document
-    .getElementById(
-      "streak"
-    )
+    .getElementById("streak")
     .textContent=
       data.streak;
 
 
   document
-    .getElementById(
-      "todayXP"
-    )
+    .getElementById("todayXP")
     .textContent=
       data.todayXP;
 
 
   const needed=
-    xpNeededForLevel(
-      data.level
-    );
+    xpNeededForLevel(data.level);
 
 
   const percentage=
@@ -5508,17 +5891,13 @@ function updateUI(){
 
 
   document
-    .getElementById(
-      "xpBar"
-    )
+    .getElementById("xpBar")
     .style.width=
       percentage+"%";
 
 
   document
-    .getElementById(
-      "xpProgress"
-    )
+    .getElementById("xpProgress")
     .textContent=
       data.xp+
       " / "+
@@ -5527,54 +5906,42 @@ function updateUI(){
 
 
   document
-    .getElementById(
-      "nextLevel"
-    )
+    .getElementById("nextLevel")
     .textContent=
       "LEVEL "+
       (data.level+1);
 
 
   renderStats();
-
   renderAchievements();
-
   renderHistory();
-
   renderProfile();
-
+  renderObjectives();
+  renderHomeObjective();
   renderReflection();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    VIEW NAVIGATION
-========================================================= */
+===================================================== */
 
 function showView(view){
 
   document
-    .querySelectorAll(
-      ".nav-button"
-    )
+    .querySelectorAll(".nav-button")
     .forEach(
       button=>
-        button.classList.remove(
-          "active"
-        )
+        button.classList.remove("active")
     );
 
 
   document
-    .querySelectorAll(
-      ".view"
-    )
+    .querySelectorAll(".view")
     .forEach(
       page=>
-        page.classList.remove(
-          "active"
-        )
+        page.classList.remove("active")
     );
 
 
@@ -5586,9 +5953,7 @@ function showView(view){
 
   if(navButton){
 
-    navButton.classList.add(
-      "active"
-    );
+    navButton.classList.add("active");
 
   }
 
@@ -5601,9 +5966,7 @@ function showView(view){
 
   if(target){
 
-    target.classList.add(
-      "active"
-    );
+    target.classList.add("active");
 
   }
 
@@ -5616,16 +5979,14 @@ function showView(view){
 }
 
 
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
+/* =====================================================
+   NOTIFICATION
+===================================================== */
 
 let notificationTimeout;
 
 
-function showNotification(
-  message
-){
+function showNotification(message){
 
   const notification=
     document.getElementById(
@@ -5637,9 +5998,7 @@ function showNotification(
     message;
 
 
-  notification.classList.add(
-    "show"
-  );
+  notification.classList.add("show");
 
 
   clearTimeout(
@@ -5650,9 +6009,7 @@ function showNotification(
   notificationTimeout=
     setTimeout(
       ()=>{
-        notification.classList.remove(
-          "show"
-        );
+        notification.classList.remove("show");
       },
       3000
     );
@@ -5660,33 +6017,29 @@ function showNotification(
 }
 
 
-/* =========================================================
-   NAV BUTTONS
-========================================================= */
+/* =====================================================
+   NAVIGATION EVENTS
+===================================================== */
 
 document
-  .querySelectorAll(
-    ".nav-button"
-  )
+  .querySelectorAll(".nav-button")
   .forEach(button=>{
 
     button.addEventListener(
       "click",
       ()=>{
-
         showView(
           button.dataset.view
         );
-
       }
     );
 
   });
 
 
-/* =========================================================
+/* =====================================================
    SYSTEM MENU
-========================================================= */
+===================================================== */
 
 const systemButton=
   document.getElementById(
@@ -5706,9 +6059,7 @@ systemButton.addEventListener(
 
     event.stopPropagation();
 
-    systemMenu.classList.toggle(
-      "open"
-    );
+    systemMenu.classList.toggle("open");
 
   }
 );
@@ -5728,9 +6079,7 @@ document
           button.dataset.systemView
         );
 
-        systemMenu.classList.remove(
-          "open"
-        );
+        systemMenu.classList.remove("open");
 
       }
     );
@@ -5741,16 +6090,14 @@ document
 document.addEventListener(
   "click",
   ()=>{
-    systemMenu.classList.remove(
-      "open"
-    );
+    systemMenu.classList.remove("open");
   }
 );
 
 
-/* =========================================================
-   EVENTS
-========================================================= */
+/* =====================================================
+   QUEST EVENTS
+===================================================== */
 
 document
   .getElementById(
@@ -5770,12 +6117,8 @@ document
     "keydown",
     event=>{
 
-      if(
-        event.key==="Enter"
-      ){
-
+      if(event.key==="Enter"){
         createCustomQuest();
-
       }
 
     }
@@ -5791,6 +6134,10 @@ document
     completeSide
   );
 
+
+/* =====================================================
+   LIFE EVENTS
+===================================================== */
 
 document
   .getElementById(
@@ -5831,6 +6178,10 @@ document
     completeLife
   );
 
+
+/* =====================================================
+   SMART RECOMMENDATION EVENTS
+===================================================== */
 
 document
   .getElementById(
@@ -5884,6 +6235,24 @@ document
   );
 
 
+/* =====================================================
+   OBJECTIVE EVENTS
+===================================================== */
+
+document
+  .getElementById(
+    "createObjectiveButton"
+  )
+  .addEventListener(
+    "click",
+    createObjective
+  );
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
 document
   .getElementById(
     "saveProfileButton"
@@ -5913,9 +6282,7 @@ document
       }
 
 
-      profile.name=
-        name;
-
+      profile.name=name;
 
       saveProfile();
 
@@ -5930,6 +6297,10 @@ document
   );
 
 
+/* =====================================================
+   SETTINGS
+===================================================== */
+
 document
   .getElementById(
     "clearHistoryButton"
@@ -5940,14 +6311,12 @@ document
 
       const confirmed=
         confirm(
-          "Clear your SENRAI history? Your quests, XP, levels, and stats will NOT be reset."
+          "Clear your SENRAI history? Your quests, XP, levels, stats, and objectives will NOT be reset."
         );
 
 
       if(!confirmed){
-
         return;
-
       }
 
 
@@ -5966,11 +6335,13 @@ document
   );
 
 
-/* =========================================================
+/* =====================================================
    INITIALIZE
-========================================================= */
+===================================================== */
 
 checkDailyReset();
+
+updateObjectiveProgress();
 
 renderDaily();
 
@@ -5979,22 +6350,17 @@ renderCustom();
 updateUI();
 
 
-/* =========================================================
+/* =====================================================
    LOADING SCREEN
-========================================================= */
+===================================================== */
 
 const loadingMessages=[
 
   "SYSTEM INITIALIZING",
-
   "LOADING PROFILE",
-
   "SYNCING PROGRESS DATA",
-
   "INITIALIZING QUEST SYSTEM",
-
   "CALIBRATING CHARACTER STATS",
-
   "SYSTEM READY"
 
 ];
@@ -6073,12 +6439,8 @@ const loadingInterval=
           ()=>{
 
             document
-              .getElementById(
-                "splash"
-              )
-              .classList.add(
-                "hidden"
-              );
+              .getElementById("splash")
+              .classList.add("hidden");
 
           },
           650
