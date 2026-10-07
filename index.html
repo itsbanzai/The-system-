@@ -1,76 +1,2635 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050609"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SENRAI"><link rel="apple-touch-icon" href="senrai-logo.png"><title>SENRAI — The System That Moves You Forward</title><style>
-*{box-sizing:border-box}html,body{margin:0;background:#050609;color:#eef2f7;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}:root{--bg:#050609;--panel:#0d1117;--panel2:#10151c;--line:#242c37;--muted:#778291;--main:#69e2dc;--main2:#dce8f5;--soft:rgba(105,226,220,.11);--mid:rgba(105,226,220,.32)}
-body[data-theme=void]{--bg:#07050d;--main:#9b6cff;--main2:#d7c6ff;--soft:rgba(155,108,255,.12);--mid:rgba(155,108,255,.32)}body[data-theme=crimson]{--bg:#080406;--main:#b21f35;--main2:#e8c45a;--soft:rgba(178,31,53,.13);--mid:rgba(178,31,53,.34)}body[data-theme=frost]{--bg:#04080c;--main:#72d8ff;--main2:#eaf7ff;--soft:rgba(114,216,255,.12);--mid:rgba(114,216,255,.32)}body[data-theme=emerald]{--bg:#030907;--main:#25c98b;--main2:#b7e6a5;--soft:rgba(37,201,139,.12);--mid:rgba(37,201,139,.32)}body[data-theme=gold]{--bg:#090704;--main:#d4a83e;--main2:#ffe59a;--soft:rgba(212,168,62,.13);--mid:rgba(212,168,62,.32)}body[data-theme=abyss]{--bg:#03090b;--main:#20bfc7;--main2:#86e9ee;--soft:rgba(32,191,199,.12);--mid:rgba(32,191,199,.32)}body[data-theme=rose]{--bg:#090407;--main:#d64f91;--main2:#ffb5d5;--soft:rgba(214,79,145,.13);--mid:rgba(214,79,145,.32)}
-body{background:var(--bg);min-height:100vh}.splash{position:fixed;inset:0;z-index:99999;background:#030407;display:grid;place-items:center;transition:opacity .45s}.splash.hide{opacity:0;pointer-events:none}.splash-inner{text-align:center;width:min(420px,90vw)}.splash-logo{width:min(250px,65vw);height:auto;display:block;margin:auto}.splash-sub{font-size:10px;letter-spacing:3px;color:#dce1e8;margin-top:20px}.load{height:3px;background:#171b22;border-radius:10px;overflow:hidden;margin-top:22px}.load i{display:block;height:100%;width:0;background:var(--main2);transition:width .12s}.loadline{display:flex;justify-content:space-between;color:#697383;font-size:8px;letter-spacing:1.4px;margin-top:7px}
-#app{max-width:1100px;margin:auto;padding:22px 16px 105px}header{height:62px;border-bottom:1px solid #202732;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;font-size:20px;letter-spacing:5px}.headright{display:flex;align-items:center;gap:15px}.online{font-size:8px;letter-spacing:2.5px;color:#5df2a5}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#5df2a5;box-shadow:0 0 9px #5df2a5;margin-right:7px}.sysbtn{border:1px solid #29313c;background:rgba(12,15,20,.55);color:#9ba5b3;border-radius:11px;padding:9px 12px;font-size:8px;letter-spacing:2px}.sysbtn.open,.sysbtn:hover{color:var(--main2);border-color:var(--mid);background:var(--soft)}.menu{position:absolute;right:16px;top:76px;width:220px;padding:8px;border:1px solid #2b333f;background:rgba(7,10,14,.97);border-radius:15px;z-index:5000;box-shadow:0 20px 60px #000}.menu button{display:block;width:100%;border:0;background:none;color:#aab3bf;text-align:left;padding:11px;border-radius:8px;font-size:8px;letter-spacing:1.4px}.menu button:hover{background:var(--soft);color:var(--main2)}.menu-label{font-size:7px;letter-spacing:2px;color:#596372;padding:8px}
-.view{display:none}.view.active{display:block;animation:in .3s ease}@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-.card{border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.025),transparent),var(--panel);border-radius:22px;box-shadow:0 15px 45px rgba(0,0,0,.18)}.hero{margin-top:20px;padding:24px;background:radial-gradient(circle at 90% 0,var(--soft),transparent 35%),var(--panel)}.heroTop{display:flex;justify-content:space-between}.eyebrow,.label{color:#7e8997;font-size:8px;letter-spacing:2.2px}.level{font-size:40px;font-weight:900;margin-top:6px}.level small{font-size:10px;color:#788291;letter-spacing:2px}.xpNow{font-size:22px;font-weight:900;text-align:right}.xpTrack{height:6px;background:#171c24;border-radius:9px;overflow:hidden;margin-top:22px}.xpFill{height:100%;width:0;background:linear-gradient(90deg,#758192,var(--main2));transition:width .35s}.xpFoot{display:flex;justify-content:space-between;color:#6c7685;font-size:8px;letter-spacing:1px;margin-top:8px}.core{margin-top:12px;padding:17px;border:1px solid #252d38;border-radius:24px;background:radial-gradient(circle at 50% 45%,var(--soft),transparent 31%),#0b0e13;overflow:hidden;position:relative}.core:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 28%,var(--soft) 48%,transparent 70%);opacity:.18;animation:coreAura 5s ease-in-out infinite}.coreHead,.coreFoot{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:3}.coreTitle{font-weight:900;font-size:12px;letter-spacing:1.5px;margin-top:5px}.active{color:#5df2a5;font-size:8px;letter-spacing:1.8px}.orbit{height:250px;display:grid;place-items:center;position:relative}.ring{position:absolute;border-radius:50%;border:1px solid var(--mid);transform-origin:center;will-change:transform,opacity}.r1{width:180px;height:180px;animation:coreBreath 5.5s ease-in-out infinite,coreRotate 26s linear infinite}.r2{width:140px;height:140px;border-color:rgba(168,124,255,.28);border-style:dashed;animation:coreBreath2 4.5s ease-in-out infinite,coreRotateReverse 19s linear infinite}.r3{width:104px;height:104px;border-color:rgba(101,169,255,.3);animation:corePulse 3.8s ease-in-out infinite}.coreCenter{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;align-content:center;background:radial-gradient(circle,#26313a,#090d12 70%);border:1px solid #536173;box-shadow:0 0 35px var(--soft);z-index:2;text-align:center;animation:centerBreath 4.2s ease-in-out infinite}.star{font-size:24px;color:var(--main);text-shadow:0 0 18px var(--mid);animation:starPulse 3.4s ease-in-out infinite}.coreCenter small{font-size:7px;letter-spacing:2px;color:#788291}.node{position:absolute;border:1px solid #303a47;background:#0b0f15;color:#7f8998;border-radius:99px;padding:6px 9px;font-size:6px;letter-spacing:1.5px;z-index:4;animation:nodeFloat 4s ease-in-out infinite}.n1{top:25px}.n2{right:20%;animation-delay:-1.2s}.n3{left:20%;bottom:45px;animation-delay:-2.2s}.coreFoot{border-top:1px solid #1e252e;padding-top:10px;color:#525d6c;font-size:6px;letter-spacing:1.4px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}.sum{padding:15px}.sum b{display:block;font-size:23px;margin-top:6px}.sum small{color:#596372;font-size:7px}.orange{color:#ffad55}.section{margin-top:24px}.sectionHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:10px}.sectionTitle{font-size:11px;font-weight:900;letter-spacing:3px}.sectionDesc{font-size:8px;color:#657080;letter-spacing:1.7px}.objective,.reflection,.event,.path,.panel{padding:17px}.objective{border-left:2px solid #65a9ff}.objective h2{font-size:17px;margin:7px 0}.bodytext{font-size:9px;line-height:1.55;color:#aab3bf}.bar{height:6px;background:#171c24;border-radius:8px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--main),var(--main2))}.reflection{background:radial-gradient(circle at 90% 0,rgba(101,169,255,.08),transparent 40%),var(--panel)}.reflection h2{font-size:16px;margin:7px 0}.actions{display:flex;gap:8px;margin-top:13px}.actions>*{flex:1}.btn{border:1px solid #303946;background:#11151c;color:#eef2f7;border-radius:11px;padding:10px 12px;font-size:8px;letter-spacing:1.3px}.btn.primary{background:#edf2f7;color:#050609;border-color:#edf2f7;font-weight:800}.btn:hover{border-color:var(--mid);background:var(--soft)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.list{display:grid;gap:8px}.quest,.history,.tool,.stat,.achievement,.theme{border:1px solid var(--line);background:var(--panel);border-radius:17px;padding:14px}.quest{display:flex;justify-content:space-between;gap:12px;align-items:center}.questName{font-size:10px;font-weight:800}.questDesc{font-size:8px;color:#778291;margin-top:4px}.pill{display:inline-block;border:1px solid #2b333e;border-radius:99px;padding:4px 7px;color:#7c8795;font-size:6px;letter-spacing:1px;margin-top:7px}.pill.xp{color:#5df2a5}
-@keyframes coreBreath{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.045);opacity:.95}}@keyframes coreBreath2{0%,100%{transform:scale(.98);opacity:.35}50%{transform:scale(1.06);opacity:.72}}@keyframes corePulse{0%,100%{transform:scale(.97);opacity:.55}50%{transform:scale(1.08);opacity:1}}@keyframes centerBreath{0%,100%{transform:scale(1);box-shadow:0 0 28px var(--soft)}50%{transform:scale(1.045);box-shadow:0 0 48px var(--mid)}}@keyframes starPulse{0%,100%{opacity:.65;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}@keyframes coreRotate{to{transform:rotate(360deg)}}@keyframes coreRotateReverse{to{transform:rotate(-360deg)}}@keyframes nodeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes coreAura{0%,100%{opacity:.12;transform:scale(.94)}50%{opacity:.3;transform:scale(1.04)}}
-.life{padding:18px;text-align:center;background:radial-gradient(circle at 50% 35%,var(--soft),transparent 30%),#0b0e13}.lifeOrb{height:285px;display:grid;place-items:center;position:relative}.lifeRing{position:absolute;border:1px solid var(--mid);border-radius:50%;animation:spin 16s linear infinite}.lo{width:265px;height:265px;border-style:dashed}.lm{width:210px;height:210px;border-color:rgba(101,169,255,.28);animation-direction:reverse;animation-duration:11s}.li{width:160px;height:160px;border-color:rgba(168,124,255,.25);animation-duration:8s}.lifeCore{width:108px;height:108px;border-radius:50%;background:radial-gradient(circle,#27333d,#090d12 70%);border:1px solid #586677;display:grid;place-items:center;align-content:center;z-index:2;box-shadow:0 0 40px var(--soft);animation:centerBreath 5s ease-in-out infinite}.lifeCore .star{font-size:28px}@keyframes spin{to{transform:rotate(360deg)}}
-.toolsGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tool{min-height:125px}.toolIcon{font-size:21px;color:var(--main)}.tool h3{font-size:10px;margin:8px 0 4px}.tool p{font-size:8px;color:#778291;line-height:1.45}.themeGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.theme{cursor:pointer;text-align:left}.theme.selected{border-color:var(--mid);box-shadow:0 0 25px var(--soft)}.preview{height:42px;border-radius:9px;margin-bottom:8px}.theme strong{font-size:8px;letter-spacing:1.4px}.theme small{display:block;color:#697484;font-size:7px;margin-top:3px}.field{display:grid;gap:6px;margin-bottom:10px}.field label{font-size:7px;color:#778291;letter-spacing:1.5px}.field input,.field textarea,.field select{width:100%;padding:11px;border-radius:11px;border:1px solid #2a323e;background:#080b10;color:#eef2f7;outline:0}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--mid)}
-#momentText{display:block;width:100%;min-width:100%;min-height:175px;resize:vertical;padding:15px;border-radius:13px;border:1px solid #2a323e;background:#080b10;color:#eef2f7;outline:0;font-size:10px;line-height:1.6}#momentText:focus{border-color:var(--mid);box-shadow:0 0 22px var(--soft)}#momentText::placeholder{color:#687383}.modalBg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9000;display:grid;place-items:center;padding:18px}.modal{width:min(520px,100%);max-height:85vh;overflow:auto;background:#0b0e13;border:1px solid #303946;border-radius:20px}.modalHead{padding:14px 16px;border-bottom:1px solid #202732;display:flex;justify-content:space-between}.modalBody{padding:16px}.close{background:none;border:0;color:#798493;font-size:20px}.calorie{padding:17px;background:radial-gradient(circle at 100% 0,var(--soft),transparent 45%),#0d1117;border:1px solid #28313c;border-radius:18px}.calTotal{font-size:34px;font-weight:900}.food{display:flex;justify-content:space-between;border:1px solid #252d38;background:#090c11;border-radius:10px;padding:9px;margin-top:6px;font-size:8px}.food b{color:var(--main2)}.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%) translateY(10px);opacity:0;z-index:10000;background:#11161d;border:1px solid #303946;border-radius:99px;padding:10px 14px;font-size:8px;transition:.25s}.toast.show{opacity:1;transform:translateX(-50%)}.nav{position:fixed;z-index:8000;bottom:10px;left:50%;transform:translateX(-50%);width:min(620px,calc(100% - 20px));height:66px;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(7,10,14,.92);backdrop-filter:blur(18px);border:1px solid #242c37;border-radius:22px;box-shadow:0 20px 55px #000}.nav button{border:0;background:none;color:#596473;font-size:7px;letter-spacing:1.5px}.nav button.active{color:#dfe6ee}.navIcon{display:block;height:25px;font-size:17px}.lifeNav{position:relative}.lifeNav .navIcon{position:absolute;left:50%;top:-25px;transform:translateX(-50%);width:55px;height:55px;border-radius:50%;display:grid;place-items:center;background:#0b1015;border:1px solid var(--mid);color:var(--main);font-size:25px;box-shadow:0 0 28px var(--soft),0 12px 24px #000}.lifeNav span:last-child{margin-top:29px}.glitch{position:fixed;inset:0;z-index:10001;pointer-events:none;opacity:0;background:linear-gradient(transparent 49%,rgba(255,255,255,.04) 50%,transparent 51%),linear-gradient(90deg,var(--soft),transparent 25%,transparent 75%,rgba(255,255,255,.04))}.glitch.on{animation:gl .28s steps(2)}@keyframes gl{0%{opacity:0;transform:none}15%{opacity:.7;transform:translateX(-2px)}35%{opacity:.3;transform:translateX(2px)}60%{opacity:.6;transform:translateY(1px)}100%{opacity:0;transform:none}}
-@media(max-width:700px){#app{padding:16px 11px 100px}.summary{grid-template-columns:repeat(2,1fr)}.grid,.toolsGrid,.themeGrid{grid-template-columns:1fr}.hero{padding:18px}.level{font-size:32px}.brand{font-size:17px;letter-spacing:4.5px}.online{display:none}.orbit{height:220px}.r1{width:160px;height:160px}.r2{width:124px;height:124px}.r3{width:94px;height:94px}.node{font-size:5.5px}.n2{right:13%}.n3{left:13%}.lifeOrb{height:260px}.lo{width:245px;height:245px}.lm{width:198px;height:198px}.li{width:150px;height:150px}.actions{flex-direction:column}.actions>*{width:100%}.nav{height:64px}.lifeNav .navIcon{width:49px;height:49px;top:-22px}.lifeNav span:last-child{margin-top:25px}#momentText{min-height:210px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
-</style></head><body data-theme="senrai">
-<div class="splash" id="splash"><div class="splash-inner"><img class="splash-logo" src="senrai-logo.png" onerror="this.style.display='none'" alt="SENRAI"><div class="splash-sub">PERSONAL PROGRESSION SYSTEM</div><div class="load"><i id="loadFill"></i></div><div class="loadline"><span id="loadText">SYSTEM INITIALIZING</span><span id="loadPct">0%</span></div></div></div><div class="glitch" id="glitch"></div>
-<div id="app"><header><div class="brand">SENRAI</div><div class="headright"><div class="online"><span class="dot"></span>ONLINE</div><div style="position:relative"><button class="sysbtn" id="sysBtn">SYSTEM ▾</button><div class="menu hidden" id="menu"><div class="menu-label">SYSTEM</div><button data-open="objectives">OBJECTIVES</button><button data-open="achievements">ACHIEVEMENTS</button><button data-open="history">HISTORY</button><button data-open="profile">PROFILE</button><button data-open="tools">TOOLS</button><button data-open="settings">SETTINGS</button><button id="eventBtn">SYSTEM EVENT</button></div></div></div></header>
-<main id="home" class="view active"><section class="hero card"><div class="heroTop"><div><div class="eyebrow">CURRENT LEVEL</div><div class="level"><span id="level">1</span> <small>LVL</small></div></div><div><div class="xpNow"><span id="xp">0</span> XP</div><div class="eyebrow" style="text-align:right;margin-top:5px">CURRENT EXPERIENCE</div></div></div><div class="xpTrack"><div class="xpFill" id="xpFill"></div></div><div class="xpFoot"><span id="xpFoot">0 / 100 XP</span><span id="nextLevel">LEVEL 2</span></div></section><section class="core"><div class="coreHead"><div><div class="eyebrow">SENRAI CORE</div><div class="coreTitle">SYSTEM ONLINE</div></div><div class="active"><span class="dot"></span>ACTIVE</div></div><div class="orbit"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="node n1">XP</div><div class="node n2">PATH</div><div class="node n3">LIFE</div><div class="coreCenter"><div class="star">✦</div><small>SENRAI<br>READY</small></div></div><div class="coreFoot"><span>THE SYSTEM THAT MOVES YOU FORWARD</span><span id="coreLvl">LVL 1</span></div></section><section class="summary"><div class="sum card"><div class="label">TODAY</div><b id="todayCount">0</b><small>QUESTS COMPLETE</small></div><div class="sum card"><div class="label">STREAK</div><b id="streak" class="orange">0</b><small>DAYS ACTIVE</small></div><div class="sum card"><div class="label">TODAY XP</div><b id="todayXP">0</b><small>EXPERIENCE</small></div><div class="sum card"><div class="label">MOMENTUM</div><b id="momentum">0</b><small>RECENT ACTIVITY</small></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">CURRENT OBJECTIVE</div><div class="sectionDesc">MAIN PATH</div></div><div class="objective card" id="homeObjective"></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">SYSTEM REFLECTION</div><div class="sectionDesc">ADAPTIVE GUIDANCE</div></div><div class="reflection card"><div class="label">SYSTEM INSIGHT</div><h2 id="reflectionTitle"></h2><div class="bodytext" id="reflectionText"></div><div style="height:1px;background:#202732;margin:15px 0"></div><div class="label">RECOMMENDED QUEST</div><div style="font-size:12px;font-weight:800;margin-top:6px" id="reflectionQuest"></div><div style="font-size:8px;color:#5df2a5;margin-top:5px" id="reflectionXP"></div><div class="actions"><button class="btn primary" id="acceptReflection">ACCEPT QUEST</button><button class="btn" id="anotherReflection">ANOTHER SUGGESTION</button></div></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">CURRENT PATH</div><div class="sectionDesc" id="pathState">FORMING</div></div><div class="path card" id="path"></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">QUICK QUESTS</div><div class="sectionDesc">OPTIONAL</div></div><div class="list" id="homeQuests"></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">LIFE ENCOUNTER</div><div class="sectionDesc">REAL WORLD</div></div><div class="card" id="homeLife"></div></section></main>
-<main id="quests" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">QUESTS</div><div class="sectionDesc">OPTIONAL PROGRESSION</div></div><div class="list" id="questList"></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">CREATE QUEST</div><div class="sectionDesc">YOUR OWN OBJECTIVE</div></div><div class="panel card"><div class="field"><label>NAME</label><input id="qName" placeholder="What do you want to do?"></div><div class="field"><label>DESCRIPTION</label><textarea id="qDesc" rows="3" placeholder="Optional"></textarea></div><div class="field"><label>XP</label><input id="qXP" type="number" value="25" min="1"></div><button class="btn primary" style="width:100%" id="addQuest">CREATE QUEST</button></div></section></main>
-<main id="life" class="view"><section class="life card"><div class="coreHead"><div><div class="eyebrow">SENRAI MODULE</div><div class="coreTitle">LIFE</div></div><div class="active"><span class="dot"></span>LIVE</div></div><div class="lifeOrb"><div class="lifeRing lo"></div><div class="lifeRing lm"></div><div class="lifeRing li"></div><div class="lifeCore"><div class="star">✦</div><small>LIFE<br>REAL WORLD</small></div></div><div class="label" id="lifeType">CURRENT ENCOUNTER</div><div class="lifePrompt" id="lifePrompt"></div><div class="actions"><button class="btn" data-life="move">MOVE</button><button class="btn" data-life="social">CONNECT</button><button class="btn" data-life="explore">EXPLORE</button><button class="btn" data-life="reset">RESET</button></div><div class="panel" style="margin-top:15px;text-align:left" id="lifeAction"></div></section></main><main id="stats" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">STATS</div><div class="sectionDesc">YOUR PROGRESSION</div></div><div class="grid" id="statsGrid"></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">WEEKLY MISSIONS</div><div class="sectionDesc">OPTIONAL</div></div><div class="list" id="weekly"></div></section></main>
-<main id="moments" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">MOMENTS</div><div class="sectionDesc">YOUR JOURNAL</div></div><div class="panel card"><textarea id="momentText" placeholder="What happened? Write about your day, something you noticed, something you're proud of, or anything you want to remember..."></textarea><button class="btn primary" style="width:100%;margin-top:10px" id="saveMoment">SAVE MOMENT</button></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">LOOKING BACK</div><div class="sectionDesc">YOUR RECORD</div></div><div class="list" id="momentList"></div></section></main>
-<main id="objectives" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">OBJECTIVES</div><div class="sectionDesc">MAIN PATH</div></div><div class="panel card" id="objectiveView"></div></section></main>
-<main id="achievements" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">ACHIEVEMENTS</div><div class="sectionDesc">SYSTEM DISCOVERY</div></div><div class="grid" id="achievementList"></div></section></main>
-<main id="history" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">HISTORY</div><div class="sectionDesc">RECENT ACTIVITY</div></div><div class="list" id="historyList"></div></section></main>
-<main id="profile" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">PROFILE</div><div class="sectionDesc">SYSTEM IDENTITY</div></div><div class="panel card"><div style="font-size:21px;font-weight:900" id="profileName">INITIATE</div><div class="label" id="profileTitle" style="margin-top:4px">SYSTEM USER</div><button class="btn" style="margin-top:14px" id="editProfile">EDIT PROFILE</button></div></section></main>
-<main id="tools" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">TOOLS</div><div class="sectionDesc">SYSTEM UTILITIES</div></div><div class="toolsGrid"><div class="tool"><div class="toolIcon">◷</div><h3>FOCUS TIMER</h3><p>Simple focus session with a small completion reward.</p><button class="btn" style="margin-top:10px" data-tool="timer">OPEN</button></div><div class="tool"><div class="toolIcon">✎</div><h3>QUICK NOTES</h3><p>Keep short notes locally on this device.</p><button class="btn" style="margin-top:10px" data-tool="notes">OPEN</button></div><div class="tool"><div class="toolIcon">☷</div><h3>DAILY PLANNER</h3><p>Keep today's tasks visible.</p><button class="btn" style="margin-top:10px" data-tool="planner">OPEN</button></div><div class="tool"><div class="toolIcon">＋</div><h3>CALCULATOR</h3><p>Quick everyday calculations.</p><button class="btn" style="margin-top:10px" data-tool="calc">OPEN</button></div><div class="tool"><div class="toolIcon">＄</div><h3>BUDGET</h3><p>Track simple income and expenses locally.</p><button class="btn" style="margin-top:10px" data-tool="budget">OPEN</button></div><div class="tool"><div class="toolIcon">⌁</div><h3>CALORIE TRACKER</h3><p>Track food and calories without penalties.</p><button class="btn" style="margin-top:10px" data-tool="calories">OPEN</button></div><div class="tool"><div class="toolIcon">◎</div><h3>GOAL TRACKER</h3><p>Keep longer-term goals visible.</p><button class="btn" style="margin-top:10px" data-tool="goals">OPEN</button></div><div class="tool"><div class="toolIcon">✦</div><h3>LIFE GENERATOR</h3><p>Generate a real-world encounter.</p><button class="btn" style="margin-top:10px" data-tool="life">ENTER LIFE</button></div></div></section><section class="section"><div class="sectionHead"><div class="sectionTitle">THEMES</div><div class="sectionDesc">FULL HUD APPEARANCE</div></div><div class="themeGrid" id="themes"></div></section></main>
-<main id="settings" class="view"><section class="section"><div class="sectionHead"><div class="sectionTitle">SETTINGS</div><div class="sectionDesc">LOCAL DEVICE</div></div><div class="panel card"><div class="field"><label>SYSTEM GUIDANCE</label><button class="btn" id="guidance">ON</button></div><div class="field"><label>REDUCE MOTION</label><button class="btn" id="motion">OFF</button></div><div class="field"><label>BROWSER NOTIFICATIONS</label><button class="btn" id="notify">OFF</button></div><div class="field"><label>RESET LOCAL DATA</label><button class="btn" id="reset">RESET</button></div></div></section></main>
-<footer style="text-align:center;color:#39414d;font-size:7px;letter-spacing:2px;margin:32px 0">SENRAI — THE SYSTEM THAT MOVES YOU FORWARD</footer></div>
-<nav class="nav"><button data-nav="home" class="active"><span class="navIcon">⌂</span>HOME</button><button data-nav="quests"><span class="navIcon">◆</span>QUESTS</button><button data-nav="life" class="lifeNav"><span class="navIcon">✦</span>LIFE</button><button data-nav="stats"><span class="navIcon">▥</span>STATS</button><button data-nav="moments"><span class="navIcon">◌</span>MOMENTS</button></nav>
-<div class="modalBg hidden" id="modal"><div class="modal"><div class="modalHead"><b id="modalTitle">SYSTEM</b><button class="close" id="modalClose">×</button></div><div class="modalBody" id="modalBody"></div></div></div><div class="toast" id="toast"></div>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050609">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SENRAI">
+<link rel="apple-touch-icon" href="senrai-logo.png">
+<title>SENRAI — The System That Moves You Forward</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#050609;color:#eef2f7;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+:root{
+--bg:#050609;--panel:#0d1117;--panel2:#10151c;--line:#242c37;
+--muted:#778291;--main:#69e2dc;--main2:#dce8f5;
+--soft:rgba(105,226,220,.11);--mid:rgba(105,226,220,.32)
+}
+
+body[data-theme=void]{--bg:#07050d;--main:#9b6cff;--main2:#d7c6ff;--soft:rgba(155,108,255,.12);--mid:rgba(155,108,255,.32)}
+body[data-theme=crimson]{--bg:#080406;--main:#b21f35;--main2:#e8c45a;--soft:rgba(178,31,53,.13);--mid:rgba(178,31,53,.34)}
+body[data-theme=frost]{--bg:#04080c;--main:#72d8ff;--main2:#eaf7ff;--soft:rgba(114,216,255,.12);--mid:rgba(114,216,255,.32)}
+body[data-theme=emerald]{--bg:#030907;--main:#25c98b;--main2:#b7e6a5;--soft:rgba(37,201,139,.12);--mid:rgba(37,201,139,.32)}
+body[data-theme=gold]{--bg:#090704;--main:#d4a83e;--main2:#ffe59a;--soft:rgba(212,168,62,.13);--mid:rgba(212,168,62,.32)}
+body[data-theme=abyss]{--bg:#03090b;--main:#20bfc7;--main2:#86e9ee;--soft:rgba(32,191,199,.12);--mid:rgba(32,191,199,.32)}
+body[data-theme=rose]{--bg:#090407;--main:#d64f91;--main2:#ffb5d5;--soft:rgba(214,79,145,.13);--mid:rgba(214,79,145,.32)}
+
+body{background:var(--bg);min-height:100vh}
+
+/* BOOT */
+.splash{
+position:fixed;inset:0;z-index:99999;background:#030407;
+display:grid;place-items:center;overflow:hidden;
+transition:opacity .55s ease
+}
+.splash.hide{opacity:0;pointer-events:none}
+.splash:before{
+content:"";position:absolute;inset:0;pointer-events:none;
+background:repeating-linear-gradient(
+to bottom,
+transparent 0,
+transparent 5px,
+rgba(255,255,255,.018) 6px
+);
+animation:scanMove 4s linear infinite
+}
+.splash:after{
+content:"";position:absolute;left:0;right:0;top:50%;
+height:1px;background:rgba(105,226,220,.13);
+box-shadow:0 0 30px rgba(105,226,220,.12);
+animation:bootScan 2.2s ease-in-out infinite
+}
+.splash-inner{
+position:relative;text-align:center;width:min(420px,90vw);
+z-index:2;animation:bootAppear 1s ease both
+}
+.splash-logo{
+width:min(250px,65vw);height:auto;display:block;margin:auto;
+filter:drop-shadow(0 0 18px rgba(255,255,255,.12));
+animation:logoBoot 2.6s ease-in-out infinite
+}
+.splash-sub{
+font-size:10px;letter-spacing:3px;color:#dce1e8;margin-top:20px;
+animation:textFlicker 2.2s infinite
+}
+.boot-status{
+font-size:8px;letter-spacing:2px;color:#657080;margin-top:15px;
+height:12px
+}
+.load{
+height:3px;background:#171b22;border-radius:10px;overflow:hidden;
+margin-top:18px;border:1px solid #202630
+}
+.load i{
+display:block;height:100%;width:0;
+background:linear-gradient(90deg,#657080,var(--main2));
+box-shadow:0 0 12px var(--mid);
+transition:width .12s linear
+}
+.loadline{
+display:flex;justify-content:space-between;color:#697383;
+font-size:8px;letter-spacing:1.4px;margin-top:7px
+}
+.boot-grid{
+position:absolute;inset:0;opacity:.13;
+background-image:
+linear-gradient(rgba(105,226,220,.15) 1px,transparent 1px),
+linear-gradient(90deg,rgba(105,226,220,.15) 1px,transparent 1px);
+background-size:48px 48px;
+mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent)
+}
+.boot-corner{
+position:absolute;color:#4d5867;font-size:7px;letter-spacing:2px;
+animation:textFlicker 3s infinite
+}
+.bc1{top:14%;left:8%}.bc2{top:14%;right:8%}
+.bc3{bottom:14%;left:8%}.bc4{bottom:14%;right:8%}
+
+@keyframes bootAppear{from{opacity:0;transform:scale(.96);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes logoBoot{0%,100%{opacity:.88;transform:scale(.99)}50%{opacity:1;transform:scale(1.015)}}
+@keyframes textFlicker{0%,93%,100%{opacity:1}94%{opacity:.3}96%{opacity:.8}97%{opacity:.45}}
+@keyframes scanMove{from{transform:translateY(-10px)}to{transform:translateY(10px)}}
+@keyframes bootScan{0%,100%{top:25%;opacity:.1}50%{top:75%;opacity:.45}}
+
+#app{max-width:1100px;margin:auto;padding:22px 16px 105px}
+
+header{
+height:62px;border-bottom:1px solid #202732;
+display:flex;align-items:center;justify-content:space-between
+}
+.brand{font-weight:900;font-size:20px;letter-spacing:5px}
+.headright{display:flex;align-items:center;gap:15px}
+.online{font-size:8px;letter-spacing:2.5px;color:#5df2a5}
+.dot{
+display:inline-block;width:6px;height:6px;border-radius:50%;
+background:#5df2a5;box-shadow:0 0 9px #5df2a5;margin-right:7px
+}
+
+.sysbtn{
+border:1px solid #29313c;background:rgba(12,15,20,.55);
+color:#9ba5b3;border-radius:11px;padding:9px 12px;
+font-size:8px;letter-spacing:2px;transition:.2s
+}
+.sysbtn.open,.sysbtn:hover{
+color:var(--main2);border-color:var(--mid);background:var(--soft)
+}
+.menu{
+position:absolute;right:16px;top:76px;width:220px;padding:8px;
+border:1px solid #2b333f;background:rgba(7,10,14,.97);
+border-radius:15px;z-index:5000;box-shadow:0 20px 60px #000
+}
+.menu button{
+display:block;width:100%;border:0;background:none;color:#aab3bf;
+text-align:left;padding:11px;border-radius:8px;font-size:8px;letter-spacing:1.4px
+}
+.menu button:hover{background:var(--soft);color:var(--main2)}
+.menu-label{font-size:7px;letter-spacing:2px;color:#596372;padding:8px}
+
+.view{display:none}
+.view.active{display:block;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+.card{
+border:1px solid var(--line);
+background:linear-gradient(135deg,rgba(255,255,255,.025),transparent),var(--panel);
+border-radius:22px;box-shadow:0 15px 45px rgba(0,0,0,.18)
+}
+
+.hero{
+margin-top:20px;padding:24px;
+background:radial-gradient(circle at 90% 0,var(--soft),transparent 35%),var(--panel)
+}
+.heroTop{display:flex;justify-content:space-between}
+.eyebrow,.label{color:#7e8997;font-size:8px;letter-spacing:2.2px}
+.level{font-size:40px;font-weight:900;margin-top:6px}
+.level small{font-size:10px;color:#788291;letter-spacing:2px}
+.xpNow{font-size:22px;font-weight:900;text-align:right}
+.xpTrack{height:6px;background:#171c24;border-radius:9px;overflow:hidden;margin-top:22px}
+.xpFill{
+height:100%;width:0;background:linear-gradient(90deg,#758192,var(--main2));
+transition:width .35s
+}
+.xpFoot{
+display:flex;justify-content:space-between;color:#6c7685;
+font-size:8px;letter-spacing:1px;margin-top:8px
+}
+
+/* SYSTEM CORE BREATHING */
+.core{
+margin-top:12px;padding:17px;border:1px solid #252d38;border-radius:24px;
+background:radial-gradient(circle at 50% 45%,var(--soft),transparent 31%),#0b0e13;
+overflow:hidden;position:relative
+}
+.core:after{
+content:"";position:absolute;inset:0;pointer-events:none;
+background:radial-gradient(circle at 50% 48%,transparent 28%,var(--soft) 48%,transparent 70%);
+opacity:.18;animation:coreAura 5s ease-in-out infinite
+}
+.coreHead,.coreFoot{
+display:flex;justify-content:space-between;align-items:center;
+position:relative;z-index:3
+}
+.coreTitle{font-weight:900;font-size:12px;letter-spacing:1.5px;margin-top:5px}
+.active{color:#5df2a5;font-size:8px;letter-spacing:1.8px}
+
+.orbit{
+height:250px;display:grid;place-items:center;position:relative
+}
+.ring{
+position:absolute;border-radius:50%;border:1px solid var(--mid);
+transform-origin:center;will-change:transform,opacity
+}
+.r1{
+width:180px;height:180px;
+animation:coreBreath 5.5s ease-in-out infinite,coreRotate 26s linear infinite
+}
+.r2{
+width:140px;height:140px;border-color:rgba(168,124,255,.28);
+border-style:dashed;
+animation:coreBreath2 4.5s ease-in-out infinite,coreRotateReverse 19s linear infinite
+}
+.r3{
+width:104px;height:104px;border-color:rgba(101,169,255,.3);
+animation:corePulse 3.8s ease-in-out infinite
+}
+.coreCenter{
+width:88px;height:88px;border-radius:50%;
+display:grid;place-items:center;align-content:center;
+background:radial-gradient(circle,#26313a,#090d12 70%);
+border:1px solid #536173;z-index:2;text-align:center;
+box-shadow:0 0 35px var(--soft);
+animation:centerBreath 4.2s ease-in-out infinite
+}
+.star{
+font-size:24px;color:var(--main);
+text-shadow:0 0 18px var(--mid);
+animation:starPulse 3.4s ease-in-out infinite
+}
+.coreCenter small{font-size:7px;letter-spacing:2px;color:#788291}
+
+.node{
+position:absolute;border:1px solid #303a47;background:#0b0f15;
+color:#7f8998;border-radius:99px;padding:6px 9px;
+font-size:6px;letter-spacing:1.5px;z-index:4;
+animation:nodeFloat 4s ease-in-out infinite
+}
+.n1{top:25px}
+.n2{right:20%;animation-delay:-1.2s}
+.n3{left:20%;bottom:45px;animation-delay:-2.2s}
+
+.coreFoot{
+border-top:1px solid #1e252e;padding-top:10px;
+color:#525d6c;font-size:6px;letter-spacing:1.4px
+}
+
+@keyframes coreBreath{
+0%,100%{transform:scale(1);opacity:.55}
+50%{transform:scale(1.045);opacity:.95}
+}
+@keyframes coreBreath2{
+0%,100%{transform:scale(.98);opacity:.35}
+50%{transform:scale(1.06);opacity:.72}
+}
+@keyframes corePulse{
+0%,100%{transform:scale(.97);opacity:.55}
+50%{transform:scale(1.08);opacity:1}
+}
+@keyframes centerBreath{
+0%,100%{transform:scale(1);box-shadow:0 0 28px var(--soft)}
+50%{transform:scale(1.045);box-shadow:0 0 48px var(--mid)}
+}
+@keyframes starPulse{
+0%,100%{opacity:.65;transform:scale(.9)}
+50%{opacity:1;transform:scale(1.12)}
+}
+@keyframes coreRotate{to{transform:rotate(360deg)}}
+@keyframes coreRotateReverse{to{transform:rotate(-360deg)}}
+@keyframes nodeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes coreAura{
+0%,100%{opacity:.12;transform:scale(.94)}
+50%{opacity:.3;transform:scale(1.04)}
+}
+
+.summary{
+display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px
+}
+.sum{padding:15px}
+.sum b{display:block;font-size:23px;margin-top:6px}
+.sum small{color:#596372;font-size:7px}
+.orange{color:#ffad55}
+
+.section{margin-top:24px}
+.sectionHead{
+display:flex;justify-content:space-between;align-items:end;margin-bottom:10px
+}
+.sectionTitle{font-size:11px;font-weight:900;letter-spacing:3px}
+.sectionDesc{font-size:8px;color:#657080;letter-spacing:1.7px}
+
+.objective,.reflection,.event,.path,.panel{padding:17px}
+.objective{border-left:2px solid #65a9ff}
+.objective h2{font-size:17px;margin:7px 0}
+.bodytext{font-size:9px;line-height:1.55;color:#aab3bf}
+
+.bar{height:6px;background:#171c24;border-radius:8px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--main),var(--main2))}
+
+.reflection{
+background:radial-gradient(circle at 90% 0,rgba(101,169,255,.08),transparent 40%),var(--panel)
+}
+.reflection h2{font-size:16px;margin:7px 0}
+
+.actions{display:flex;gap:8px;margin-top:13px}
+.actions>*{flex:1}
+
+.btn{
+border:1px solid #303946;background:#11151c;color:#eef2f7;
+border-radius:11px;padding:10px 12px;font-size:8px;letter-spacing:1.3px
+}
+.btn.primary{
+background:#edf2f7;color:#050609;border-color:#edf2f7;font-weight:800
+}
+.btn:hover{border-color:var(--mid);background:var(--soft)}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.list{display:grid;gap:8px}
+.quest,.history,.tool,.stat,.achievement,.theme{
+border:1px solid var(--line);background:var(--panel);
+border-radius:17px;padding:14px
+}
+.quest{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.questName{font-size:10px;font-weight:800}
+.questDesc{font-size:8px;color:#778291;margin-top:4px}
+.pill{
+display:inline-block;border:1px solid #2b333e;border-radius:99px;
+padding:4px 7px;color:#7c8795;font-size:6px;letter-spacing:1px;margin-top:7px
+}
+.pill.xp{color:#5df2a5}
+
+.life{
+padding:18px;text-align:center;
+background:radial-gradient(circle at 50% 35%,var(--soft),transparent 30%),#0b0e13
+}
+.lifeOrb{
+height:285px;display:grid;place-items:center;position:relative
+}
+.lifeRing{
+position:absolute;border:1px solid var(--mid);
+border-radius:50%;animation:spin 16s linear infinite
+}
+.lo{width:265px;height:265px;border-style:dashed}
+.lm{
+width:210px;height:210px;border-color:rgba(101,169,255,.28);
+animation-direction:reverse;animation-duration:11s
+}
+.li{
+width:160px;height:160px;border-color:rgba(168,124,255,.25);
+animation-duration:8s
+}
+.lifeCore{
+width:108px;height:108px;border-radius:50%;
+background:radial-gradient(circle,#27333d,#090d12 70%);
+border:1px solid #586677;display:grid;place-items:center;
+align-content:center;z-index:2;box-shadow:0 0 40px var(--soft);
+animation:centerBreath 5s ease-in-out infinite
+}
+.lifeCore .star{font-size:28px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.toolsGrid{
+display:grid;grid-template-columns:repeat(2,1fr);gap:10px
+}
+.tool{min-height:125px}
+.toolIcon{font-size:21px;color:var(--main)}
+.tool h3{font-size:10px;margin:8px 0 4px}
+.tool p{font-size:8px;color:#778291;line-height:1.45}
+
+.themeGrid{
+display:grid;grid-template-columns:repeat(2,1fr);gap:9px
+}
+.theme{cursor:pointer;text-align:left}
+.theme.selected{
+border-color:var(--mid);box-shadow:0 0 25px var(--soft)
+}
+.preview{height:42px;border-radius:9px;margin-bottom:8px}
+.theme strong{font-size:8px;letter-spacing:1.4px}
+.theme small{display:block;color:#697484;font-size:7px;margin-top:3px}
+
+.field{display:grid;gap:6px;margin-bottom:10px}
+.field label{font-size:7px;color:#778291;letter-spacing:1.5px}
+.field input,.field textarea,.field select{
+width:100%;padding:11px;border-radius:11px;border:1px solid #2a323e;
+background:#080b10;color:#eef2f7;outline:0
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+border-color:var(--mid)
+}
+
+/* BIG MOMENTS JOURNAL */
+#momentText{
+display:block;width:100%;min-width:100%;min-height:210px;
+resize:vertical;padding:15px;border-radius:13px;
+border:1px solid #2a323e;background:#080b10;color:#eef2f7;
+outline:0;font-size:10px;line-height:1.6
+}
+#momentText:focus{
+border-color:var(--mid);box-shadow:0 0 22px var(--soft)
+}
+#momentText::placeholder{color:#687383}
+
+.modalBg{
+position:fixed;inset:0;background:rgba(0,0,0,.75);
+z-index:9000;display:grid;place-items:center;padding:18px
+}
+.modal{
+width:min(520px,100%);max-height:85vh;overflow:auto;
+background:#0b0e13;border:1px solid #303946;border-radius:20px
+}
+.modalHead{
+padding:14px 16px;border-bottom:1px solid #202732;
+display:flex;justify-content:space-between
+}
+.modalBody{padding:16px}
+.close{background:none;border:0;color:#798493;font-size:20px}
+
+.calorie{
+padding:17px;background:radial-gradient(circle at 100% 0,var(--soft),transparent 45%),#0d1117;
+border:1px solid #28313c;border-radius:18px
+}
+.calTotal{font-size:34px;font-weight:900}
+.food{
+display:flex;justify-content:space-between;border:1px solid #252d38;
+background:#090c11;border-radius:10px;padding:9px;margin-top:6px;font-size:8px
+}
+.food b{color:var(--main2)}
+
+.toast{
+position:fixed;bottom:92px;left:50%;transform:translateX(-50%) translateY(10px);
+opacity:0;z-index:10000;background:#11161d;border:1px solid #303946;
+border-radius:99px;padding:10px 14px;font-size:8px;transition:.25s
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+.nav{
+position:fixed;z-index:8000;bottom:10px;left:50%;
+transform:translateX(-50%);width:min(620px,calc(100% - 20px));
+height:66px;display:grid;grid-template-columns:repeat(5,1fr);
+background:rgba(7,10,14,.92);backdrop-filter:blur(18px);
+border:1px solid #242c37;border-radius:22px;box-shadow:0 20px 55px #000
+}
+.nav button{
+border:0;background:none;color:#596473;font-size:7px;letter-spacing:1.5px
+}
+.nav button.active{color:#dfe6ee}
+.navIcon{display:block;height:25px;font-size:17px}
+.lifeNav{position:relative}
+.lifeNav .navIcon{
+position:absolute;left:50%;top:-25px;transform:translateX(-50%);
+width:55px;height:55px;border-radius:50%;display:grid;place-items:center;
+background:#0b1015;border:1px solid var(--mid);color:var(--main);
+font-size:25px;box-shadow:0 0 28px var(--soft),0 12px 24px #000
+}
+.lifeNav span:last-child{margin-top:29px}
+
+.glitch{
+position:fixed;inset:0;z-index:10001;pointer-events:none;opacity:0;
+background:
+linear-gradient(transparent 49%,rgba(255,255,255,.04) 50%,transparent 51%),
+linear-gradient(90deg,var(--soft),transparent 25%,transparent 75%,rgba(255,255,255,.04))
+}
+.glitch.on{animation:gl .28s steps(2)}
+@keyframes gl{
+0%{opacity:0;transform:none}
+15%{opacity:.7;transform:translateX(-2px)}
+35%{opacity:.3;transform:translateX(2px)}
+60%{opacity:.6;transform:translateY(1px)}
+100%{opacity:0;transform:none}
+}
+
+@media(max-width:700px){
+#app{padding:16px 11px 100px}
+.summary{grid-template-columns:repeat(2,1fr)}
+.grid,.toolsGrid,.themeGrid{grid-template-columns:1fr}
+.hero{padding:18px}
+.level{font-size:32px}
+.brand{font-size:17px;letter-spacing:4.5px}
+.online{display:none}
+.orbit{height:220px}
+.r1{width:160px;height:160px}
+.r2{width:124px;height:124px}
+.r3{width:94px;height:94px}
+.node{font-size:5.5px}
+.n2{right:13%}
+.n3{left:13%}
+.lifeOrb{height:260px}
+.lo{width:245px;height:245px}
+.lm{width:198px;height:198px}
+.li{width:150px;height:150px}
+.actions{flex-direction:column}
+.actions>*{width:100%}
+.nav{height:64px}
+.lifeNav .navIcon{width:49px;height:49px;top:-22px}
+.lifeNav span:last-child{margin-top:25px}
+#momentText{min-height:210px}
+}
+
+@media(prefers-reduced-motion:reduce){
+*,*:before,*:after{
+animation-duration:.01ms!important;
+animation-iteration-count:1!important;
+scroll-behavior:auto!important
+}
+}
+</style>
+</head>
+
+<body data-theme="senrai">
+
+<div class="splash" id="splash">
+<div class="boot-grid"></div>
+<div class="boot-corner bc1">SYS://BOOT</div>
+<div class="boot-corner bc2">SENRAI_OS</div>
+<div class="boot-corner bc3">LOCAL//CORE</div>
+<div class="boot-corner bc4">READY</div>
+
+<div class="splash-inner">
+<img class="splash-logo" src="senrai-logo.png" onerror="this.style.display='none'" alt="SENRAI">
+
+<div class="splash-sub">PERSONAL PROGRESSION SYSTEM</div>
+
+<div class="boot-status" id="bootStatus">SYSTEM INITIALIZING</div>
+
+<div class="load">
+<i id="loadFill"></i>
+</div>
+
+<div class="loadline">
+<span id="loadText">SYSTEM INITIALIZING</span>
+<span id="loadPct">0%</span>
+</div>
+</div>
+</div>
+
+<div class="glitch" id="glitch"></div>
+
+<div id="app">
+
+<header>
+<div class="brand">SENRAI</div>
+
+<div class="headright">
+<div class="online"><span class="dot"></span>ONLINE</div>
+
+<div style="position:relative">
+<button class="sysbtn" id="sysBtn">SYSTEM ▾</button>
+
+<div class="menu hidden" id="menu">
+<div class="menu-label">SYSTEM</div>
+<button data-open="objectives">OBJECTIVES</button>
+<button data-open="achievements">ACHIEVEMENTS</button>
+<button data-open="history">HISTORY</button>
+<button data-open="profile">PROFILE</button>
+<button data-open="tools">TOOLS</button>
+<button data-open="settings">SETTINGS</button>
+<button id="eventBtn">SYSTEM EVENT</button>
+</div>
+</div>
+</div>
+</header>
+
+<main id="home" class="view active">
+
+<section class="hero card">
+<div class="heroTop">
+
+<div>
+<div class="eyebrow">CURRENT LEVEL</div>
+<div class="level">
+<span id="level">1</span> <small>LVL</small>
+</div>
+</div>
+
+<div>
+<div class="xpNow"><span id="xp">0</span> XP</div>
+<div class="eyebrow" style="text-align:right;margin-top:5px">CURRENT EXPERIENCE</div>
+</div>
+
+</div>
+
+<div class="xpTrack">
+<div class="xpFill" id="xpFill"></div>
+</div>
+
+<div class="xpFoot">
+<span id="xpFoot">0 / 100 XP</span>
+<span id="nextLevel">LEVEL 2</span>
+</div>
+</section>
+
+<section class="core">
+
+<div class="coreHead">
+<div>
+<div class="eyebrow">SENRAI CORE</div>
+<div class="coreTitle">SYSTEM ONLINE</div>
+</div>
+
+<div class="active">
+<span class="dot"></span>ACTIVE
+</div>
+</div>
+
+<div class="orbit">
+
+<div class="ring r1"></div>
+<div class="ring r2"></div>
+<div class="ring r3"></div>
+
+<div class="node n1">XP</div>
+<div class="node n2">PATH</div>
+<div class="node n3">LIFE</div>
+
+<div class="coreCenter">
+<div class="star">✦</div>
+<small>SENRAI<br>READY</small>
+</div>
+
+</div>
+
+<div class="coreFoot">
+<span>THE SYSTEM THAT MOVES YOU FORWARD</span>
+<span id="coreLvl">LVL 1</span>
+</div>
+
+</section>
+
+<section class="summary">
+
+<div class="sum card">
+<div class="label">TODAY</div>
+<b id="todayCount">0</b>
+<small>QUESTS COMPLETE</small>
+</div>
+
+<div class="sum card">
+<div class="label">STREAK</div>
+<b id="streak" class="orange">0</b>
+<small>DAYS ACTIVE</small>
+</div>
+
+<div class="sum card">
+<div class="label">TODAY XP</div>
+<b id="todayXP">0</b>
+<small>EXPERIENCE</small>
+</div>
+
+<div class="sum card">
+<div class="label">MOMENTUM</div>
+<b id="momentum">0</b>
+<small>RECENT ACTIVITY</small>
+</div>
+
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">CURRENT OBJECTIVE</div>
+<div class="sectionDesc">MAIN PATH</div>
+</div>
+
+<div class="objective card" id="homeObjective"></div>
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">SYSTEM REFLECTION</div>
+<div class="sectionDesc">ADAPTIVE GUIDANCE</div>
+</div>
+
+<div class="reflection card">
+
+<div class="label">SYSTEM INSIGHT</div>
+<h2 id="reflectionTitle"></h2>
+
+<div class="bodytext" id="reflectionText"></div>
+
+<div style="height:1px;background:#202732;margin:15px 0"></div>
+
+<div class="label">RECOMMENDED QUEST</div>
+
+<div style="font-size:12px;font-weight:800;margin-top:6px" id="reflectionQuest"></div>
+
+<div style="font-size:8px;color:#5df2a5;margin-top:5px" id="reflectionXP"></div>
+
+<div class="actions">
+<button class="btn primary" id="acceptReflection">ACCEPT QUEST</button>
+<button class="btn" id="anotherReflection">ANOTHER SUGGESTION</button>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">CURRENT PATH</div>
+<div class="sectionDesc" id="pathState">FORMING</div>
+</div>
+
+<div class="path card" id="path"></div>
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">QUICK QUESTS</div>
+<div class="sectionDesc">OPTIONAL</div>
+</div>
+
+<div class="list" id="homeQuests"></div>
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">LIFE ENCOUNTER</div>
+<div class="sectionDesc">REAL WORLD</div>
+</div>
+
+<div class="card" id="homeLife"></div>
+</section>
+
+</main>
+
+<main id="quests" class="view">
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">QUESTS</div>
+<div class="sectionDesc">OPTIONAL PROGRESSION</div>
+</div>
+
+<div class="list" id="questList"></div>
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">CREATE QUEST</div>
+<div class="sectionDesc">YOUR OWN OBJECTIVE</div>
+</div>
+
+<div class="panel card">
+
+<div class="field">
+<label>NAME</label>
+<input id="qName" placeholder="What do you want to do?">
+</div>
+
+<div class="field">
+<label>DESCRIPTION</label>
+<textarea id="qDesc" rows="3" placeholder="Optional"></textarea>
+</div>
+
+<div class="field">
+<label>XP</label>
+<input id="qXP" type="number" value="25" min="1">
+</div>
+
+<button class="btn primary" style="width:100%" id="addQuest">CREATE QUEST</button>
+
+</div>
+</section>
+
+</main>
+
+<main id="life" class="view">
+
+<section class="life card">
+
+<div class="coreHead">
+<div>
+<div class="eyebrow">SENRAI MODULE</div>
+<div class="coreTitle">LIFE</div>
+</div>
+
+<div class="active">
+<span class="dot"></span>LIVE
+</div>
+</div>
+
+<div class="lifeOrb">
+
+<div class="lifeRing lo"></div>
+<div class="lifeRing lm"></div>
+<div class="lifeRing li"></div>
+
+<div class="lifeCore">
+<div class="star">✦</div>
+<small>LIFE<br>REAL WORLD</small>
+</div>
+
+</div>
+
+<div class="label" id="lifeType">CURRENT ENCOUNTER</div>
+
+<div class="lifePrompt" id="lifePrompt"></div>
+
+<div class="actions">
+<button class="btn" data-life="move">MOVE</button>
+<button class="btn" data-life="social">CONNECT</button>
+<button class="btn" data-life="explore">EXPLORE</button>
+<button class="btn" data-life="reset">RESET</button>
+</div>
+
+<div class="panel" style="margin-top:15px;text-align:left" id="lifeAction"></div>
+
+</section>
+
+</main><main id="stats" class="view">
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">STATS</div>
+<div class="sectionDesc">YOUR PROGRESSION</div>
+</div>
+
+<div class="grid" id="statsGrid"></div>
+</section>
+
+<section class="section">
+<div class="sectionHead">
+<div class="sectionTitle">WEEKLY MISSIONS</div>
+<div class="sectionDesc">OPTIONAL</div>
+</div>
+
+<div class="list" id="weekly"></div>
+</section>
+
+</main>
+
+<main id="moments" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">MOMENTS</div>
+<div class="sectionDesc">YOUR JOURNAL</div>
+</div>
+
+<div class="panel card">
+
+<textarea
+id="momentText"
+placeholder="What happened? Write about your day, something you noticed, something you're proud of, or anything you want to remember..."
+></textarea>
+
+<button
+class="btn primary"
+style="width:100%;margin-top:10px"
+id="saveMoment"
+>SAVE MOMENT</button>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">LOOKING BACK</div>
+<div class="sectionDesc">YOUR RECORD</div>
+</div>
+
+<div class="list" id="momentList"></div>
+
+</section>
+
+</main>
+
+<main id="objectives" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">OBJECTIVES</div>
+<div class="sectionDesc">MAIN PATH</div>
+</div>
+
+<div class="panel card" id="objectiveView"></div>
+
+</section>
+
+</main>
+
+<main id="achievements" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">ACHIEVEMENTS</div>
+<div class="sectionDesc">SYSTEM DISCOVERY</div>
+</div>
+
+<div class="grid" id="achievementList"></div>
+
+</section>
+
+</main>
+
+<main id="history" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">HISTORY</div>
+<div class="sectionDesc">RECENT ACTIVITY</div>
+</div>
+
+<div class="list" id="historyList"></div>
+
+</section>
+
+</main>
+
+<main id="profile" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">PROFILE</div>
+<div class="sectionDesc">SYSTEM IDENTITY</div>
+</div>
+
+<div class="panel card">
+
+<div style="font-size:21px;font-weight:900" id="profileName">INITIATE</div>
+
+<div class="label" id="profileTitle" style="margin-top:4px">
+SYSTEM USER
+</div>
+
+<button class="btn" style="margin-top:14px" id="editProfile">
+EDIT PROFILE
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+<main id="tools" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">TOOLS</div>
+<div class="sectionDesc">SYSTEM UTILITIES</div>
+</div>
+
+<div class="toolsGrid">
+
+<div class="tool">
+<div class="toolIcon">◷</div>
+<h3>FOCUS TIMER</h3>
+<p>Simple focus session with a small completion reward.</p>
+<button class="btn" style="margin-top:10px" data-tool="timer">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">✎</div>
+<h3>QUICK NOTES</h3>
+<p>Keep short notes locally on this device.</p>
+<button class="btn" style="margin-top:10px" data-tool="notes">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">☷</div>
+<h3>DAILY PLANNER</h3>
+<p>Keep today's tasks visible.</p>
+<button class="btn" style="margin-top:10px" data-tool="planner">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">＋</div>
+<h3>CALCULATOR</h3>
+<p>Quick everyday calculations.</p>
+<button class="btn" style="margin-top:10px" data-tool="calc">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">＄</div>
+<h3>BUDGET</h3>
+<p>Track simple income and expenses locally.</p>
+<button class="btn" style="margin-top:10px" data-tool="budget">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">⌁</div>
+<h3>CALORIE TRACKER</h3>
+<p>Track food and calories without penalties.</p>
+<button class="btn" style="margin-top:10px" data-tool="calories">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">◎</div>
+<h3>GOAL TRACKER</h3>
+<p>Keep longer-term goals visible.</p>
+<button class="btn" style="margin-top:10px" data-tool="goals">OPEN</button>
+</div>
+
+<div class="tool">
+<div class="toolIcon">✦</div>
+<h3>LIFE GENERATOR</h3>
+<p>Generate a real-world encounter.</p>
+<button class="btn" style="margin-top:10px" data-tool="life">ENTER LIFE</button>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">THEMES</div>
+<div class="sectionDesc">FULL HUD APPEARANCE</div>
+</div>
+
+<div class="themeGrid" id="themes"></div>
+
+</section>
+
+</main>
+
+<main id="settings" class="view">
+
+<section class="section">
+
+<div class="sectionHead">
+<div class="sectionTitle">SETTINGS</div>
+<div class="sectionDesc">LOCAL DEVICE</div>
+</div>
+
+<div class="panel card">
+
+<div class="field">
+<label>SYSTEM GUIDANCE</label>
+<button class="btn" id="guidance">ON</button>
+</div>
+
+<div class="field">
+<label>REDUCE MOTION</label>
+<button class="btn" id="motion">OFF</button>
+</div>
+
+<div class="field">
+<label>BROWSER NOTIFICATIONS</label>
+<button class="btn" id="notify">OFF</button>
+</div>
+
+<div class="field">
+<label>RESET LOCAL DATA</label>
+<button class="btn" id="reset">RESET</button>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer style="text-align:center;color:#39414d;font-size:7px;letter-spacing:2px;margin:32px 0">
+SENRAI — THE SYSTEM THAT MOVES YOU FORWARD
+</footer>
+
+</div>
+
+<nav class="nav">
+
+<button data-nav="home" class="active">
+<span class="navIcon">⌂</span>
+HOME
+</button>
+
+<button data-nav="quests">
+<span class="navIcon">◆</span>
+QUESTS
+</button>
+
+<button data-nav="life" class="lifeNav">
+<span class="navIcon">✦</span>
+LIFE
+</button>
+
+<button data-nav="stats">
+<span class="navIcon">▥</span>
+STATS
+</button>
+
+<button data-nav="moments">
+<span class="navIcon">◌</span>
+MOMENTS
+</button>
+
+</nav>
+
+<div class="modalBg hidden" id="modal">
+<div class="modal">
+
+<div class="modalHead">
+<b id="modalTitle">SYSTEM</b>
+<button class="close" id="modalClose">×</button>
+</div>
+
+<div class="modalBody" id="modalBody"></div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-const K={data:'senrai_data_v4',quests:'senrai_quests_v4',history:'senrai_history_v4',moments:'senrai_moments_v4',life:'senrai_life_v4',theme:'senrai_theme_v4',notes:'senrai_notes_v4',planner:'senrai_planner_v4',budget:'senrai_budget_v4',cal:'senrai_cal_v4',goals:'senrai_goals_v4',prefs:'senrai_prefs_v4'};
-const get=(k,d)=>{try{const x=localStorage.getItem(k);return x?JSON.parse(x):d}catch{return d}},put=(k,v)=>localStorage.setItem(k,JSON.stringify(v)),today=()=>new Date().toISOString().slice(0,10),id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6),esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const themes={senrai:['SENRAI','Cyan + silver','#69e2dc','#dce8f5','#050609'],void:['VOID','Violet + purple','#9b6cff','#d7c6ff','#07050d'],crimson:['CRIMSON','Crimson + yellow-gold','#b21f35','#e8c45a','#080406'],frost:['FROST','Ice blue + white','#72d8ff','#eaf7ff','#04080c'],emerald:['EMERALD','Emerald + mint','#25c98b','#b7e6a5','#030907'],gold:['GOLD','Amber + gold','#d4a83e','#ffe59a','#090704'],abyss:['ABYSS','Teal + aqua','#20bfc7','#86e9ee','#03090b'],rose:['ROSE','Magenta + rose','#d64f91','#ffb5d5','#090407']};
-let data=get(K.data,{level:1,xp:0,total:0,today:today(),todayXP:0,todayCount:0,streak:0,last:null,momentum:0});let custom=get(K.quests,[]),history=get(K.history,[]),moments=get(K.moments,[]),life=get(K.life,null),theme=get(K.theme,'senrai'),notes=get(K.notes,[]),planner=get(K.planner,{date:today(),items:[]}),budget=get(K.budget,{income:[],expenses:[]}),cal=get(K.cal,{date:today(),target:2000,foods:[]}),goals=get(K.goals,[]),prefs=get(K.prefs,{guidance:true,motion:false});
-function normalize(){if(data.today!==today()){data.today=today();data.todayXP=0;data.todayCount=0}if(planner.date!==today())planner={date:today(),items:[]};if(cal.date!==today())cal={date:today(),target:cal.target||2000,foods:[]};data.level=Math.max(1,+data.level||1);data.xp=Math.max(0,+data.xp||0);data.total=Math.max(0,+data.total||0);put(K.data,data);put(K.planner,planner);put(K.cal,cal)}normalize();
-function applyTheme(t){if(!themes[t])t='senrai';theme=t;document.body.dataset.theme=t;put(K.theme,t);renderThemes()}applyTheme(theme);
-function toast(s){const e=document.getElementById('toast');e.textContent=s;e.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>e.classList.remove('show'),2100)}function glitch(){const e=document.getElementById('glitch');e.classList.remove('on');void e.offsetWidth;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),320)}
-function need(l){return 100+(l-1)*50}function xp(n){n=+n||0;data.xp+=n;data.total+=n;data.todayXP+=n;while(data.xp>=need(data.level)){data.xp-=need(data.level);data.level++;toast('LEVEL UP — LEVEL '+data.level);glitch()}put(K.data,data);renderAll()}
-function go(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));const e=document.getElementById(v);if(!e)return;e.classList.add('active');document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===v));document.getElementById('menu').classList.add('hidden');document.getElementById('sysBtn').classList.remove('open');glitch();window.scrollTo(0,0);renderAll()}
-document.querySelectorAll('[data-nav]').forEach(b=>b.onclick=()=>go(b.dataset.nav));document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>go(b.dataset.open));document.getElementById('sysBtn').onclick=()=>{const m=document.getElementById('menu'),b=document.getElementById('sysBtn');m.classList.toggle('hidden');b.classList.toggle('open',!m.classList.contains('hidden'))};document.getElementById('eventBtn').onclick=()=>{document.getElementById('menu').classList.add('hidden');toast('SYSTEM EVENT — KEEP MOVING');xp(5)};
-const daily=()=>[{id:'drink',name:'Drink Water',desc:'Take a moment to hydrate.',xp:10},{id:'move',name:'Move for 10 Minutes',desc:'Walk, stretch, clean, or move.',xp:15},{id:'space',name:'Reset Your Space',desc:'Improve one small part of your environment.',xp:15},{id:'focus',name:'Focus for 20 Minutes',desc:'Work on something that matters.',xp:20}];
-function questHTML(q){return `<div class="quest"><div><div class="questName">${esc(q.name)}</div><div class="questDesc">${esc(q.desc||'')}</div><span class="pill xp">+${q.xp} XP</span></div><button class="btn" data-complete="${esc(q.id)}">${q.done?'DONE':'COMPLETE'}</button></div>`}
-function allQ(){return daily().concat(custom)}function completeQ(q){if(q.done)return;q.done=true;if(!q.custom){const d=daily().find(x=>x.id===q.id);if(d)q={...d,done:true};else return}else{const c=custom.find(x=>x.id===q.id);if(c)c.done=true}data.todayCount++;data.momentum=Math.min(100,data.momentum+5);data.last!==today()&&(data.streak++,data.last=today());history.unshift({date:today(),type:'QUEST',name:q.name,xp:q.xp});history=history.slice(0,100);put(K.quests,custom);put(K.history,history);xp(q.xp);toast('QUEST COMPLETE +'+q.xp+' XP')}
-function bindComplete(){document.querySelectorAll('[data-complete]').forEach(b=>b.onclick=()=>{const q=allQ().find(x=>x.id===b.dataset.complete);if(q)completeQ(q)})}
-document.getElementById('addQuest').onclick=()=>{const n=document.getElementById('qName').value.trim();if(!n)return toast('ENTER A QUEST');custom.unshift({id:id(),name:n,desc:document.getElementById('qDesc').value.trim(),xp:Math.max(1,+document.getElementById('qXP').value||25),done:false,custom:true});put(K.quests,custom);document.getElementById('qName').value='';document.getElementById('qDesc').value='';renderAll();toast('QUEST CREATED')};
-const reflections=[['SMALL MOVEMENT COUNTS','You do not need a perfect day to make progress.','Clean or improve one small part of your space.'],['CHANGE THE STATE','If you feel stuck, change your environment or movement first.','Step outside for ten minutes.'],['KEEP IT SIMPLE','One useful action is enough to move the system forward.','Finish one task you have been avoiding.']];let reflection=get('senrai_reflection_v4',reflections[0]);function newReflection(){reflection=reflections[Math.floor(Math.random()*reflections.length)];put('senrai_reflection_v4',reflection);renderReflection()}document.getElementById('anotherReflection').onclick=newReflection;document.getElementById('acceptReflection').onclick=()=>{custom.unshift({id:id(),name:reflection[2],desc:'System-recommended optional quest.',xp:15,done:false,custom:true});put(K.quests,custom);toast('QUEST ADDED');renderAll()};
-const lifePool={move:['Take a 10-minute walk somewhere safe.','Stretch through one full song.','Clean one small area around you.'],social:['Text someone you have not checked on recently.','Give someone a genuine compliment.','Ask someone how their day is going.'],explore:['Try a nearby place you have never visited.','Take a different route somewhere familiar.','Spend 15 minutes somewhere you normally pass by.'],reset:['Put your phone down for 10 minutes.','Take a shower and reset your environment.','Sit somewhere quiet and breathe.']};
-function newLife(type='move',refresh=true){const a=lifePool[type]||lifePool.move;life={type:type.toUpperCase(),text:a[Math.floor(Math.random()*a.length)],xp:10};put(K.life,life);if(refresh)renderAll()}function finishLife(){if(!life)return;history.unshift({date:today(),type:'LIFE',name:life.type,xp:life.xp});history=history.slice(0,100);data.momentum=Math.min(100,data.momentum+4);put(K.history,history);life=null;put(K.life,life);xp(10);toast('LIFE ACTION COMPLETE +10 XP')}
-document.querySelectorAll('[data-life]').forEach(b=>b.onclick=()=>newLife(b.dataset.life));
-function renderHome(){document.getElementById('level').textContent=data.level;document.getElementById('xp').textContent=Math.floor(data.xp);document.getElementById('coreLvl').textContent='LVL '+data.level;const n=need(data.level);document.getElementById('xpFill').style.width=Math.min(100,data.xp/n*100)+'%';document.getElementById('xpFoot').textContent=Math.floor(data.xp)+' / '+n+' XP';document.getElementById('nextLevel').textContent='LEVEL '+(data.level+1);document.getElementById('todayCount').textContent=data.todayCount;document.getElementById('streak').textContent=data.streak;document.getElementById('todayXP').textContent=data.todayXP;document.getElementById('momentum').textContent=data.momentum;document.getElementById('homeObjective').innerHTML='<div class="label">PRIMARY OBJECTIVE</div><h2>MOVE FORWARD</h2><div class="bodytext">Choose one useful action and take it. There is no penalty for slowing down.</div><div class="bar"><i style="width:'+Math.min(100,data.momentum)+'%"></i></div>';renderReflection();renderPath();document.getElementById('homeQuests').innerHTML=daily().slice(0,3).map(questHTML).join('');if(!life)newLife('move',false);document.getElementById('homeLife').innerHTML='<div style="padding:16px"><div class="label">'+esc(life.type)+'</div><div style="font-size:13px;font-weight:900;margin:6px 0">'+esc(life.text)+'</div><div class="bodytext">Optional. No penalty if you skip it.</div><button class="btn primary" style="margin-top:12px" onclick="go(\'life\')">ENTER LIFE</button></div>';bindComplete()}
-function renderReflection(){document.getElementById('reflectionTitle').textContent=reflection[0];document.getElementById('reflectionText').textContent=reflection[1];document.getElementById('reflectionQuest').textContent=reflection[2];document.getElementById('reflectionXP').textContent='+15 XP · OPTIONAL'}
-function renderPath(){const p=[['AWAKEN','Begin noticing what moves your life forward.'],['BUILD','Turn useful actions into momentum.'],['ADVANCE','Build consistency without punishment.'],['DISCOVER','Reveal more of your personal system.']];const i=Math.min(3,Math.floor(data.level/5));document.getElementById('pathState').textContent=p[i][0];document.getElementById('path').innerHTML=p.map((x,j)=>`<div style="display:flex;gap:11px;padding:9px 0;position:relative"><div style="width:16px;height:16px;border-radius:50%;border:1px solid ${j<=i?'var(--main)':'#3a4350'};background:${j<i?'var(--main)':'#0a0d12'};flex:none"></div><div><b style="font-size:9px">${x[0]}</b><div style="font-size:8px;color:#687484;margin-top:3px">${x[1]}</div></div></div>`).join('')}
-function renderQuests(){document.getElementById('questList').innerHTML=allQ().map(questHTML).join('')||'<div class="panel card">No quests yet.</div>';bindComplete()}
-function renderLife(){if(!life)newLife('move',false);document.getElementById('lifeType').textContent=life.type+' ENCOUNTER';document.getElementById('lifePrompt').textContent=life.text;document.getElementById('lifeAction').innerHTML='<div class="label">SYSTEM SUGGESTION</div><div style="font-size:12px;font-weight:900;margin-top:6px">'+esc(life.text)+'</div><div class="actions"><button class="btn primary" id="doneLife">DONE</button><button class="btn" id="anotherLife">ANOTHER</button></div>';document.getElementById('doneLife').onclick=finishLife;document.getElementById('anotherLife').onclick=()=>newLife()}
-function renderStats(){const rows=[['LEVEL',data.level,Math.min(100,data.level*10)],['TOTAL XP',data.total,Math.min(100,data.total/10)],['QUESTS',data.todayCount,Math.min(100,data.todayCount*10)],['MOMENTUM',data.momentum,data.momentum]];document.getElementById('statsGrid').innerHTML=rows.map(r=>`<div class="stat"><div style="display:flex;justify-content:space-between"><span class="label">${r[0]}</span><b>${r[1]}</b></div><div class="bar"><i style="width:${r[2]}%"></i></div></div>`).join('');document.getElementById('weekly').innerHTML='<div class="card panel"><div style="font-size:10px;font-weight:800">MOVE 3 TIMES THIS WEEK</div><div class="bodytext" style="margin-top:5px">Optional mission. Your progress never resets as punishment.</div></div>'}
-function renderMoments(){document.getElementById('momentList').innerHTML=moments.length?moments.map(m=>`<div class="history card"><div class="label">${m.date}</div><div style="font-size:9px;line-height:1.5;margin-top:6px">${esc(m.text)}</div></div>`).join(''):'<div class="panel card" style="color:#697484;font-size:9px">No moments yet.</div>'}
-document.getElementById('saveMoment').onclick=()=>{const e=document.getElementById('momentText'),t=e.value.trim();if(!t)return toast('WRITE SOMETHING FIRST');moments.unshift({date:today(),text:t});moments=moments.slice(0,100);put(K.moments,moments);e.value='';xp(5);toast('MOMENT SAVED +5 XP')};
-function renderAchievements(){const a=[['FIRST STEP','Complete your first quest.',data.total>=10],['MOMENTUM','Build 100 momentum.',data.momentum>=100],['ASCENDING','Reach level 5.',data.level>=5],['OUTSIDE THE SYSTEM','Complete a LIFE action.',history.some(x=>x.type==='LIFE')],['RECORDED','Save a Moment.',moments.length>0],['UNKNOWN','Keep moving to discover this.',false]];document.getElementById('achievementList').innerHTML=a.map(x=>`<div class="achievement" style="opacity:${x[2]?1:.38}"><div style="font-size:22px;color:var(--main)">${x[2]?'✦':'?'}</div><b style="font-size:9px;display:block;margin-top:7px">${x[2]?x[0]:'???'}</b><div style="font-size:8px;color:#697484;margin-top:4px">${x[1]}</div></div>`).join('')}
-function renderHistory(){document.getElementById('historyList').innerHTML=history.length?history.slice(0,40).map(h=>`<div class="history card"><div style="display:flex;justify-content:space-between"><b style="font-size:9px">${esc(h.name)}</b><span style="font-size:8px;color:#5df2a5">+${h.xp} XP</span></div><div class="label" style="margin-top:5px">${h.date} · ${h.type}</div></div>`).join(''):'<div class="panel card" style="color:#697484;font-size:9px">No history yet.</div>'}
-let profile=get('senrai_profile_v4',{name:'INITIATE',title:'SYSTEM USER'});document.getElementById('editProfile').onclick=()=>modal('EDIT PROFILE',`<div class="field"><label>NAME</label><input id="pName" value="${esc(profile.name)}"></div><div class="field"><label>TITLE</label><input id="pTitle" value="${esc(profile.title)}"></div><button class="btn primary" style="width:100%" id="saveP">SAVE</button>`);function saveProfile(){profile.name=document.getElementById('pName').value.trim()||'INITIATE';profile.title=document.getElementById('pTitle').value.trim()||'SYSTEM USER';put('senrai_profile_v4',profile);closeModal();renderProfile()}
-function renderProfile(){document.getElementById('profileName').textContent=profile.name;document.getElementById('profileTitle').textContent=profile.title}function modal(title,html){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=html;document.getElementById('modal').classList.remove('hidden')}function closeModal(){document.getElementById('modal').classList.add('hidden')}document.getElementById('modalClose').onclick=closeModal;document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()};
-function tool(t){if(t==='life')return go('life');if(t==='timer')timer();if(t==='notes')notesTool();if(t==='planner')plannerTool();if(t==='calc')calcTool();if(t==='budget')budgetTool();if(t==='calories')calTool();if(t==='goals')goalsTool()}document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>tool(b.dataset.tool));
-function timer(){let sec=1500,running=false;modal('FOCUS TIMER',`<div style="text-align:center"><div id="timerNum" style="font-size:45px;font-weight:900">25:00</div><div class="label">FOCUS SESSION</div><div class="actions"><button class="btn primary" id="timerGo">START</button><button class="btn" id="timerReset">RESET</button></div></div>`);let goB=document.getElementById('timerGo');goB.onclick=()=>{if(running){running=false;clearInterval(window.ti);goB.textContent='START';return}running=true;goB.textContent='PAUSE';window.ti=setInterval(()=>{sec--;document.getElementById('timerNum').textContent=fmt(sec);if(sec<=0){clearInterval(window.ti);running=false;xp(15);toast('FOCUS COMPLETE +15 XP');closeModal()}},1000)};document.getElementById('timerReset').onclick=()=>{clearInterval(window.ti);running=false;sec=1500;document.getElementById('timerNum').textContent=fmt(sec);goB.textContent='START'}}function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-function notesTool(){modal('QUICK NOTES',`<div class="field"><textarea id="noteInput" rows="5" placeholder="Write a note..."></textarea></div><button class="btn primary" style="width:100%" id="noteAdd">SAVE NOTE</button><div style="margin-top:12px">${notes.map(n=>`<div class="history card" style="margin-bottom:7px"><div class="label">${n.date}</div><div style="font-size:9px;margin-top:5px">${esc(n.text)}</div></div>`).join('')||'<div class="label">NO NOTES YET</div>'}</div>`);document.getElementById('noteAdd').onclick=()=>{const t=document.getElementById('noteInput').value.trim();if(!t)return;notes.unshift({date:today(),text:t});notes=notes.slice(0,100);put(K.notes,notes);notesTool()}}
-function plannerTool(){modal('DAILY PLANNER',`<div class="field"><input id="planInput" placeholder="Add something for today"></div><button class="btn primary" style="width:100%" id="planAdd">ADD</button><div style="margin-top:12px">${planner.items.map((x,i)=>`<div class="food"><span style="${x.done?'text-decoration:line-through;opacity:.45':''}">${esc(x.text)}</span><button class="btn" onclick="planToggle(${i})">${x.done?'DONE':'COMPLETE'}</button></div>`).join('')||'<div class="label">NOTHING PLANNED</div>'}</div>`);document.getElementById('planAdd').onclick=()=>{const t=document.getElementById('planInput').value.trim();if(!t)return;planner.items.push({text:t,done:false});put(K.planner,planner);plannerTool()}}function planToggle(i){planner.items[i].done=!planner.items[i].done;put(K.planner,planner);plannerTool()}
-function calcTool(){modal('CALCULATOR',`<div class="field"><input id="calcInput" inputmode="decimal" placeholder="12 * 4 + 5"></div><button class="btn primary" style="width:100%" id="calcGo">CALCULATE</button><div id="calcOut" style="font-size:28px;font-weight:900;text-align:center;margin-top:15px">—</div>`);document.getElementById('calcGo').onclick=()=>{let s=document.getElementById('calcInput').value.replace(/×/g,'*').replace(/÷/g,'/').replace(/[^0-9+\-*/().% ]/g,'');try{let r=Function('"use strict";return ('+s+')')();document.getElementById('calcOut').textContent=Number.isFinite(r)?r:'ERROR'}catch{document.getElementById('calcOut').textContent='ERROR'}}}
-function budgetTool(){let sum=a=>a.reduce((s,x)=>s+(+x.amount||0),0);modal('BUDGET',`<div class="grid"><div class="field"><label>TYPE</label><select id="bType"><option value="income">INCOME</option><option value="expense">EXPENSE</option></select></div><div class="field"><label>AMOUNT</label><input id="bAmt" type="number" step=".01"></div></div><div class="field"><label>NAME</label><input id="bName" placeholder="Gas, food, paycheck..."></div><button class="btn primary" style="width:100%" id="bAdd">ADD</button><div class="summary" style="margin-top:12px"><div class="sum card"><div class="label">INCOME</div><b>$${sum(budget.income).toFixed(2)}</b></div><div class="sum card"><div class="label">EXPENSES</div><b>$${sum(budget.expenses).toFixed(2)}</b></div></div><div style="margin-top:10px">${budget.income.concat(budget.expenses).slice(-15).reverse().map(x=>`<div class="food"><span>${esc(x.name)}</span><b>${x.type==='expense'?'-':'+'}$${(+x.amount).toFixed(2)}</b></div>`).join('')}</div>`);document.getElementById('bAdd').onclick=()=>{let type=document.getElementById('bType').value,amount=+document.getElementById('bAmt').value,name=document.getElementById('bName').value.trim()||type;if(!(amount>0))return toast('ENTER AN AMOUNT');budget[type].push({type,amount,name,date:today()});put(K.budget,budget);budgetTool()}}
-function calTool(){let total=cal.foods.reduce((s,x)=>s+x.cal,0),remain=cal.target-total,p=Math.min(100,total/cal.target*100);modal('CALORIE TRACKER',`<div class="calorie"><div class="calTotal">${total}</div><div class="label">CALORIES TODAY · TARGET ${cal.target}</div><div style="color:var(--main2);font-size:9px;margin-top:6px">${remain>=0?remain+' REMAINING':Math.abs(remain)+' OVER TARGET'}</div><div class="bar"><i style="width:${p}%"></i></div><div class="grid"><div class="field"><label>FOOD</label><input id="foodName" placeholder="Chicken, rice..."></div><div class="field"><label>CALORIES</label><input id="foodCal" type="number"></div></div><div class="field"><label>DAILY TARGET</label><input id="calTarget" type="number" value="${cal.target}"></div><button class="btn primary" style="width:100%" id="foodAdd">ADD FOOD</button><div style="margin-top:10px">${cal.foods.map(x=>`<div class="food"><span>${esc(x.name)}</span><b>${x.cal} cal</b></div>`).join('')||'<div class="label">NO FOOD LOGGED TODAY</div>'}</div></div>`);document.getElementById('foodAdd').onclick=()=>{let name=document.getElementById('foodName').value.trim(),c=+document.getElementById('foodCal').value,t=+document.getElementById('calTarget').value||2000;if(!name||!(c>0))return toast('ENTER FOOD + CALORIES');cal.target=t;cal.foods.push({name,cal:c});put(K.cal,cal);calTool()}}
-function goalsTool(){modal('GOAL TRACKER',`<div class="field"><input id="goalInput" placeholder="What are you working toward?"></div><button class="btn primary" style="width:100%" id="goalAdd">ADD GOAL</button><div style="margin-top:10px">${goals.map((g,i)=>`<div class="food"><span style="${g.done?'text-decoration:line-through;opacity:.45':''}">${esc(g.name)}</span><button class="btn" onclick="goalToggle(${i})">${g.done?'DONE':'COMPLETE'}</button></div>`).join('')||'<div class="label">NO GOALS YET</div>'}</div>`);document.getElementById('goalAdd').onclick=()=>{let n=document.getElementById('goalInput').value.trim();if(!n)return;goals.push({name:n,done:false});put(K.goals,goals);goalsTool()}}function goalToggle(i){goals[i].done=!goals[i].done;put(K.goals,goals);goalsTool()}
-function renderThemes(){const e=document.getElementById('themes');if(!e)return;e.innerHTML=Object.entries(themes).map(([k,t])=>`<div class="theme ${theme===k?'selected':''}" data-theme-choice="${k}"><div class="preview" style="background:linear-gradient(135deg,${t[4]},#10141a);border:1px solid ${t[2]}55"><div style="height:2px;width:65%;background:${t[3]};box-shadow:0 0 12px ${t[2]};position:relative;top:50%;left:17%"></div></div><strong>${t[0]}</strong><small>${t[1]}</small></div>`).join('');e.querySelectorAll('[data-theme-choice]').forEach(x=>x.onclick=()=>applyTheme(x.dataset.themeChoice))}
-function renderSettings(){document.getElementById('guidance').textContent=prefs.guidance?'ON':'OFF';document.getElementById('motion').textContent=prefs.motion?'ON':'OFF';document.getElementById('notify').textContent=('Notification'in window&&Notification.permission==='granted')?'ON':'OFF'}document.getElementById('guidance').onclick=()=>{prefs.guidance=!prefs.guidance;put(K.prefs,prefs);renderSettings()};document.getElementById('motion').onclick=()=>{prefs.motion=!prefs.motion;put(K.prefs,prefs);renderSettings()};document.getElementById('notify').onclick=async()=>{if(!('Notification'in window))return toast('NOT SUPPORTED');let p=await Notification.requestPermission();toast(p==='granted'?'NOTIFICATIONS ENABLED':'NOTIFICATIONS BLOCKED');renderSettings()};document.getElementById('reset').onclick=()=>{if(confirm('Reset SENRAI local data?')){Object.values(K).forEach(k=>localStorage.removeItem(k));localStorage.removeItem('senrai_reflection_v4');localStorage.removeItem('senrai_profile_v4');location.reload()}};
-function renderAll(){renderHome();renderQuests();renderLife();renderStats();renderMoments();renderAchievements();renderHistory();renderProfile();renderThemes();renderSettings();document.getElementById('objectiveView').innerHTML='<div class="label">MAIN OBJECTIVE</div><div style="font-size:18px;font-weight:900;margin-top:6px">MOVE FORWARD</div><div class="bodytext" style="margin-top:5px">Choose one useful action and take it. SENRAI guides, never controls.</div>'}
-window.addEventListener('error',e=>{console.error(e);toast('SYSTEM RECOVERED')});
-function boot(){let p=0;const f=document.getElementById('loadFill'),q=document.getElementById('loadPct'),s=document.getElementById('loadText');const t=setInterval(()=>{p+=Math.floor(Math.random()*12)+8;if(p>=100){p=100;clearInterval(t);s.textContent='SYSTEM ONLINE';setTimeout(()=>document.getElementById('splash').classList.add('hide'),350)}f.style.width=p+'%';q.textContent=p+'%'},90)}
-renderAll();boot();
-</script></body></html>
+const K={
+data:'senrai_data_v5',
+quests:'senrai_quests_v5',
+history:'senrai_history_v5',
+moments:'senrai_moments_v5',
+life:'senrai_life_v5',
+theme:'senrai_theme_v5',
+notes:'senrai_notes_v5',
+planner:'senrai_planner_v5',
+budget:'senrai_budget_v5',
+cal:'senrai_cal_v5',
+goals:'senrai_goals_v5',
+prefs:'senrai_prefs_v5'
+};
+
+const get=(k,d)=>{
+try{
+const x=localStorage.getItem(k);
+return x?JSON.parse(x):d
+}catch{return d}
+};
+
+const put=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const today=()=>new Date().toISOString().slice(0,10);
+const id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[m]));
+
+const themes={
+senrai:['SENRAI','Cyan + silver','#69e2dc','#dce8f5','#050609'],
+void:['VOID','Violet + purple','#9b6cff','#d7c6ff','#07050d'],
+crimson:['CRIMSON','Crimson + yellow-gold','#b21f35','#e8c45a','#080406'],
+frost:['FROST','Ice blue + white','#72d8ff','#eaf7ff','#04080c'],
+emerald:['EMERALD','Emerald + mint','#25c98b','#b7e6a5','#030907'],
+gold:['GOLD','Amber + gold','#d4a83e','#ffe59a','#090704'],
+abyss:['ABYSS','Teal + aqua','#20bfc7','#86e9ee','#03090b'],
+rose:['ROSE','Magenta + rose','#d64f91','#ffb5d5','#090407']
+};
+
+let data=get(K.data,{
+level:1,
+xp:0,
+total:0,
+today:today(),
+todayXP:0,
+todayCount:0,
+streak:0,
+last:null,
+momentum:0
+});
+
+let custom=get(K.quests,[]);
+let history=get(K.history,[]);
+let moments=get(K.moments,[]);
+let life=get(K.life,null);
+let theme=get(K.theme,'senrai');
+let notes=get(K.notes,[]);
+let planner=get(K.planner,{date:today(),items:[]});
+let budget=get(K.budget,{income:[],expenses:[]});
+let cal=get(K.cal,{date:today(),target:2000,foods:[]});
+let goals=get(K.goals,[]);
+let prefs=get(K.prefs,{guidance:true,motion:false});
+
+function normalize(){
+
+if(data.today!==today()){
+data.today=today();
+data.todayXP=0;
+data.todayCount=0;
+}
+
+if(planner.date!==today())
+planner={date:today(),items:[]};
+
+if(cal.date!==today())
+cal={date:today(),target:cal.target||2000,foods:[]};
+
+data.level=Math.max(1,+data.level||1);
+data.xp=Math.max(0,+data.xp||0);
+data.total=Math.max(0,+data.total||0);
+
+put(K.data,data);
+put(K.planner,planner);
+put(K.cal,cal);
+}
+
+normalize();
+
+function applyTheme(t){
+if(!themes[t])t='senrai';
+theme=t;
+document.body.dataset.theme=t;
+put(K.theme,t);
+renderThemes();
+}
+
+applyTheme(theme);
+
+function toast(s){
+const e=document.getElementById('toast');
+e.textContent=s;
+e.classList.add('show');
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>e.classList.remove('show'),2100);
+}
+
+function glitch(){
+const e=document.getElementById('glitch');
+e.classList.remove('on');
+void e.offsetWidth;
+e.classList.add('on');
+setTimeout(()=>e.classList.remove('on'),320);
+}
+
+function need(l){
+return 100+(l-1)*50;
+}
+
+function xp(n){
+n=+n||0;
+
+data.xp+=n;
+data.total+=n;
+data.todayXP+=n;
+
+while(data.xp>=need(data.level)){
+data.xp-=need(data.level);
+data.level++;
+toast('LEVEL UP — LEVEL '+data.level);
+glitch();
+}
+
+put(K.data,data);
+renderAll();
+}
+
+function go(v){
+
+document.querySelectorAll('.view')
+.forEach(e=>e.classList.remove('active'));
+
+const e=document.getElementById(v);
+if(!e)return;
+
+e.classList.add('active');
+
+document.querySelectorAll('[data-nav]')
+.forEach(b=>b.classList.toggle('active',b.dataset.nav===v));
+
+document.getElementById('menu').classList.add('hidden');
+document.getElementById('sysBtn').classList.remove('open');
+
+glitch();
+
+window.scrollTo(0,0);
+
+renderAll();
+}
+
+document.querySelectorAll('[data-nav]')
+.forEach(b=>b.onclick=()=>go(b.dataset.nav));
+
+document.querySelectorAll('[data-open]')
+.forEach(b=>b.onclick=()=>go(b.dataset.open));
+
+document.getElementById('sysBtn').onclick=()=>{
+const m=document.getElementById('menu');
+const b=document.getElementById('sysBtn');
+
+m.classList.toggle('hidden');
+b.classList.toggle('open',!m.classList.contains('hidden'));
+};
+
+document.getElementById('eventBtn').onclick=()=>{
+document.getElementById('menu').classList.add('hidden');
+toast('SYSTEM EVENT — KEEP MOVING');
+xp(5);
+};
+
+const daily=()=>[
+{id:'drink',name:'Drink Water',desc:'Take a moment to hydrate.',xp:10},
+{id:'move',name:'Move for 10 Minutes',desc:'Walk, stretch, clean, or move.',xp:15},
+{id:'space',name:'Reset Your Space',desc:'Improve one small part of your environment.',xp:15},
+{id:'focus',name:'Focus for 20 Minutes',desc:'Work on something that matters.',xp:20}
+];
+
+function questHTML(q){
+return `
+<div class="quest">
+<div>
+<div class="questName">${esc(q.name)}</div>
+<div class="questDesc">${esc(q.desc||'')}</div>
+<span class="pill xp">+${q.xp} XP</span>
+</div>
+<button class="btn" data-complete="${esc(q.id)}">${q.done?'DONE':'COMPLETE'}</button>
+</div>
+`;
+}
+
+function allQ(){
+return daily().concat(custom);
+}
+
+function completeQ(q){
+
+if(q.done)return;
+
+q.done=true;
+
+if(q.custom){
+const c=custom.find(x=>x.id===q.id);
+if(c)c.done=true;
+}
+
+data.todayCount++;
+data.momentum=Math.min(100,data.momentum+5);
+
+if(data.last!==today()){
+data.streak++;
+data.last=today();
+}
+
+history.unshift({
+date:today(),
+type:'QUEST',
+name:q.name,
+xp:q.xp
+});
+
+history=history.slice(0,100);
+
+put(K.quests,custom);
+put(K.history,history);
+
+xp(q.xp);
+
+toast('QUEST COMPLETE +'+q.xp+' XP');
+}
+
+function bindComplete(){
+
+document.querySelectorAll('[data-complete]')
+.forEach(b=>b.onclick=()=>{
+const q=allQ().find(x=>x.id===b.dataset.complete);
+if(q)completeQ(q);
+});
+
+}
+
+document.getElementById('addQuest').onclick=()=>{
+
+const n=document.getElementById('qName').value.trim();
+
+if(!n){
+toast('ENTER A QUEST');
+return;
+}
+
+custom.unshift({
+id:id(),
+name:n,
+desc:document.getElementById('qDesc').value.trim(),
+xp:Math.max(1,+document.getElementById('qXP').value||25),
+done:false,
+custom:true
+});
+
+put(K.quests,custom);
+
+document.getElementById('qName').value='';
+document.getElementById('qDesc').value='';
+
+renderAll();
+
+toast('QUEST CREATED');
+};
+
+const reflections=[
+['SMALL MOVEMENT COUNTS','You do not need a perfect day to make progress.','Clean or improve one small part of your space.'],
+['CHANGE THE STATE','If you feel stuck, change your environment or movement first.','Step outside for ten minutes.'],
+['KEEP IT SIMPLE','One useful action is enough to move the system forward.','Finish one task you have been avoiding.']
+];
+
+let reflection=get(
+'senrai_reflection_v5',
+reflections[0]
+);
+
+function newReflection(){
+reflection=reflections[Math.floor(Math.random()*reflections.length)];
+put('senrai_reflection_v5',reflection);
+renderReflection();
+}
+
+document.getElementById('anotherReflection').onclick=newReflection;
+
+document.getElementById('acceptReflection').onclick=()=>{
+custom.unshift({
+id:id(),
+name:reflection[2],
+desc:'System-recommended optional quest.',
+xp:15,
+done:false,
+custom:true
+});
+
+put(K.quests,custom);
+
+toast('QUEST ADDED');
+
+renderAll();
+};
+
+const lifePool={
+move:[
+'Take a 10-minute walk somewhere safe.',
+'Stretch through one full song.',
+'Clean one small area around you.'
+],
+social:[
+'Text someone you have not checked on recently.',
+'Give someone a genuine compliment.',
+'Ask someone how their day is going.'
+],
+explore:[
+'Try a nearby place you have never visited.',
+'Take a different route somewhere familiar.',
+'Spend 15 minutes somewhere you normally pass by.'
+],
+reset:[
+'Put your phone down for 10 minutes.',
+'Take a shower and reset your environment.',
+'Sit somewhere quiet and breathe.'
+]
+};
+
+function newLife(type='move',refresh=true){
+
+const a=lifePool[type]||lifePool.move;
+
+life={
+type:type.toUpperCase(),
+text:a[Math.floor(Math.random()*a.length)],
+xp:10
+};
+
+put(K.life,life);
+
+if(refresh)renderAll();
+}
+
+function finishLife(){
+
+if(!life)return;
+
+history.unshift({
+date:today(),
+type:'LIFE',
+name:life.type,
+xp:life.xp
+});
+
+history=history.slice(0,100);
+
+data.momentum=Math.min(100,data.momentum+4);
+
+put(K.history,history);
+
+life=null;
+
+put(K.life,life);
+
+xp(10);
+
+toast('LIFE ACTION COMPLETE +10 XP');
+}
+
+document.querySelectorAll('[data-life]')
+.forEach(b=>b.onclick=()=>newLife(b.dataset.life));<script>
+function renderHome(){
+
+document.getElementById('level').textContent=data.level;
+document.getElementById('xp').textContent=Math.floor(data.xp);
+document.getElementById('coreLvl').textContent='LVL '+data.level;
+
+const n=need(data.level);
+
+document.getElementById('xpFill').style.width=
+Math.min(100,data.xp/n*100)+'%';
+
+document.getElementById('xpFoot').textContent=
+Math.floor(data.xp)+' / '+n+' XP';
+
+document.getElementById('nextLevel').textContent=
+'LEVEL '+(data.level+1);
+
+document.getElementById('todayCount').textContent=data.todayCount;
+document.getElementById('streak').textContent=data.streak;
+document.getElementById('todayXP').textContent=data.todayXP;
+document.getElementById('momentum').textContent=data.momentum;
+
+document.getElementById('homeObjective').innerHTML=`
+<div class="label">PRIMARY OBJECTIVE</div>
+<h2>MOVE FORWARD</h2>
+<div class="bodytext">
+Choose one useful action and take it.
+There is no penalty for slowing down.
+</div>
+<div class="bar">
+<i style="width:${Math.min(100,data.momentum)}%"></i>
+</div>
+`;
+
+renderReflection();
+renderPath();
+
+document.getElementById('homeQuests').innerHTML=
+daily().slice(0,3).map(questHTML).join('');
+
+if(!life)newLife('move',false);
+
+document.getElementById('homeLife').innerHTML=`
+<div style="padding:16px">
+<div class="label">${esc(life.type)}</div>
+
+<div style="font-size:13px;font-weight:900;margin:6px 0">
+${esc(life.text)}
+</div>
+
+<div class="bodytext">
+Optional. No penalty if you skip it.
+</div>
+
+<button
+class="btn primary"
+style="margin-top:12px"
+onclick="go('life')"
+>
+ENTER LIFE
+</button>
+</div>
+`;
+
+bindComplete();
+}
+
+function renderReflection(){
+
+document.getElementById('reflectionTitle').textContent=
+reflection[0];
+
+document.getElementById('reflectionText').textContent=
+reflection[1];
+
+document.getElementById('reflectionQuest').textContent=
+reflection[2];
+
+document.getElementById('reflectionXP').textContent=
+'+15 XP · OPTIONAL';
+}
+
+function renderPath(){
+
+const p=[
+['AWAKEN','Begin noticing what moves your life forward.'],
+['BUILD','Turn useful actions into momentum.'],
+['ADVANCE','Build consistency without punishment.'],
+['DISCOVER','Reveal more of your personal system.']
+];
+
+const i=Math.min(3,Math.floor(data.level/5));
+
+document.getElementById('pathState').textContent=p[i][0];
+
+document.getElementById('path').innerHTML=
+p.map((x,j)=>`
+<div style="display:flex;gap:11px;padding:9px 0;position:relative">
+
+<div style="
+width:16px;height:16px;border-radius:50%;
+border:1px solid ${j<=i?'var(--main)':'#3a4350'};
+background:${j<i?'var(--main)':'#0a0d12'};
+flex:none">
+</div>
+
+<div>
+<b style="font-size:9px">${x[0]}</b>
+<div style="font-size:8px;color:#687484;margin-top:3px">
+${x[1]}
+</div>
+</div>
+
+</div>
+`).join('');
+}
+
+function renderQuests(){
+
+document.getElementById('questList').innerHTML=
+allQ().map(questHTML).join('')||
+'<div class="panel card">No quests yet.</div>';
+
+bindComplete();
+}
+
+function renderLife(){
+
+if(!life)newLife('move',false);
+
+document.getElementById('lifeType').textContent=
+life.type+' ENCOUNTER';
+
+document.getElementById('lifePrompt').textContent=
+life.text;
+
+document.getElementById('lifeAction').innerHTML=`
+<div class="label">SYSTEM SUGGESTION</div>
+
+<div style="font-size:12px;font-weight:900;margin-top:6px">
+${esc(life.text)}
+</div>
+
+<div class="actions">
+
+<button class="btn primary" id="doneLife">
+DONE
+</button>
+
+<button class="btn" id="anotherLife">
+ANOTHER
+</button>
+
+</div>
+`;
+
+document.getElementById('doneLife').onclick=
+finishLife;
+
+document.getElementById('anotherLife').onclick=
+()=>newLife();
+}
+
+function renderStats(){
+
+const rows=[
+['LEVEL',data.level,Math.min(100,data.level*10)],
+['TOTAL XP',data.total,Math.min(100,data.total/10)],
+['QUESTS',data.todayCount,Math.min(100,data.todayCount*10)],
+['MOMENTUM',data.momentum,data.momentum]
+];
+
+document.getElementById('statsGrid').innerHTML=
+rows.map(r=>`
+<div class="stat">
+
+<div style="display:flex;justify-content:space-between">
+<span class="label">${r[0]}</span>
+<b>${r[1]}</b>
+</div>
+
+<div class="bar">
+<i style="width:${r[2]}%"></i>
+</div>
+
+</div>
+`).join('');
+
+document.getElementById('weekly').innerHTML=`
+<div class="card panel">
+
+<div style="font-size:10px;font-weight:800">
+MOVE 3 TIMES THIS WEEK
+</div>
+
+<div class="bodytext" style="margin-top:5px">
+Optional mission. Your progress never resets as punishment.
+</div>
+
+</div>
+`;
+}
+
+function renderMoments(){
+
+document.getElementById('momentList').innerHTML=
+moments.length?
+
+moments.map(m=>`
+<div class="history card">
+
+<div class="label">${m.date}</div>
+
+<div style="font-size:9px;line-height:1.5;margin-top:6px">
+${esc(m.text)}
+</div>
+
+</div>
+`).join(''):
+
+'<div class="panel card" style="color:#697484;font-size:9px">No moments yet.</div>';
+}
+
+document.getElementById('saveMoment').onclick=()=>{
+
+const e=document.getElementById('momentText');
+const t=e.value.trim();
+
+if(!t){
+toast('WRITE SOMETHING FIRST');
+return;
+}
+
+moments.unshift({
+date:today(),
+text:t
+});
+
+moments=moments.slice(0,100);
+
+put(K.moments,moments);
+
+e.value='';
+
+xp(5);
+
+toast('MOMENT SAVED +5 XP');
+};
+
+function renderAchievements(){
+
+const a=[
+['FIRST STEP','Complete your first quest.',data.total>=10],
+['MOMENTUM','Build 100 momentum.',data.momentum>=100],
+['ASCENDING','Reach level 5.',data.level>=5],
+['OUTSIDE THE SYSTEM','Complete a LIFE action.',history.some(x=>x.type==='LIFE')],
+['RECORDED','Save a Moment.',moments.length>0],
+['UNKNOWN','Keep moving to discover this.',false]
+];
+
+document.getElementById('achievementList').innerHTML=
+a.map(x=>`
+<div class="achievement" style="opacity:${x[2]?1:.38}">
+
+<div style="font-size:22px;color:var(--main)">
+${x[2]?'✦':'?'}
+</div>
+
+<b style="font-size:9px;display:block;margin-top:7px">
+${x[2]?x[0]:'???'}
+</b>
+
+<div style="font-size:8px;color:#697484;margin-top:4px">
+${x[1]}
+</div>
+
+</div>
+`).join('');
+}
+
+function renderHistory(){
+
+document.getElementById('historyList').innerHTML=
+history.length?
+
+history.slice(0,40).map(h=>`
+<div class="history card">
+
+<div style="display:flex;justify-content:space-between">
+<b style="font-size:9px">${esc(h.name)}</b>
+<span style="font-size:8px;color:#5df2a5">
++${h.xp} XP
+</span>
+</div>
+
+<div class="label" style="margin-top:5px">
+${h.date} · ${h.type}
+</div>
+
+</div>
+`).join(''):
+
+'<div class="panel card" style="color:#697484;font-size:9px">No history yet.</div>';
+}
+
+let profile=get(
+'senrai_profile_v5',
+{name:'INITIATE',title:'SYSTEM USER'}
+);
+
+document.getElementById('editProfile').onclick=()=>{
+
+modal(
+'EDIT PROFILE',
+`
+<div class="field">
+<label>NAME</label>
+<input id="pName" value="${esc(profile.name)}">
+</div>
+
+<div class="field">
+<label>TITLE</label>
+<input id="pTitle" value="${esc(profile.title)}">
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="saveP"
+>
+SAVE
+</button>
+`
+);
+
+document.getElementById('saveP').onclick=saveProfile;
+};
+
+function saveProfile(){
+
+profile.name=
+document.getElementById('pName').value.trim()||'INITIATE';
+
+profile.title=
+document.getElementById('pTitle').value.trim()||'SYSTEM USER';
+
+put('senrai_profile_v5',profile);
+
+closeModal();
+renderProfile();
+}
+
+function renderProfile(){
+
+document.getElementById('profileName').textContent=
+profile.name;
+
+document.getElementById('profileTitle').textContent=
+profile.title;
+}
+
+function modal(title,html){
+
+document.getElementById('modalTitle').textContent=title;
+document.getElementById('modalBody').innerHTML=html;
+document.getElementById('modal').classList.remove('hidden');
+}
+
+function closeModal(){
+document.getElementById('modal').classList.add('hidden');
+}
+
+document.getElementById('modalClose').onclick=closeModal;
+
+document.getElementById('modal').onclick=e=>{
+if(e.target.id==='modal')closeModal();
+};
+
+function tool(t){
+
+if(t==='life')return go('life');
+if(t==='timer')timer();
+if(t==='notes')notesTool();
+if(t==='planner')plannerTool();
+if(t==='calc')calcTool();
+if(t==='budget')budgetTool();
+if(t==='calories')calTool();
+if(t==='goals')goalsTool();
+}
+
+document.querySelectorAll('[data-tool]')
+.forEach(b=>b.onclick=()=>tool(b.dataset.tool));
+
+function timer(){
+
+let sec=1500;
+let running=false;
+
+modal(
+'FOCUS TIMER',
+`
+<div style="text-align:center">
+
+<div
+id="timerNum"
+style="font-size:45px;font-weight:900"
+>
+25:00
+</div>
+
+<div class="label">
+FOCUS SESSION
+</div>
+
+<div class="actions">
+
+<button class="btn primary" id="timerGo">
+START
+</button>
+
+<button class="btn" id="timerReset">
+RESET
+</button>
+
+</div>
+
+</div>
+`
+);
+
+let goB=document.getElementById('timerGo');
+
+goB.onclick=()=>{
+
+if(running){
+
+running=false;
+clearInterval(window.ti);
+goB.textContent='START';
+return;
+
+}
+
+running=true;
+goB.textContent='PAUSE';
+
+window.ti=setInterval(()=>{
+
+sec--;
+
+document.getElementById('timerNum').textContent=
+fmt(sec);
+
+if(sec<=0){
+
+clearInterval(window.ti);
+running=false;
+
+xp(15);
+
+toast('FOCUS COMPLETE +15 XP');
+
+closeModal();
+}
+
+},1000);
+};
+
+document.getElementById('timerReset').onclick=()=>{
+
+clearInterval(window.ti);
+
+running=false;
+sec=1500;
+
+document.getElementById('timerNum').textContent=
+fmt(sec);
+
+goB.textContent='START';
+};
+}
+
+function fmt(s){
+
+return String(Math.floor(s/60)).padStart(2,'0')+
+':'+String(s%60).padStart(2,'0');
+}
+
+function notesTool(){
+
+modal(
+'QUICK NOTES',
+`
+<div class="field">
+<textarea id="noteInput" rows="5" placeholder="Write a note..."></textarea>
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="noteAdd"
+>
+SAVE NOTE
+</button>
+
+<div style="margin-top:12px">
+
+${notes.map(n=>`
+<div class="history card" style="margin-bottom:7px">
+
+<div class="label">${n.date}</div>
+
+<div style="font-size:9px;margin-top:5px">
+${esc(n.text)}
+</div>
+
+</div>
+`).join('')||'<div class="label">NO NOTES YET</div>'}
+
+</div>
+`
+);
+
+document.getElementById('noteAdd').onclick=()=>{
+
+const t=
+document.getElementById('noteInput').value.trim();
+
+if(!t)return;
+
+notes.unshift({
+date:today(),
+text:t
+});
+
+notes=notes.slice(0,100);
+
+put(K.notes,notes);
+
+notesTool();
+};
+}
+
+function plannerTool(){
+
+modal(
+'DAILY PLANNER',
+`
+<div class="field">
+<input id="planInput" placeholder="Add something for today">
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="planAdd"
+>
+ADD
+</button>
+
+<div style="margin-top:12px">
+
+${planner.items.map((x,i)=>`
+<div class="food">
+
+<span style="${x.done?'text-decoration:line-through;opacity:.45':''}">
+${esc(x.text)}
+</span>
+
+<button
+class="btn"
+onclick="planToggle(${i})"
+>
+${x.done?'DONE':'COMPLETE'}
+</button>
+
+</div>
+`).join('')||'<div class="label">NOTHING PLANNED</div>'}
+
+</div>
+`
+);
+
+document.getElementById('planAdd').onclick=()=>{
+
+const t=
+document.getElementById('planInput').value.trim();
+
+if(!t)return;
+
+planner.items.push({
+text:t,
+done:false
+});
+
+put(K.planner,planner);
+
+plannerTool();
+};
+}
+
+function planToggle(i){
+
+planner.items[i].done=!planner.items[i].done;
+
+put(K.planner,planner);
+
+plannerTool();
+}
+
+function calcTool(){
+
+modal(
+'CALCULATOR',
+`
+<div class="field">
+<input
+id="calcInput"
+inputmode="decimal"
+placeholder="12 * 4 + 5"
+>
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="calcGo"
+>
+CALCULATE
+</button>
+
+<div
+id="calcOut"
+style="font-size:28px;font-weight:900;text-align:center;margin-top:15px"
+>
+—
+</div>
+`
+);
+
+document.getElementById('calcGo').onclick=()=>{
+
+let s=
+document.getElementById('calcInput')
+.value
+.replace(/×/g,'*')
+.replace(/÷/g,'/')
+.replace(/[^0-9+\-*/().% ]/g,'');
+
+try{
+
+let r=Function(
+'"use strict";return ('+s+')'
+)();
+
+document.getElementById('calcOut').textContent=
+Number.isFinite(r)?r:'ERROR';
+
+}catch{
+
+document.getElementById('calcOut').textContent='ERROR';
+
+}
+};
+}
+
+function budgetTool(){
+
+let sum=a=>
+a.reduce((s,x)=>s+(+x.amount||0),0);
+
+modal(
+'BUDGET',
+`
+<div class="grid">
+
+<div class="field">
+<label>TYPE</label>
+<select id="bType">
+<option value="income">INCOME</option>
+<option value="expense">EXPENSE</option>
+</select>
+</div>
+
+<div class="field">
+<label>AMOUNT</label>
+<input id="bAmt" type="number" step=".01">
+</div>
+
+</div>
+
+<div class="field">
+<label>NAME</label>
+<input id="bName" placeholder="Gas, food, paycheck...">
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="bAdd"
+>
+ADD
+</button>
+
+<div class="summary" style="margin-top:12px">
+
+<div class="sum card">
+<div class="label">INCOME</div>
+<b>$${sum(budget.income).toFixed(2)}</b>
+</div>
+
+<div class="sum card">
+<div class="label">EXPENSES</div>
+<b>$${sum(budget.expenses).toFixed(2)}</b>
+</div>
+
+</div>
+
+<div style="margin-top:10px">
+
+${budget.income.concat(budget.expenses)
+.slice(-15)
+.reverse()
+.map(x=>`
+<div class="food">
+
+<span>${esc(x.name)}</span>
+
+<b>
+${x.type==='expense'?'-':'+'}$${(+x.amount).toFixed(2)}
+</b>
+
+</div>
+`).join('')}
+
+</div>
+`
+);
+
+document.getElementById('bAdd').onclick=()=>{
+
+let type=document.getElementById('bType').value;
+let amount=+document.getElementById('bAmt').value;
+let name=document.getElementById('bName').value.trim()||type;
+
+if(!(amount>0)){
+toast('ENTER AN AMOUNT');
+return;
+}
+
+budget[type].push({
+type,
+amount,
+name,
+date:today()
+});
+
+put(K.budget,budget);
+
+budgetTool();
+};
+}
+
+function calTool(){
+
+let total=
+cal.foods.reduce((s,x)=>s+x.cal,0);
+
+let remain=cal.target-total;
+
+let p=
+Math.min(100,total/cal.target*100);
+
+modal(
+'CALORIE TRACKER',
+`
+<div class="calorie">
+
+<div class="calTotal">
+${total}
+</div>
+
+<div class="label">
+CALORIES TODAY · TARGET ${cal.target}
+</div>
+
+<div style="color:var(--main2);font-size:9px;margin-top:6px">
+
+${remain>=0
+?remain+' REMAINING'
+:Math.abs(remain)+' OVER TARGET'}
+
+</div>
+
+<div class="bar">
+<i style="width:${p}%"></i>
+</div>
+
+<div class="grid">
+
+<div class="field">
+<label>FOOD</label>
+<input id="foodName" placeholder="Chicken, rice...">
+</div>
+
+<div class="field">
+<label>CALORIES</label>
+<input id="foodCal" type="number">
+</div>
+
+</div>
+
+<div class="field">
+<label>DAILY TARGET</label>
+<input id="calTarget" type="number" value="${cal.target}">
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="foodAdd"
+>
+ADD FOOD
+</button>
+
+<div style="margin-top:10px">
+
+${cal.foods.map(x=>`
+<div class="food">
+<span>${esc(x.name)}</span>
+<b>${x.cal} cal</b>
+</div>
+`).join('')||'<div class="label">NO FOOD LOGGED TODAY</div>'}
+
+</div>
+
+</div>
+`
+);
+
+document.getElementById('foodAdd').onclick=()=>{
+
+let name=
+document.getElementById('foodName').value.trim();
+
+let c=
++document.getElementById('foodCal').value;
+
+let t=
++document.getElementById('calTarget').value||2000;
+
+if(!name||!(c>0)){
+toast('ENTER FOOD + CALORIES');
+return;
+}
+
+cal.target=t;
+
+cal.foods.push({
+name,
+cal:c
+});
+
+put(K.cal,cal);
+
+calTool();
+};
+}
+
+function goalsTool(){
+
+modal(
+'GOAL TRACKER',
+`
+<div class="field">
+<input
+id="goalInput"
+placeholder="What are you working toward?"
+>
+</div>
+
+<button
+class="btn primary"
+style="width:100%"
+id="goalAdd"
+>
+ADD GOAL
+</button>
+
+<div style="margin-top:10px">
+
+${goals.map((g,i)=>`
+<div class="food">
+
+<span style="${g.done?'text-decoration:line-through;opacity:.45':''}">
+${esc(g.name)}
+</span>
+
+<button
+class="btn"
+onclick="goalToggle(${i})"
+>
+${g.done?'DONE':'COMPLETE'}
+</button>
+
+</div>
+`).join('')||'<div class="label">NO GOALS YET</div>'}
+
+</div>
+`
+);
+
+document.getElementById('goalAdd').onclick=()=>{
+
+let n=
+document.getElementById('goalInput').value.trim();
+
+if(!n)return;
+
+goals.push({
+name:n,
+done:false
+});
+
+put(K.goals,goals);
+
+goalsTool();
+};
+}
+
+function goalToggle(i){
+
+goals[i].done=!goals[i].done;
+
+put(K.goals,goals);
+
+goalsTool();
+}
+
+function renderThemes(){
+
+const e=document.getElementById('themes');
+
+if(!e)return;
+
+e.innerHTML=
+Object.entries(themes).map(([k,t])=>`
+
+<div
+class="theme ${theme===k?'selected':''}"
+data-theme-choice="${k}"
+>
+
+<div
+class="preview"
+style="
+background:linear-gradient(135deg,${t[4]},#10141a);
+border:1px solid ${t[2]}55
+"
+>
+
+<div
+style="
+height:2px;
+width:65%;
+background:${t[3]};
+box-shadow:0 0 12px ${t[2]};
+position:relative;
+top:50%;
+left:17%
+"
+></div>
+
+</div>
+
+<strong>${t[0]}</strong>
+<small>${t[1]}</small>
+
+</div>
+
+`).join('');
+
+e.querySelectorAll('[data-theme-choice]')
+.forEach(x=>x.onclick=()=>{
+applyTheme(x.dataset.themeChoice);
+glitch();
+});
+}
+
+function renderSettings(){
+
+document.getElementById('guidance').textContent=
+prefs.guidance?'ON':'OFF';
+
+document.getElementById('motion').textContent=
+prefs.motion?'ON':'OFF';
+
+document.getElementById('notify').textContent=
+('Notification'in window&&Notification.permission==='granted')
+?'ON':'OFF';
+}
+
+document.getElementById('guidance').onclick=()=>{
+prefs.guidance=!prefs.guidance;
+put(K.prefs,prefs);
+renderSettings();
+};
+
+document.getElementById('motion').onclick=()=>{
+prefs.motion=!prefs.motion;
+put(K.prefs,prefs);
+
+document.documentElement.style.setProperty(
+'--motion',
+prefs.motion?'0':'1'
+);
+
+renderSettings();
+};
+
+document.getElementById('notify').onclick=async()=>{
+
+if(!('Notification'in window)){
+toast('NOT SUPPORTED');
+return;
+}
+
+let p=await Notification.requestPermission();
+
+toast(
+p==='granted'
+?'NOTIFICATIONS ENABLED'
+:'NOTIFICATIONS BLOCKED'
+);
+
+renderSettings();
+};
+
+document.getElementById('reset').onclick=()=>{
+
+if(confirm('Reset SENRAI local data?')){
+
+Object.values(K)
+.forEach(k=>localStorage.removeItem(k));
+
+localStorage.removeItem('senrai_reflection_v5');
+localStorage.removeItem('senrai_profile_v5');
+
+location.reload();
+}
+};
+
+function renderAll(){
+
+renderHome();
+renderQuests();
+renderLife();
+renderStats();
+renderMoments();
+renderAchievements();
+renderHistory();
+renderProfile();
+renderThemes();
+renderSettings();
+
+document.getElementById('objectiveView').innerHTML=`
+
+<div class="label">MAIN OBJECTIVE</div>
+
+<div style="font-size:18px;font-weight:900;margin-top:6px">
+MOVE FORWARD
+</div>
+
+<div class="bodytext" style="margin-top:5px">
+Choose one useful action and take it.
+SENRAI guides, never controls.
+</div>
+
+`;
+}
+
+/* RESTORED BOOT SEQUENCE */
+function boot(){
+
+let p=0;
+
+const fill=document.getElementById('loadFill');
+const pct=document.getElementById('loadPct');
+const text=document.getElementById('loadText');
+const status=document.getElementById('bootStatus');
+
+const stages=[
+[12,'CORE MEMORY','LOADING CORE'],
+[28,'SYSTEM MODULES','INITIALIZING MODULES'],
+[46,'PROGRESSION ENGINE','CALIBRATING XP'],
+[64,'LIFE MODULE','CONNECTING LIFE'],
+[78,'HUD INTERFACE','RENDERING HUD'],
+[91,'SYSTEM CORE','SYNCHRONIZING'],
+[100,'SYSTEM ONLINE','SYSTEM ONLINE']
+];
+
+let stage=0;
+
+const timer=setInterval(()=>{
+
+p+=Math.floor(Math.random()*7)+4;
+
+if(p>=100)p=100;
+
+while(stage<stages.length&&p>=stages[stage][0]){
+status.textContent=stages[stage][1];
+text.textContent=stages[stage][2];
+stage++;
+}
+
+fill.style.width=p+'%';
+pct.textContent=p+'%';
+
+if(p>=100){
+
+clearInterval(timer);
+
+status.textContent='SYSTEM ONLINE';
+text.textContent='SYSTEM ONLINE';
+
+setTimeout(()=>{
+glitch();
+
+setTimeout(()=>{
+document.getElementById('splash').classList.add('hide');
+},220);
+
+},420);
+
+}
+
+},95);
+}
+
+renderAll();
+boot();
+</script>
+
+</body>
+</html>
