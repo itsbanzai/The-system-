@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#050505">
 <title>SENRAI</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -11,19 +10,15 @@
 <style>
 :root{
   --bg:#050505;
-  --panel:#0b0b0b;
-  --panel2:#101010;
-  --panel3:#151515;
-  --border:#242424;
-  --border2:#303030;
-  --text:#f4f4f4;
-  --muted:#777;
-  --muted2:#555;
-  --soft:#aaa;
-  --white:#eee;
-  --green:#9cffb3;
-  --red:#ff7777;
-  --gold:#d8c68b;
+  --panel:#0c0c0c;
+  --panel2:#111;
+  --line:#222;
+  --text:#f5f5f5;
+  --muted:#858585;
+  --accent:#fff;
+  --good:#9cffb0;
+  --danger:#ff7777;
+  --shadow:0 15px 45px rgba(0,0,0,.45);
 }
 
 *{
@@ -34,11 +29,10 @@
 html,body{
   margin:0;
   padding:0;
-  width:100%;
   min-height:100%;
   background:var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
 body{
@@ -55,6 +49,10 @@ button{
   cursor:pointer;
 }
 
+.hidden{
+  display:none!important;
+}
+
 /* =========================================================
    SPLASH
 ========================================================= */
@@ -68,132 +66,121 @@ button{
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  transition:opacity .8s ease,visibility .8s ease;
+  transition:opacity .7s ease,visibility .7s ease;
 }
 
-#splash.hidden{
+#splash.hide{
   opacity:0;
   visibility:hidden;
   pointer-events:none;
 }
 
-.splash-smoke,
-.splash-smoke::before,
-.splash-smoke::after{
+.splash-smoke{
   position:absolute;
-  content:"";
-  border-radius:50%;
-  filter:blur(45px);
-  pointer-events:none;
+  inset:-30%;
+  background:
+    radial-gradient(circle at 30% 45%,rgba(255,255,255,.055),transparent 24%),
+    radial-gradient(circle at 70% 55%,rgba(255,255,255,.045),transparent 25%),
+    radial-gradient(circle at 50% 30%,rgba(255,255,255,.025),transparent 30%);
+  filter:blur(35px);
+  animation:smokeMove 12s ease-in-out infinite alternate;
+  opacity:.8;
 }
 
-.splash-smoke{
-  width:55vw;
-  height:55vw;
-  background:rgba(110,110,110,.08);
-  animation:smokeFloat 8s ease-in-out infinite;
+.splash-smoke::before,
+.splash-smoke::after{
+  content:"";
+  position:absolute;
+  width:55%;
+  height:55%;
+  border-radius:50%;
+  background:rgba(255,255,255,.035);
+  filter:blur(55px);
 }
 
 .splash-smoke::before{
-  width:45vw;
-  height:45vw;
-  left:-30vw;
-  top:15vh;
-  background:rgba(130,130,130,.07);
-  animation:smokeFloat2 11s ease-in-out infinite;
+  left:5%;
+  top:20%;
+  animation:smokeFloat 8s ease-in-out infinite alternate;
 }
 
 .splash-smoke::after{
-  width:50vw;
-  height:50vw;
-  right:-30vw;
-  bottom:10vh;
-  background:rgba(100,100,100,.06);
-  animation:smokeFloat3 13s ease-in-out infinite;
+  right:5%;
+  bottom:15%;
+  animation:smokeFloat 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes smokeMove{
+  from{transform:translate(-3%,-2%) scale(1)}
+  to{transform:translate(4%,3%) scale(1.08)}
 }
 
 @keyframes smokeFloat{
-  0%,100%{transform:translate(-10vw,-5vh) scale(1)}
-  50%{transform:translate(10vw,5vh) scale(1.15)}
-}
-
-@keyframes smokeFloat2{
-  0%,100%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(15vw,-8vh) scale(1.2)}
-}
-
-@keyframes smokeFloat3{
-  0%,100%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(-12vw,5vh) scale(1.15)}
+  from{transform:translate(-20px,10px) scale(.9)}
+  to{transform:translate(30px,-20px) scale(1.15)}
 }
 
 .splash-content{
   position:relative;
   z-index:2;
-  width:min(90vw,420px);
+  width:min(86vw,420px);
   text-align:center;
 }
 
 .splash-logo{
-  width:min(55vw,240px);
-  max-height:240px;
+  width:min(68vw,260px);
+  max-height:260px;
   object-fit:contain;
   filter:
-    drop-shadow(0 0 8px rgba(255,255,255,.15))
-    drop-shadow(0 0 25px rgba(255,255,255,.08));
+    brightness(1.18)
+    drop-shadow(0 0 12px rgba(255,255,255,.18))
+    drop-shadow(0 0 35px rgba(255,255,255,.08));
   animation:logoAwaken 3s ease-in-out infinite;
 }
 
 @keyframes logoAwaken{
   0%,100%{
     transform:scale(.98);
-    opacity:.86;
+    filter:
+      brightness(1.08)
+      drop-shadow(0 0 10px rgba(255,255,255,.12));
   }
   50%{
-    transform:scale(1);
-    opacity:1;
+    transform:scale(1.015);
+    filter:
+      brightness(1.22)
+      drop-shadow(0 0 18px rgba(255,255,255,.2))
+      drop-shadow(0 0 38px rgba(255,255,255,.08));
   }
-}
-
-.splash-wordmark{
-  margin-top:18px;
-  font-size:24px;
-  letter-spacing:8px;
-  font-weight:600;
-}
-
-.splash-subtitle{
-  margin-top:8px;
-  color:#777;
-  font-size:10px;
-  letter-spacing:4px;
 }
 
 .splash-status{
-  margin-top:35px;
-  color:#777;
+  margin-top:25px;
+  color:#a7a7a7;
   font-size:10px;
   letter-spacing:3px;
+  min-height:14px;
 }
 
 .splash-bar{
-  width:180px;
+  width:190px;
   height:2px;
-  background:#1b1b1b;
-  margin:13px auto 0;
+  margin:15px auto 0;
+  background:#1a1a1a;
   overflow:hidden;
 }
 
 .splash-bar-fill{
   width:0%;
   height:100%;
-  background:#ddd;
+  background:#fff;
+  box-shadow:0 0 12px rgba(255,255,255,.5);
 }
 
 .splash-percent{
-  margin-top:10px;
+  margin-top:9px;
   color:#555;
-  font-size:10px;
+  font-size:9px;
   letter-spacing:2px;
 }
 
@@ -203,162 +190,112 @@ button{
 
 #authScreen{
   min-height:100vh;
-  min-height:100dvh;
-  display:none;
+  display:flex;
   align-items:center;
   justify-content:center;
   padding:24px;
   background:
-    radial-gradient(circle at 50% 15%,rgba(255,255,255,.035),transparent 35%),
-    #050505;
+    radial-gradient(circle at 50% 15%,#161616 0,#080808 35%,#050505 70%);
 }
 
-#authScreen.visible{
-  display:flex;
-}
-
-.auth-container{
+.auth-card{
   width:min(100%,430px);
+  padding:30px 24px;
+  border:1px solid var(--line);
+  background:rgba(12,12,12,.92);
+  border-radius:22px;
+  box-shadow:var(--shadow);
 }
 
 .auth-logo{
   display:block;
-  width:110px;
-  height:110px;
+  width:130px;
+  height:130px;
   object-fit:contain;
-  margin:0 auto 18px;
-  filter:drop-shadow(0 0 18px rgba(255,255,255,.08));
-}
-
-.auth-brand{
-  text-align:center;
-  font-size:27px;
-  letter-spacing:8px;
-  font-weight:600;
-}
-
-.auth-tagline{
-  text-align:center;
-  margin-top:8px;
-  color:#777;
-  font-size:10px;
-  letter-spacing:3px;
-}
-
-.auth-card{
-  margin-top:35px;
-  padding:24px;
-  background:rgba(13,13,13,.96);
-  border:1px solid var(--border);
-  border-radius:18px;
-}
-
-.auth-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:5px;
-  padding:4px;
-  background:#080808;
-  border:1px solid #202020;
-  border-radius:11px;
-  margin-bottom:24px;
-}
-
-.auth-tab{
-  border:0;
-  background:transparent;
-  color:#777;
-  padding:11px;
-  border-radius:8px;
-}
-
-.auth-tab.active{
-  background:#1a1a1a;
-  color:#fff;
+  margin:0 auto 14px;
 }
 
 .auth-title{
-  font-size:20px;
-  font-weight:600;
-  margin-bottom:6px;
+  text-align:center;
+  font-size:28px;
+  letter-spacing:5px;
+  font-weight:700;
 }
 
-.auth-description{
+.auth-subtitle{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin:8px 0 25px;
+}
+
+.auth-tabs{
+  display:flex;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+
+.auth-tabs button{
+  flex:1;
+  border:0;
+  background:#090909;
   color:#777;
-  font-size:13px;
-  line-height:1.5;
-  margin-bottom:20px;
+  padding:12px;
 }
 
-.form-group{
-  margin-bottom:15px;
+.auth-tabs button.active{
+  background:#fff;
+  color:#000;
 }
 
-.form-label{
+.field{
+  margin-bottom:13px;
+}
+
+.field label{
   display:block;
-  color:#999;
-  font-size:11px;
-  letter-spacing:1px;
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:#777;
+  margin:0 0 7px 3px;
   text-transform:uppercase;
-  margin-bottom:7px;
 }
 
-.form-input{
+.field input,
+.field select{
   width:100%;
-  background:#080808;
-  border:1px solid #292929;
-  border-radius:10px;
-  color:#fff;
+  border:1px solid #252525;
+  border-radius:11px;
   padding:13px 14px;
+  background:#080808;
+  color:#fff;
   outline:none;
 }
 
-.form-input:focus{
+.field input:focus,
+.field select:focus{
   border-color:#555;
 }
 
-.auth-button{
+.primary-btn{
   width:100%;
   border:0;
-  background:#eee;
-  color:#050505;
-  font-weight:700;
+  border-radius:11px;
+  background:#fff;
+  color:#000;
   padding:14px;
-  border-radius:10px;
+  font-weight:700;
   margin-top:5px;
 }
 
 .auth-message{
-  display:none;
-  margin-top:14px;
-  padding:11px 12px;
-  border-radius:9px;
-  font-size:12px;
-  line-height:1.45;
-}
-
-.auth-message.show{
-  display:block;
-}
-
-.auth-message.error{
-  background:rgba(255,70,70,.08);
-  border:1px solid rgba(255,70,70,.2);
-  color:#ff8a8a;
-}
-
-.auth-message.success{
-  background:rgba(120,255,160,.06);
-  border:1px solid rgba(120,255,160,.18);
-  color:#9affb4;
-}
-
-.auth-footer{
+  min-height:18px;
   text-align:center;
-  color:#555;
-  font-size:10px;
-  margin-top:20px;
-  line-height:1.5;
+  color:#888;
+  font-size:11px;
+  margin-top:13px;
 }
 
 /* =========================================================
@@ -366,19 +303,9 @@ button{
 ========================================================= */
 
 #app{
-  display:none;
   min-height:100vh;
-  min-height:100dvh;
   padding-bottom:95px;
 }
-
-#app.visible{
-  display:block;
-}
-
-/* =========================================================
-   TOPBAR
-========================================================= */
 
 .topbar{
   position:sticky;
@@ -387,182 +314,98 @@ button{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:
-    max(13px,env(safe-area-inset-top))
-    18px
-    13px;
+  padding:13px 16px;
+  border-bottom:1px solid rgba(255,255,255,.06);
   background:rgba(5,5,5,.88);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.brand{
+.topbar-left{
   display:flex;
   align-items:center;
-  gap:9px;
+  gap:10px;
 }
 
-.brand img{
-  width:31px;
-  height:31px;
+.mini-logo{
+  width:35px;
+  height:35px;
   object-fit:contain;
 }
 
-.brand-text{
-  font-size:14px;
-  letter-spacing:4px;
-  font-weight:600;
+.topbar-title{
+  font-size:13px;
+  letter-spacing:2px;
+  font-weight:700;
 }
 
-.user-area{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.system-status{
+  font-size:9px;
+  color:#777;
+  letter-spacing:1.5px;
 }
 
-.user-name{
-  max-width:100px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  color:#999;
-  font-size:10px;
-}
-
-.logout-button{
-  border:1px solid #292929;
-  background:#0d0d0d;
+.logout-btn{
+  border:1px solid #252525;
+  background:#0b0b0b;
   color:#888;
-  border-radius:8px;
+  border-radius:9px;
   padding:7px 9px;
   font-size:9px;
 }
 
-/* =========================================================
-   PAGES
-========================================================= */
-
 .page{
   display:none;
-  width:min(100%,780px);
+  width:min(100%,900px);
   margin:0 auto;
-  padding:22px 17px;
+  padding:20px 16px;
 }
 
 .page.active{
   display:block;
 }
 
-.page-header{
-  margin-bottom:22px;
-}
-
-.page-kicker{
-  color:#555;
-  font-size:9px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  margin-bottom:7px;
-}
-
-.page-title{
-  font-size:30px;
-  font-weight:600;
-  letter-spacing:-.7px;
-}
-
-.page-subtitle{
-  color:#666;
-  font-size:12px;
-  margin-top:6px;
-}
-
-/* =========================================================
-   GENERIC CARDS
-========================================================= */
-
-.card{
-  background:linear-gradient(145deg,#101010,#090909);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:17px;
-  margin-bottom:12px;
-}
-
-.card-title{
-  color:#666;
-  font-size:9px;
-  letter-spacing:2.2px;
-  text-transform:uppercase;
-  margin-bottom:11px;
-}
-
-.card-heading{
-  font-size:18px;
-  font-weight:600;
-}
-
-.card-description{
-  color:#666;
+.section-title{
   font-size:11px;
-  line-height:1.5;
-  margin-top:5px;
+  letter-spacing:2px;
+  color:#777;
+  text-transform:uppercase;
+  margin:26px 2px 10px;
 }
 
 /* =========================================================
-   NEW DASHBOARD
+   HOME HERO
 ========================================================= */
 
 .system-hero{
   position:relative;
   overflow:hidden;
-  padding:21px;
-  min-height:215px;
+  border:1px solid #202020;
+  border-radius:22px;
+  padding:22px;
   background:
-    radial-gradient(
-      circle at 90% 5%,
-      rgba(255,255,255,.07),
-      transparent 35%
-    ),
+    radial-gradient(circle at 80% 0%,rgba(255,255,255,.07),transparent 34%),
     linear-gradient(145deg,#111,#080808);
-}
-
-.system-hero::before{
-  content:"";
-  position:absolute;
-  width:210px;
-  height:210px;
-  right:-115px;
-  top:-110px;
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:50%;
+  box-shadow:var(--shadow);
 }
 
 .system-hero::after{
   content:"";
   position:absolute;
-  width:160px;
-  height:160px;
-  right:-85px;
-  top:-85px;
-  border:1px solid rgba(255,255,255,.045);
+  width:180px;
+  height:180px;
+  right:-80px;
+  bottom:-100px;
   border-radius:50%;
+  background:rgba(255,255,255,.035);
+  filter:blur(20px);
 }
 
-.system-top{
-  position:relative;
-  z-index:2;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-
-.system-status{
+.hero-status{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:7px;
   color:#777;
-  font-size:8px;
+  font-size:9px;
   letter-spacing:2px;
 }
 
@@ -570,474 +413,333 @@ button{
   width:6px;
   height:6px;
   border-radius:50%;
-  background:#aaa;
-  box-shadow:0 0 8px rgba(255,255,255,.3);
-}
-
-.system-time{
-  color:#555;
-  font-size:9px;
-}
-
-.hero-greeting{
-  position:relative;
-  z-index:2;
-  margin-top:23px;
-  color:#777;
-  font-size:10px;
-  letter-spacing:2px;
-  text-transform:uppercase;
+  background:#fff;
+  box-shadow:0 0 10px rgba(255,255,255,.6);
 }
 
 .hero-name{
-  position:relative;
-  z-index:2;
-  margin-top:4px;
-  font-size:27px;
-  font-weight:600;
+  margin-top:16px;
+  font-size:26px;
+  font-weight:700;
 }
 
-.hero-name span{
+.hero-time{
   color:#777;
+  font-size:11px;
+  margin-top:4px;
 }
 
-.hero-level-row{
-  position:relative;
-  z-index:2;
+.level-row{
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
-  margin-top:20px;
+  margin-top:25px;
 }
 
-.hero-level{
-  font-size:11px;
+.level-number{
+  font-size:44px;
+  font-weight:800;
+  line-height:.9;
+}
+
+.level-label{
+  font-size:9px;
   color:#777;
   letter-spacing:2px;
+  margin-bottom:5px;
 }
 
-.hero-level strong{
-  color:#eee;
-  font-size:20px;
-  margin-left:5px;
-}
-
-.hero-xp{
+.xp-text{
   color:#777;
   font-size:10px;
 }
 
-.hero-progress{
-  position:relative;
-  z-index:2;
-  height:4px;
+.xp-bar{
+  width:100%;
+  height:5px;
   background:#1b1b1b;
-  border-radius:99px;
+  border-radius:20px;
   overflow:hidden;
-  margin-top:9px;
+  margin-top:12px;
 }
 
-.hero-progress-fill{
+.xp-fill{
   height:100%;
-  width:0;
-  background:#ddd;
-  border-radius:99px;
-  transition:width .5s ease;
+  width:0%;
+  background:#fff;
+  border-radius:20px;
+  transition:width .4s ease;
 }
 
-.dashboard-grid{
+/* =========================================================
+   QUICK STATS
+========================================================= */
+
+.quick-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:9px;
+  margin-top:12px;
 }
 
-.dashboard-stat{
-  position:relative;
-  overflow:hidden;
-  padding:16px;
-  background:#0c0c0c;
-  border:1px solid #222;
-  border-radius:14px;
+.quick-stat{
+  border:1px solid #1e1e1e;
+  background:#0b0b0b;
+  border-radius:15px;
+  padding:15px;
 }
 
-.dashboard-stat-label{
-  color:#555;
+.quick-stat-value{
+  font-size:23px;
+  font-weight:700;
+}
+
+.quick-stat-label{
+  color:#666;
   font-size:8px;
-  letter-spacing:2px;
+  letter-spacing:1.5px;
+  margin-top:5px;
   text-transform:uppercase;
 }
 
-.dashboard-stat-value{
-  margin-top:7px;
-  font-size:25px;
-  font-weight:600;
-}
+/* =========================================================
+   DAILY PROGRESS
+========================================================= */
 
-.dashboard-stat-sub{
-  margin-top:3px;
-  color:#666;
-  font-size:9px;
-}
-
-.dashboard-stat-icon{
-  position:absolute;
-  right:12px;
-  top:13px;
-  color:#292929;
-  font-size:25px;
-}
-
-.daily-overview{
+.progress-card{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:20px;
+  border:1px solid #202020;
+  background:#0b0b0b;
+  border-radius:18px;
+  padding:18px;
 }
 
 .progress-ring{
-  position:relative;
-  width:82px;
-  height:82px;
-  flex:0 0 82px;
+  width:86px;
+  height:86px;
   border-radius:50%;
-  background:conic-gradient(
-    #ddd var(--progress),
-    #1c1c1c var(--progress)
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:grid;
+  place-items:center;
+  flex:none;
+  background:conic-gradient(#fff var(--progress),#1c1c1c 0);
+  position:relative;
 }
 
 .progress-ring::after{
   content:"";
   position:absolute;
   inset:7px;
-  border-radius:50%;
   background:#0b0b0b;
+  border-radius:50%;
 }
 
-.progress-ring-content{
+.progress-ring span{
   position:relative;
   z-index:2;
-  text-align:center;
-}
-
-.progress-ring-number{
-  font-size:18px;
-  font-weight:600;
-}
-
-.progress-ring-label{
-  color:#555;
-  font-size:7px;
-  letter-spacing:1px;
-}
-
-.daily-copy{
-  flex:1;
-}
-
-.daily-copy-title{
   font-size:15px;
-  font-weight:500;
-}
-
-.daily-copy-text{
-  color:#666;
-  font-size:10px;
-  line-height:1.5;
-  margin-top:5px;
-}
-
-.objective-card{
-  position:relative;
-  overflow:hidden;
-}
-
-.objective-card::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:#aaa;
-}
-
-.objective-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  color:#555;
-  font-size:8px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-}
-
-.objective-name{
-  margin-top:11px;
-  font-size:17px;
-  font-weight:500;
-}
-
-.objective-text{
-  color:#666;
-  font-size:11px;
-  line-height:1.5;
-  margin-top:5px;
-}
-
-.home-quest{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:11px 0;
-  border-bottom:1px solid #191919;
-}
-
-.home-quest:last-child{
-  border-bottom:0;
-  padding-bottom:0;
-}
-
-.home-quest:first-child{
-  padding-top:0;
-}
-
-.home-quest-check{
-  width:25px;
-  height:25px;
-  flex:0 0 25px;
-  border-radius:50%;
-  border:1px solid #3a3a3a;
-  background:#090909;
-  color:transparent;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-}
-
-.home-quest-check.done{
-  background:#eee;
-  color:#050505;
-  border-color:#eee;
-}
-
-.home-quest-info{
-  flex:1;
-  min-width:0;
-}
-
-.home-quest-name{
-  font-size:11px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.home-quest-meta{
-  color:#555;
-  font-size:8px;
-  margin-top:3px;
-}
-
-.home-quest-xp{
-  color:#777;
-  font-size:9px;
-}
-
-.activity-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:9px 0;
-  border-bottom:1px solid #191919;
-}
-
-.activity-item:last-child{
-  border-bottom:0;
-}
-
-.activity-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#777;
-  flex:0 0 6px;
-}
-
-.activity-text{
-  flex:1;
-  font-size:10px;
-  color:#999;
-}
-
-.activity-time{
-  color:#444;
-  font-size:8px;
-}
-
-.system-panel{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.system-item{
-  padding:11px;
-  border:1px solid #1d1d1d;
-  background:#090909;
-  border-radius:9px;
-}
-
-.system-item-label{
-  color:#555;
-  font-size:7px;
-  letter-spacing:1.5px;
-}
-
-.system-item-value{
-  margin-top:5px;
-  color:#aaa;
-  font-size:10px;
-}
-
-/* =========================================================
-   QUESTS
-========================================================= */
-
-.quest-section{
-  margin-bottom:25px;
-}
-
-.section-title{
-  font-size:10px;
-  color:#666;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  margin-bottom:10px;
-}
-
-.quest{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:#0d0d0d;
-  border:1px solid #222;
-  border-radius:13px;
-  padding:13px;
-  margin-bottom:8px;
-}
-
-.quest.completed{
-  opacity:.45;
-}
-
-.quest-check{
-  width:28px;
-  height:28px;
-  flex:0 0 28px;
-  border:1px solid #444;
-  background:#090909;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:transparent;
-  font-size:12px;
-}
-
-.quest.completed .quest-check{
-  background:#eee;
-  color:#050505;
-  border-color:#eee;
-}
-
-.quest-main{
-  min-width:0;
-  flex:1;
-}
-
-.quest-name{
-  font-size:12px;
-  font-weight:500;
-}
-
-.quest-meta{
-  color:#555;
-  font-size:8px;
-  margin-top:4px;
-  letter-spacing:.6px;
-}
-
-.quest-xp{
-  color:#888;
-  font-size:10px;
-  white-space:nowrap;
-}
-
-.quest-delete{
-  border:0;
-  background:transparent;
-  color:#555;
-  font-size:15px;
-  padding:3px;
-}
-
-.quest-empty{
-  padding:19px;
-  text-align:center;
-  color:#555;
-  border:1px dashed #252525;
-  border-radius:12px;
-  font-size:11px;
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.primary-button{
-  width:100%;
-  border:1px solid #ddd;
-  background:#eee;
-  color:#050505;
-  padding:13px;
-  border-radius:10px;
   font-weight:700;
 }
 
-.secondary-button{
-  border:1px solid #303030;
-  background:#101010;
-  color:#ddd;
-  padding:11px 14px;
-  border-radius:9px;
+.progress-info h3{
+  margin:0 0 6px;
+  font-size:15px;
 }
 
-.primary-button:active,
-.secondary-button:active{
-  transform:scale(.99);
+.progress-info p{
+  margin:0;
+  color:#777;
+  font-size:11px;
+  line-height:1.5;
 }
 
 /* =========================================================
-   FORMS
+   QUEST CARDS
 ========================================================= */
 
-.custom-form{
+.quest-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.quest-card{
+  border:1px solid #202020;
+  background:#0b0b0b;
+  border-radius:15px;
+  padding:14px;
+  transition:.2s ease;
+}
+
+.quest-card.completed{
+  opacity:.48;
+}
+
+.quest-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.quest-name{
+  font-size:13px;
+  font-weight:600;
+}
+
+.quest-xp{
+  color:#aaa;
+  font-size:10px;
+  white-space:nowrap;
+}
+
+.quest-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:10px;
+}
+
+.quest-meta{
+  color:#666;
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.complete-btn{
+  border:1px solid #303030;
+  background:#111;
+  color:#fff;
+  border-radius:8px;
+  padding:7px 11px;
+  font-size:9px;
+}
+
+.complete-btn:hover{
+  background:#fff;
+  color:#000;
+}
+
+.complete-btn:disabled{
+  opacity:.4;
+}
+
+/* =========================================================
+   ACTION CARDS
+========================================================= */
+
+.action-grid{
   display:grid;
+  grid-template-columns:1fr 1fr;
   gap:10px;
 }
 
-.form-select{
-  width:100%;
-  background:#080808;
-  color:#ddd;
-  border:1px solid #292929;
+.action-card{
+  border:1px solid #202020;
+  background:#0b0b0b;
+  border-radius:16px;
+  padding:17px;
+  color:#fff;
+  text-align:left;
+}
+
+.action-card strong{
+  display:block;
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.action-card span{
+  color:#666;
+  font-size:10px;
+  line-height:1.4;
+}
+
+/* =========================================================
+   QUESTS PAGE
+========================================================= */
+
+.page-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.page-header h1{
+  margin:0;
+  font-size:25px;
+}
+
+.page-header p{
+  margin:5px 0 0;
+  color:#666;
+  font-size:10px;
+}
+
+.add-btn{
+  border:1px solid #333;
+  background:#fff;
+  color:#000;
   border-radius:10px;
+  padding:9px 12px;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* =========================================================
+   CUSTOM QUEST FORM
+========================================================= */
+
+.custom-form{
+  border:1px solid #222;
+  background:#0b0b0b;
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:20px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.custom-form .full{
+  grid-column:1/-1;
+}
+
+.custom-form input,
+.custom-form select{
+  width:100%;
+  padding:11px;
+  background:#070707;
+  border:1px solid #252525;
+  color:#fff;
+  border-radius:9px;
+}
+
+.form-label{
+  display:block;
+  color:#666;
+  font-size:8px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin:0 0 5px 2px;
+}
+
+.form-submit{
+  width:100%;
+  border:0;
+  background:#fff;
+  color:#000;
+  border-radius:9px;
   padding:12px;
-  outline:none;
+  font-weight:700;
+  margin-top:10px;
 }
 
 /* =========================================================
@@ -1045,288 +747,291 @@ button{
 ========================================================= */
 
 .stat-card{
-  display:grid;
-  grid-template-columns:48px 1fr 50px;
-  align-items:center;
-  gap:12px;
-  padding:14px;
-  background:#0d0d0d;
-  border:1px solid #222;
-  border-radius:13px;
-  margin-bottom:8px;
+  border:1px solid #202020;
+  background:#0b0b0b;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:9px;
 }
 
-.stat-code{
-  width:42px;
-  height:42px;
-  border-radius:10px;
-  border:1px solid #333;
+.stat-head{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  font-size:12px;
+  justify-content:space-between;
+  margin-bottom:8px;
 }
 
 .stat-name{
   font-size:12px;
+  font-weight:700;
 }
 
-.stat-description{
-  color:#555;
-  font-size:8px;
-  margin-top:3px;
-}
-
-.stat-bar{
-  height:4px;
-  background:#1c1c1c;
-  border-radius:99px;
-  margin-top:7px;
-  overflow:hidden;
-}
-
-.stat-bar-fill{
-  height:100%;
-  background:#aaa;
-  width:0%;
+.stat-desc{
+  color:#666;
+  font-size:9px;
 }
 
 .stat-value{
-  text-align:right;
-  font-size:18px;
-  font-weight:600;
+  font-size:13px;
+  color:#aaa;
+}
+
+.stat-bar{
+  height:5px;
+  background:#1a1a1a;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.stat-fill{
+  height:100%;
+  width:0%;
+  background:#fff;
 }
 
 /* =========================================================
    ACHIEVEMENTS
 ========================================================= */
 
-.achievement{
-  display:flex;
-  gap:13px;
-  padding:14px;
-  border:1px solid #222;
-  background:#0d0d0d;
-  border-radius:13px;
-  margin-bottom:8px;
+.achievement-card{
+  border:1px solid #202020;
+  background:#0b0b0b;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:9px;
 }
 
-.achievement.locked{
-  opacity:.4;
+.achievement-card.unlocked{
+  border-color:#444;
 }
 
-.achievement-icon{
-  width:42px;
-  height:42px;
-  border:1px solid #333;
-  border-radius:10px;
+.achievement-title{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:17px;
+  justify-content:space-between;
+  gap:10px;
 }
 
 .achievement-name{
+  font-weight:700;
   font-size:12px;
-  font-weight:600;
 }
 
-.achievement-description{
-  color:#555;
+.achievement-status{
+  color:#777;
   font-size:9px;
-  margin-top:4px;
-  line-height:1.4;
+}
+
+.achievement-desc{
+  color:#666;
+  font-size:10px;
+  margin-top:5px;
 }
 
 .achievement-reward{
-  color:#777;
-  font-size:8px;
-  margin-top:5px;
+  color:#aaa;
+  font-size:9px;
+  margin-top:8px;
 }
 
 /* =========================================================
    LIFE
 ========================================================= */
 
-.life-quest{
-  text-align:center;
+.life-card{
+  border:1px solid #242424;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,255,255,.05),transparent 45%),
+    #0b0b0b;
   padding:28px 20px;
+  text-align:center;
 }
 
 .life-icon{
-  font-size:31px;
-  margin-bottom:14px;
+  font-size:28px;
+  margin-bottom:13px;
 }
 
-.life-text{
-  font-size:17px;
-  line-height:1.45;
-  max-width:500px;
-  margin:0 auto;
+.life-card h2{
+  font-size:19px;
+  margin:0 0 9px;
 }
 
-.life-note{
-  color:#555;
-  font-size:9px;
-  margin-top:11px;
-  line-height:1.5;
+.life-card p{
+  color:#777;
+  font-size:11px;
+  line-height:1.6;
+  margin:0 auto 20px;
+  max-width:450px;
 }
 
-.life-actions{
-  display:flex;
-  gap:8px;
-  margin-top:21px;
-}
-
-.life-actions button{
-  flex:1;
+.life-btn{
+  border:0;
+  background:#fff;
+  color:#000;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
 }
 
 /* =========================================================
-   NOTIFICATIONS
+   SETTINGS
 ========================================================= */
 
-#notificationContainer{
-  position:fixed;
-  top:76px;
-  left:15px;
-  right:15px;
-  z-index:100000;
-  pointer-events:none;
+.settings-card{
+  border:1px solid #202020;
+  background:#0b0b0b;
+  border-radius:17px;
+  padding:17px;
+  margin-bottom:10px;
 }
 
-.notification{
-  max-width:430px;
-  margin:0 auto 8px;
-  padding:12px 14px;
-  background:#171717;
-  border:1px solid #333;
+.settings-card h3{
+  margin:0 0 5px;
+  font-size:14px;
+}
+
+.settings-card p{
+  color:#666;
+  font-size:10px;
+  line-height:1.5;
+  margin:0 0 15px;
+}
+
+.schedule-options{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+.schedule-option{
+  border:1px solid #252525;
+  background:#080808;
+  color:#888;
+  padding:10px 5px;
+  border-radius:9px;
+  font-size:9px;
+}
+
+.schedule-option.active{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+}
+
+.current-schedule{
+  margin-top:13px;
+  padding:12px;
+  background:#080808;
+  border:1px solid #1e1e1e;
   border-radius:10px;
-  box-shadow:0 10px 40px rgba(0,0,0,.5);
-  animation:notificationIn .3s ease forwards;
-  font-size:11px;
+  font-size:10px;
+  color:#aaa;
 }
 
-@keyframes notificationIn{
-  from{
-    opacity:0;
-    transform:translateY(-10px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+.schedule-save{
+  width:100%;
+  margin-top:12px;
+  border:0;
+  border-radius:9px;
+  padding:12px;
+  background:#fff;
+  color:#000;
+  font-weight:700;
+}
+
+.setting-note{
+  font-size:9px!important;
+  color:#555!important;
+  margin-top:10px!important;
+  margin-bottom:0!important;
 }
 
 /* =========================================================
-   BOTTOM NAV
+   NAV
 ========================================================= */
 
 .bottom-nav{
   position:fixed;
-  z-index:90;
-  left:10px;
-  right:10px;
-  bottom:max(10px,env(safe-area-inset-bottom));
-  height:65px;
-  background:rgba(13,13,13,.94);
-  backdrop-filter:blur(18px);
-  border:1px solid #252525;
-  border-radius:17px;
+  z-index:100;
+  left:50%;
+  bottom:10px;
+  transform:translateX(-50%);
+  width:min(calc(100% - 20px),620px);
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  box-shadow:0 15px 50px rgba(0,0,0,.45);
+  grid-template-columns:repeat(6,1fr);
+  gap:3px;
+  padding:7px;
+  border:1px solid #222;
+  border-radius:17px;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(20px);
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
 }
 
-.nav-button{
+.nav-btn{
   border:0;
+  border-radius:11px;
   background:transparent;
-  color:#555;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
+  color:#666;
+  padding:8px 2px;
   font-size:8px;
+  letter-spacing:.4px;
+}
+
+.nav-btn.active{
+  color:#fff;
+  background:#191919;
 }
 
 .nav-icon{
-  font-size:16px;
-  line-height:1;
+  display:block;
+  font-size:15px;
+  margin-bottom:3px;
 }
 
-.nav-button.active{
-  color:#eee;
+/* =========================================================
+   TOAST
+========================================================= */
+
+#toast{
+  position:fixed;
+  z-index:9999;
+  left:50%;
+  bottom:90px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  background:#fff;
+  color:#000;
+  border-radius:11px;
+  padding:11px 15px;
+  font-size:10px;
+  font-weight:700;
+  white-space:nowrap;
+  transition:.25s ease;
 }
 
-@media(min-width:700px){
-  .bottom-nav{
-    left:50%;
-    right:auto;
-    transform:translateX(-50%);
-    width:620px;
-  }
-
-  .page{
-    padding-left:22px;
-    padding-right:22px;
-  }
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:380px){
-
-  .hero-name{
-    font-size:24px;
+@media(min-width:700px){
+  .quick-grid{
+    grid-template-columns:repeat(4,1fr);
   }
 
-  .dashboard-grid{
-    gap:7px;
+  .form-grid{
+    grid-template-columns:repeat(4,1fr);
   }
 
-  .dashboard-stat{
-    padding:13px;
+  .form-grid .full{
+    grid-column:1/-1;
   }
-
-  .dashboard-stat-value{
-    font-size:22px;
-  }
-
-  .daily-overview{
-    gap:12px;
-  }
-
-  .progress-ring{
-    width:72px;
-    height:72px;
-    flex-basis:72px;
-  }
-
-}
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.app-loading{
-  position:fixed;
-  inset:0;
-  z-index:50000;
-  background:#050505;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#777;
-  font-size:10px;
-  letter-spacing:3px;
-}
-
-.app-loading.hidden{
-  display:none;
 }
 </style>
 </head>
@@ -1338,1166 +1043,576 @@ button{
 ======================================================= -->
 
 <div id="splash">
-
   <div class="splash-smoke"></div>
 
   <div class="splash-content">
+    <!-- Keep your existing logo file exactly as-is -->
+    <img class="splash-logo" src="senrai-logo.png" alt="SENRAI">
 
-    <img
-      src="senrai-logo.png"
-      class="splash-logo"
-      alt="SENRAI"
-    >
-
-    <div class="splash-wordmark">
-      SENRAI
-    </div>
-
-    <div class="splash-subtitle">
-      PERSONAL PROGRESSION SYSTEM
-    </div>
-
-    <div
-      class="splash-status"
-      id="splashStatus"
-    >
-      SYSTEM INITIALIZING
-    </div>
+    <div class="splash-status" id="splashStatus">SYSTEM INITIALIZING</div>
 
     <div class="splash-bar">
-      <div
-        class="splash-bar-fill"
-        id="splashBar"
-      ></div>
+      <div class="splash-bar-fill" id="splashFill"></div>
     </div>
 
-    <div
-      class="splash-percent"
-      id="splashPercent"
-    >
-      0%
-    </div>
-
+    <div class="splash-percent" id="splashPercent">0%</div>
   </div>
-
 </div>
-
 
 <!-- =======================================================
      AUTH
 ======================================================= -->
 
-<section id="authScreen">
+<section id="authScreen" class="hidden">
+  <div class="auth-card">
 
-  <div class="auth-container">
+    <img class="auth-logo" src="senrai-logo.png" alt="SENRAI">
 
-    <img
-      src="senrai-logo.png"
-      class="auth-logo"
-      alt="SENRAI"
-    >
-
-    <div class="auth-brand">
-      SENRAI
-    </div>
-
-    <div class="auth-tagline">
+    <div class="auth-title">SENRAI</div>
+    <div class="auth-subtitle">
       THE SYSTEM THAT MOVES YOU FORWARD
     </div>
 
-    <div class="auth-card">
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" onclick="showAuthMode('login')">
+        LOGIN
+      </button>
 
-      <div class="auth-tabs">
-
-        <button
-          class="auth-tab active"
-          id="loginTab"
-          onclick="switchAuthMode('login')"
-        >
-          LOGIN
-        </button>
-
-        <button
-          class="auth-tab"
-          id="signupTab"
-          onclick="switchAuthMode('signup')"
-        >
-          SIGN UP
-        </button>
-
-      </div>
-
-
-      <div id="loginForm">
-
-        <div class="auth-title">
-          Welcome back.
-        </div>
-
-        <div class="auth-description">
-          Continue your progression.
-        </div>
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Email
-          </label>
-
-          <input
-            id="loginEmail"
-            class="form-input"
-            type="email"
-            autocomplete="email"
-            placeholder="you@example.com"
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Password
-          </label>
-
-          <input
-            id="loginPassword"
-            class="form-input"
-            type="password"
-            autocomplete="current-password"
-            placeholder="••••••••"
-          >
-
-        </div>
-
-        <button
-          class="auth-button"
-          onclick="loginUser()"
-        >
-          ENTER SYSTEM
-        </button>
-
-      </div>
-
-
-      <div
-        id="signupForm"
-        style="display:none;"
-      >
-
-        <div class="auth-title">
-          Create your system.
-        </div>
-
-        <div class="auth-description">
-          Your progression will be connected to your account.
-        </div>
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Name
-          </label>
-
-          <input
-            id="signupName"
-            class="form-input"
-            type="text"
-            autocomplete="name"
-            placeholder="Your name"
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Email
-          </label>
-
-          <input
-            id="signupEmail"
-            class="form-input"
-            type="email"
-            autocomplete="email"
-            placeholder="you@example.com"
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Password
-          </label>
-
-          <input
-            id="signupPassword"
-            class="form-input"
-            type="password"
-            autocomplete="new-password"
-            placeholder="At least 6 characters"
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Confirm Password
-          </label>
-
-          <input
-            id="signupConfirm"
-            class="form-input"
-            type="password"
-            autocomplete="new-password"
-            placeholder="Repeat your password"
-          >
-
-        </div>
-
-        <button
-          class="auth-button"
-          onclick="signupUser()"
-        >
-          CREATE SYSTEM
-        </button>
-
-      </div>
-
-
-      <div
-        id="authMessage"
-        class="auth-message"
-      ></div>
-
+      <button id="signupTab" onclick="showAuthMode('signup')">
+        SIGN UP
+      </button>
     </div>
 
+    <form id="authForm">
 
-    <div class="auth-footer">
-      SENRAI<br>
-      SMALL PROGRESS. REAL LIFE.
-    </div>
+      <div class="field" id="nameField">
+        <label>Your Name</label>
+        <input
+          id="authName"
+          type="text"
+          placeholder="Enter your name"
+          autocomplete="name"
+        >
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <button class="primary-btn" type="submit" id="authSubmit">
+        ENTER SYSTEM
+      </button>
+
+    </form>
+
+    <div class="auth-message" id="authMessage"></div>
 
   </div>
-
 </section>
-
 
 <!-- =======================================================
      APP
 ======================================================= -->
 
-<div id="app">
+<div id="app" class="hidden">
 
   <header class="topbar">
 
-    <div class="brand">
+    <div class="topbar-left">
+      <img class="mini-logo" src="senrai-logo.png" alt="">
 
-      <img
-        src="senrai-logo.png"
-        alt="SENRAI"
-      >
-
-      <div class="brand-text">
-        SENRAI
+      <div>
+        <div class="topbar-title">SENRAI</div>
+        <div class="system-status">SYSTEM ONLINE</div>
       </div>
-
     </div>
 
-
-    <div class="user-area">
-
-      <div
-        class="user-name"
-        id="userNameDisplay"
-      >
-        USER
-      </div>
-
-      <button
-        class="logout-button"
-        onclick="logoutUser()"
-      >
-        LOG OUT
-      </button>
-
-    </div>
+    <button class="logout-btn" onclick="logout()">
+      LOG OUT
+    </button>
 
   </header>
-
 
   <!-- =====================================================
        HOME
   ====================================================== -->
 
-  <main
-    id="page-home"
-    class="page active"
-  >
+  <main id="homePage" class="page active">
 
-    <div class="page-header">
+    <section class="system-hero">
 
-      <div class="page-kicker">
-        SYSTEM ONLINE
+      <div class="hero-status">
+        <span class="status-dot"></span>
+        PERSONAL PROGRESSION SYSTEM
       </div>
 
-      <div class="page-title">
-        Home
+      <div class="hero-name" id="heroName">
+        Welcome
       </div>
 
-      <div class="page-subtitle">
-        Your life. Your progression.
+      <div class="hero-time" id="heroTime">
+        Loading...
       </div>
 
-    </div>
+      <div class="level-row">
 
-
-    <!-- SYSTEM HERO -->
-
-    <div class="card system-hero">
-
-      <div class="system-top">
-
-        <div class="system-status">
-
-          <span class="status-dot"></span>
-
-          SYSTEM ONLINE
-
+        <div>
+          <div class="level-label">LEVEL</div>
+          <div class="level-number" id="levelNumber">1</div>
         </div>
 
-        <div
-          class="system-time"
-          id="systemTime"
-        >
-          --:--
-        </div>
-
-      </div>
-
-
-      <div class="hero-greeting">
-        WELCOME BACK
-      </div>
-
-      <div
-        class="hero-name"
-        id="heroName"
-      >
-        Player<span>.</span>
-      </div>
-
-
-      <div class="hero-level-row">
-
-        <div class="hero-level">
-
-          LEVEL
-
-          <strong id="levelDisplay">
-            1
-          </strong>
-
-        </div>
-
-        <div
-          class="hero-xp"
-          id="xpDisplay"
-        >
+        <div class="xp-text" id="xpText">
           0 / 100 XP
         </div>
 
       </div>
 
+      <div class="xp-bar">
+        <div class="xp-fill" id="xpFill"></div>
+      </div>
 
-      <div class="hero-progress">
+    </section>
 
-        <div
-          class="hero-progress-fill"
-          id="xpBar"
-        ></div>
+    <div class="quick-grid">
 
+      <div class="quick-stat">
+        <div class="quick-stat-value" id="homeStreak">0</div>
+        <div class="quick-stat-label">Streak</div>
+      </div>
+
+      <div class="quick-stat">
+        <div class="quick-stat-value" id="homeQuests">0</div>
+        <div class="quick-stat-label">Quests</div>
+      </div>
+
+      <div class="quick-stat">
+        <div class="quick-stat-value" id="homeTotalXP">0</div>
+        <div class="quick-stat-label">Total XP</div>
+      </div>
+
+      <div class="quick-stat">
+        <div class="quick-stat-value" id="homeLifeQuests">0</div>
+        <div class="quick-stat-label">Life Quests</div>
       </div>
 
     </div>
 
+    <div class="section-title">Today's Progress</div>
 
-    <!-- QUICK STATS -->
+    <section class="progress-card">
 
-    <div
-      class="dashboard-grid"
-      style="margin-top:10px;"
-    >
-
-      <div class="dashboard-stat">
-
-        <div class="dashboard-stat-label">
-          Streak
-        </div>
-
-        <div
-          class="dashboard-stat-value"
-          id="streakDisplay"
-        >
-          0
-        </div>
-
-        <div class="dashboard-stat-sub">
-          days active
-        </div>
-
-        <div class="dashboard-stat-icon">
-          🔥
-        </div>
-
+      <div class="progress-ring" id="progressRing" style="--progress:0deg">
+        <span id="progressPercent">0%</span>
       </div>
 
-
-      <div class="dashboard-stat">
-
-        <div class="dashboard-stat-label">
-          Quests
-        </div>
-
-        <div
-          class="dashboard-stat-value"
-          id="questCountDisplay"
-        >
-          0
-        </div>
-
-        <div class="dashboard-stat-sub">
-          completed
-        </div>
-
-        <div class="dashboard-stat-icon">
-          ⚔
-        </div>
-
+      <div class="progress-info">
+        <h3 id="progressTitle">Start your day.</h3>
+        <p id="progressDescription">
+          Complete a quest to begin making progress.
+        </p>
       </div>
 
+    </section>
 
-      <div class="dashboard-stat">
+    <div class="section-title">Current Objective</div>
 
-        <div class="dashboard-stat-label">
-          Total XP
-        </div>
+    <section class="settings-card">
+      <h3 id="objectiveTitle">Make some progress.</h3>
+      <p id="objectiveDescription">
+        Your next completed quest will move you forward.
+      </p>
+    </section>
 
-        <div
-          class="dashboard-stat-value"
-          id="totalXpDisplay"
-        >
-          0
-        </div>
+    <div class="section-title">Today's Quests</div>
 
-        <div class="dashboard-stat-sub">
-          earned
-        </div>
+    <div class="quest-list" id="homeQuestList"></div>
 
-        <div class="dashboard-stat-icon">
-          ⚡
-        </div>
+    <div class="section-title">Quick Actions</div>
 
-      </div>
+    <div class="action-grid">
 
-
-      <div class="dashboard-stat">
-
-        <div class="dashboard-stat-label">
-          Life
-        </div>
-
-        <div
-          class="dashboard-stat-value"
-          id="lifeQuestCountDisplay"
-        >
-          0
-        </div>
-
-        <div class="dashboard-stat-sub">
-          life quests
-        </div>
-
-        <div class="dashboard-stat-icon">
-          ✦
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- DAILY OVERVIEW -->
-
-    <div class="card">
-
-      <div class="card-title">
-        Today's Progress
-      </div>
-
-      <div class="daily-overview">
-
-        <div
-          class="progress-ring"
-          id="dailyRing"
-          style="--progress:0%;"
-        >
-
-          <div class="progress-ring-content">
-
-            <div
-              class="progress-ring-number"
-              id="dailyPercent"
-            >
-              0%
-            </div>
-
-            <div class="progress-ring-label">
-              COMPLETE
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="daily-copy">
-
-          <div class="daily-copy-title">
-            Keep moving forward.
-          </div>
-
-          <div
-            class="daily-copy-text"
-            id="dailyCopy"
-          >
-            Complete one small thing today.
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- CURRENT OBJECTIVE -->
-
-    <div class="card objective-card">
-
-      <div class="objective-meta">
-
-        <span>
-          CURRENT OBJECTIVE
-        </span>
-
-        <span>
-          MAIN QUEST
-        </span>
-
-      </div>
-
-      <div
-        class="objective-name"
-        id="homeObjective"
-      >
-        Learn JavaScript
-      </div>
-
-      <div class="objective-text">
-        Keep building your skills one session at a time.
-      </div>
-
-    </div>
-
-
-    <!-- TODAY'S QUESTS -->
-
-    <div class="card">
-
-      <div class="card-title">
-        Today's Quests
-      </div>
-
-      <div id="homeDailyPreview"></div>
-
-    </div>
-
-
-    <!-- QUICK ACTIONS -->
-
-    <div class="dashboard-grid">
-
-      <button
-        class="card"
-        style="
-          margin:0;
-          text-align:left;
-          color:#fff;
-          cursor:pointer;
-        "
-        onclick="navigateTo('quests')"
-      >
-
-        <div class="card-title">
-          QUESTS
-        </div>
-
-        <div style="font-size:16px;font-weight:500;">
-          Open Quest Log
-        </div>
-
-        <div
-          style="
-            color:#555;
-            font-size:9px;
-            margin-top:5px;
-          "
-        >
-          View all missions →
-        </div>
-
+      <button class="action-card" onclick="goTo('quests')">
+        <strong>⚔ Quest Log</strong>
+        <span>View every quest and create your own.</span>
       </button>
 
-
-      <button
-        class="card"
-        style="
-          margin:0;
-          text-align:left;
-          color:#fff;
-          cursor:pointer;
-        "
-        onclick="generateLifeQuest();navigateTo('life')"
-      >
-
-        <div class="card-title">
-          RANDOM EVENT
-        </div>
-
-        <div style="font-size:16px;font-weight:500;">
-          Surprise Me ✦
-        </div>
-
-        <div
-          style="
-            color:#555;
-            font-size:9px;
-            margin-top:5px;
-          "
-        >
-          Generate a Life Quest →
-        </div>
-
+      <button class="action-card" onclick="surpriseMe()">
+        <strong>✦ Surprise Me</strong>
+        <span>Get a random life quest.</span>
       </button>
 
     </div>
 
+    <div class="section-title">System Status</div>
 
-    <!-- RECENT ACTIVITY -->
-
-    <div class="card" style="margin-top:12px;">
-
-      <div class="card-title">
-        Recent Activity
-      </div>
-
-      <div id="activityList"></div>
-
-    </div>
-
-
-    <!-- SYSTEM STATUS -->
-
-    <div class="card">
-
-      <div class="card-title">
-        System Status
-      </div>
-
-      <div class="system-panel">
-
-        <div class="system-item">
-
-          <div class="system-item-label">
-            ACCOUNT
-          </div>
-
-          <div class="system-item-value">
-            <span style="color:var(--green);">●</span>
-            CONNECTED
-          </div>
-
-        </div>
-
-
-        <div class="system-item">
-
-          <div class="system-item-label">
-            CLOUD SYNC
-          </div>
-
-          <div class="system-item-value">
-            <span style="color:var(--green);">●</span>
-            ACTIVE
-          </div>
-
-        </div>
-
-
-        <div class="system-item">
-
-          <div class="system-item-label">
-            QUEST SYSTEM
-          </div>
-
-          <div class="system-item-value">
-            ONLINE
-          </div>
-
-        </div>
-
-
-        <div class="system-item">
-
-          <div class="system-item-label">
-            VERSION
-          </div>
-
-          <div class="system-item-value">
-            SENRAI 2.0
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
+    <section class="settings-card">
+      <h3>PERSONAL DAY</h3>
+      <p id="homeScheduleText">
+        Loading your personal schedule...
+      </p>
+    </section>
 
   </main>
-
 
   <!-- =====================================================
        QUESTS
   ====================================================== -->
 
-  <main
-    id="page-quests"
-    class="page"
-  >
+  <main id="questsPage" class="page">
 
     <div class="page-header">
-
-      <div class="page-kicker">
-        PROGRESSION
+      <div>
+        <h1>Quest Log</h1>
+        <p>Choose what moves you forward.</p>
       </div>
 
-      <div class="page-title">
-        Quests
-      </div>
-
-      <div class="page-subtitle">
-        Do things that make your life better.
-      </div>
-
+      <button class="add-btn" onclick="toggleCustomForm()">
+        + CREATE
+      </button>
     </div>
 
+    <section class="custom-form hidden" id="customQuestForm">
 
-    <div class="quest-section">
+      <div class="form-grid">
 
-      <div class="section-title">
-        Daily Quests
-      </div>
+        <div class="full">
+          <label class="form-label">Quest Name</label>
+          <input
+            id="customQuestName"
+            type="text"
+            placeholder="Example: Study JavaScript"
+          >
+        </div>
 
-      <div id="dailyQuests"></div>
+        <div>
+          <label class="form-label">Type</label>
+          <select id="customQuestType">
+            <option value="MAIN">MAIN</option>
+            <option value="DAILY">DAILY</option>
+            <option value="SIDE">SIDE</option>
+          </select>
+        </div>
 
-    </div>
+        <div>
+          <label class="form-label">Difficulty</label>
+          <select id="customQuestDifficulty">
+            <option value="EASY">EASY — 10 XP</option>
+            <option value="NORMAL">NORMAL — 25 XP</option>
+            <option value="HARD">HARD — 50 XP</option>
+            <option value="EXTREME">EXTREME — 100 XP</option>
+          </select>
+        </div>
 
-
-    <div class="quest-section">
-
-      <div class="section-title">
-        Main Quest
-      </div>
-
-      <div id="mainQuests"></div>
-
-    </div>
-
-
-    <div class="quest-section">
-
-      <div class="section-title">
-        Side Quests
-      </div>
-
-      <div id="sideQuests"></div>
-
-    </div>
-
-
-    <div class="quest-section">
-
-      <div class="section-title">
-        Custom Quests
-      </div>
-
-      <div id="customQuests"></div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        Create Quest
-      </div>
-
-      <div class="custom-form">
-
-        <input
-          id="customQuestName"
-          class="form-input"
-          type="text"
-          placeholder="Quest name"
-        >
-
-        <select
-          id="customQuestType"
-          class="form-select"
-        >
-          <option value="MAIN">
-            MAIN QUEST
-          </option>
-
-          <option value="DAILY">
-            DAILY QUEST
-          </option>
-
-          <option value="SIDE">
-            SIDE QUEST
-          </option>
-        </select>
-
-
-        <select
-          id="customQuestDifficulty"
-          class="form-select"
-        >
-          <option value="EASY">
-            EASY — +10 XP
-          </option>
-
-          <option value="NORMAL">
-            NORMAL — +25 XP
-          </option>
-
-          <option value="HARD">
-            HARD — +50 XP
-          </option>
-
-          <option value="EXTREME">
-            EXTREME — +100 XP
-          </option>
-
-        </select>
-
-
-        <select
-          id="customQuestStat"
-          class="form-select"
-        >
-          <option value="STR">
-            STR — Fitness
-          </option>
-
-          <option value="INT">
-            INT — Learning
-          </option>
-
-          <option value="WIS">
-            WIS — Personal Growth
-          </option>
-
-          <option value="CHA">
-            CHA — Social
-          </option>
-
-          <option value="DEX">
-            DEX — Productivity
-          </option>
-
-          <option value="CRE">
-            CRE — Creativity
-          </option>
-
-          <option value="VIT">
-            VIT — Health
-          </option>
-
-        </select>
-
-
-        <button
-          class="primary-button"
-          onclick="createCustomQuest()"
-        >
-          CREATE QUEST
-        </button>
+        <div>
+          <label class="form-label">Stat</label>
+          <select id="customQuestStat">
+            <option value="STR">STR</option>
+            <option value="INT">INT</option>
+            <option value="WIS">WIS</option>
+            <option value="CHA">CHA</option>
+            <option value="DEX">DEX</option>
+            <option value="CRE">CRE</option>
+            <option value="VIT">VIT</option>
+          </select>
+        </div>
 
       </div>
 
-    </div>
+      <button class="form-submit" onclick="createCustomQuest()">
+        CREATE QUEST
+      </button>
+
+    </section>
+
+    <div class="section-title">Daily Quests</div>
+    <div class="quest-list" id="dailyQuestList"></div>
+
+    <div class="section-title">Main Quests</div>
+    <div class="quest-list" id="mainQuestList"></div>
+
+    <div class="section-title">Side Quests</div>
+    <div class="quest-list" id="sideQuestList"></div>
+
+    <div class="section-title">Custom Quests</div>
+    <div class="quest-list" id="customQuestList"></div>
 
   </main>
-
 
   <!-- =====================================================
        STATS
   ====================================================== -->
 
-  <main
-    id="page-stats"
-    class="page"
-  >
+  <main id="statsPage" class="page">
 
     <div class="page-header">
-
-      <div class="page-kicker">
-        CHARACTER
+      <div>
+        <h1>Stats</h1>
+        <p>Your real-life character sheet.</p>
       </div>
-
-      <div class="page-title">
-        Stats
-      </div>
-
-      <div class="page-subtitle">
-        Every useful action builds something.
-      </div>
-
     </div>
 
+    <div id="statsList"></div>
 
-    <div id="statsContainer"></div>
+    <div class="section-title">Overall Progression</div>
 
+    <section class="settings-card">
+      <h3 id="overallStatText">Level 1</h3>
+      <p>
+        Every completed quest contributes to the person you're becoming.
+      </p>
 
-    <div class="card">
-
-      <div class="card-title">
-        Overall Progression
+      <div class="xp-bar">
+        <div class="xp-fill" id="overallFill"></div>
       </div>
-
-      <div class="hero-progress">
-
-        <div
-          class="hero-progress-fill"
-          id="overallProgressBar"
-        ></div>
-
-      </div>
-
-      <div
-        id="overallProgressText"
-        style="
-          margin-top:10px;
-          color:#777;
-          font-size:10px;
-        "
-      >
-        0 total XP
-      </div>
-
-    </div>
+    </section>
 
   </main>
-
 
   <!-- =====================================================
        ACHIEVEMENTS
   ====================================================== -->
 
-  <main
-    id="page-achievements"
-    class="page"
-  >
+  <main id="achievementsPage" class="page">
 
     <div class="page-header">
-
-      <div class="page-kicker">
-        MILESTONES
+      <div>
+        <h1>Achievements</h1>
+        <p>Milestones earned along the way.</p>
       </div>
-
-      <div class="page-title">
-        Achievements
-      </div>
-
-      <div class="page-subtitle">
-        Proof that you're moving forward.
-      </div>
-
     </div>
 
-
-    <div class="section-title">
-      Achievements
-    </div>
-
-    <div id="achievementsContainer"></div>
+    <div id="achievementList"></div>
 
   </main>
-
 
   <!-- =====================================================
        LIFE
   ====================================================== -->
 
-  <main
-    id="page-life"
-    class="page"
-  >
+  <main id="lifePage" class="page">
 
     <div class="page-header">
-
-      <div class="page-kicker">
-        REAL LIFE
+      <div>
+        <h1>Life</h1>
+        <p>Progress isn't only about productivity.</p>
       </div>
-
-      <div class="page-title">
-        Life
-      </div>
-
-      <div class="page-subtitle">
-        Sometimes the smallest things matter.
-      </div>
-
     </div>
 
+    <section class="life-card">
 
-    <div class="card life-quest">
+      <div class="life-icon">✦</div>
 
-      <div class="life-icon">
-        ✦
-      </div>
+      <h2 id="lifeQuestText">
+        Surprise me.
+      </h2>
 
-      <div
-        class="life-text"
-        id="lifeQuestText"
+      <p>
+        Sometimes the smallest things make life feel a little bigger.
+      </p>
+
+      <button class="life-btn" onclick="completeLifeQuest()">
+        COMPLETE QUEST
+      </button>
+
+      <button
+        class="life-btn"
+        onclick="surpriseMe()"
+        style="margin-left:5px;background:#171717;color:#fff;border:1px solid #333;"
       >
-        Press surprise me.
-      </div>
+        ANOTHER
+      </button>
 
-      <div class="life-note">
-        Skip it if you don't feel like doing it.
-        No guilt. No punishment.
-      </div>
+    </section>
 
-      <div class="life-actions">
+    <div class="section-title">Philosophy</div>
 
-        <button
-          class="secondary-button"
-          onclick="generateLifeQuest()"
-        >
-          NEW QUEST
-        </button>
-
-        <button
-          class="primary-button"
-          onclick="completeLifeQuest()"
-        >
-          COMPLETE
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        Philosophy
-      </div>
-
-      <div
-        style="
-          color:#aaa;
-          font-size:12px;
-          line-height:1.7;
-        "
-      >
-        You're not trying to become a perfect person.
+    <section class="settings-card">
+      <h3>Keep Moving.</h3>
+      <p>
+        You aren't trying to become a perfect person.
         You're just trying to make small progress in your life.
-      </div>
-
-    </div>
+      </p>
+    </section>
 
   </main>
 
+  <!-- =====================================================
+       SETTINGS
+  ====================================================== -->
+
+  <main id="settingsPage" class="page">
+
+    <div class="page-header">
+      <div>
+        <h1>Settings</h1>
+        <p>Make SENRAI fit your life.</p>
+      </div>
+    </div>
+
+    <section class="settings-card">
+
+      <h3>Personal Schedule</h3>
+
+      <p>
+        SENRAI doesn't assume everyone lives from midnight to midnight.
+        Choose when your personal day begins. Daily quests, streaks and
+        progress will follow your schedule.
+      </p>
+
+      <div class="schedule-options">
+
+        <button
+          class="schedule-option"
+          data-hour="0"
+          onclick="selectScheduleHour(0)"
+        >
+          12 AM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="3"
+          onclick="selectScheduleHour(3)"
+        >
+          3 AM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="6"
+          onclick="selectScheduleHour(6)"
+        >
+          6 AM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="9"
+          onclick="selectScheduleHour(9)"
+        >
+          9 AM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="12"
+          onclick="selectScheduleHour(12)"
+        >
+          12 PM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="15"
+          onclick="selectScheduleHour(15)"
+        >
+          3 PM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="18"
+          onclick="selectScheduleHour(18)"
+        >
+          6 PM
+        </button>
+
+        <button
+          class="schedule-option"
+          data-hour="21"
+          onclick="selectScheduleHour(21)"
+        >
+          9 PM
+        </button>
+
+      </div>
+
+      <div class="current-schedule" id="currentSchedule">
+        Personal day starts at 12:00 AM.
+      </div>
+
+      <button class="schedule-save" onclick="saveSchedule()">
+        SAVE PERSONAL SCHEDULE
+      </button>
+
+      <p class="setting-note">
+        Example: If you work nights and choose 3 PM, your SENRAI day runs
+        from 3 PM until 2:59 PM the following day.
+      </p>
+
+    </section>
+
+    <section class="settings-card">
+
+      <h3>Your Account</h3>
+
+      <p id="accountInfo">
+        Loading...
+      </p>
+
+    </section>
+
+  </main>
 
   <!-- =====================================================
-       NAVIGATION
+       BOTTOM NAV
   ====================================================== -->
 
   <nav class="bottom-nav">
 
-    <button
-      class="nav-button active"
-      data-page="home"
-      onclick="navigateTo('home')"
-    >
+    <button class="nav-btn active" data-page="home" onclick="goTo('home')">
       <span class="nav-icon">⌂</span>
       HOME
     </button>
 
-
-    <button
-      class="nav-button"
-      data-page="quests"
-      onclick="navigateTo('quests')"
-    >
+    <button class="nav-btn" data-page="quests" onclick="goTo('quests')">
       <span class="nav-icon">⚔</span>
       QUESTS
     </button>
 
-
-    <button
-      class="nav-button"
-      data-page="stats"
-      onclick="navigateTo('stats')"
-    >
+    <button class="nav-btn" data-page="stats" onclick="goTo('stats')">
       <span class="nav-icon">◈</span>
       STATS
     </button>
 
-
-    <button
-      class="nav-button"
-      data-page="achievements"
-      onclick="navigateTo('achievements')"
-    >
+    <button class="nav-btn" data-page="achievements" onclick="goTo('achievements')">
       <span class="nav-icon">♛</span>
       ACHIEVEMENTS
     </button>
 
-
-    <button
-      class="nav-button"
-      data-page="life"
-      onclick="navigateTo('life')"
-    >
+    <button class="nav-btn" data-page="life" onclick="goTo('life')">
       <span class="nav-icon">✦</span>
       LIFE
+    </button>
+
+    <button class="nav-btn" data-page="settings" onclick="goTo('settings')">
+      <span class="nav-icon">⚙</span>
+      SETTINGS
     </button>
 
   </nav>
 
 </div>
 
-
-<div id="notificationContainer"></div>
-
+<div id="toast"></div>
 
 <script>
 /* =========================================================
@@ -2507,2674 +1622,977 @@ button{
 const SUPABASE_URL =
   "https://qkonsmkzxzkxziektmfx.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_KEY =
   "sb_publishable_Jr9ED_DV29-CqvpS0TS7UQ_yYytM-d3";
 
 const supabaseClient =
   window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_KEY
   );
 
-
 /* =========================================================
-   STORAGE
+   DATA
 ========================================================= */
 
-const STORAGE_KEY =
-  "theSystemData";
-
-const CUSTOM_QUESTS_KEY =
-  "senraiCustomQuests";
-
-const ACHIEVEMENTS_KEY =
-  "senraiAchievements";
-
-const LIFE_QUEST_KEY =
-  "senraiCurrentLifeQuest";
-
-const ACTIVITY_KEY =
-  "senraiActivity";
-
-
-/* =========================================================
-   DEFAULT DATA
-========================================================= */
-
-const defaultData = {
-
-  level:1,
-
-  xp:0,
-
-  totalXp:0,
-
-  streak:0,
-
-  lastActiveDate:null,
-
-  lastResetDate:null,
-
-  totalQuestsCompleted:0,
-
-  totalLifeQuests:0,
-
-  socialQuestsCompleted:0,
-
-  stats:{
-    STR:0,
-    INT:0,
-    WIS:0,
-    CHA:0,
-    DEX:0,
-    CRE:0,
-    VIT:0
-  }
-
-};
-
-
-let data =
-  loadLocalData();
-
-let currentUser =
-  null;
-
-let currentLifeQuest =
-  null;
-
-let enteringUserId =
-  null;
-
-
-/* =========================================================
-   DAILY QUESTS
-========================================================= */
-
-const dailyQuests = [
-
+const DAILY_QUESTS = [
   {
-    id:"make-bed",
+    id:"bed",
     name:"Make your bed",
     xp:10,
-    stat:"DEX"
+    stat:"DEX",
+    type:"DAILY"
   },
-
   {
-    id:"drink-water",
+    id:"water",
     name:"Drink some water",
     xp:10,
-    stat:"VIT"
+    stat:"VIT",
+    type:"DAILY"
   },
-
   {
-    id:"something-off",
+    id:"procrastination",
     name:"Do something you've been putting off",
     xp:25,
-    stat:"WIS"
+    stat:"WIS",
+    type:"DAILY"
   },
-
   {
-    id:"go-outside",
+    id:"outside",
     name:"Go outside for at least 5 minutes",
     xp:10,
-    stat:"VIT"
+    stat:"VIT",
+    type:"DAILY"
   }
-
 ];
 
-
-/* =========================================================
-   MAIN QUEST
-========================================================= */
-
-const mainQuests = [
-
-  {
-    id:"learn-javascript",
-    name:"Learn JavaScript",
-    xp:50,
-    stat:"INT"
-  }
-
-];
-
-
-/* =========================================================
-   SIDE QUEST
-========================================================= */
-
-const sideQuests = [
-
+const SIDE_QUESTS = [
   {
     id:"call-someone",
     name:"Call someone you haven't talked to recently",
     xp:20,
-    stat:"CHA"
+    stat:"CHA",
+    type:"SIDE"
   }
-
 ];
 
+const MAIN_QUESTS = [
+  {
+    id:"main-objective",
+    name:"Choose a goal worth working toward",
+    xp:50,
+    stat:"WIS",
+    type:"MAIN"
+  }
+];
 
-/* =========================================================
-   LIFE QUESTS
-========================================================= */
-
-const lifeQuestPool = [
-
+const LIFE_QUESTS = [
   "Call or text someone you haven't talked to in a while.",
-
   "Call a family member just to say hi.",
-
   "Tell someone you appreciate them.",
-
   "Go outside for 5 minutes.",
-
   "Watch the sunset.",
-
   "Take a different route somewhere.",
-
   "Learn a random fact.",
-
   "Put your phone down for 20 minutes.",
-
   "Take a cool photo.",
-
   "Do something kind for someone.",
-
   "Work on a hobby.",
-
   "Clean something you've been ignoring.",
-
   "Listen to an album from beginning to end.",
-
   "Write down one thing you're grateful for.",
-
   "Try something you've never tried before.",
-
   "Spend 10 minutes doing absolutely nothing."
-
 ];
 
-
-/* =========================================================
-   STATS
-========================================================= */
-
-const statInfo = {
-
+const STAT_INFO = {
   STR:{
-    name:"Strength",
-    description:"Fitness, physical effort, movement"
+    name:"STR",
+    label:"Fitness",
+    desc:"Physical strength and movement."
   },
-
   INT:{
-    name:"Intelligence",
-    description:"Learning, studying, knowledge"
+    name:"INT",
+    label:"Learning",
+    desc:"Knowledge, studying and skill building."
   },
-
   WIS:{
-    name:"Wisdom",
-    description:"Reflection, personal growth, discipline"
+    name:"WIS",
+    label:"Personal Growth",
+    desc:"Reflection, discipline and better decisions."
   },
-
   CHA:{
-    name:"Charisma",
-    description:"Social connection, communication"
+    name:"CHA",
+    label:"Social",
+    desc:"Relationships, communication and connection."
   },
-
   DEX:{
-    name:"Dexterity",
-    description:"Productivity, organization, action"
+    name:"DEX",
+    label:"Productivity",
+    desc:"Getting things done and staying organized."
   },
-
   CRE:{
-    name:"Creativity",
-    description:"Art, music, creation, imagination"
+    name:"CRE",
+    label:"Creativity",
+    desc:"Art, ideas and creative expression."
   },
-
   VIT:{
-    name:"Vitality",
-    description:"Health, sleep, recovery, wellbeing"
+    name:"VIT",
+    label:"Health",
+    desc:"Health, recovery and taking care of yourself."
   }
-
 };
 
+const XP_VALUES = {
+  EASY:10,
+  NORMAL:25,
+  HARD:50,
+  EXTREME:100
+};
 
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
-
-const achievementDefinitions = [
-
+const ACHIEVEMENTS = [
   {
-    id:"first-step",
+    id:"first_step",
     name:"FIRST STEP",
     description:"Complete your first quest.",
     reward:50,
-    icon:"Ⅰ",
-    condition:()=>data.totalQuestsCompleted >= 1
+    check:data => data.totalQuestsCompleted >= 1
   },
-
   {
     id:"century",
     name:"CENTURY",
     description:"Earn 100 total XP.",
     reward:50,
-    icon:"100",
-    condition:()=>data.totalXp >= 100
+    check:data => data.totalXP >= 100
   },
-
   {
-    id:"getting-serious",
+    id:"getting_serious",
     name:"GETTING SERIOUS",
     description:"Reach Level 5.",
     reward:100,
-    icon:"V",
-    condition:()=>data.level >= 5
+    check:data => data.level >= 5
   },
-
   {
     id:"consistency",
     name:"CONSISTENCY",
     description:"Reach a 7-day streak.",
     reward:100,
-    icon:"7",
-    condition:()=>data.streak >= 7
+    check:data => data.streak >= 7
   },
-
   {
     id:"explorer",
     name:"EXPLORER",
     description:"Complete 10 Life Quests.",
     reward:100,
-    icon:"✦",
-    condition:()=>data.totalLifeQuests >= 10
+    check:data => data.totalLifeQuests >= 10
   },
-
   {
-    id:"social-link",
+    id:"social_link",
     name:"SOCIAL LINK",
     description:"Complete 5 social quests.",
     reward:100,
-    icon:"∞",
-    condition:()=>data.socialQuestsCompleted >= 5
+    check:data => data.socialQuestsCompleted >= 5
   },
-
   {
     id:"secret",
     name:"???",
     description:"A hidden achievement.",
     reward:150,
-    icon:"?",
     secret:true,
-    condition:()=>(
+    check:data =>
       data.totalQuestsCompleted >= 25 &&
       data.level >= 3
-    )
   }
-
 ];
 
-
 /* =========================================================
-   LOCAL DATA
+   STATE
 ========================================================= */
 
-function loadLocalData(){
+let currentUser = null;
+let profile = null;
+let customQuests = [];
+let unlockedAchievements = [];
+let selectedScheduleHour = 0;
+let enteringUserId = null;
+let authMode = "login";
 
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function getJSON(key, fallback){
   try{
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  }catch{
+    return fallback;
+  }
+}
 
-    const saved =
-      localStorage.getItem(
-        STORAGE_KEY
-      );
+function setJSON(key,value){
+  localStorage.setItem(key,JSON.stringify(value));
+}
 
-    if(!saved){
+/* =========================================================
+   PERSONAL DAY
+========================================================= */
 
-      return structuredClone(
-        defaultData
-      );
+function getDayStartHour(){
+  const local = localStorage.getItem("senraiDayStartHour");
 
+  if(local !== null){
+    const hour = Number(local);
+
+    if(Number.isInteger(hour) && hour >= 0 && hour <= 23){
+      return hour;
     }
-
-    const parsed =
-      JSON.parse(saved);
-
-    return {
-
-      ...structuredClone(
-        defaultData
-      ),
-
-      ...parsed,
-
-      stats:{
-        ...structuredClone(
-          defaultData.stats
-        ),
-        ...(parsed.stats || {})
-      }
-
-    };
-
-  }catch(error){
-
-    console.error(error);
-
-    return structuredClone(
-      defaultData
-    );
-
   }
 
-}
-
-
-function saveLocalData(){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
-
-}
-
-
-/* =========================================================
-   ACTIVITY
-========================================================= */
-
-function getActivity(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        ACTIVITY_KEY
-      ) || "[]"
-    );
-
-  }catch{
-
-    return [];
-
+  if(profile && Number.isInteger(Number(profile.day_start_hour))){
+    return Number(profile.day_start_hour);
   }
 
+  return 0;
 }
 
+function getPersonalDayKey(date = new Date()){
+  const dayStart = getDayStartHour();
 
-function addActivity(text){
+  const adjusted = new Date(date);
 
-  const list =
-    getActivity();
-
-  list.unshift({
-
-    text,
-
-    time:
-      new Date().toISOString()
-
-  });
-
-  list.splice(8);
-
-  localStorage.setItem(
-    ACTIVITY_KEY,
-    JSON.stringify(list)
-  );
-
-}
-
-
-function renderActivity(){
-
-  const container =
-    document.getElementById(
-      "activityList"
-    );
-
-  const list =
-    getActivity();
-
-
-  if(!list.length){
-
-    container.innerHTML = `
-
-      <div
-        style="
-          color:#555;
-          font-size:10px;
-          padding:5px 0;
-        "
-      >
-        Your journey starts here.
-      </div>
-
-    `;
-
-    return;
-
+  if(adjusted.getHours() < dayStart){
+    adjusted.setDate(adjusted.getDate() - 1);
   }
 
+  const year = adjusted.getFullYear();
+  const month = String(adjusted.getMonth()+1).padStart(2,"0");
+  const day = String(adjusted.getDate()).padStart(2,"0");
 
-  container.innerHTML =
-    list.slice(0,5)
-      .map(
-        item => `
-
-          <div class="activity-item">
-
-            <div class="activity-dot"></div>
-
-            <div class="activity-text">
-              ${escapeHTML(item.text)}
-            </div>
-
-            <div class="activity-time">
-              ${formatActivityTime(item.time)}
-            </div>
-
-          </div>
-
-        `
-      )
-      .join("");
-
+  return `${year}-${month}-${day}`;
 }
 
-
-function formatActivityTime(time){
-
-  const date =
-    new Date(time);
-
-  const now =
-    new Date();
-
-  const diff =
-    Math.floor(
-      (now - date) / 60000
-    );
-
-  if(diff < 1){
-    return "NOW";
-  }
-
-  if(diff < 60){
-    return `${diff}M`;
-  }
-
-  const hours =
-    Math.floor(diff / 60);
-
-  if(hours < 24){
-    return `${hours}H`;
-  }
-
-  return `${Math.floor(hours / 24)}D`;
-
+function formatHour(hour){
+  const suffix = hour >= 12 ? "PM" : "AM";
+  const h = hour % 12 || 12;
+  return `${h}:00 ${suffix}`;
 }
 
+function getPersonalScheduleText(){
+  const hour = getDayStartHour();
 
-/* =========================================================
-   CUSTOM QUESTS
-========================================================= */
-
-function getCustomQuests(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        CUSTOM_QUESTS_KEY
-      ) || "[]"
-    );
-
-  }catch{
-
-    return [];
-
-  }
-
+  return `Your personal day starts at ${formatHour(hour)} and ends at ${formatHour((hour + 24) % 24)} the following day.`;
 }
-
-
-function saveCustomQuests(quests){
-
-  localStorage.setItem(
-    CUSTOM_QUESTS_KEY,
-    JSON.stringify(quests)
-  );
-
-}
-
-
-/* =========================================================
-   ACHIEVEMENT STATE
-========================================================= */
-
-function getUnlockedAchievements(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(
-        ACHIEVEMENTS_KEY
-      ) || "[]"
-    );
-
-  }catch{
-
-    return [];
-
-  }
-
-}
-
-
-function saveUnlockedAchievements(list){
-
-  localStorage.setItem(
-    ACHIEVEMENTS_KEY,
-    JSON.stringify(list)
-  );
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function todayString(){
-
-  const date =
-    new Date();
-
-  return date.getFullYear() +
-    "-" +
-    String(
-      date.getMonth()+1
-    ).padStart(2,"0") +
-    "-" +
-    String(
-      date.getDate()
-    ).padStart(2,"0");
-
-}
-
 
 /* =========================================================
    DAILY COMPLETION
 ========================================================= */
 
-function getDailyCompletionData(){
+function getDailyCompleted(){
+  const key = getPersonalDayKey();
 
-  try{
+  const data = getJSON("senraiDailyCompleted",{
+    day:"",
+    quests:[]
+  });
 
-    return JSON.parse(
-      localStorage.getItem(
-        "senraiDailyCompleted"
-      ) || "{}"
-    );
-
-  }catch{
-
-    return {};
-
+  if(data.day !== key){
+    return {
+      day:key,
+      quests:[]
+    };
   }
 
+  return data;
 }
 
-
-function saveDailyCompletionData(value){
-
-  localStorage.setItem(
-    "senraiDailyCompleted",
-    JSON.stringify(value)
-  );
-
+function setDailyCompleted(data){
+  setJSON("senraiDailyCompleted",data);
 }
 
+function isQuestCompleted(id){
+  const daily = getDailyCompleted();
 
-function isQuestCompletedToday(id){
-
-  const completed =
-    getDailyCompletionData();
-
-  return completed[
-    todayString()
-  ]?.includes(id) || false;
-
-}
-
-
-function markQuestCompletedToday(id){
-
-  const completed =
-    getDailyCompletionData();
-
-  const date =
-    todayString();
-
-  if(!completed[date]){
-    completed[date] = [];
+  if(daily.quests.includes(id)){
+    return true;
   }
 
-  if(!completed[date].includes(id)){
+  const permanent = getJSON("senraiPermanentCompleted",[]);
 
-    completed[date].push(id);
-
-  }
-
-  saveDailyCompletionData(
-    completed
-  );
-
+  return permanent.includes(id);
 }
 
+function markQuestCompleted(id, isDaily){
+  if(isDaily){
+    const data = getDailyCompleted();
 
-/* =========================================================
-   XP
-========================================================= */
+    if(!data.quests.includes(id)){
+      data.quests.push(id);
+    }
 
-function xpNeededForLevel(level){
-
-  return level * 100;
-
-}
-
-
-function addXP(amount){
-
-  data.xp += amount;
-
-  data.totalXp += amount;
-
-  let leveledUp = false;
-
-
-  while(
-    data.xp >=
-    xpNeededForLevel(
-      data.level
-    )
-  ){
-
-    data.xp -=
-      xpNeededForLevel(
-        data.level
-      );
-
-    data.level++;
-
-    leveledUp = true;
-
+    setDailyCompleted(data);
+    return;
   }
 
+  const permanent = getJSON("senraiPermanentCompleted",[]);
 
-  if(leveledUp){
-
-    notify(
-      `SENRAI LEVEL UP • LEVEL ${data.level}`
-    );
-
-    addActivity(
-      `Reached Level ${data.level}`
-    );
-
+  if(!permanent.includes(id)){
+    permanent.push(id);
+    setJSON("senraiPermanentCompleted",permanent);
   }
-
-
-  saveLocalData();
-
-  updateStreak();
-
-  checkAchievements();
-
-  renderAll();
-
-  syncProfile();
-
 }
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function addStat(
-  stat,
-  amount=1
-){
-
-  if(!data.stats[stat]){
-    data.stats[stat] = 0;
-  }
-
-  data.stats[stat] += amount;
-
-  saveLocalData();
-
-}
-
 
 /* =========================================================
    STREAK
 ========================================================= */
 
 function updateStreak(){
+  if(!profile){
+    return;
+  }
 
-  const today =
-    todayString();
+  const today = getPersonalDayKey();
 
+  if(profile.last_active_date === today){
+    return;
+  }
 
-  if(!data.lastActiveDate){
+  const previous = profile.last_active_date;
 
-    data.streak = 1;
-
-  }else if(
-    data.lastActiveDate !== today
-  ){
-
-    const last =
-      new Date(
-        data.lastActiveDate
-      );
-
-    const current =
-      new Date(today);
+  if(!previous){
+    profile.streak = 1;
+  }else{
+    const previousDate = new Date(previous + "T00:00:00");
+    const todayDate = new Date(today + "T00:00:00");
 
     const difference =
       Math.round(
-        (current-last) /
-        (1000*60*60*24)
+        (todayDate - previousDate) /
+        (1000 * 60 * 60 * 24)
       );
-
 
     if(difference === 1){
-
-      data.streak++;
-
-    }else if(difference > 1){
-
-      data.streak = 1;
-
+      profile.streak = Number(profile.streak || 0) + 1;
+    }else{
+      profile.streak = 1;
     }
-
   }
 
-
-  data.lastActiveDate =
-    today;
-
-  saveLocalData();
-
+  profile.last_active_date = today;
 }
 
-
 /* =========================================================
-   COMPLETE QUEST
+   XP
 ========================================================= */
 
-function completeQuest(
-  id,
-  name,
-  xp,
-  stat,
-  type="normal"
-){
+function xpNeededForLevel(level){
+  return Math.max(100,level * 100);
+}
 
-  if(type === "daily"){
-
-    if(
-      isQuestCompletedToday(id)
-    ){
-      return;
-    }
-
-    markQuestCompletedToday(id);
-
+async function addXP(amount){
+  if(!profile){
+    return;
   }
 
+  profile.xp = Number(profile.xp || 0) + amount;
+  profile.total_xp = Number(profile.total_xp || 0) + amount;
 
-  addStat(
-    stat,
-    1
+  while(profile.xp >= xpNeededForLevel(profile.level)){
+    profile.xp -= xpNeededForLevel(profile.level);
+    profile.level += 1;
+
+    showToast(`SYSTEM LEVEL UP • LEVEL ${profile.level}`);
+  }
+
+  updateStreak();
+
+  await saveProfile();
+}
+
+/* =========================================================
+   QUEST COMPLETION
+========================================================= */
+
+async function completeQuest(quest){
+  if(!profile){
+    return;
+  }
+
+  if(isQuestCompleted(quest.id)){
+    return;
+  }
+
+  markQuestCompleted(
+    quest.id,
+    quest.type === "DAILY" || quest.type === "SIDE"
   );
 
-  data.totalQuestsCompleted++;
-
-
-  if(stat === "CHA"){
-    data.socialQuestsCompleted++;
+  if(!profile.stats){
+    profile.stats = {};
   }
 
+  profile.stats[quest.stat] =
+    Number(profile.stats[quest.stat] || 0) + 1;
+
+  profile.total_quests_completed =
+    Number(profile.total_quests_completed || 0) + 1;
+
+  if(quest.stat === "CHA"){
+    profile.social_quests_completed =
+      Number(profile.social_quests_completed || 0) + 1;
+  }
+
+  await addXP(quest.xp);
 
   addActivity(
-    `Completed "${name}"`
+    `Completed "${quest.name}"`,
+    `+${quest.xp} XP`
   );
 
+  checkAchievements();
 
-  addXP(xp);
+  renderAll();
 
-
-  notify(
-    `QUEST COMPLETE • +${xp} XP`
-  );
-
+  showToast(`QUEST COMPLETE • +${quest.xp} XP`);
 }
 
+async function completeLifeQuest(){
+  if(!profile){
+    return;
+  }
+
+  profile.total_life_quests =
+    Number(profile.total_life_quests || 0) + 1;
+
+  profile.total_quests_completed =
+    Number(profile.total_quests_completed || 0) + 1;
+
+  profile.stats.WIS =
+    Number(profile.stats.WIS || 0) + 1;
+
+  await addXP(15);
+
+  addActivity(
+    "Completed a Life Quest",
+    "+15 XP"
+  );
+
+  checkAchievements();
+
+  renderAll();
+
+  showToast("LIFE QUEST COMPLETE • +15 XP");
+
+  surpriseMe();
+}
 
 /* =========================================================
-   CUSTOM QUEST
+   CUSTOM QUESTS
 ========================================================= */
+
+function loadCustomQuests(){
+  customQuests = getJSON("senraiCustomQuests",[]);
+}
+
+function saveCustomQuests(){
+  setJSON("senraiCustomQuests",customQuests);
+}
 
 function createCustomQuest(){
-
   const name =
-    document
-      .getElementById(
-        "customQuestName"
-      )
-      .value
-      .trim();
+    document.getElementById("customQuestName").value.trim();
 
   const type =
-    document
-      .getElementById(
-        "customQuestType"
-      )
-      .value;
+    document.getElementById("customQuestType").value;
 
   const difficulty =
-    document
-      .getElementById(
-        "customQuestDifficulty"
-      )
-      .value;
+    document.getElementById("customQuestDifficulty").value;
 
   const stat =
-    document
-      .getElementById(
-        "customQuestStat"
-      )
-      .value;
-
+    document.getElementById("customQuestStat").value;
 
   if(!name){
-
-    notify(
-      "ENTER A QUEST NAME"
-    );
-
+    showToast("ENTER A QUEST NAME");
     return;
-
   }
 
-
-  const xpValues = {
-
-    EASY:10,
-    NORMAL:25,
-    HARD:50,
-    EXTREME:100
-
+  const quest = {
+    id:"custom_" + Date.now(),
+    name,
+    type,
+    difficulty,
+    stat,
+    xp:XP_VALUES[difficulty],
+    completed:false
   };
 
+  customQuests.push(quest);
 
-  const quests =
-    getCustomQuests();
+  saveCustomQuests();
 
-
-  quests.push({
-
-    id:
-      "custom-" +
-      Date.now(),
-
-    name,
-
-    type,
-
-    difficulty,
-
-    stat,
-
-    xp:
-      xpValues[
-        difficulty
-      ],
-
-    completed:false
-
-  });
-
-
-  saveCustomQuests(
-    quests
-  );
-
-
-  document
-    .getElementById(
-      "customQuestName"
-    )
-    .value = "";
-
-
-  addActivity(
-    `Created quest "${name}"`
-  );
-
-
-  notify(
-    "CUSTOM QUEST CREATED"
-  );
-
+  document.getElementById("customQuestName").value = "";
 
   renderAll();
 
+  showToast("CUSTOM QUEST CREATED");
 }
 
-
-function deleteCustomQuest(id){
-
-  const quests =
-    getCustomQuests()
-      .filter(
-        q => q.id !== id
-      );
-
-  saveCustomQuests(
-    quests
-  );
-
-  renderAll();
-
-}
-
-
-function completeCustomQuest(id){
-
-  const quests =
-    getCustomQuests();
-
+async function completeCustomQuest(id){
   const quest =
-    quests.find(
-      q => q.id === id
-    );
+    customQuests.find(q => q.id === id);
 
-
-  if(
-    !quest ||
-    quest.completed
-  ){
+  if(!quest || quest.completed){
     return;
   }
-
 
   quest.completed = true;
 
-  saveCustomQuests(
-    quests
-  );
+  profile.stats[quest.stat] =
+    Number(profile.stats[quest.stat] || 0) + 1;
 
-
-  addStat(
-    quest.stat,
-    1
-  );
-
-
-  data.totalQuestsCompleted++;
-
+  profile.total_quests_completed =
+    Number(profile.total_quests_completed || 0) + 1;
 
   if(quest.stat === "CHA"){
-
-    data.socialQuestsCompleted++;
-
+    profile.social_quests_completed =
+      Number(profile.social_quests_completed || 0) + 1;
   }
 
+  await addXP(quest.xp);
+
+  saveCustomQuests();
 
   addActivity(
-    `Completed "${quest.name}"`
+    `Completed "${quest.name}"`,
+    `+${quest.xp} XP`
   );
 
-
-  addXP(
-    quest.xp
-  );
-
-
-  notify(
-    `QUEST COMPLETE • +${quest.xp} XP`
-  );
-
+  checkAchievements();
 
   renderAll();
 
+  showToast(`QUEST COMPLETE • +${quest.xp} XP`);
 }
 
+function deleteCustomQuest(id){
+  customQuests =
+    customQuests.filter(q => q.id !== id);
 
-/* =========================================================
-   LIFE QUEST
-========================================================= */
-
-function generateLifeQuest(){
-
-  const index =
-    Math.floor(
-      Math.random() *
-      lifeQuestPool.length
-    );
-
-
-  currentLifeQuest =
-    lifeQuestPool[index];
-
-
-  localStorage.setItem(
-    LIFE_QUEST_KEY,
-    currentLifeQuest
-  );
-
-
-  const element =
-    document.getElementById(
-      "lifeQuestText"
-    );
-
-
-  if(element){
-
-    element.textContent =
-      currentLifeQuest;
-
-  }
-
-}
-
-
-function loadLifeQuest(){
-
-  const saved =
-    localStorage.getItem(
-      LIFE_QUEST_KEY
-    );
-
-
-  if(saved){
-
-    currentLifeQuest =
-      saved;
-
-
-    const element =
-      document.getElementById(
-        "lifeQuestText"
-      );
-
-
-    if(element){
-
-      element.textContent =
-        saved;
-
-    }
-
-  }
-
-}
-
-
-function completeLifeQuest(){
-
-  if(!currentLifeQuest){
-
-    generateLifeQuest();
-
-    return;
-
-  }
-
-
-  data.totalLifeQuests++;
-
-  data.totalQuestsCompleted++;
-
-  addStat(
-    "WIS",
-    1
-  );
-
-
-  addActivity(
-    "Completed a Life Quest"
-  );
-
-
-  addXP(15);
-
-
-  notify(
-    "LIFE QUEST COMPLETE • +15 XP"
-  );
-
-
-  currentLifeQuest =
-    null;
-
-
-  localStorage.removeItem(
-    LIFE_QUEST_KEY
-  );
-
-
-  document
-    .getElementById(
-      "lifeQuestText"
-    )
-    .textContent =
-      "Quest complete. Generate another.";
-
-
+  saveCustomQuests();
   renderAll();
 
+  showToast("QUEST REMOVED");
 }
-
 
 /* =========================================================
    ACHIEVEMENTS
 ========================================================= */
 
 function checkAchievements(){
+  if(!profile){
+    return;
+  }
 
-  const unlocked =
-    getUnlockedAchievements();
+  unlockedAchievements =
+    getJSON("senraiAchievements",[]);
 
   let changed = false;
 
+  for(const achievement of ACHIEVEMENTS){
 
-  achievementDefinitions.forEach(
-    achievement => {
-
-      if(
-        achievement.condition() &&
-        !unlocked.includes(
-          achievement.id
-        )
-      ){
-
-        unlocked.push(
-          achievement.id
-        );
-
-
-        data.xp +=
-          achievement.reward;
-
-        data.totalXp +=
-          achievement.reward;
-
-
-        changed = true;
-
-
-        addActivity(
-          `Unlocked ${achievement.name}`
-        );
-
-
-        notify(
-          `ACHIEVEMENT UNLOCKED • ${achievement.name}`
-        );
-
-      }
-
+    if(unlockedAchievements.includes(achievement.id)){
+      continue;
     }
-  );
 
+    if(achievement.check({
+      level:Number(profile.level || 1),
+      totalXP:Number(profile.total_xp || 0),
+      streak:Number(profile.streak || 0),
+      totalQuestsCompleted:
+        Number(profile.total_quests_completed || 0),
+      totalLifeQuests:
+        Number(profile.total_life_quests || 0),
+      socialQuestsCompleted:
+        Number(profile.social_quests_completed || 0)
+    })){
+
+      unlockedAchievements.push(achievement.id);
+
+      profile.xp =
+        Number(profile.xp || 0) + achievement.reward;
+
+      profile.total_xp =
+        Number(profile.total_xp || 0) + achievement.reward;
+
+      changed = true;
+
+      showToast(
+        `ACHIEVEMENT UNLOCKED • ${achievement.name}`
+      );
+    }
+  }
 
   if(changed){
-
-    saveUnlockedAchievements(
-      unlocked
+    setJSON(
+      "senraiAchievements",
+      unlockedAchievements
     );
 
-    saveLocalData();
-
+    saveProfile();
   }
-
 }
 
-
 /* =========================================================
-   QUEST HTML
+   ACTIVITY
 ========================================================= */
 
-function questHTML(
-  quest,
-  completed,
-  completeFunction,
-  type=""
-){
-
-  return `
-
-    <div class="quest ${
-      completed ? "completed" : ""
-    }">
-
-      <button
-        class="quest-check"
-        onclick="${completeFunction}"
-        ${completed ? "disabled" : ""}
-      >
-        ✓
-      </button>
-
-      <div class="quest-main">
-
-        <div class="quest-name">
-          ${escapeHTML(
-            quest.name
-          )}
-        </div>
-
-        <div class="quest-meta">
-          ${quest.stat} • ${type || "QUEST"}
-        </div>
-
-      </div>
-
-      <div class="quest-xp">
-        +${quest.xp} XP
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER DAILY
-========================================================= */
-
-function renderDailyQuests(){
-
-  const container =
-    document.getElementById(
-      "dailyQuests"
-    );
-
-
-  container.innerHTML =
-    dailyQuests
-      .map(
-        quest => {
-
-          const completed =
-            isQuestCompletedToday(
-              quest.id
-            );
-
-
-          return questHTML(
-            quest,
-            completed,
-            `completeQuest(
-              '${quest.id}',
-              '${escapeJS(
-                quest.name
-              )}',
-              ${quest.xp},
-              '${quest.stat}',
-              'daily'
-            )`,
-            "DAILY"
-          );
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   RENDER MAIN
-========================================================= */
-
-function renderMainQuests(){
-
-  const container =
-    document.getElementById(
-      "mainQuests"
-    );
-
-
-  container.innerHTML =
-    mainQuests
-      .map(
-        quest => {
-
-          return questHTML(
-            quest,
-            isQuestCompletedToday(
-              quest.id
-            ),
-            `completeQuest(
-              '${quest.id}',
-              '${escapeJS(
-                quest.name
-              )}',
-              ${quest.xp},
-              '${quest.stat}',
-              'daily'
-            )`,
-            "MAIN"
-          );
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   RENDER SIDE
-========================================================= */
-
-function renderSideQuests(){
-
-  const container =
-    document.getElementById(
-      "sideQuests"
-    );
-
-
-  container.innerHTML =
-    sideQuests
-      .map(
-        quest => {
-
-          return questHTML(
-            quest,
-            isQuestCompletedToday(
-              quest.id
-            ),
-            `completeQuest(
-              '${quest.id}',
-              '${escapeJS(
-                quest.name
-              )}',
-              ${quest.xp},
-              '${quest.stat}',
-              'daily'
-            )`,
-            "SIDE"
-          );
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   RENDER CUSTOM
-========================================================= */
-
-function renderCustomQuests(){
-
-  const container =
-    document.getElementById(
-      "customQuests"
-    );
-
-
-  const quests =
-    getCustomQuests();
-
-
-  if(!quests.length){
-
-    container.innerHTML = `
-
-      <div class="quest-empty">
-        No custom quests yet.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    quests
-      .map(
-        quest => `
-
-          <div class="quest ${
-            quest.completed
-              ? "completed"
-              : ""
-          }">
-
-            <button
-              class="quest-check"
-              onclick="
-                completeCustomQuest(
-                  '${quest.id}'
-                )
-              "
-              ${quest.completed ? "disabled" : ""}
-            >
-              ✓
-            </button>
-
-            <div class="quest-main">
-
-              <div class="quest-name">
-                ${escapeHTML(
-                  quest.name
-                )}
-              </div>
-
-              <div class="quest-meta">
-                ${quest.type} •
-                ${quest.difficulty} •
-                ${quest.stat}
-              </div>
-
-            </div>
-
-            <div class="quest-xp">
-              +${quest.xp} XP
-            </div>
-
-            <button
-              class="quest-delete"
-              onclick="
-                deleteCustomQuest(
-                  '${quest.id}'
-                )
-              "
-            >
-              ×
-            </button>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   HOME DAILY PREVIEW
-========================================================= */
-
-function renderHomeDaily(){
-
-  const container =
-    document.getElementById(
-      "homeDailyPreview"
-    );
-
-
-  const quests =
-    dailyQuests;
-
-
-  container.innerHTML =
-    quests
-      .map(
-        quest => {
-
-          const done =
-            isQuestCompletedToday(
-              quest.id
-            );
-
-
-          return `
-
-            <div class="home-quest">
-
-              <button
-                class="home-quest-check ${
-                  done ? "done" : ""
-                }"
-                onclick="
-                  completeQuest(
-                    '${quest.id}',
-                    '${escapeJS(
-                      quest.name
-                    )}',
-                    ${quest.xp},
-                    '${quest.stat}',
-                    'daily'
-                  )
-                "
-                ${done ? "disabled" : ""}
-              >
-                ✓
-              </button>
-
-              <div class="home-quest-info">
-
-                <div class="home-quest-name">
-                  ${escapeHTML(
-                    quest.name
-                  )}
-                </div>
-
-                <div class="home-quest-meta">
-                  ${quest.stat} • DAILY
-                </div>
-
-              </div>
-
-              <div class="home-quest-xp">
-                +${quest.xp}
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-function renderHome(){
-
-  const name =
-    currentUser
-      ?.user_metadata
-      ?.name ||
-    currentUser
-      ?.email
-      ?.split("@")[0] ||
-    "Player";
-
-
-  document
-    .getElementById(
-      "userNameDisplay"
-    )
-    .textContent =
-      name;
-
-
-  document
-    .getElementById(
-      "heroName"
-    )
-    .innerHTML =
-      `${escapeHTML(name)}<span>.</span>`;
-
-
-  document
-    .getElementById(
-      "levelDisplay"
-    )
-    .textContent =
-      data.level;
-
-
-  const needed =
-    xpNeededForLevel(
-      data.level
-    );
-
-
-  document
-    .getElementById(
-      "xpDisplay"
-    )
-    .textContent =
-      `${data.xp} / ${needed} XP`;
-
-
-  const xpPercent =
-    Math.min(
-      100,
-      (data.xp / needed) * 100
-    );
-
-
-  document
-    .getElementById(
-      "xpBar"
-    )
-    .style.width =
-      xpPercent + "%";
-
-
-  document
-    .getElementById(
-      "streakDisplay"
-    )
-    .textContent =
-      data.streak;
-
-
-  document
-    .getElementById(
-      "questCountDisplay"
-    )
-    .textContent =
-      data.totalQuestsCompleted;
-
-
-  document
-    .getElementById(
-      "totalXpDisplay"
-    )
-    .textContent =
-      data.totalXp;
-
-
-  document
-    .getElementById(
-      "lifeQuestCountDisplay"
-    )
-    .textContent =
-      data.totalLifeQuests;
-
-
-  const completed =
-    dailyQuests.filter(
-      quest =>
-        isQuestCompletedToday(
-          quest.id
-        )
-    ).length;
-
-
-  const total =
-    dailyQuests.length;
-
-
-  const percent =
-    total
-      ? Math.round(
-          (completed / total) *
-          100
-        )
-      : 0;
-
-
-  document
-    .getElementById(
-      "dailyPercent"
-    )
-    .textContent =
-      percent + "%";
-
-
-  document
-    .getElementById(
-      "dailyRing"
-    )
-    .style
-    .setProperty(
-      "--progress",
-      percent + "%"
-    );
-
-
-  document
-    .getElementById(
-      "dailyCopy"
-    )
-    .textContent =
-      completed === total
-        ? "All daily quests complete. Nice work."
-        : `${completed} of ${total} daily quests complete. Keep moving.`;
-
-
-  document
-    .getElementById(
-      "homeObjective"
-    )
-    .textContent =
-      "Learn JavaScript";
-
-
-  renderHomeDaily();
-
-  renderActivity();
-
-  updateSystemTime();
-
-}
-
-
-/* =========================================================
-   SYSTEM TIME
-========================================================= */
-
-function updateSystemTime(){
-
-  const element =
-    document.getElementById(
-      "systemTime"
-    );
-
-
-  if(!element){
-    return;
-  }
-
-
-  const now =
-    new Date();
-
-
-  element.textContent =
-    now.toLocaleTimeString(
-      [],
-      {
-        hour:"numeric",
-        minute:"2-digit"
-      }
-    );
-
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function renderStats(){
-
-  const container =
-    document.getElementById(
-      "statsContainer"
-    );
-
-
-  container.innerHTML =
-    Object.entries(
-      statInfo
-    )
-    .map(
-      ([code,info]) => {
-
-        const value =
-          data.stats[code] || 0;
-
-
-        const percentage =
-          Math.min(
-            100,
-            value
-          );
-
-
-        return `
-
-          <div class="stat-card">
-
-            <div class="stat-code">
-              ${code}
-            </div>
-
-            <div>
-
-              <div class="stat-name">
-                ${info.name}
-              </div>
-
-              <div class="stat-description">
-                ${info.description}
-              </div>
-
-              <div class="stat-bar">
-
-                <div
-                  class="stat-bar-fill"
-                  style="
-                    width:${percentage}%
-                  "
-                ></div>
-
-              </div>
-
-            </div>
-
-            <div class="stat-value">
-              ${value}
-            </div>
-
-          </div>
-
-        `;
-
-      }
-    )
-    .join("");
-
-
-  document
-    .getElementById(
-      "overallProgressBar"
-    )
-    .style.width =
-      Math.min(
-        100,
-        data.totalXp / 10
-      ) + "%";
-
-
-  document
-    .getElementById(
-      "overallProgressText"
-    )
-    .textContent =
-      `${data.totalXp} total XP`;
-
-}
-
-
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
-
-function renderAchievements(){
-
-  const container =
-    document.getElementById(
-      "achievementsContainer"
-    );
-
-
-  const unlocked =
-    getUnlockedAchievements();
-
-
-  container.innerHTML =
-    achievementDefinitions
-      .map(
-        achievement => {
-
-          const isUnlocked =
-            unlocked.includes(
-              achievement.id
-            );
-
-
-          let name =
-            achievement.name;
-
-          let description =
-            achievement.description;
-
-
-          if(
-            achievement.secret &&
-            !isUnlocked
-          ){
-
-            name = "???";
-
-            description =
-              "A hidden achievement.";
-
-          }
-
-
-          return `
-
-            <div class="
-              achievement
-              ${
-                isUnlocked
-                  ? ""
-                  : "locked"
-              }
-            ">
-
-              <div class="achievement-icon">
-                ${
-                  isUnlocked
-                    ? achievement.icon
-                    : "?"
-                }
-              </div>
-
-              <div>
-
-                <div class="achievement-name">
-                  ${name}
-                </div>
-
-                <div class="achievement-description">
-                  ${description}
-                </div>
-
-                <div class="achievement-reward">
-                  ${
-                    isUnlocked
-                      ? "UNLOCKED"
-                      : `REWARD • +${achievement.reward} XP`
-                  }
-                </div>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   RENDER ALL
-========================================================= */
-
-function renderAll(){
-
-  renderHome();
-
-  renderDailyQuests();
-
-  renderMainQuests();
-
-  renderSideQuests();
-
-  renderCustomQuests();
-
-  renderStats();
-
-  renderAchievements();
-
-  loadLifeQuest();
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function navigateTo(page){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      element =>
-        element.classList.remove(
-          "active"
-        )
-    );
-
-
-  const target =
-    document.getElementById(
-      "page-" + page
-    );
-
-
-  if(target){
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .querySelectorAll(
-      ".nav-button"
-    )
-    .forEach(
-      button => {
-
-        button.classList.toggle(
-          "active",
-          button.dataset.page === page
-        );
-
-      }
-    );
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
+function addActivity(title,detail){
+  const activity =
+    getJSON("senraiActivity",[]);
+
+  activity.unshift({
+    title,
+    detail,
+    time:new Date().toISOString()
   });
 
-}
-
-
-/* =========================================================
-   NOTIFICATION
-========================================================= */
-
-function notify(message){
-
-  const container =
-    document.getElementById(
-      "notificationContainer"
-    );
-
-
-  const notification =
-    document.createElement(
-      "div"
-    );
-
-
-  notification.className =
-    "notification";
-
-
-  notification.textContent =
-    message;
-
-
-  container.appendChild(
-    notification
+  setJSON(
+    "senraiActivity",
+    activity.slice(0,10)
   );
-
-
-  setTimeout(
-    () => {
-
-      notification.style.opacity =
-        "0";
-
-      notification.style.transform =
-        "translateY(-10px)";
-
-
-      setTimeout(
-        () =>
-          notification.remove(),
-        300
-      );
-
-    },
-    2800
-  );
-
 }
-
 
 /* =========================================================
-   ESCAPE
+   RANDOM LIFE QUEST
 ========================================================= */
 
-function escapeHTML(value){
+function surpriseMe(){
+  const random =
+    LIFE_QUESTS[
+      Math.floor(Math.random() * LIFE_QUESTS.length)
+    ];
 
-  return String(value)
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+  document.getElementById("lifeQuestText").textContent =
+    random;
 
+  goTo("life");
 }
-
-
-function escapeJS(value){
-
-  return String(value)
-    .replaceAll(
-      "\\",
-      "\\\\"
-    )
-    .replaceAll(
-      "'",
-      "\\'"
-    )
-    .replaceAll(
-      "\n",
-      " "
-    );
-
-}
-
 
 /* =========================================================
-   AUTH MODE
+   SUPABASE PROFILE
 ========================================================= */
 
-function switchAuthMode(mode){
-
-  const login =
-    document.getElementById(
-      "loginForm"
-    );
-
-  const signup =
-    document.getElementById(
-      "signupForm"
-    );
-
-  const loginTab =
-    document.getElementById(
-      "loginTab"
-    );
-
-  const signupTab =
-    document.getElementById(
-      "signupTab"
-    );
-
-
-  clearAuthMessage();
-
-
-  if(mode === "login"){
-
-    login.style.display =
-      "block";
-
-    signup.style.display =
-      "none";
-
-    loginTab.classList.add(
-      "active"
-    );
-
-    signupTab.classList.remove(
-      "active"
-    );
-
-  }else{
-
-    login.style.display =
-      "none";
-
-    signup.style.display =
-      "block";
-
-    loginTab.classList.remove(
-      "active"
-    );
-
-    signupTab.classList.add(
-      "active"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   AUTH MESSAGE
-========================================================= */
-
-function showAuthMessage(
-  message,
-  type="error"
-){
-
-  const element =
-    document.getElementById(
-      "authMessage"
-    );
-
-
-  element.textContent =
-    message;
-
-
-  element.className =
-    `auth-message show ${type}`;
-
-}
-
-
-function clearAuthMessage(){
-
-  const element =
-    document.getElementById(
-      "authMessage"
-    );
-
-
-  element.textContent =
-    "";
-
-  element.className =
-    "auth-message";
-
-}
-
-
-/* =========================================================
-   SIGN UP
-========================================================= */
-
-async function signupUser(){
-
-  clearAuthMessage();
-
-
-  const name =
-    document
-      .getElementById(
-        "signupName"
-      )
-      .value
-      .trim();
-
-
-  const email =
-    document
-      .getElementById(
-        "signupEmail"
-      )
-      .value
-      .trim();
-
-
-  const password =
-    document
-      .getElementById(
-        "signupPassword"
-      )
-      .value;
-
-
-  const confirm =
-    document
-      .getElementById(
-        "signupConfirm"
-      )
-      .value;
-
-
-  if(!name){
-
-    showAuthMessage(
-      "Please enter your name."
-    );
-
-    return;
-
-  }
-
-
-  if(!email){
-
-    showAuthMessage(
-      "Please enter your email."
-    );
-
-    return;
-
-  }
-
-
-  if(password.length < 6){
-
-    showAuthMessage(
-      "Password must be at least 6 characters."
-    );
-
-    return;
-
-  }
-
-
-  if(password !== confirm){
-
-    showAuthMessage(
-      "Passwords do not match."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    showAuthMessage(
-      "Creating your system...",
-      "success"
-    );
-
-
-    const {
-      data:result,
-      error
-    } =
-      await supabaseClient
-        .auth
-        .signUp({
-
-          email,
-
-          password,
-
-          options:{
-            data:{
-              name
-            }
-          }
-
-        });
-
-
-    if(error){
-      throw error;
-    }
-
-
-    if(result.session){
-
-      await enterApp(
-        result.user
-      );
-
-      return;
-
-    }
-
-
-    showAuthMessage(
-      "Account created. Check your email to confirm your account, then log in.",
-      "success"
-    );
-
-
-    setTimeout(
-      () => {
-
-        switchAuthMode(
-          "login"
-        );
-
-
-        document
-          .getElementById(
-            "loginEmail"
-          )
-          .value =
-            email;
-
-      },
-      1600
-    );
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-
-    showAuthMessage(
-      error.message ||
-      "Unable to create your account."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function loginUser(){
-
-  clearAuthMessage();
-
-
-  const email =
-    document
-      .getElementById(
-        "loginEmail"
-      )
-      .value
-      .trim();
-
-
-  const password =
-    document
-      .getElementById(
-        "loginPassword"
-      )
-      .value;
-
-
-  if(!email || !password){
-
-    showAuthMessage(
-      "Enter your email and password."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    showAuthMessage(
-      "Connecting to SENRAI...",
-      "success"
-    );
-
-
-    const {
-      data:result,
-      error
-    } =
-      await supabaseClient
-        .auth
-        .signInWithPassword({
-
-          email,
-
-          password
-
-        });
-
-
-    if(error){
-      throw error;
-    }
-
-
-    await enterApp(
-      result.user
-    );
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-
-    showAuthMessage(
-      error.message ||
-      "Unable to log in."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logoutUser(){
-
-  try{
-
-    await supabaseClient
-      .auth
-      .signOut();
-
-
-    currentUser =
-      null;
-
-
-    document
-      .getElementById(
-        "app"
-      )
-      .classList.remove(
-        "visible"
-      );
-
-
-    document
-      .getElementById(
-        "authScreen"
-      )
-      .classList.add(
-        "visible"
-      );
-
-
-    switchAuthMode(
-      "login"
-    );
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   ENSURE PROFILE
-========================================================= */
-
-async function ensureProfile(
-  user
-){
-
+async function loadProfile(user){
   if(!user){
     return null;
   }
 
-
-  const {
-    data:profile,
-    error
-  } =
+  const {data,error} =
     await supabaseClient
       .from("profiles")
       .select("*")
       .eq("id",user.id)
       .maybeSingle();
 
-
   if(error){
-    throw error;
+    console.error(error);
+    return null;
   }
 
+  if(data){
+    profile = data;
 
-  if(profile){
+    if(!profile.stats){
+      profile.stats = {};
+    }
 
     return profile;
-
   }
 
+  return null;
+}
 
-  const name =
-    user
-      ?.user_metadata
-      ?.name ||
-    user
-      ?.email
-      ?.split("@")[0] ||
-    "Player";
+async function saveProfile(){
+  if(!currentUser || !profile){
+    return;
+  }
 
+  const payload = {
+    id:currentUser.id,
+    name:profile.name || "Player",
+    level:Number(profile.level || 1),
+    xp:Number(profile.xp || 0),
+    total_xp:Number(profile.total_xp || 0),
+    streak:Number(profile.streak || 0),
+    last_active_date:profile.last_active_date || null,
+    total_quests_completed:
+      Number(profile.total_quests_completed || 0),
+    total_life_quests:
+      Number(profile.total_life_quests || 0),
+    social_quests_completed:
+      Number(profile.social_quests_completed || 0),
+    stats:profile.stats || {}
+  };
 
-  const {
-    data:newProfile,
-    error:insertError
-  } =
+  const {error} =
     await supabaseClient
       .from("profiles")
-      .insert({
+      .upsert(payload,{onConflict:"id"});
 
+  if(error){
+    console.error("Profile save error:",error);
+  }
+}
+
+async function saveScheduleToCloud(hour){
+  if(!currentUser){
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+      .from("profiles")
+      .update({
+        day_start_hour:hour
+      })
+      .eq("id",currentUser.id);
+
+  if(error){
+    console.warn(
+      "Schedule cloud sync unavailable. Local schedule still saved.",
+      error
+    );
+  }
+}
+
+/* =========================================================
+   SCHEDULE SETTINGS
+========================================================= */
+
+function selectScheduleHour(hour){
+  selectedScheduleHour = hour;
+
+  document
+    .querySelectorAll(".schedule-option")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        Number(button.dataset.hour) === hour
+      );
+    });
+
+  document.getElementById("currentSchedule").textContent =
+    `Personal day starts at ${formatHour(hour)}.`;
+}
+
+async function saveSchedule(){
+  localStorage.setItem(
+    "senraiDayStartHour",
+    String(selectedScheduleHour)
+  );
+
+  if(profile){
+    profile.day_start_hour =
+      selectedScheduleHour;
+  }
+
+  await saveScheduleToCloud(
+    selectedScheduleHour
+  );
+
+  renderAll();
+
+  showToast(
+    `PERSONAL DAY STARTS AT ${formatHour(selectedScheduleHour)}`
+  );
+}
+
+function renderSchedule(){
+  selectedScheduleHour =
+    getDayStartHour();
+
+  document
+    .querySelectorAll(".schedule-option")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        Number(button.dataset.hour) ===
+        selectedScheduleHour
+      );
+    });
+
+  document.getElementById("currentSchedule").textContent =
+    `Personal day starts at ${formatHour(selectedScheduleHour)}.`;
+
+  document.getElementById("homeScheduleText").textContent =
+    getPersonalScheduleText();
+
+  document.getElementById("accountInfo").textContent =
+    currentUser
+      ? `${currentUser.email || "Account"} • Personal day: ${formatHour(getDayStartHour())}`
+      : "Not signed in.";
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+function showAuthMode(mode){
+  authMode = mode;
+
+  document
+    .getElementById("loginTab")
+    .classList.toggle(
+      "active",
+      mode === "login"
+    );
+
+  document
+    .getElementById("signupTab")
+    .classList.toggle(
+      "active",
+      mode === "signup"
+    );
+
+  document
+    .getElementById("nameField")
+    .classList.toggle(
+      "hidden",
+      mode === "login"
+    );
+
+  document.getElementById("authSubmit").textContent =
+    mode === "login"
+      ? "ENTER SYSTEM"
+      : "CREATE ACCOUNT";
+
+  document.getElementById("authMessage").textContent =
+    "";
+}
+
+document
+  .getElementById("authForm")
+  .addEventListener("submit",async event => {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("authName").value.trim();
+
+    const email =
+      document.getElementById("authEmail").value.trim();
+
+    const password =
+      document.getElementById("authPassword").value;
+
+    const message =
+      document.getElementById("authMessage");
+
+    const submit =
+      document.getElementById("authSubmit");
+
+    submit.disabled = true;
+    message.textContent = "CONNECTING TO SYSTEM...";
+
+    try{
+
+      if(authMode === "signup"){
+
+        if(!name){
+          throw new Error("Please enter your name.");
+        }
+
+        const {data,error} =
+          await supabaseClient.auth.signUp({
+            email,
+            password,
+            options:{
+              data:{
+                name
+              }
+            }
+          });
+
+        if(error){
+          throw error;
+        }
+
+        if(data.session){
+          message.textContent =
+            "ACCOUNT CREATED.";
+        }else{
+          message.textContent =
+            "ACCOUNT CREATED. CHECK YOUR EMAIL IF VERIFICATION IS REQUIRED.";
+        }
+
+      }else{
+
+        const {error} =
+          await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+        if(error){
+          throw error;
+        }
+      }
+
+    }catch(error){
+
+      console.error(error);
+
+      message.textContent =
+        error.message || "Something went wrong.";
+
+    }finally{
+
+      submit.disabled = false;
+    }
+
+  });
+
+async function logout(){
+  await supabaseClient.auth.signOut();
+}
+
+/* =========================================================
+   APP START
+========================================================= */
+
+async function enterApp(user){
+  if(!user){
+    return;
+  }
+
+  if(enteringUserId === user.id){
+    return;
+  }
+
+  enteringUserId = user.id;
+
+  try{
+
+    currentUser = user;
+
+    await loadProfile(user);
+
+    if(!profile){
+
+      const metadata =
+        user.user_metadata || {};
+
+      profile = {
         id:user.id,
-
-        name,
-
+        name:metadata.name || "Player",
         level:1,
-
         xp:0,
-
         total_xp:0,
-
         streak:0,
-
+        last_active_date:null,
         total_quests_completed:0,
-
         total_life_quests:0,
-
         social_quests_completed:0,
-
         stats:{
           STR:0,
           INT:0,
@@ -5183,389 +2601,514 @@ async function ensureProfile(
           DEX:0,
           CRE:0,
           VIT:0
-        }
+        },
+        day_start_hour:0
+      };
 
-      })
-      .select()
-      .single();
+      await saveProfile();
+    }
 
+    if(
+      profile.day_start_hour !== null &&
+      profile.day_start_hour !== undefined
+    ){
+      localStorage.setItem(
+        "senraiDayStartHour",
+        String(profile.day_start_hour)
+      );
+    }
 
-  if(insertError){
-    throw insertError;
+    loadCustomQuests();
+
+    checkAchievements();
+
+    document
+      .getElementById("authScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("app")
+      .classList.remove("hidden");
+
+    renderAll();
+
+  }catch(error){
+
+    console.error("App startup error:",error);
+
+  }finally{
+
+    enteringUserId = null;
   }
-
-
-  return newProfile;
-
 }
 
-
 /* =========================================================
-   CLOUD → LOCAL
+   NAVIGATION
 ========================================================= */
 
-function applyCloudProfile(
-  profile
-){
+function goTo(page){
+  document
+    .querySelectorAll(".page")
+    .forEach(section => {
+      section.classList.remove("active");
+    });
+
+  const target =
+    document.getElementById(page + "Page");
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.page === page
+      );
+    });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+function toggleCustomForm(){
+  document
+    .getElementById("customQuestForm")
+    .classList.toggle("hidden");
+}
+
+/* =========================================================
+   RENDER QUEST
+========================================================= */
+
+function questHTML(quest,custom=false){
+  const completed =
+    custom
+      ? quest.completed
+      : isQuestCompleted(quest.id);
+
+  const button =
+    completed
+      ? `<button class="complete-btn" disabled>DONE</button>`
+      : `
+        <button
+          class="complete-btn"
+          onclick="${custom
+            ? `completeCustomQuest('${quest.id}')`
+            : `completeQuestById('${quest.id}')`
+          }"
+        >
+          COMPLETE
+        </button>
+      `;
+
+  return `
+    <div class="quest-card ${completed ? "completed" : ""}">
+
+      <div class="quest-top">
+
+        <div class="quest-name">
+          ${escapeHTML(quest.name)}
+        </div>
+
+        <div class="quest-xp">
+          +${quest.xp} XP
+        </div>
+
+      </div>
+
+      <div class="quest-bottom">
+
+        <div class="quest-meta">
+          ${quest.type} • ${quest.stat}
+        </div>
+
+        <div>
+          ${button}
+
+          ${
+            custom
+              ? `
+                <button
+                  class="complete-btn"
+                  onclick="deleteCustomQuest('${quest.id}')"
+                  style="margin-left:4px;"
+                >
+                  DELETE
+                </button>
+              `
+              : ""
+          }
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+function completeQuestById(id){
+  const all = [
+    ...DAILY_QUESTS,
+    ...SIDE_QUESTS,
+    ...MAIN_QUESTS
+  ];
+
+  const quest =
+    all.find(q => q.id === id);
+
+  if(quest){
+    completeQuest(quest);
+  }
+}
+
+function renderQuestLists(){
+
+  document.getElementById("dailyQuestList").innerHTML =
+    DAILY_QUESTS
+      .map(q => questHTML(q))
+      .join("");
+
+  document.getElementById("mainQuestList").innerHTML =
+    MAIN_QUESTS
+      .map(q => questHTML(q))
+      .join("");
+
+  document.getElementById("sideQuestList").innerHTML =
+    SIDE_QUESTS
+      .map(q => questHTML(q))
+      .join("");
+
+  document.getElementById("customQuestList").innerHTML =
+    customQuests.length
+      ? customQuests
+          .map(q => questHTML(q,true))
+          .join("")
+      : `
+        <div class="settings-card">
+          <h3>No custom quests yet.</h3>
+          <p>Create one when you have something specific you want to work toward.</p>
+        </div>
+      `;
+
+  const homeQuests = [
+    ...DAILY_QUESTS,
+    ...SIDE_QUESTS
+  ];
+
+  document.getElementById("homeQuestList").innerHTML =
+    homeQuests
+      .map(q => questHTML(q))
+      .join("");
+}
+
+/* =========================================================
+   RENDER STATS
+========================================================= */
+
+function renderStats(){
+
+  const stats =
+    profile.stats || {};
+
+  document.getElementById("statsList").innerHTML =
+    Object.keys(STAT_INFO)
+      .map(key => {
+
+        const info = STAT_INFO[key];
+
+        const value =
+          Number(stats[key] || 0);
+
+        const percent =
+          Math.min(100,value);
+
+        return `
+          <div class="stat-card">
+
+            <div class="stat-head">
+
+              <div>
+                <div class="stat-name">
+                  ${info.name} — ${info.label}
+                </div>
+
+                <div class="stat-desc">
+                  ${info.desc}
+                </div>
+              </div>
+
+              <div class="stat-value">
+                ${value}
+              </div>
+
+            </div>
+
+            <div class="stat-bar">
+              <div
+                class="stat-fill"
+                style="width:${percent}%"
+              ></div>
+            </div>
+
+          </div>
+        `;
+      })
+      .join("");
+
+  const level =
+    Number(profile.level || 1);
+
+  const xp =
+    Number(profile.xp || 0);
+
+  const needed =
+    xpNeededForLevel(level);
+
+  const percentage =
+    Math.min(100,(xp / needed) * 100);
+
+  document.getElementById("overallStatText").textContent =
+    `LEVEL ${level} • ${xp} / ${needed} XP`;
+
+  document.getElementById("overallFill").style.width =
+    `${percentage}%`;
+}
+
+/* =========================================================
+   RENDER ACHIEVEMENTS
+========================================================= */
+
+function renderAchievements(){
+
+  unlockedAchievements =
+    getJSON("senraiAchievements",[]);
+
+  document.getElementById("achievementList").innerHTML =
+    ACHIEVEMENTS
+      .map(achievement => {
+
+        const unlocked =
+          unlockedAchievements.includes(
+            achievement.id
+          );
+
+        const title =
+          achievement.secret && !unlocked
+            ? "???"
+            : achievement.name;
+
+        const description =
+          achievement.secret && !unlocked
+            ? "A hidden achievement."
+            : achievement.description;
+
+        return `
+          <div class="achievement-card ${
+            unlocked ? "unlocked" : ""
+          }">
+
+            <div class="achievement-title">
+
+              <div class="achievement-name">
+                ${title}
+              </div>
+
+              <div class="achievement-status">
+                ${unlocked ? "UNLOCKED" : "LOCKED"}
+              </div>
+
+            </div>
+
+            <div class="achievement-desc">
+              ${description}
+            </div>
+
+            <div class="achievement-reward">
+              REWARD • +${achievement.reward} XP
+            </div>
+
+          </div>
+        `;
+      })
+      .join("");
+}
+
+/* =========================================================
+   RENDER HOME
+========================================================= */
+
+function renderHome(){
+
+  const name =
+    profile.name || "Player";
+
+  const level =
+    Number(profile.level || 1);
+
+  const xp =
+    Number(profile.xp || 0);
+
+  const totalXP =
+    Number(profile.total_xp || 0);
+
+  const needed =
+    xpNeededForLevel(level);
+
+  const percentage =
+    Math.min(100,(xp / needed) * 100);
+
+  document.getElementById("heroName").textContent =
+    `Welcome, ${name}.`;
+
+  document.getElementById("levelNumber").textContent =
+    level;
+
+  document.getElementById("xpText").textContent =
+    `${xp} / ${needed} XP`;
+
+  document.getElementById("xpFill").style.width =
+    `${percentage}%`;
+
+  document.getElementById("homeStreak").textContent =
+    Number(profile.streak || 0);
+
+  document.getElementById("homeQuests").textContent =
+    Number(profile.total_quests_completed || 0);
+
+  document.getElementById("homeTotalXP").textContent =
+    totalXP;
+
+  document.getElementById("homeLifeQuests").textContent =
+    Number(profile.total_life_quests || 0);
+
+  const daily =
+    getDailyCompleted();
+
+  const totalDaily =
+    DAILY_QUESTS.length;
+
+  const completedDaily =
+    daily.quests.filter(id =>
+      DAILY_QUESTS.some(q => q.id === id)
+    ).length;
+
+  const progress =
+    totalDaily
+      ? Math.round(
+          (completedDaily / totalDaily) * 100
+        )
+      : 0;
+
+  document.getElementById("progressPercent").textContent =
+    `${progress}%`;
+
+  document.getElementById("progressRing").style
+    .setProperty(
+      "--progress",
+      `${progress * 3.6}deg`
+    );
+
+  if(progress === 100){
+
+    document.getElementById("progressTitle").textContent =
+      "Daily quests complete.";
+
+    document.getElementById("progressDescription").textContent =
+      "You did what you came here to do. Keep going if you want to.";
+
+  }else if(progress > 0){
+
+    document.getElementById("progressTitle").textContent =
+      `${completedDaily} of ${totalDaily} complete.`;
+
+    document.getElementById("progressDescription").textContent =
+      "You've already started. Finish another quest when you're ready.";
+
+  }else{
+
+    document.getElementById("progressTitle").textContent =
+      "Start your day.";
+
+    document.getElementById("progressDescription").textContent =
+      "Complete a quest to begin making progress.";
+  }
+
+  const nextQuest =
+    DAILY_QUESTS.find(q => !isQuestCompleted(q.id));
+
+  document.getElementById("objectiveTitle").textContent =
+    nextQuest
+      ? nextQuest.name
+      : "Choose your next challenge.";
+
+  document.getElementById("objectiveDescription").textContent =
+    nextQuest
+      ? `+${nextQuest.xp} XP • ${nextQuest.stat}`
+      : "All daily quests are complete.";
+
+  document.getElementById("heroTime").textContent =
+    new Date().toLocaleString([],{
+      weekday:"long",
+      month:"short",
+      day:"numeric",
+      hour:"numeric",
+      minute:"2-digit"
+    });
+}
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderAll(){
 
   if(!profile){
     return;
   }
 
-
-  data.level =
-    profile.level ??
-    data.level;
-
-
-  data.xp =
-    profile.xp ??
-    data.xp;
-
-
-  data.totalXp =
-    profile.total_xp ??
-    data.totalXp;
-
-
-  data.streak =
-    profile.streak ??
-    data.streak;
-
-
-  data.lastActiveDate =
-    profile.last_active_date ??
-    data.lastActiveDate;
-
-
-  data.totalQuestsCompleted =
-    profile.total_quests_completed ??
-    data.totalQuestsCompleted;
-
-
-  data.totalLifeQuests =
-    profile.total_life_quests ??
-    data.totalLifeQuests;
-
-
-  data.socialQuestsCompleted =
-    profile.social_quests_completed ??
-    data.socialQuestsCompleted;
-
-
-  if(profile.stats){
-
-    data.stats = {
-
-      ...data.stats,
-
-      ...profile.stats
-
-    };
-
-  }
-
-
-  saveLocalData();
+  renderHome();
+  renderQuestLists();
+  renderStats();
+  renderAchievements();
+  renderSchedule();
 
 }
 
-
 /* =========================================================
-   LOCAL → CLOUD
+   UTILITIES
 ========================================================= */
 
-async function syncProfile(){
-
-  if(!currentUser){
-    return;
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("profiles")
-        .upsert({
-
-          id:
-            currentUser.id,
-
-          level:
-            data.level,
-
-          xp:
-            data.xp,
-
-          total_xp:
-            data.totalXp,
-
-          streak:
-            data.streak,
-
-          last_active_date:
-            data.lastActiveDate,
-
-          total_quests_completed:
-            data.totalQuestsCompleted,
-
-          total_life_quests:
-            data.totalLifeQuests,
-
-          social_quests_completed:
-            data.socialQuestsCompleted,
-
-          stats:
-            data.stats
-
-        },{
-          onConflict:"id"
-        });
-
-
-    if(error){
-
-      console.error(
-        "Cloud sync error:",
-        error
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Cloud sync failed:",
-      error
-    );
-
-  }
-
+function escapeHTML(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
+function showToast(message){
 
-/* =========================================================
-   ENTER APP
-========================================================= */
+  const toast =
+    document.getElementById("toast");
 
-async function enterApp(
-  user
-){
+  toast.textContent =
+    message;
 
-  if(
-    enteringUserId ===
-    user?.id
-  ){
+  toast.classList.add("show");
 
-    return;
+  clearTimeout(window.toastTimer);
 
-  }
-
-
-  enteringUserId =
-    user?.id;
-
-
-  try{
-
-    currentUser =
-      user;
-
-
-    const profile =
-      await ensureProfile(
-        user
-      );
-
-
-    applyCloudProfile(
-      profile
-    );
-
-
-    document
-      .getElementById(
-        "authScreen"
-      )
-      .classList.remove(
-        "visible"
-      );
-
-
-    document
-      .getElementById(
-        "app"
-      )
-      .classList.add(
-        "visible"
-      );
-
-
-    renderAll();
-
-
-  }catch(error){
-
-    console.error(
-      "Enter app error:",
-      error
-    );
-
-
-    document
-      .getElementById(
-        "app"
-      )
-      .classList.remove(
-        "visible"
-      );
-
-
-    document
-      .getElementById(
-        "authScreen"
-      )
-      .classList.add(
-        "visible"
-      );
-
-
-    showAuthMessage(
-      "Your account connected, but SENRAI could not load your profile."
-    );
-
-
-  }finally{
-
-    setTimeout(
-      () => {
-
-        enteringUserId =
-          null;
-
-      },
-      500
-    );
-
-  }
-
+  window.toastTimer =
+    setTimeout(() => {
+      toast.classList.remove("show");
+    },2500);
 }
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
-supabaseClient
-  .auth
-  .onAuthStateChange(
-    async (
-      event,
-      session
-    ) => {
-
-      if(
-        session?.user
-      ){
-
-        await enterApp(
-          session.user
-        );
-
-      }else{
-
-        currentUser =
-          null;
-
-
-        document
-          .getElementById(
-            "app"
-          )
-          .classList.remove(
-            "visible"
-          );
-
-
-        document
-          .getElementById(
-            "authScreen"
-          )
-          .classList.add(
-            "visible"
-          );
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   STARTUP
-========================================================= */
-
-async function initializeApp(){
-
-  try{
-
-    renderAll();
-
-
-    const {
-      data:sessionData
-    } =
-      await supabaseClient
-        .auth
-        .getSession();
-
-
-    if(
-      sessionData
-        ?.session
-        ?.user
-    ){
-
-      await enterApp(
-        sessionData.session.user
-      );
-
-    }else{
-
-      document
-        .getElementById(
-          "authScreen"
-        )
-        .classList.add(
-          "visible"
-        );
-
-    }
-
-
-  }catch(error){
-
-    console.error(
-      "Startup error:",
-      error
-    );
-
-
-    document
-      .getElementById(
-        "authScreen"
-      )
-      .classList.add(
-        "visible"
-      );
-
-  }
-
-}
-
 
 /* =========================================================
    SPLASH
@@ -5574,175 +3117,141 @@ async function initializeApp(){
 function runSplash(){
 
   const splash =
-    document.getElementById(
-      "splash"
-    );
+    document.getElementById("splash");
 
-  const bar =
-    document.getElementById(
-      "splashBar"
-    );
+  const fill =
+    document.getElementById("splashFill");
 
   const percent =
-    document.getElementById(
-      "splashPercent"
-    );
+    document.getElementById("splashPercent");
 
   const status =
-    document.getElementById(
-      "splashStatus"
-    );
+    document.getElementById("splashStatus");
 
-
-  const statuses = [
-
+  const messages = [
     "SYSTEM INITIALIZING",
-
     "LOADING PROFILE",
-
     "SYNCING PROGRESS DATA",
-
     "INITIALIZING QUEST SYSTEM",
-
     "CALIBRATING CHARACTER STATS",
-
     "SYSTEM READY"
-
   ];
-
-
-  const duration =
-    2200;
-
 
   const start =
     performance.now();
 
+  const duration =
+    2300;
 
-  function animate(now){
+  function frame(now){
 
     const elapsed =
       now - start;
 
-
     const progress =
-      Math.min(
-        1,
-        elapsed / duration
-      );
+      Math.min(1,elapsed / duration);
 
+    const percentage =
+      Math.floor(progress * 100);
 
-    const value =
-      Math.floor(
-        progress * 100
-      );
-
-
-    bar.style.width =
-      value + "%";
-
+    fill.style.width =
+      `${percentage}%`;
 
     percent.textContent =
-      value + "%";
-
+      `${percentage}%`;
 
     const index =
       Math.min(
-        statuses.length - 1,
-        Math.floor(
-          progress *
-          statuses.length
-        )
+        messages.length - 1,
+        Math.floor(progress * messages.length)
       );
-
 
     status.textContent =
-      statuses[index];
-
+      messages[index];
 
     if(progress < 1){
+      requestAnimationFrame(frame);
+    }else{
+      setTimeout(() => {
+        splash.classList.add("hide");
+      },250);
+    }
+  }
 
-      requestAnimationFrame(
-        animate
-      );
+  requestAnimationFrame(frame);
+
+  setTimeout(() => {
+    splash.classList.add("hide");
+  },3500);
+}
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+async function startup(){
+
+  try{
+
+    runSplash();
+
+    const {
+      data:{
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+    if(session && session.user){
+
+      await enterApp(session.user);
 
     }else{
 
-      setTimeout(
-        () => {
+      document
+        .getElementById("authScreen")
+        .classList.remove("hidden");
 
-          splash.classList.add(
-            "hidden"
-          );
-
-          initializeApp();
-
-        },
-        250
-      );
-
+      document
+        .getElementById("app")
+        .classList.add("hidden");
     }
 
+    supabaseClient.auth.onAuthStateChange(
+      async (_event,session) => {
+
+        if(session && session.user){
+
+          await enterApp(session.user);
+
+        }else{
+
+          currentUser = null;
+          profile = null;
+
+          document
+            .getElementById("app")
+            .classList.add("hidden");
+
+          document
+            .getElementById("authScreen")
+            .classList.remove("hidden");
+        }
+      }
+    );
+
+  }catch(error){
+
+    console.error("Startup error:",error);
+
+    document
+      .getElementById("authScreen")
+      .classList.remove("hidden");
+
   }
-
-
-  requestAnimationFrame(
-    animate
-  );
-
-
-  setTimeout(
-    () => {
-
-      splash.classList.add(
-        "hidden"
-      );
-
-    },
-    4000
-  );
-
 }
 
-
-/* =========================================================
-   KEYBOARD
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(
-      event.key === "Enter" &&
-      document.activeElement?.id ===
-      "customQuestName"
-    ){
-
-      createCustomQuest();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   CLOCK
-========================================================= */
-
-setInterval(
-  updateSystemTime,
-  30000
-);
-
-
-/* =========================================================
-   START
-========================================================= */
-
-runSplash();
-
+startup();
 </script>
 
 </body>
