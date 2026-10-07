@@ -32,26 +32,31 @@
 
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{padding:15px}.stattop{display:flex;justify-content:space-between}.stat h3{font-size:10px}.stat strong{font-size:16px}.stat p{font-size:7px;color:#697687;margin:5px 0 9px}.stat .track{height:4px}.stat:nth-child(1) i{background:#ff7182}.stat:nth-child(2) i{background:#65a9ff}.stat:nth-child(3) i{background:#a87cff}.stat:nth-child(4) i{background:#ffad58}.stat:nth-child(5) i{background:#69e2dc}.stat:nth-child(6) i{background:#e88cff}.stat:nth-child(7) i{background:#5df2a5}
 
-.ach{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.achievement{padding:15px;border:1px solid var(--line);background:var(--p);border-radius:18px}.achievement.locked{opacity:.4}.achievement .icon{font-size:20px}.achievement h3{font-size:10px;margin-top:7px}.achievement p{font-size:7px;color:#778494;line-height:1.45;margin-top:4px}.moment{padding:14px;margin-bottom:8px}.moment small{font-size:6px;color:#697687}.moment p{font-size:9px;line-height:1.5;margin-top:6px}.setting{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}.setting:last-child{border:0}.setting h3{font-size:9px}.setting p{font-size:7px;color:#778494;margin-top:4px}
+.ach{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.achievement{padding:15px;border:1px solid var(--line);background:var(--p);border-radius:18px}.achievement.locked{opacity:.4}.achievement .icon{font-size:20px}.achievement h3{font-size:10px;margin-top:7px}.achievement p{font-size:7px;color:#778494;line-height:1.45;margin-top:4px}.moment{padding:14px;margin-bottom:8px;border:1px solid var(--line);background:var(--p);border-radius:18px}.moment small{font-size:6px;color:#697687}.moment p{font-size:9px;line-height:1.5;margin-top:6px}.setting{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}.setting:last-child{border:0}.setting h3{font-size:9px}.setting p{font-size:7px;color:#778494;margin-top:4px}
 
 .nav{position:fixed;z-index:500;bottom:0;left:0;right:0;height:72px;background:#070b10ed;border-top:1px solid #252e38;backdrop-filter:blur(20px);display:none;grid-template-columns:repeat(5,1fr);padding:6px 7px calc(6px + env(safe-area-inset-bottom))}.nav button{border:0;background:transparent;color:#5e6b7a;font-size:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.nav button span{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;font-size:12px}.nav button.active{color:#edf3f8}.nav button.active span{background:#17202a;color:var(--cyan)}.nav .life span{width:45px;height:45px;border-radius:50%;margin-top:-23px;background:#101a22;border:1px solid #40505d;color:var(--cyan);font-size:18px;box-shadow:0 0 30px #69e2dc1a}
 
 #toast{position:fixed;z-index:100000;left:50%;bottom:87px;transform:translate(-50%,15px);opacity:0;transition:.25s;background:#edf3f8;color:#03060a;border-radius:99px;padding:10px 15px;font-size:7px;font-weight:950;white-space:nowrap}#toast.show{opacity:1;transform:translate(-50%,0)}
 #modal{position:fixed;inset:0;z-index:8000;background:#000a;display:none;align-items:center;justify-content:center;padding:18px}.modalbox{width:min(520px,100%);max-height:85vh;overflow:auto;background:#0b1017;border:1px solid #293440;border-radius:20px;padding:20px}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{font-size:12px;letter-spacing:2px}.modalbody{margin-top:15px}.close{border:0;background:none;color:#778494;font-size:20px}
 
-@media(max-width:700px){#app{padding:12px 10px 100px}.summary,.stats,.grid2,.ach{grid-template-columns:1fr 1fr}.level{font-size:34px}.brand{font-size:17px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.orb2{height:225px}.orb2 .ring:nth-child(1){width:215px;height:215px}.orb2 .ring:nth-child(2){width:175px;height:175px}.orb2 .ring:nth-child(3){width:135px;height:135px}}
+@media(max-width:700px){#app{padding:12px 10px 100px}.summary,.stats,.grid2,.ach{grid-template-columns:1fr 1fr}.level{font-size:34px}.brand{font-size:17px}.orb2{height:225px}.orb2 .ring:nth-child(1){width:215px;height:215px}.orb2 .ring:nth-child(2){width:175px;height:175px}.orb2 .ring:nth-child(3){width:135px;height:135px}}
 </style>
 </head><body>
 
 <div id="boot"><div class="bootgrid"></div><div class="bootbox"><img src="senrai-logo.png" class="bootlogo"><div class="bootline"><i id="bootbar"></i></div><div class="bootinfo"><span id="boottxt">INITIALIZING SYSTEM</span><span id="bootpct">0%</span></div></div></div>
 
 <div id="auth"><div class="authbox">
-<img src="senrai-logo.png" class="authlogo"><div class="kicker">SYSTEM ACCESS</div><div class="authtitle" id="authtitle">WELCOME BACK</div><div class="authsub" id="authsub">Sign in to continue your journey.</div>
+<img src="senrai-logo.png" class="authlogo">
+<div class="kicker">SYSTEM ACCESS</div>
+<div class="authtitle" id="authtitle">WELCOME BACK</div>
+<div class="authsub" id="authsub">Sign in to continue your journey.</div>
 <div class="tabs"><button id="loginTab" class="on">SIGN IN</button><button id="signupTab">CREATE ACCOUNT</button></div>
 <div class="field"><label>EMAIL</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
 <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" placeholder="••••••••"></div>
 <div class="field hide" id="confirmField"><label>CONFIRM PASSWORD</label><input id="confirm" type="password" autocomplete="new-password" placeholder="••••••••"></div>
-<button id="authSubmit" class="submit">ACCESS SYSTEM</button><div class="links"><button id="forgot">FORGOT PASSWORD</button><button id="clear">CLEAR</button></div><div id="authmsg" class="authmsg"></div>
+<button id="authSubmit" class="submit">ACCESS SYSTEM</button>
+<div class="links"><button id="forgot">FORGOT PASSWORD</button><button id="clear">CLEAR</button></div>
+<div id="authmsg" class="authmsg"></div>
 </div></div>
 
 <div id="app">
@@ -72,224 +77,656 @@
 
 <main id="quests" class="view">
 <section class="section"><div class="head"><div class="title">DAILY QUESTS</div><div class="sub">NO PENALTIES</div></div><div id="daily" class="questlist"></div></section>
-<section class="section"><div class="head"><div class="title">CREATE QUEST</div><div class="sub">YOUR SYSTEM</div></div><div class="panel formcard"><div class="field"><label class="field-label">QUEST NAME</label><input id="qname" placeholder="What do you want to accomplish?"></div><div class="grid2"><div class="field"><label class="field-label">DIFFICULTY</label><select id="qdiff"><option value="10">EASY • +10 XP</option><option value="25" selected>NORMAL • +25 XP</option><option value="50">HARD • +50 XP</option><option value="100">EXTREME • +100 XP</option></select></div><div class="field"><label class="field-label">STAT</label><select id="qstat"><option>STR</option><option>INT</option><option>WIS</option><option>CHA</option><option>DEX</option><option>CRE</option><option>VIT</option></select></div></div><div class="field"><label class="field-label">DESCRIPTION</label><input id="qdesc" placeholder="Optional details"></div><button id="createq" class="submit">+ CREATE QUEST</button></div></section>
+<section class="section"><div class="head"><div class="title">CREATE QUEST</div><div class="sub">YOUR SYSTEM</div></div><div class="panel formcard"><div class="field"><label>QUEST NAME</label><input id="qname" placeholder="What do you want to accomplish?"></div><div class="grid2"><div class="field"><label>DIFFICULTY</label><select id="qdiff"><option value="10">EASY • +10 XP</option><option value="25" selected>NORMAL • +25 XP</option><option value="50">HARD • +50 XP</option><option value="100">EXTREME • +100 XP</option></select></div><div class="field"><label>STAT</label><select id="qstat"><option>STR</option><option>INT</option><option>WIS</option><option>CHA</option><option>DEX</option><option>CRE</option><option>VIT</option></select></div></div><div class="field"><label>DESCRIPTION</label><input id="qdesc" placeholder="Optional details"></div><button id="createq" class="submit">+ CREATE QUEST</button></div></section>
 <section class="section"><div class="head"><div class="title">YOUR QUESTS</div></div><div id="customquests" class="questlist"></div></section>
 </main>
 
-<main id="life" class="view"><section class="life"><div class="lifetop"><div><div class="lifek">LIFE MODULE</div><div class="lifetitle">SYSTEM / READY</div></div><div class="active">● LIVE</div></div><div class="orb2"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="lifecore"><b>✦</b><span>SENRAI</span></div></div><div class="lifeq">WHAT DO YOU NEED?</div><div class="lifep">Choose what fits right now. SENRAI gives you something real to do.</div><div class="lifebtns"><button onclick="lifePrompt('bored')">I'M BORED</button><button onclick="lifePrompt('stuck')">I'M STUCK</button><button onclick="lifePrompt('out')">I WANT TO GO OUT</button><button onclick="lifePrompt('reset')">I NEED A RESET</button><button onclick="lifePrompt('random')">SURPRISE ME</button></div><div class="response"><small>SYSTEM RESPONSE</small><h3 id="lifetitle">WAITING FOR INPUT</h3><p id="lifetext">Choose a direction.</p><div class="actions"><button id="lifedone" class="submit" disabled>COMPLETE QUEST</button></div></div></section></main><main id="stats" class="view"><section class="section"><div class="head"><div class="title">CHARACTER STATS</div><div class="sub">DEVELOPMENT</div></div><div id="statsgrid" class="stats"></div></section><section class="section"><div class="head"><div class="title">WEEKLY MISSIONS</div></div><div id="weekly" class="grid2"></div></section></main>
+<main id="life" class="view">
+<section class="life"><div class="lifetop"><div><div class="lifek">LIFE MODULE</div><div class="lifetitle">SYSTEM / READY</div></div><div class="active">● LIVE</div></div>
+<div class="orb2"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="lifecore"><b>✦</b><span>SENRAI</span></div></div>
+<div class="lifeq">WHAT DO YOU NEED?</div><div class="lifep">Choose what fits right now. SENRAI gives you something real to do.</div>
+<div class="lifebtns"><button onclick="lifePrompt('bored')">I'M BORED</button><button onclick="lifePrompt('stuck')">I'M STUCK</button><button onclick="lifePrompt('out')">I WANT TO GO OUT</button><button onclick="lifePrompt('reset')">I NEED A RESET</button><button onclick="lifePrompt('random')">SURPRISE ME</button></div>
+<div class="response"><small>SYSTEM RESPONSE</small><h3 id="lifetitle">WAITING FOR INPUT</h3><p id="lifetext">Choose a direction.</p><div class="actions"><button id="lifedone" class="submit" disabled>COMPLETE QUEST</button></div></div>
+</section></main><main id="stats" class="view">
+<section class="section"><div class="head"><div class="title">CHARACTER STATS</div><div class="sub">DEVELOPMENT</div></div><div id="statsgrid" class="stats"></div></section>
+<section class="section"><div class="head"><div class="title">WEEKLY MISSIONS</div></div><div id="weekly" class="grid2"></div></section>
+</main>
 
-<main id="moments" class="view"><section class="section"><div class="head"><div class="title">MOMENTS</div><div class="sub">KEEP WHAT MATTERS</div></div><div class="panel formcard"><label class="field-label">NEW MOMENT</label><textarea id="momentinput" rows="5" placeholder="Write something worth remembering..."></textarea><button id="savemoment" class="submit">SAVE MOMENT</button></div></section><section class="section"><div class="head"><div class="title">YOUR RECORD</div></div><div id="momentslist"></div></section></main>
+<main id="moments" class="view">
+<section class="section"><div class="head"><div class="title">MOMENTS</div><div class="sub">KEEP WHAT MATTERS</div></div>
+<div class="panel formcard"><label>NEW MOMENT</label><textarea id="momentinput" rows="5" placeholder="Write something worth remembering..."></textarea><button id="savemoment" class="submit">SAVE MOMENT</button></div></section>
+<section class="section"><div class="head"><div class="title">YOUR RECORD</div></div><div id="momentslist"></div></section>
+</main>
 
-<main id="system" class="view"><section class="section"><div class="head"><div class="title">SYSTEM STATUS</div><div class="sub">YOUR JOURNEY</div></div><div id="systemcards" class="grid2"></div></section><section class="section"><div class="head"><div class="title">ACHIEVEMENTS</div></div><div id="achievements" class="ach"></div></section></main>
+<main id="system" class="view">
+<section class="section"><div class="head"><div class="title">SYSTEM STATUS</div><div class="sub">YOUR JOURNEY</div></div><div id="systemcards" class="grid2"></div></section>
+<section class="section"><div class="head"><div class="title">ACHIEVEMENTS</div></div><div id="achievements" class="ach"></div></section>
+</main>
 
-<main id="profile" class="view"><section class="section"><div class="head"><div class="title">PROFILE</div><div class="sub">SYSTEM IDENTITY</div></div><div class="panel card"><div class="label">CURRENT TITLE</div><h2 id="profiletitle" style="margin-top:7px">AWAKENING</h2><p id="profileemail" class="desc" style="margin-top:6px"></p><div class="actions"><button onclick="showView('stats')">VIEW STATS</button><button id="signout" style="color:var(--red)">SIGN OUT</button></div></div></section></main>
+<main id="profile" class="view">
+<section class="section"><div class="head"><div class="title">PROFILE</div><div class="sub">SYSTEM IDENTITY</div></div>
+<div class="panel card"><div class="label">CURRENT TITLE</div><h2 id="profiletitle" style="margin-top:7px">AWAKENING</h2><p id="profileemail" class="desc" style="margin-top:6px"></p>
+<div class="actions"><button onclick="showView('stats')">VIEW STATS</button><button id="signout" style="color:var(--red)">SIGN OUT</button></div></div>
+</section></main>
 
-<main id="settings" class="view"><section class="section"><div class="head"><div class="title">SETTINGS</div><div class="sub">SYSTEM CONTROL</div></div><div class="panel card">
+<main id="settings" class="view">
+<section class="section"><div class="head"><div class="title">SETTINGS</div><div class="sub">SYSTEM CONTROL</div></div>
+<div class="panel card">
 <div class="setting"><div><h3>ADAPTIVE GUIDANCE</h3><p>Allow SENRAI to adapt recommendations.</p></div><button id="guidance">ON</button></div>
 <div class="setting"><div><h3>REDUCED MOTION</h3><p>Reduce interface animation.</p></div><button id="motion">OFF</button></div>
 <div class="setting"><div><h3>RESET LOCAL PROGRESS</h3><p>Erase progress stored on this device.</p></div><button id="reset" style="color:var(--red)">RESET</button></div>
 </div></section></main>
 
-<footer style="text-align:center;color:#39424e;font-size:6px;letter-spacing:2px;margin-top:30px">SENRAI — THE SYSTEM THAT MOVES YOU FORWARD</footer></div>
+<footer style="text-align:center;color:#39424e;font-size:6px;letter-spacing:2px;margin-top:30px">SENRAI — THE SYSTEM THAT MOVES YOU FORWARD</footer>
+</div>
 
-<div id="nav" class="nav"><button class="active" data-v="home"><span>⌂</span>HOME</button><button data-v="quests"><span>◆</span>QUESTS</button><button class="life" data-v="life"><span>✦</span>LIFE</button><button data-v="stats"><span>▥</span>STATS</button><button data-v="moments"><span>◌</span>MOMENTS</button></div>
+<div id="nav" class="nav">
+<button class="active" data-v="home"><span>⌂</span>HOME</button>
+<button data-v="quests"><span>◆</span>QUESTS</button>
+<button class="life" data-v="life"><span>✦</span>LIFE</button>
+<button data-v="stats"><span>▥</span>STATS</button>
+<button data-v="moments"><span>◌</span>MOMENTS</button>
+</div>
+
 <div id="toast"></div>
 <div id="modal"><div class="modalbox"><div class="modalhead"><h2 id="modaltitle">SYSTEM</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalbody" class="modalbody"></div></div></div>
 
+<!-- THIS WAS THE MISSING PIECE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-/* SENRAI CORE — Supabase is deliberately loaded after the UI.
-   The splash NEVER waits for Supabase. */
-const SB_URL="https://qkonsmkzxzkxziektmfx.supabase.co",SB_KEY="sb_publishable_Jr9ED_DV29-CqvpS0TS7UQ_yYytM-d3";
+const SB_URL="https://qkonsmkzxzkxziektmfx.supabase.co";
+const SB_KEY="sb_publishable_Jr9ED_DV29-CqvpS0TS7UQ_yYytM-d3";
+
 let SB=null,session=null,authMode="login",D=null,currentLife=null,currentRec=null;
 
-const $=id=>document.getElementById(id),day=()=>new Date().toISOString().slice(0,10);
+const $=id=>document.getElementById(id);
+const day=()=>new Date().toISOString().slice(0,10);
 const esc=x=>String(x??"").replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]));
 const key=()=>`senrai_${session?.user?.id||"local"}`;
-const fresh=()=>({date:day(),level:1,xp:0,totalXP:0,todayXP:0,todayCount:0,streak:0,lastActive:null,done:{},custom:[],moments:[],history:[],stats:{STR:0,INT:0,WIS:0,CHA:0,DEX:0,CRE:0,VIT:0},objective:{name:"Begin Your Journey",desc:"Choose one small action that makes your life better today.",progress:0},settings:{guidance:true,motion:false}});
-function load(){try{D=JSON.parse(localStorage.getItem(key()))||fresh()}catch(e){D=fresh()}if(D.date!==day()){D.date=day();D.todayXP=0;D.todayCount=0;D.done={}}}
-function save(){localStorage.setItem(key(),JSON.stringify(D))}
+
+const fresh=()=>({
+ date:day(),level:1,xp:0,totalXP:0,todayXP:0,todayCount:0,streak:0,lastActive:null,
+ done:{},custom:[],moments:[],history:[],
+ stats:{STR:0,INT:0,WIS:0,CHA:0,DEX:0,CRE:0,VIT:0},
+ objective:{name:"Begin Your Journey",desc:"Choose one small action that makes your life better today.",progress:0},
+ settings:{guidance:true,motion:false}
+});
+
+function load(){
+ try{D=JSON.parse(localStorage.getItem(key()))||fresh()}catch(e){D=fresh()}
+ if(D.date!==day()){D.date=day();D.todayXP=0;D.todayCount=0;D.done={}}
+}
+
+function save(){try{localStorage.setItem(key(),JSON.stringify(D))}catch(e){}}
 function need(){return 100+(D.level-1)*50}
-function toast(x){$("toast").textContent=x;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200)}
-function modal(title,html){$("modaltitle").textContent=title;$("modalbody").innerHTML=html;$("modal").style.display="flex"}
+
+function toast(x){
+ $("toast").textContent=x;
+ $("toast").classList.add("show");
+ setTimeout(()=>$("toast").classList.remove("show"),2200)
+}
+
 function closeModal(){$("modal").style.display="none"}
-function showView(v){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));$(v).classList.add("active");document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.v===v));window.scrollTo({top:0,behavior:D.settings.motion?"auto":"smooth"});if(v==="stats")renderStats();if(v==="moments")renderMoments();if(v==="system")renderSystem();if(v==="profile")renderProfile();if(v==="settings")renderSettings()}
+
+function showView(v){
+ document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+ $(v).classList.add("active");
+ document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.v===v));
+ window.scrollTo({top:0,behavior:D.settings.motion?"auto":"smooth"});
+ if(v==="stats")renderStats();
+ if(v==="moments")renderMoments();
+ if(v==="system")renderSystem();
+ if(v==="profile")renderProfile();
+ if(v==="settings")renderSettings()
+}
+
 document.querySelectorAll("#nav button").forEach(x=>x.onclick=()=>showView(x.dataset.v));
 
 const DAILY=[
-{id:"move",name:"Move Your Body",desc:"Walk, stretch, exercise, or do something physical.",xp:15,stat:"STR"},
-{id:"learn",name:"Learn Something",desc:"Spend a little time learning or practicing.",xp:15,stat:"INT"},
-{id:"reset",name:"Reset Your Space",desc:"Clean or organize one source of friction.",xp:10,stat:"DEX"},
-{id:"future",name:"Help Future You",desc:"Do one thing that makes tomorrow easier.",xp:20,stat:"WIS"}];
+ {id:"move",name:"Move Your Body",desc:"Walk, stretch, exercise, or do something physical.",xp:15,stat:"STR"},
+ {id:"learn",name:"Learn Something",desc:"Spend a little time learning or practicing.",xp:15,stat:"INT"},
+ {id:"reset",name:"Reset Your Space",desc:"Clean or organize one source of friction.",xp:10,stat:"DEX"},
+ {id:"future",name:"Help Future You",desc:"Do one thing that makes tomorrow easier.",xp:20,stat:"WIS"}
+];
 
 const LIFE={
-bored:[["Mini Adventure","Go somewhere nearby you've never explored.",25,"EXPLORE"],["Creative Burst","Make something for 15 minutes with no pressure.",20,"CREATE"],["Social Ping","Message someone you genuinely want to talk to.",20,"CONNECT"]],
-stuck:[["Reset Point","Write down what's actually bothering you.",25,"REFLECT"],["One Direction","Pick one thing you can improve and take the first step.",25,"MOVE"],["Clear The Noise","Put your phone away for twenty minutes.",20,"RESET"]],
-out:[["New Place","Visit a restaurant, store, arcade, or area you've never tried.",30,"EXPLORE"],["Outside Quest","Go somewhere public for twenty minutes.",25,"EXPERIENCE"],["People Quest","Start one small conversation.",25,"CONNECT"]],
-reset:[["Environment Reset","Clean one small area until it feels different.",20,"RESET"],["Digital Reset","Delete ten things you don't need from your phone.",15,"RESET"],["Future Setup","Prepare one thing tonight that tomorrow-you will appreciate.",20,"PREPARE"]],
-random:[["Curiosity Quest","Look up something you've wondered about for years.",20,"LEARN"],["Kindness Quest","Do one unexpectedly helpful thing.",25,"CONNECT"],["Photo Quest","Take a picture of something you normally overlook.",15,"EXPLORE"],["Coin Flip Quest","Heads: clean something. Tails: go outside.",20,"RANDOM"]]};
+ bored:[
+  ["Mini Adventure","Go somewhere nearby you've never explored.",25,"EXPLORE"],
+  ["Creative Burst","Make something for 15 minutes with no pressure.",20,"CREATE"],
+  ["Social Ping","Message someone you genuinely want to talk to.",20,"CONNECT"]
+ ],
+ stuck:[
+  ["Reset Point","Write down what's actually bothering you.",25,"REFLECT"],
+  ["One Direction","Pick one thing you can improve and take the first step.",25,"MOVE"],
+  ["Clear The Noise","Put your phone away for twenty minutes.",20,"RESET"]
+ ],
+ out:[
+  ["New Place","Visit a restaurant, store, arcade, or area you've never tried.",30,"EXPLORE"],
+  ["Outside Quest","Go somewhere public for twenty minutes.",25,"EXPERIENCE"],
+  ["People Quest","Start one small conversation.",25,"CONNECT"]
+ ],
+ reset:[
+  ["Environment Reset","Clean one small area until it feels different.",20,"RESET"],
+  ["Digital Reset","Delete ten things you don't need from your phone.",15,"RESET"],
+  ["Future Setup","Prepare one thing tonight that tomorrow-you will appreciate.",20,"PREPARE"]
+ ],
+ random:[
+  ["Curiosity Quest","Look up something you've wondered about for years.",20,"LEARN"],
+  ["Kindness Quest","Do one unexpectedly helpful thing.",25,"CONNECT"],
+  ["Photo Quest","Take a picture of something you normally overlook.",15,"EXPLORE"],
+  ["Coin Flip Quest","Heads: clean something. Tails: go outside.",20,"RANDOM"]
+ ]
+};
 
 function xp(amount,stat,title){
- D.xp+=amount;D.totalXP+=amount;D.todayXP+=amount;D.todayCount++;D.stats[stat]=(D.stats[stat]||0)+amount;
- D.history.unshift({title,xp:amount,stat,date:new Date().toISOString(),source:"QUEST"});D.history=D.history.slice(0,50);
- while(D.xp>=need()){D.xp-=need();D.level++;toast("LEVEL UP — LEVEL "+D.level)}
- if(D.lastActive!==day()){D.streak=D.lastActive&&new Date(day())-new Date(D.lastActive)===86400000?D.streak+1:1;D.lastActive=day()}
- save();render();
+ D.xp+=amount;
+ D.totalXP+=amount;
+ D.todayXP+=amount;
+ D.todayCount++;
+ D.stats[stat]=(D.stats[stat]||0)+amount;
+ D.history.unshift({title,xp:amount,stat,date:new Date().toISOString(),source:"QUEST"});
+ D.history=D.history.slice(0,50);
+
+ while(D.xp>=need()){
+  D.xp-=need();
+  D.level++;
+  toast("LEVEL UP — LEVEL "+D.level)
+ }
+
+ if(D.lastActive!==day()){
+  D.streak=D.lastActive&&new Date(day())-new Date(D.lastActive)===86400000?D.streak+1:1;
+  D.lastActive=day()
+ }
+
+ save();
+ render()
 }
 
-function qhtml(q,done=false,custom=false){return `<div class="quest ${done?"done":""}"><div><h3>${esc(q.name)}</h3><p>${esc(q.desc||"")}</p><div class="pills"><span class="pill">+${q.xp} XP</span><span class="pill">${q.stat}</span></div></div><button class="small primary" ${done?"disabled":""} onclick="${custom?`finishCustom('${q.id}')`:`finishDaily('${q.id}')`}">${done?"DONE":"COMPLETE"}</button></div>`}
+function qhtml(q,done=false,custom=false){
+ return `<div class="quest ${done?"done":""}">
+ <div><h3>${esc(q.name)}</h3><p>${esc(q.desc||"")}</p>
+ <div class="pills"><span class="pill">+${q.xp} XP</span><span class="pill">${q.stat}</span></div></div>
+ <button class="small primary" ${done?"disabled":""} onclick="${custom?`finishCustom('${q.id}')`:`finishDaily('${q.id}')`}">${done?"DONE":"COMPLETE"}</button>
+ </div>`
+}
 
 function renderQuests(){
  const dateId=q=>q.id+"_"+D.date;
- const daily=DAILY.map(q=>{const id=dateId(q);return qhtml({...q,id},!!D.done[id])}).join("");
- $("daily").innerHTML=daily;$("homequests").innerHTML=DAILY.slice(0,3).map(q=>{const id=dateId(q);return qhtml({...q,id},!!D.done[id])}).join("");
- $("customquests").innerHTML=D.custom.length?D.custom.map(q=>qhtml(q,!!q.completed,true)).join(""):`<div class="card"><p class="desc">No custom quests yet. Create one when you want to define your own path.</p></div>`;
+ const daily=DAILY.map(q=>{
+  const id=dateId(q);
+  return qhtml({...q,id},!!D.done[id])
+ }).join("");
+
+ $("daily").innerHTML=daily;
+ $("homequests").innerHTML=DAILY.slice(0,3).map(q=>{
+  const id=dateId(q);
+  return qhtml({...q,id},!!D.done[id])
+ }).join("");
+
+ $("customquests").innerHTML=D.custom.length
+ ?D.custom.map(q=>qhtml(q,!!q.completed,true)).join("")
+ :`<div class="card"><p class="desc">No custom quests yet. Create one when you want to define your own path.</p></div>`
 }
+
 function finishDaily(id){
- const q=DAILY.find(x=>id.startsWith(x.id+"_"));if(!q||D.done[id])return;D.done[id]=true;xp(q.xp,q.stat,q.name)
+ const q=DAILY.find(x=>id.startsWith(x.id+"_"));
+ if(!q||D.done[id])return;
+ D.done[id]=true;
+ xp(q.xp,q.stat,q.name)
 }
+
 function finishCustom(id){
- const q=D.custom.find(x=>x.id===id);if(!q||q.completed)return;q.completed=true;save();xp(q.xp,q.stat,q.name)
+ const q=D.custom.find(x=>x.id===id);
+ if(!q||q.completed)return;
+ q.completed=true;
+ save();
+ xp(q.xp,q.stat,q.name)
 }
+
 $("createq").onclick=()=>{
- const name=$("qname").value.trim();if(!name)return toast("ENTER A QUEST NAME");
- const x=+$("qdiff").value;D.custom.unshift({id:"c"+Date.now(),name,desc:$("qdesc").value.trim()||"Personal quest.",xp:x,stat:$("qstat").value,completed:false});
- save();$("qname").value="";$("qdesc").value="";renderQuests();toast("QUEST CREATED")
+ const name=$("qname").value.trim();
+ if(!name)return toast("ENTER A QUEST NAME");
+
+ const x=+$("qdiff").value;
+
+ D.custom.unshift({
+  id:"c"+Date.now(),
+  name,
+  desc:$("qdesc").value.trim()||"Personal quest.",
+  xp:x,
+  stat:$("qstat").value,
+  completed:false
+ });
+
+ save();
+ $("qname").value="";
+ $("qdesc").value="";
+ renderQuests();
+ toast("QUEST CREATED")
 };
 
-function renderObjective(){const o=D.objective;$("objective").innerHTML=`<div class="tag">ACTIVE OBJECTIVE</div><h2>${esc(o.name)}</h2><p class="desc">${esc(o.desc)}</p><div class="track" style="margin-top:12px"><i style="width:${o.progress}%"></i></div><div class="meta"><span>${o.progress}% COMPLETE</span><span>NO PENALTY</span></div>`}
-function renderPath(){$("path").innerHTML=`<div class="pathtitle">${D.level<5?"AWAKENING":"PATHFINDER"}</div><div class="pathdesc">${D.level<5?"Your direction is still forming. SENRAI is learning from what you actually do.":"Your actions are beginning to define your direction."}</div><div class="tags"><span class="pill">DISCOVERY</span><span class="pill">PROGRESS</span><span class="pill">POTENTIAL</span></div>`}
+function renderObjective(){
+ const o=D.objective;
+ $("objective").innerHTML=`
+ <div class="tag">ACTIVE OBJECTIVE</div>
+ <h2>${esc(o.name)}</h2>
+ <p class="desc">${esc(o.desc)}</p>
+ <div class="track" style="margin-top:12px"><i style="width:${o.progress}%"></i></div>
+ <div class="meta"><span>${o.progress}% COMPLETE</span><span>NO PENALTY</span></div>`
+}
+
+function renderPath(){
+ $("path").innerHTML=`
+ <div class="pathtitle">${D.level<5?"AWAKENING":"PATHFINDER"}</div>
+ <div class="pathdesc">${D.level<5?"Your direction is still forming. SENRAI is learning from what you actually do.":"Your actions are beginning to define your direction."}</div>
+ <div class="tags"><span class="pill">DISCOVERY</span><span class="pill">PROGRESS</span><span class="pill">POTENTIAL</span></div>`
+}
 
 function renderReflection(){
- if(!D.settings.guidance){$("reftitle").textContent="SYSTEM GUIDANCE OFF";$("reftext").textContent="Your quests and progression still work normally.";return}
+ if(!D.settings.guidance){
+  $("reftitle").textContent="SYSTEM GUIDANCE OFF";
+  $("reftext").textContent="Your quests and progression still work normally.";
+  return
+ }
+
  const choices=[
- ["Clear One Small Task","You don't need to fix everything. Create momentum with one finished thing.","Finish one small task",15,"DEX"],
- ["Move For Ten Minutes","A small physical reset can change the direction of your day.","Move for ten minutes",15,"STR"],
- ["Learn Something Useful","Spend a little time becoming slightly better at something.","Learn for fifteen minutes",15,"INT"],
- ["Reach Out","Connection is part of progression too.","Send one genuine message",20,"CHA"],
- ["Write It Down","Turn some of the noise in your head into something you can see.","Write for ten minutes",15,"WIS"],
- ["Make Something","Create without worrying whether it is good.","Create something for fifteen minutes",20,"CRE"]];
+  ["Clear One Small Task","You don't need to fix everything. Create momentum with one finished thing.","Finish one small task",15,"DEX"],
+  ["Move For Ten Minutes","A small physical reset can change the direction of your day.","Move for ten minutes",15,"STR"],
+  ["Learn Something Useful","Spend a little time becoming slightly better at something.","Learn for fifteen minutes",15,"INT"],
+  ["Reach Out","Connection is part of progression too.","Send one genuine message",20,"CHA"],
+  ["Write It Down","Turn some of the noise in your head into something you can see.","Write for ten minutes",15,"WIS"],
+  ["Make Something","Create without worrying whether it is good.","Create something for fifteen minutes",20,"CRE"]
+ ];
+
  currentRec=choices[Math.floor(Math.random()*choices.length)];
- $("reftitle").textContent=currentRec[0];$("reftext").textContent=currentRec[1];$("refquest").textContent=currentRec[2];$("refreward").textContent="+"+currentRec[3]+" XP • "+currentRec[4];
+
+ $("reftitle").textContent=currentRec[0];
+ $("reftext").textContent=currentRec[1];
+ $("refquest").textContent=currentRec[2];
+ $("refreward").textContent="+"+currentRec[3]+" XP • "+currentRec[4]
 }
+
 $("another").onclick=renderReflection;
-$("acceptref").onclick=()=>{if(!currentRec)return;D.custom.unshift({id:"r"+Date.now(),name:currentRec[2],desc:currentRec[1],xp:currentRec[3],stat:currentRec[4],completed:false});save();renderQuests();toast("QUEST ADDED TO YOUR SYSTEM");showView("quests")};
+
+$("acceptref").onclick=()=>{
+ if(!currentRec)return;
+
+ D.custom.unshift({
+  id:"r"+Date.now(),
+  name:currentRec[2],
+  desc:currentRec[1],
+  xp:currentRec[3],
+  stat:currentRec[4],
+  completed:false
+ });
+
+ save();
+ renderQuests();
+ toast("QUEST ADDED TO YOUR SYSTEM");
+ showView("quests")
+};
 
 function lifePrompt(type){
- const a=LIFE[type]||LIFE.random,q=a[Math.floor(Math.random()*a.length)];currentLife={name:q[0],text:q[1],xp:q[2],type:q[3]};
- $("lifetitle").textContent=q[0];$("lifetext").textContent=q[1]+"  +"+q[2]+" XP if completed.";$("lifedone").disabled=false
+ const a=LIFE[type]||LIFE.random;
+ const q=a[Math.floor(Math.random()*a.length)];
+
+ currentLife={
+  name:q[0],
+  text:q[1],
+  xp:q[2],
+  type:q[3]
+ };
+
+ $("lifetitle").textContent=q[0];
+ $("lifetext").textContent=q[1]+"  +"+q[2]+" XP if completed.";
+ $("lifedone").disabled=false
 }
-$("lifedone").onclick=()=>{if(!currentLife)return;xp(currentLife.xp,"WIS","Life Quest — "+currentLife.name);D.history[0].source="LIFE QUEST";save();currentLife=null;$("lifetitle").textContent="QUEST COMPLETE";$("lifetext").textContent="The System noticed.";$("lifedone").disabled=true};
+
+$("lifedone").onclick=()=>{
+ if(!currentLife)return;
+
+ xp(currentLife.xp,"WIS","Life Quest — "+currentLife.name);
+ D.history[0].source="LIFE QUEST";
+ save();
+
+ currentLife=null;
+ $("lifetitle").textContent="QUEST COMPLETE";
+ $("lifetext").textContent="The System noticed.";
+ $("lifedone").disabled=true
+};
 
 function renderStats(){
  const names=["STR","INT","WIS","CHA","DEX","CRE","VIT"];
- $("statsgrid").innerHTML=names.map(s=>`<div class="stat"><div class="stattop"><h3>${s}</h3><strong>${D.stats[s]||0}</strong></div><p>${({STR:"Fitness",INT:"Learning",WIS:"Growth",CHA:"Relationships",DEX:"Execution",CRE:"Creativity",VIT:"Health"})[s]}</p><div class="track"><i style="width:${Math.min(100,(D.stats[s]||0)/3)}%"></i></div></div>`).join("");
- $("weekly").innerHTML=`<div class="card"><h3>MOMENTUM WEEK</h3><p>Complete 7 quests.</p><strong style="display:block;margin-top:9px;color:var(--green)">${Math.min(7,Object.keys(D.done).length)} / 7</strong></div><div class="card"><h3>LEVEL RISE</h3><p>Reach level 5.</p><strong style="display:block;margin-top:9px;color:var(--green)">LEVEL ${D.level} / 5</strong></div>`
+
+ $("statsgrid").innerHTML=names.map(s=>`
+ <div class="stat">
+  <div class="stattop"><h3>${s}</h3><strong>${D.stats[s]||0}</strong></div>
+  <p>${({STR:"Fitness",INT:"Learning",WIS:"Growth",CHA:"Relationships",DEX:"Execution",CRE:"Creativity",VIT:"Health"})[s]}</p>
+  <div class="track"><i style="width:${Math.min(100,(D.stats[s]||0)/3)}%"></i></div>
+ </div>`).join("");
+
+ $("weekly").innerHTML=`
+ <div class="card"><h3>MOMENTUM WEEK</h3><p>Complete 7 quests.</p><strong style="display:block;margin-top:9px;color:var(--green)">${Math.min(7,Object.keys(D.done).length)} / 7</strong></div>
+ <div class="card"><h3>LEVEL RISE</h3><p>Reach level 5.</p><strong style="display:block;margin-top:9px;color:var(--green)">LEVEL ${D.level} / 5</strong></div>`
 }function renderMoments(){
- $("momentslist").innerHTML=D.moments.length?D.moments.map(x=>`<div class="moment"><small>${esc(x.date)}</small><p>${esc(x.text)}</p></div>`).join(""):`<div class="card"><p class="desc">Your story starts here. Save something worth remembering.</p></div>`
+ $("momentslist").innerHTML=D.moments.length
+ ?D.moments.map(x=>`<div class="moment"><small>${esc(x.date)}</small><p>${esc(x.text)}</p></div>`).join("")
+ :`<div class="card"><p class="desc">Your story starts here. Save something worth remembering.</p></div>`
 }
-$("savemoment").onclick=()=>{const x=$("momentinput").value.trim();if(!x)return toast("WRITE SOMETHING FIRST");D.moments.unshift({date:new Date().toLocaleString(),text:x});D.moments=D.moments.slice(0,50);save();$("momentinput").value="";renderMoments();toast("MOMENT RECORDED")};
+
+$("savemoment").onclick=()=>{
+ const x=$("momentinput").value.trim();
+ if(!x)return toast("WRITE SOMETHING FIRST");
+
+ D.moments.unshift({
+  date:new Date().toLocaleString(),
+  text:x
+ });
+
+ D.moments=D.moments.slice(0,50);
+ save();
+ $("momentinput").value="";
+ renderMoments();
+ toast("MOMENT RECORDED")
+};
 
 const ACH=[
-["✦","FIRST STEP","Complete your first quest.",()=>D.totalXP>0],
-["◆","MOMENTUM","Complete 10 quests.",()=>Object.keys(D.done).length>=10],
-["△","RISING","Reach level 5.",()=>D.level>=5],
-["∞","CONSISTENT","Reach a 7 day streak.",()=>D.streak>=7],
-["◇","BUILDER","Earn 1,000 XP.",()=>D.totalXP>=1000],
-["◌","REMEMBER THIS","Save a Moment.",()=>D.moments.length>0]
+ ["✦","FIRST STEP","Complete your first quest.",()=>D.totalXP>0],
+ ["◆","MOMENTUM","Complete 10 quests.",()=>Object.keys(D.done).length>=10],
+ ["△","RISING","Reach level 5.",()=>D.level>=5],
+ ["∞","CONSISTENT","Reach a 7 day streak.",()=>D.streak>=7],
+ ["◇","BUILDER","Earn 1,000 XP.",()=>D.totalXP>=1000],
+ ["◌","REMEMBER THIS","Save a Moment.",()=>D.moments.length>0]
 ];
+
 function renderSystem(){
  const unlocked=JSON.parse(localStorage.getItem(key()+"_ach")||"{}");
- ACH.forEach((a,i)=>{if(a[3]()&&!unlocked[i]){unlocked[i]=true;D.totalXP+=a[2]||25;save()}});
+
+ ACH.forEach((a,i)=>{
+  if(a[3]()&&!unlocked[i]){
+   unlocked[i]=true;
+   D.totalXP+=25;
+   save()
+  }
+ });
+
  localStorage.setItem(key()+"_ach",JSON.stringify(unlocked));
+
  $("systemcards").innerHTML=[
- ["CURRENT LEVEL","LEVEL "+D.level,"Your progression is building."],
- ["TOTAL XP",D.totalXP+" XP","Every completed action counts."],
- ["QUESTS",Object.keys(D.done).length,"Skipping never breaks progress."],
- ["STREAK",D.streak+" DAYS","Momentum, not perfection."]
- ].map(x=>`<div class="card"><div class="label">${x[0]}</div><h3 style="margin-top:7px">${x[1]}</h3><p class="desc" style="margin-top:5px">${x[2]}</p></div>`).join("");
- $("achievements").innerHTML=ACH.map((a,i)=>`<div class="achievement ${unlocked[i]?"":"locked"}"><div class="icon">${a[0]}</div><h3>${a[1]}</h3><p>${a[2]}</p><div style="font-size:6px;margin-top:8px;color:${unlocked[i]?"var(--green)":"var(--m)"}">${unlocked[i]?"UNLOCKED":"LOCKED"}</div></div>`).join("")
+  ["CURRENT LEVEL","LEVEL "+D.level,"Your progression is building."],
+  ["TOTAL XP",D.totalXP+" XP","Every completed action counts."],
+  ["QUESTS",Object.keys(D.done).length,"Skipping never breaks progress."],
+  ["STREAK",D.streak+" DAYS","Momentum, not perfection."]
+ ].map(x=>`
+ <div class="card">
+  <div class="label">${x[0]}</div>
+  <h3 style="margin-top:7px">${x[1]}</h3>
+  <p class="desc" style="margin-top:5px">${x[2]}</p>
+ </div>`).join("");
+
+ $("achievements").innerHTML=ACH.map((a,i)=>`
+ <div class="achievement ${unlocked[i]?"":"locked"}">
+  <div class="icon">${a[0]}</div>
+  <h3>${a[1]}</h3>
+  <p>${a[2]}</p>
+  <div style="font-size:6px;margin-top:8px;color:${unlocked[i]?"var(--green)":"var(--m)"}">${unlocked[i]?"UNLOCKED":"LOCKED"}</div>
+ </div>`).join("")
 }
-function renderProfile(){$("profileemail").textContent=session?.user?.email||"LOCAL SYSTEM";$("profiletitle").textContent=D.level>=20?"SYSTEM MASTER":D.level>=10?"ASCENDANT":D.level>=5?"PATHFINDER":D.level>=2?"INITIATE":"AWAKENING"}
-function renderSettings(){$("guidance").textContent=D.settings.guidance?"ON":"OFF";$("motion").textContent=D.settings.motion?"ON":"OFF"}
-$("guidance").onclick=()=>{D.settings.guidance=!D.settings.guidance;save();renderSettings();renderReflection()};
-$("motion").onclick=()=>{D.settings.motion=!D.settings.motion;document.documentElement.style.scrollBehavior=D.settings.motion?"auto":"smooth";save();renderSettings()};
-$("reset").onclick=()=>{if(confirm("Reset all SENRAI progress on this device?")){localStorage.removeItem(key());D=fresh();render();toast("SYSTEM RESET")}}
+
+function renderProfile(){
+ $("profileemail").textContent=session?.user?.email||"LOCAL SYSTEM";
+ $("profiletitle").textContent=
+ D.level>=20?"SYSTEM MASTER":
+ D.level>=10?"ASCENDANT":
+ D.level>=5?"PATHFINDER":
+ D.level>=2?"INITIATE":"AWAKENING"
+}
+
+function renderSettings(){
+ $("guidance").textContent=D.settings.guidance?"ON":"OFF";
+ $("motion").textContent=D.settings.motion?"ON":"OFF"
+}
+
+$("guidance").onclick=()=>{
+ D.settings.guidance=!D.settings.guidance;
+ save();
+ renderSettings();
+ renderReflection()
+};
+
+$("motion").onclick=()=>{
+ D.settings.motion=!D.settings.motion;
+ document.documentElement.style.scrollBehavior=D.settings.motion?"auto":"smooth";
+ save();
+ renderSettings()
+};
+
+$("reset").onclick=()=>{
+ if(confirm("Reset all SENRAI progress on this device?")){
+  localStorage.removeItem(key());
+  D=fresh();
+  save();
+  render();
+  toast("SYSTEM RESET")
+ }
+};
 
 function render(){
- $("level").textContent=D.level;$("xp").textContent=D.xp;$("corelevel").textContent="LVL "+D.level;$("xptext").textContent=D.xp+" / "+need()+" XP";$("next").textContent="LEVEL "+(D.level+1);$("xpbar").style.width=Math.min(100,D.xp/need()*100)+"%";
- $("todaycount").textContent=D.todayCount;$("todayxp").textContent=D.todayXP;$("streak").textContent=D.streak;$("momentum").textContent=Math.min(99,D.todayCount*10+D.level);
- renderObjective();renderPath();renderReflection();renderQuests();renderStats();renderMoments();renderSystem();renderProfile();renderSettings()
+ $("level").textContent=D.level;
+ $("xp").textContent=D.xp;
+ $("corelevel").textContent="LVL "+D.level;
+ $("xptext").textContent=D.xp+" / "+need()+" XP";
+ $("next").textContent="LEVEL "+(D.level+1);
+ $("xpbar").style.width=Math.min(100,D.xp/need()*100)+"%";
+
+ $("todaycount").textContent=D.todayCount;
+ $("todayxp").textContent=D.todayXP;
+ $("streak").textContent=D.streak;
+ $("momentum").textContent=Math.min(99,D.todayCount*10+D.level);
+
+ renderObjective();
+ renderPath();
+ renderReflection();
+ renderQuests();
+ renderStats();
+ renderMoments();
+ renderSystem();
+ renderProfile();
+ renderSettings()
 }
 
-function authMsg(x,g=false){$("authmsg").textContent=x;$("authmsg").className="authmsg"+(g?" good":"")}
-$("loginTab").onclick=()=>{authMode="login";$("loginTab").classList.add("on");$("signupTab").classList.remove("on");$("confirmField").classList.add("hide");$("authtitle").textContent="WELCOME BACK";$("authsub").textContent="Sign in to continue your journey.";$("authSubmit").textContent="ACCESS SYSTEM";authMsg("")};
-$("signupTab").onclick=()=>{authMode="signup";$("signupTab").classList.add("on");$("loginTab").classList.remove("on");$("confirmField").classList.remove("hide");$("authtitle").textContent="AWAKEN";$("authsub").textContent="Create your System account and begin your progression.";$("authSubmit").textContent="CREATE SYSTEM";authMsg("")};
-$("clear").onclick=()=>{["email","password","confirm"].forEach(x=>$(x).value="");authMsg("")};
+function authMsg(x,g=false){
+ $("authmsg").textContent=x;
+ $("authmsg").className="authmsg"+(g?" good":"")
+}
+
+$("loginTab").onclick=()=>{
+ authMode="login";
+ $("loginTab").classList.add("on");
+ $("signupTab").classList.remove("on");
+ $("confirmField").classList.add("hide");
+ $("authtitle").textContent="WELCOME BACK";
+ $("authsub").textContent="Sign in to continue your journey.";
+ $("authSubmit").textContent="ACCESS SYSTEM";
+ authMsg("")
+};
+
+$("signupTab").onclick=()=>{
+ authMode="signup";
+ $("signupTab").classList.add("on");
+ $("loginTab").classList.remove("on");
+ $("confirmField").classList.remove("hide");
+ $("authtitle").textContent="AWAKEN";
+ $("authsub").textContent="Create your System account and begin your progression.";
+ $("authSubmit").textContent="CREATE SYSTEM";
+ authMsg("")
+};
+
+$("clear").onclick=()=>{
+ ["email","password","confirm"].forEach(x=>$(x).value="");
+ authMsg("")
+};
 
 async function doAuth(){
- const email=$("email").value.trim(),password=$("password").value,confirm=$("confirm").value;
+ const email=$("email").value.trim();
+ const password=$("password").value;
+ const confirm=$("confirm").value;
+
  if(!email||!password)return authMsg("ENTER YOUR EMAIL AND PASSWORD.");
  if(password.length<6)return authMsg("PASSWORD MUST BE AT LEAST 6 CHARACTERS.");
  if(authMode==="signup"&&password!==confirm)return authMsg("PASSWORDS DO NOT MATCH.");
- if(!SB)return authMsg("SYSTEM CONNECTION IS UNAVAILABLE. TRY AGAIN IN A MOMENT.");
- authMsg("CONTACTING SYSTEM...",true);
- try{
-  const r=authMode==="login"?await SB.auth.signInWithPassword({email,password}):await SB.auth.signUp({email,password});
-  if(r.error)throw r.error;
-  if(r.data.session)enter(r.data.session);
-  else authMsg("ACCOUNT CREATED. CHECK YOUR EMAIL TO CONFIRM ACCESS.",true)
- }catch(e){authMsg(e.message||"SYSTEM ACCESS FAILED.")}
-}
-$("authSubmit").onclick=doAuth;
-$("forgot").onclick=async()=>{if(!SB)return authMsg("SYSTEM CONNECTION IS UNAVAILABLE.");const e=$("email").value.trim();if(!e)return authMsg("ENTER YOUR EMAIL FIRST.");const r=await SB.auth.resetPasswordForEmail(e,{redirectTo:location.href});r.error?authMsg(r.error.message):authMsg("PASSWORD RESET EMAIL SENT.",true)};
 
-function enter(s){session=s;load();$("auth").style.display="none";$("app").style.display="block";$("nav").style.display="grid";render()}
-function localMode(){session=null;load();$("auth").style.display="none";$("app").style.display="block";$("nav").style.display="grid";render();toast("LOCAL MODE — CLOUD ACCESS UNAVAILABLE")}
-$("signout").onclick=async()=>{if(SB)try{await SB.auth.signOut()}catch(e){}session=null;$("app").style.display="none";$("nav").style.display="none";$("auth").style.display="flex";authMsg("SIGNED OUT.",true)};
+ if(!SB)return authMsg("SYSTEM CONNECTION IS UNAVAILABLE. TRY AGAIN IN A MOMENT.");
+
+ authMsg("CONTACTING SYSTEM...",true);
+
+ try{
+  const r=authMode==="login"
+   ?await SB.auth.signInWithPassword({email,password})
+   :await SB.auth.signUp({email,password});
+
+  if(r.error)throw r.error;
+
+  if(r.data.session){
+   enter(r.data.session)
+  }else{
+   authMsg("ACCOUNT CREATED. CHECK YOUR EMAIL TO CONFIRM ACCESS.",true)
+  }
+ }catch(e){
+  authMsg(e.message||"SYSTEM ACCESS FAILED.")
+ }
+}
+
+$("authSubmit").onclick=doAuth;
+
+$("forgot").onclick=async()=>{
+ if(!SB)return authMsg("SYSTEM CONNECTION IS UNAVAILABLE.");
+
+ const e=$("email").value.trim();
+
+ if(!e)return authMsg("ENTER YOUR EMAIL FIRST.");
+
+ try{
+  const r=await SB.auth.resetPasswordForEmail(e,{redirectTo:location.href});
+  if(r.error)authMsg(r.error.message);
+  else authMsg("PASSWORD RESET EMAIL SENT.",true)
+ }catch(e){
+  authMsg("PASSWORD RESET FAILED.")
+ }
+};
+
+function enter(s){
+ if(s)session=s;
+ load();
+
+ $("auth").style.display="none";
+ $("app").style.display="block";
+ $("nav").style.display="grid";
+
+ render()
+}
+
+$("signout").onclick=async()=>{
+ try{
+  if(SB)await SB.auth.signOut()
+ }catch(e){}
+
+ session=null;
+
+ $("app").style.display="none";
+ $("nav").style.display="none";
+ $("auth").style.display="flex";
+
+ $("password").value="";
+ $("confirm").value="";
+
+ authMsg("SIGNED OUT.",true)
+};
 
 async function initSupabase(){
  try{
-  if(!window.supabase)return;
+  if(!window.supabase){
+   authMsg("SYSTEM AUTHENTICATION LIBRARY FAILED TO LOAD.");
+   return
+  }
+
   SB=window.supabase.createClient(SB_URL,SB_KEY);
-  const r=await Promise.race([
+
+  const result=await Promise.race([
    SB.auth.getSession(),
-   new Promise(resolve=>setTimeout(()=>resolve({data:{session:null},timeout:true}),3500))
+   new Promise(resolve=>setTimeout(()=>resolve({timeout:true,data:{session:null}}),4000))
   ]);
-  if(r?.data?.session)enter(r.data.session);
- }catch(e){console.warn("SENRAI cloud unavailable",e)}
+
+  if(result?.data?.session){
+   enter(result.data.session)
+  }
+
+  if(SB){
+   SB.auth.onAuthStateChange((event,s)=>{
+    if(event==="SIGNED_IN"&&s)enter(s);
+
+    if(event==="SIGNED_OUT"){
+     session=null;
+     $("app").style.display="none";
+     $("nav").style.display="none";
+     $("auth").style.display="flex"
+    }
+   })
+  }
+
+ }catch(e){
+  console.warn("SENRAI AUTH:",e);
+  authMsg("AUTH CONNECTION FAILED. CHECK YOUR CONNECTION AND TRY AGAIN.")
+ }
 }
 
-function boot(n,t){$("bootbar").style.width=n+"%";$("bootpct").textContent=n+"%";$("boottxt").textContent=t}
+function boot(n,t){
+ $("bootbar").style.width=n+"%";
+ $("bootpct").textContent=n+"%";
+ $("boottxt").textContent=t
+}
 
 (async()=>{
- /* IMPORTANT: the boot sequence does not depend on Supabase. */
- boot(15,"INITIALIZING SYSTEM");
+ boot(10,"INITIALIZING SYSTEM");
  await new Promise(r=>setTimeout(r,180));
- boot(35,"LOADING SENRAI CORE");
+
+ boot(30,"LOADING SENRAI CORE");
  await new Promise(r=>setTimeout(r,180));
- boot(55,"PREPARING INTERFACE");
+
+ boot(52,"PREPARING INTERFACE");
  await new Promise(r=>setTimeout(r,180));
- boot(78,"SYSTEM READY");
+
+ boot(74,"PREPARING SYSTEM ACCESS");
+ await new Promise(r=>setTimeout(r,180));
+
  load();
- if(!SB){
-  $("auth").style.display="flex";
-  authMsg("CLOUD ACCESS LOADING — SIGN IN WILL ACTIVATE WHEN READY.",true);
- }else enter(null);
+
  boot(100,"SYSTEM ONLINE");
- setTimeout(()=>{$("boot").classList.add("out");setTimeout(()=>$("boot").style.display="none",750)},250);
- /* Supabase starts AFTER the splash is released. */
- setTimeout(initSupabase,50);
+
+ $("auth").style.display="flex";
+
+ setTimeout(()=>{
+  $("boot").classList.add("out");
+  setTimeout(()=>$("boot").style.display="none",750)
+ },250);
+
+ /* Supabase initialization happens AFTER the splash. */
+ setTimeout(initSupabase,100)
 })();
 
-/* If the CDN itself is slow/unavailable, the application still opens. */
+/* Absolute failsafe: the splash can NEVER trap the user. */
 setTimeout(()=>{
  if($("boot").style.display!=="none"){
   $("boot").classList.add("out");
-  setTimeout(()=>$("boot").style.display="none",750);
+  setTimeout(()=>$("boot").style.display="none",750)
  }
+
  if(!$("app").style.display&&!$("auth").style.display){
   $("auth").style.display="flex";
   authMsg("SYSTEM READY. CLOUD ACCESS WILL CONNECT WHEN AVAILABLE.",true)
  }
-},5000);
-</script></body></html>
+},6000);
+
+</script>
+</body></html>
