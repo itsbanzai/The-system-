@@ -2,6499 +2,3682 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#050505">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SENRAI</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#050609;
+--panel:#0b0d12;
+--panel2:#10131a;
+--line:#1b2029;
+--text:#f1f3f7;
+--muted:#777f8d;
+--green:#5df2a5;
+--blue:#65a9ff;
+--purple:#a87cff;
+--orange:#ffae57;
+--red:#ff667a;
+--cyan:#69e2dc
 }
 
-:root {
-    --bg: #050505;
-    --panel: #0b0b0b;
-    --border: #222;
-    --text: #f2f2f2;
-    --muted: #858585;
-    --success: #72e6a5;
-    --warning: #e7c66b;
-    --danger: #e47777;
+body{
+background:radial-gradient(circle at 50% -10%,rgba(100,120,160,.12),transparent 35%),var(--bg);
+color:var(--text);
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
+button,input,select{font-family:inherit}
+
+button{
+border:1px solid #343b48;
+background:#11141a;
+color:var(--text);
+padding:11px 14px;
+font-size:9px;
+letter-spacing:1.5px;
+cursor:pointer;
+transition:.2s
 }
 
-body {
-    overflow-x: hidden;
+button:hover{
+background:#191d25;
+border-color:#626c7d
 }
 
-button,
-input,
-select,
-textarea {
-    font: inherit;
+button:disabled{
+opacity:.35;
+cursor:not-allowed
 }
 
-button {
-    cursor: pointer;
+button.primary{
+background:#e8edf5;
+color:#050609;
+border-color:#e8edf5;
+font-weight:bold
 }
 
-.hidden {
-    display: none !important;
-}
-
-/* =========================================================
+/* =========================
    SPLASH
-========================================================= */
+========================= */
 
-#splash {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: opacity .8s ease, visibility .8s ease;
+#splash{
+position:fixed;
+inset:0;
+z-index:9999;
+background:radial-gradient(circle at center,rgba(90,110,150,.1),transparent 45%),#030407;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:opacity .8s,visibility .8s
 }
 
-#splash.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+#splash.hidden{
+opacity:0;
+visibility:hidden
 }
 
-.splash-smoke,
-.splash-smoke::before,
-.splash-smoke::after {
-    position: absolute;
-    content: "";
-    border-radius: 50%;
-    pointer-events: none;
+.splash-content{
+width:min(420px,85%);
+text-align:center
 }
 
-.splash-smoke {
-    width: 75vw;
-    height: 75vw;
-    max-width: 650px;
-    max-height: 650px;
-    background: radial-gradient(
-        circle,
-        rgba(255,255,255,.075) 0%,
-        rgba(255,255,255,.035) 25%,
-        rgba(255,255,255,.012) 48%,
-        transparent 72%
-    );
-    filter: blur(30px);
-    animation: smokeFloat 9s ease-in-out infinite alternate;
+.logo-mark{
+width:82px;
+height:82px;
+margin:0 auto 25px;
+border:2px solid #dce2eb;
+transform:rotate(45deg);
+display:flex;
+justify-content:center;
+align-items:center;
+box-shadow:0 0 35px rgba(200,220,255,.08)
 }
 
-.splash-smoke::before {
-    width: 55%;
-    height: 55%;
-    left: -20%;
-    top: 20%;
-    background: rgba(255,255,255,.035);
-    filter: blur(40px);
-    animation: smokeLeft 7s ease-in-out infinite alternate;
+.logo-inner{
+width:48px;
+height:48px;
+border:1px solid #737d8e;
+display:flex;
+align-items:center;
+justify-content:center
 }
 
-.splash-smoke::after {
-    width: 55%;
-    height: 55%;
-    right: -20%;
-    bottom: 10%;
-    background: rgba(255,255,255,.035);
-    filter: blur(40px);
-    animation: smokeRight 8s ease-in-out infinite alternate;
+.logo-inner span{
+transform:rotate(-45deg);
+font-size:25px;
+font-weight:800;
+letter-spacing:-2px
 }
 
-.splash-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 420px;
-    padding: 30px;
-    text-align: center;
+.splash-title{
+font-size:42px;
+font-weight:800;
+letter-spacing:10px;
+margin-left:10px
 }
 
-.splash-logo {
-    width: 155px;
-    height: 155px;
-    object-fit: contain;
-    filter:
-        drop-shadow(0 0 10px rgba(255,255,255,.18))
-        drop-shadow(0 0 35px rgba(255,255,255,.08));
-    animation: logoAwaken 3s ease-in-out infinite alternate;
+.splash-subtitle{
+color:#747c89;
+font-size:10px;
+letter-spacing:3px;
+margin-top:10px
 }
 
-.splash-status {
-    margin-top: 26px;
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: #aaa;
+.loading-container{
+margin-top:55px
 }
 
-.splash-progress {
-    width: 180px;
-    height: 2px;
-    margin: 18px auto 0;
-    background: #1b1b1b;
-    overflow: hidden;
+.loading-bar{
+height:2px;
+background:#171b23;
+overflow:hidden
 }
 
-.splash-progress-bar {
-    height: 100%;
-    width: 0%;
-    background: #ddd;
-    box-shadow: 0 0 10px rgba(255,255,255,.4);
+.loading-fill{
+width:0;
+height:100%;
+background:#e8edf5;
+transition:width .2s
 }
 
-.splash-percent {
-    margin-top: 10px;
-    color: #555;
-    font-size: 9px;
-    letter-spacing: 2px;
+.loading-text{
+margin-top:12px;
+display:flex;
+justify-content:space-between;
+color:#626a78;
+font-size:9px;
+letter-spacing:2px
 }
 
-@keyframes smokeFloat {
-    from {
-        transform: translate(-6%, -3%) scale(.95);
-    }
-    to {
-        transform: translate(6%, 4%) scale(1.08);
-    }
-}
-
-@keyframes smokeLeft {
-    from {
-        transform: translate(0, 10%) scale(.9);
-    }
-    to {
-        transform: translate(35%, -15%) scale(1.15);
-    }
-}
-
-@keyframes smokeRight {
-    from {
-        transform: translate(0, 0) scale(.9);
-    }
-    to {
-        transform: translate(-30%, 20%) scale(1.15);
-    }
-}
-
-@keyframes logoAwaken {
-    from {
-        opacity: .72;
-        transform: scale(.97);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1.02);
-    }
-}
-
-/* =========================================================
+/* =========================
    APP
-========================================================= */
+========================= */
 
-#app {
-    min-height: 100vh;
-    padding-bottom: 92px;
+#app{
+width:min(1050px,100%);
+margin:auto;
+padding:24px 18px 100px
 }
 
-.topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(5,5,5,.94);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding:
-        calc(12px + env(safe-area-inset-top))
-        18px
-        12px;
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding-bottom:22px;
+border-bottom:1px solid var(--line)
 }
 
-.topbar-inner {
-    max-width: 900px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+.brand{
+display:flex;
+align-items:center;
+gap:12px
 }
 
-.brand {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 4px;
+.brand-mark{
+width:30px;
+height:30px;
+border:1px solid #b9c0cb;
+transform:rotate(45deg);
+display:flex;
+align-items:center;
+justify-content:center
 }
 
-.user-mini {
-    text-align: right;
+.brand-mark span{
+transform:rotate(-45deg);
+font-size:12px;
+font-weight:bold
 }
 
-.user-mini-name {
-    font-size: 12px;
-    color: #ddd;
+.brand-name{
+font-size:18px;
+font-weight:800;
+letter-spacing:4px
 }
 
-.user-mini-level {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    margin-top: 2px;
+.system-status{
+font-size:9px;
+color:var(--green);
+letter-spacing:2px
 }
 
-.page {
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
-    padding: 22px 16px 30px;
+.status-dot{
+display:inline-block;
+width:6px;
+height:6px;
+border-radius:50%;
+background:var(--green);
+margin-right:6px;
+box-shadow:0 0 8px var(--green)
 }
 
-.page-title {
-    margin: 0;
-    font-size: 25px;
-    letter-spacing: -.5px;
-}
-
-.page-subtitle {
-    margin: 7px 0 24px;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.card {
-    background: linear-gradient(145deg, #0d0d0d, #090909);
-    border: 1px solid var(--border);
-    border-radius: 15px;
-    padding: 17px;
-    margin-bottom: 13px;
-}
-
-.card-title {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #aaa;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-.section-label {
-    margin: 27px 2px 11px;
-    font-size: 10px;
-    color: #666;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-/* =========================================================
-   PROFILE / XP
-========================================================= */
-
-.level-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 15px;
-}
-
-.level-number {
-    font-size: 42px;
-    font-weight: 700;
-    line-height: .9;
-}
-
-.level-label {
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    margin-bottom: 4px;
-}
-
-.xp-text {
-    text-align: right;
-    color: var(--muted);
-    font-size: 11px;
-}
-
-.progress-track {
-    height: 6px;
-    width: 100%;
-    background: #181818;
-    border-radius: 99px;
-    overflow: hidden;
-    margin-top: 15px;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #777, #fff);
-    border-radius: inherit;
-    transition: width .5s ease;
-}
-
-/* =========================================================
-   QUEST CARDS
-========================================================= */
-
-.quest-card {
-    position: relative;
-    overflow: hidden;
-}
-
-.quest-card.completed {
-    opacity: .52;
-}
-
-.quest-card.skipped {
-    opacity: .38;
-}
+/* =========================
+   VIEWS
+========================= */
 
-.quest-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+.view{
+display:none
 }
 
-.quest-info {
-    flex: 1;
-    min-width: 0;
+.view.active{
+display:block
 }
 
-.quest-name {
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.35;
-}
-
-.quest-description {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.5;
-    margin-top: 6px;
-}
-
-.quest-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    min-height: 21px;
-    padding: 3px 8px;
-    border: 1px solid #2a2a2a;
-    border-radius: 5px;
-    color: #888;
-    font-size: 9px;
-    letter-spacing: .7px;
-    text-transform: uppercase;
-}
-
-.badge.xp {
-    color: #eee;
-    border-color: #444;
-}
-
-.badge.main {
-    color: #ddd;
-}
-
-.badge.daily {
-    color: #aaa;
-}
-
-.badge.side {
-    color: #999;
-}
+/* =========================
+   HERO
+========================= */
 
-.badge.skipped {
-    color: var(--danger);
-    border-color: #452727;
+.hero{
+margin-top:22px;
+border:1px solid var(--line);
+background:linear-gradient(135deg,rgba(255,255,255,.025),transparent),var(--panel);
+padding:24px;
+position:relative;
+overflow:hidden
 }
 
-.quest-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 15px;
+.hero-top{
+display:flex;
+justify-content:space-between;
+gap:20px
 }
 
-.btn {
-    border: 1px solid #303030;
-    background: #111;
-    color: #ddd;
-    border-radius: 8px;
-    min-height: 38px;
-    padding: 8px 13px;
-    font-size: 11px;
-    letter-spacing: .4px;
+.hero-label,
+.summary-label,
+.form-label{
+color:var(--muted);
+font-size:9px;
+letter-spacing:2px
 }
 
-.btn:active {
-    transform: scale(.98);
+.level{
+font-size:38px;
+font-weight:800;
+line-height:1
 }
 
-.btn-primary {
-    background: #eee;
-    color: #050505;
-    border-color: #eee;
+.level span{
+color:var(--muted);
+font-size:12px;
+letter-spacing:2px
 }
 
-.btn-success {
-    border-color: #31513e;
-    color: var(--success);
+.hero-xp{
+text-align:right
 }
 
-.btn-danger {
-    color: var(--danger);
-    border-color: #452727;
+.hero-xp-number{
+font-size:20px;
+font-weight:bold
 }
 
-.btn-small {
-    min-height: 32px;
-    padding: 6px 10px;
-    font-size: 10px;
+.hero-xp-label{
+color:var(--muted);
+font-size:9px;
+letter-spacing:2px;
+margin-top:3px
 }
 
-.btn-full {
-    width: 100%;
+.xp-track{
+margin-top:22px;
+height:6px;
+background:#191d25;
+overflow:hidden
 }
 
-.quest-progress {
-    margin-top: 15px;
+.xp-fill{
+width:0;
+height:100%;
+background:linear-gradient(90deg,#737e91,#edf2f8);
+transition:width .4s
 }
 
-.quest-progress-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    color: #777;
-    margin-bottom: 6px;
+.xp-footer{
+display:flex;
+justify-content:space-between;
+color:var(--muted);
+font-size:9px;
+margin-top:8px;
+letter-spacing:1px
 }
 
-.quest-progress-track {
-    height: 5px;
-    background: #191919;
-    border-radius: 99px;
-    overflow: hidden;
-}
-
-.quest-progress-fill {
-    height: 100%;
-    background: #ddd;
-    transition: width .4s ease;
-}
-
-.objectives {
-    margin-top: 15px;
-    border-top: 1px solid #1d1d1d;
-    padding-top: 10px;
-}
-
-.objective {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 8px 0;
-    color: #aaa;
-    font-size: 12px;
-}
+/* =========================
+   SUMMARY
+========================= */
 
-.objective-check {
-    width: 19px;
-    height: 19px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+.summary-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:12px
 }
 
-.objective.done {
-    color: #666;
-    text-decoration: line-through;
+.summary-card,
+.panel,
+.quest,
+.stat,
+.achievement,
+.life-quest,
+.objective{
+border:1px solid var(--line);
+background:var(--panel)
 }
 
-.objective.done .objective-check {
-    background: #ddd;
-    color: #000;
-    border-color: #ddd;
+.summary-card{
+padding:18px
 }
 
-.quest-note {
-    color: #666;
-    font-size: 11px;
-    line-height: 1.5;
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid #1b1b1b;
+.summary-value{
+font-size:24px;
+font-weight:800;
+margin-top:7px
 }
 
-.quest-date {
-    color: #777;
-    font-size: 10px;
-    margin-top: 9px;
+.summary-sub{
+color:#59616f;
+font-size:9px;
+margin-top:5px
 }
 
-/* =========================================================
-   HOME
-========================================================= */
-
-.welcome {
-    margin-bottom: 23px;
+.streak-value{
+color:var(--orange)
 }
 
-.welcome-small {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #666;
-    text-transform: uppercase;
-}
+/* =========================
+   SECTIONS
+========================= */
 
-.welcome-name {
-    font-size: 29px;
-    margin-top: 5px;
-    font-weight: 650;
+.section{
+margin-top:28px
 }
 
-.personal-day {
-    color: #666;
-    font-size: 10px;
-    margin-top: 6px;
+.section-header{
+display:flex;
+justify-content:space-between;
+align-items:end;
+margin-bottom:12px
 }
 
-.home-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+.section-title{
+font-size:12px;
+letter-spacing:3px;
+font-weight:bold
 }
 
-.stat-mini {
-    background: #0c0c0c;
-    border: 1px solid #202020;
-    border-radius: 12px;
-    padding: 13px;
+.section-description{
+color:var(--muted);
+font-size:9px
 }
 
-.stat-mini-label {
-    color: #666;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-}
+/* =========================
+   OBJECTIVE
+========================= */
 
-.stat-mini-value {
-    font-size: 22px;
-    margin-top: 5px;
+.objective{
+border-left:2px solid var(--blue);
+padding:18px
 }
 
-.streak-number {
-    font-size: 30px;
+.objective-tag{
+color:var(--blue);
+font-size:8px;
+letter-spacing:2px;
+margin-bottom:8px
 }
 
-.objective-home {
-    font-size: 17px;
-    font-weight: 600;
+.objective h2{
+font-size:18px;
+margin-bottom:6px
 }
 
-.quick-actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 9px;
+.objective p{
+color:var(--muted);
+font-size:11px;
+line-height:1.5
 }
-
-/* =========================================================
-   STATS
-========================================================= */
 
-.stat-row {
-    margin-bottom: 18px;
-}
+/* =========================
+   SYSTEM REFLECTION
+========================= */
 
-.stat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.reflection-card{
+border:1px solid #292f3a;
+background:
+radial-gradient(circle at 90% 0%,rgba(101,169,255,.08),transparent 38%),
+linear-gradient(135deg,rgba(255,255,255,.025),transparent),
+var(--panel);
+padding:20px;
+position:relative;
+overflow:hidden
 }
 
-.stat-name {
-    font-size: 12px;
-    font-weight: 600;
+.reflection-card:before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+bottom:0;
+width:2px;
+background:linear-gradient(180deg,var(--blue),var(--purple))
 }
 
-.stat-description {
-    font-size: 10px;
-    color: #666;
-    margin-top: 2px;
+.reflection-label{
+color:var(--blue);
+font-size:8px;
+letter-spacing:3px;
+margin-bottom:10px
 }
 
-.stat-value {
-    font-size: 15px;
-    color: #ccc;
+.reflection-title{
+font-size:17px;
+font-weight:800;
+line-height:1.35;
+margin-bottom:8px
 }
 
-.stat-track {
-    height: 5px;
-    background: #181818;
-    border-radius: 99px;
-    margin-top: 8px;
-    overflow: hidden;
+.reflection-text{
+color:#aeb5c1;
+font-size:11px;
+line-height:1.6;
+max-width:760px
 }
 
-.stat-fill {
-    height: 100%;
-    background: #aaa;
+.reflection-divider{
+height:1px;
+background:#1d232d;
+margin:17px 0
 }
-
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
 
-.achievement {
-    display: flex;
-    gap: 13px;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #191919;
+.reflection-suggestion-label{
+color:var(--muted);
+font-size:8px;
+letter-spacing:2px;
+margin-bottom:7px
 }
 
-.achievement:last-child {
-    border-bottom: 0;
+.reflection-suggestion{
+font-size:13px;
+font-weight:bold;
+line-height:1.45
 }
 
-.achievement-icon {
-    width: 42px;
-    height: 42px;
-    border: 1px solid #303030;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    flex-shrink: 0;
+.reflection-reward{
+color:var(--green);
+font-size:8px;
+letter-spacing:1px;
+margin-top:6px
 }
 
-.achievement.locked {
-    opacity: .38;
+.reflection-actions{
+display:flex;
+gap:8px;
+margin-top:15px
 }
 
-.achievement-name {
-    font-size: 13px;
-    font-weight: 600;
+.reflection-actions button{
+flex:1
 }
 
-.achievement-description {
-    font-size: 10px;
-    color: #666;
-    margin-top: 3px;
-    line-height: 1.4;
+.reflection-dismiss{
+color:#7c8491
 }
 
-.achievement-reward {
-    margin-left: auto;
-    color: #888;
-    font-size: 10px;
+.reflection-empty{
+color:var(--muted);
+font-size:10px;
+line-height:1.6
 }
 
-/* =========================================================
-   HISTORY
-========================================================= */
+/* =========================
+   QUESTS
+========================= */
 
-.history-summary {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 9px;
-    margin-bottom: 14px;
+.quest-list{
+display:grid;
+gap:9px
 }
 
-.history-stat {
-    background: #0c0c0c;
-    border: 1px solid #202020;
-    border-radius: 11px;
-    padding: 13px;
+.quest{
+padding:15px;
+display:flex;
+align-items:center;
+gap:14px;
+transition:.2s
 }
 
-.history-stat-label {
-    font-size: 8px;
-    letter-spacing: 1.4px;
-    color: #666;
-    text-transform: uppercase;
+.quest:hover{
+border-color:#343b48;
+transform:translateX(2px)
 }
 
-.history-stat-value {
-    font-size: 23px;
-    margin-top: 5px;
+.quest.completed{
+opacity:.42
 }
 
-.history-day {
-    margin-bottom: 18px;
+.quest-check{
+width:25px;
+height:25px;
+border:1px solid #414957;
+color:transparent;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-shrink:0
 }
 
-.history-day-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 12px;
-    margin-bottom: 8px;
+.quest.completed .quest-check{
+border-color:var(--green);
+background:rgba(93,242,165,.08);
+color:var(--green)
 }
 
-.history-date {
-    font-size: 12px;
-    color: #aaa;
-    font-weight: 600;
+.quest-info{
+flex:1;
+min-width:0
 }
 
-.history-day-xp {
-    color: #777;
-    font-size: 10px;
+.quest-name{
+font-size:12px;
+font-weight:bold
 }
 
-.history-entry {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 11px 0;
-    border-bottom: 1px solid #191919;
+.quest-meta{
+color:var(--muted);
+font-size:8px;
+letter-spacing:1px;
+margin-top:5px
 }
 
-.history-entry:last-child {
-    border-bottom: 0;
+.quest-reward{
+text-align:right
 }
 
-.history-icon {
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
-    border: 1px solid #2b2b2b;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #bbb;
-    font-size: 13px;
+.xp-reward{
+font-size:12px;
+font-weight:bold
 }
 
-.history-entry-info {
-    flex: 1;
-    min-width: 0;
+.stat-reward{
+color:var(--muted);
+font-size:8px;
+margin-top:4px
 }
 
-.history-entry-name {
-    font-size: 12px;
-    color: #ddd;
-    line-height: 1.35;
+.quest.easy{
+border-left:2px solid var(--green)
 }
 
-.history-entry-meta {
-    color: #666;
-    font-size: 9px;
-    margin-top: 3px;
+.quest.normal{
+border-left:2px solid var(--blue)
 }
 
-.history-entry-xp {
-    color: #aaa;
-    font-size: 10px;
-    white-space: nowrap;
+.quest.hard{
+border-left:2px solid var(--purple)
 }
 
-.look-back {
-    border: 1px solid #2b2b2b;
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(255,255,255,.055),
-            transparent 45%
-        ),
-        #0b0b0b;
+.quest.extreme{
+border-left:2px solid var(--red)
 }
 
-.look-back-title {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #888;
-}
+/* =========================
+   CREATE QUEST
+========================= */
 
-.look-back-big {
-    font-size: 22px;
-    line-height: 1.3;
-    margin-top: 9px;
+.create-quest{
+padding:20px
 }
 
-.look-back-text {
-    color: #777;
-    font-size: 11px;
-    line-height: 1.65;
-    margin-top: 10px;
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
 }
-
-/* =========================================================
-   FORMS
-========================================================= */
 
-.form-group {
-    margin-bottom: 14px;
+.form-group{
+display:flex;
+flex-direction:column;
+gap:6px
 }
 
-.form-label {
-    display: block;
-    color: #888;
-    font-size: 10px;
-    letter-spacing: 1px;
-    margin-bottom: 7px;
-    text-transform: uppercase;
+.form-group.full{
+grid-column:1/-1
 }
 
 input,
-select,
-textarea {
-    width: 100%;
-    background: #080808;
-    color: #eee;
-    border: 1px solid #282828;
-    border-radius: 8px;
-    padding: 11px 12px;
-    outline: none;
+select{
+width:100%;
+border:1px solid #252b35;
+background:#080a0f;
+color:var(--text);
+padding:12px;
+outline:none;
+font-size:11px
 }
 
 input:focus,
-select:focus,
-textarea:focus {
-    border-color: #555;
+select:focus{
+border-color:#5d6878
 }
 
-textarea {
-    min-height: 90px;
-    resize: vertical;
+.create-button{
+margin-top:14px;
+width:100%;
+background:#e8edf5;
+color:#050609;
+border:none;
+font-weight:bold;
+padding:13px
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+/* =========================
+   CUSTOM QUESTS
+========================= */
+
+.custom-quest{
+border:1px solid var(--line);
+background:var(--panel);
+padding:15px;
+display:flex;
+align-items:center;
+gap:14px;
+margin-bottom:9px
 }
 
-/* =========================================================
-   LIFE
-========================================================= */
-
-.life-quest {
-    text-align: center;
-    padding: 15px 5px 5px;
+.custom-quest-main{
+flex:1;
+min-width:0
 }
 
-.life-icon {
-    font-size: 28px;
-    margin-bottom: 13px;
+.custom-quest-name{
+font-size:12px;
+font-weight:bold;
+word-break:break-word
 }
 
-.life-text {
-    font-size: 18px;
-    line-height: 1.45;
-    font-weight: 550;
+.custom-quest-meta{
+color:var(--muted);
+font-size:8px;
+letter-spacing:1px;
+margin-top:6px
 }
 
-.life-philosophy {
-    color: #777;
-    font-size: 12px;
-    line-height: 1.7;
-    text-align: center;
-    padding: 12px 8px;
+.custom-quest-actions{
+display:flex;
+gap:6px
 }
 
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-.schedule-options {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+.delete-button{
+width:32px;
+height:32px;
+padding:0;
+color:var(--red);
+border-color:#30232a
 }
 
-.schedule-option {
-    background: #090909;
-    border: 1px solid #242424;
-    color: #888;
-    padding: 13px 10px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 11px;
+.empty-state{
+border:1px dashed #242a34;
+padding:25px;
+text-align:center;
+color:#565e6b;
+font-size:9px;
+letter-spacing:1px
 }
 
-.schedule-option.active {
-    border-color: #ddd;
-    color: #fff;
-    background: #151515;
+/* =========================
+   LIFE QUEST
+========================= */
+
+.life-quest{
+padding:20px;
+background:
+radial-gradient(circle at 90% 10%,rgba(168,124,255,.08),transparent 35%),
+var(--panel)
 }
 
-.settings-note {
-    color: #666;
-    font-size: 11px;
-    line-height: 1.6;
-    margin-top: 12px;
+.life-label{
+color:var(--purple);
+font-size:8px;
+letter-spacing:3px
 }
 
-/* =========================================================
-   NAV
-========================================================= */
-
-.bottom-nav {
-    position: fixed;
-    z-index: 200;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding:
-        7px 4px
-        calc(7px + env(safe-area-inset-bottom));
-    background: rgba(7,7,7,.97);
-    backdrop-filter: blur(18px);
-    border-top: 1px solid #1c1c1c;
+.life-text{
+font-size:17px;
+font-weight:bold;
+margin:13px 0 18px;
+line-height:1.4;
+min-height:48px
 }
 
-.nav-inner {
-    max-width: 900px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+.button-row{
+display:flex;
+gap:8px
 }
 
-.nav-btn {
-    border: 0;
-    background: transparent;
-    color: #555;
-    min-height: 51px;
-    padding: 4px 1px;
+/* =========================
+   SIDE QUEST
+========================= */
+
+.side-card{
+border:1px solid var(--line);
+background:var(--panel);
+padding:17px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px
 }
 
-.nav-btn.active {
-    color: #eee;
+.side-left{
+display:flex;
+align-items:center;
+gap:13px
 }
 
-.nav-icon {
-    display: block;
-    font-size: 16px;
-    line-height: 18px;
+.side-icon{
+width:38px;
+height:38px;
+border:1px solid #303642;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:17px
 }
 
-.nav-label {
-    display: block;
-    font-size: 6.5px;
-    letter-spacing: .4px;
-    margin-top: 4px;
+.side-name{
+font-size:12px;
+font-weight:bold
 }
 
-/* =========================================================
-   TOAST
-========================================================= */
-
-#toast-container {
-    position: fixed;
-    z-index: 9999;
-    left: 15px;
-    right: 15px;
-    top: calc(65px + env(safe-area-inset-top));
-    pointer-events: none;
+.side-meta{
+color:var(--muted);
+font-size:8px;
+margin-top:5px
 }
 
-.toast {
-    max-width: 430px;
-    margin: 0 auto 8px;
-    padding: 12px 14px;
-    border: 1px solid #333;
-    background: rgba(12,12,12,.96);
-    border-radius: 9px;
-    color: #eee;
-    font-size: 11px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.4);
-    animation: toastIn .3s ease;
+/* =========================
+   STATS
+========================= */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
 }
 
-.toast.success {
-    border-color: #34503e;
+.stat{
+padding:15px
 }
 
-.toast.warning {
-    border-color: #4d4327;
+.stat-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px
 }
 
-@keyframes toastIn {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.stat-name{
+font-size:10px;
+font-weight:bold;
+letter-spacing:1px
 }
 
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 5000;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background: rgba(0,0,0,.72);
-    padding: 12px;
+.stat-value{
+font-size:10px;
+color:var(--muted)
 }
 
-.modal-box {
-    width: 100%;
-    max-width: 560px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: #0c0c0c;
-    border: 1px solid #292929;
-    border-radius: 17px;
-    padding: 18px;
-    margin-bottom: env(safe-area-inset-bottom);
+.stat-bar{
+height:3px;
+background:#1a1e26
 }
 
-.modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 18px;
+.stat-fill{
+height:100%;
+width:0;
+transition:width .4s
 }
 
-.modal-title {
-    font-size: 18px;
-    font-weight: 600;
+.str{background:var(--red)}
+.int{background:var(--blue)}
+.wis{background:var(--purple)}
+.cha{background:#ff78bd}
+.dex{background:var(--green)}
+.cre{background:var(--orange)}
+.vit{background:var(--cyan)}
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+.achievement-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
 }
 
-.close-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1px solid #2d2d2d;
-    background: #111;
-    color: #aaa;
+.achievement{
+padding:16px;
+position:relative
 }
 
-@media (min-width: 700px) {
-    .modal {
-        align-items: center;
-    }
+.achievement.unlocked{
+border-color:#38424f
+}
 
-    .home-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+.achievement.locked{
+opacity:.48
+}
 
-    .quick-actions {
-        grid-template-columns: repeat(4, 1fr);
-    }
+.achievement-icon{
+font-size:25px;
+margin-bottom:10px
+}
 
-    .schedule-options {
-        grid-template-columns: repeat(4, 1fr);
-    }
+.achievement-title{
+font-size:12px;
+font-weight:bold;
+letter-spacing:1px
+}
 
-    .history-summary {
-        grid-template-columns: repeat(4, 1fr);
-    }
+.achievement-desc{
+color:var(--muted);
+font-size:9px;
+line-height:1.45;
+margin-top:6px
+}
+
+.achievement-reward{
+font-size:9px;
+color:var(--green);
+margin-top:10px;
+letter-spacing:1px
+}
+
+.achievement-progress{
+height:3px;
+background:#1a1e26;
+margin-top:12px
+}
+
+.achievement-progress div{
+height:100%;
+background:var(--purple);
+width:0
+}
+
+.achievement-status{
+position:absolute;
+right:12px;
+top:12px;
+font-size:8px;
+letter-spacing:1px;
+color:var(--muted)
+}
+
+.achievement.unlocked .achievement-status{
+color:var(--green)
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navbar{
+position:fixed;
+left:50%;
+bottom:12px;
+transform:translateX(-50%);
+width:min(680px,calc(100% - 20px));
+z-index:500;
+background:rgba(10,12,17,.96);
+border:1px solid #242a34;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+padding:5px;
+backdrop-filter:blur(12px)
+}
+
+.nav-button{
+border:0;
+background:transparent;
+color:#687180;
+padding:11px 4px;
+font-size:8px;
+letter-spacing:1px
+}
+
+.nav-button.active{
+color:#f1f3f7;
+background:#171b23
+}
+
+.nav-icon{
+display:block;
+font-size:15px;
+margin-bottom:4px
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notification{
+position:fixed;
+left:50%;
+bottom:85px;
+transform:translate(-50%,100px);
+background:#eef2f7;
+color:#050609;
+padding:13px 20px;
+font-size:10px;
+font-weight:bold;
+letter-spacing:2px;
+z-index:10000;
+opacity:0;
+transition:.35s;
+box-shadow:0 10px 35px rgba(0,0,0,.35);
+text-align:center;
+white-space:nowrap
+}
+
+.notification.show{
+transform:translate(-50%,0);
+opacity:1
+}
+
+footer{
+text-align:center;
+color:#343a45;
+font-size:8px;
+letter-spacing:3px;
+margin-top:45px
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+#app{
+padding:18px 12px 100px
+}
+
+.hero{
+padding:18px
+}
+
+.level{
+font-size:31px
+}
+
+.summary-grid{
+gap:7px
+}
+
+.summary-card{
+padding:13px
+}
+
+.summary-value{
+font-size:20px
+}
+
+.stats-grid,
+.achievement-grid{
+grid-template-columns:1fr
+}
+
+.form-grid{
+grid-template-columns:1fr
+}
+
+.form-group.full{
+grid-column:auto
+}
+
+.button-row,
+.custom-quest-actions,
+.reflection-actions{
+flex-direction:column
+}
+
+.button-row button,
+.custom-complete,
+.reflection-actions button{
+width:100%
+}
+
+.splash-title{
+font-size:32px;
+letter-spacing:7px
+}
+
+.custom-quest{
+align-items:flex-start
+}
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
+<!-- =========================
      SPLASH
-========================================================= -->
+========================= -->
 
 <div id="splash">
 
-    <div class="splash-smoke"></div>
+<div class="splash-content">
 
-    <div class="splash-content">
-
-        <img
-            src="senrai-logo.png"
-            class="splash-logo"
-            alt="SENRAI"
-            onerror="this.style.opacity='.15'"
-        >
-
-        <div
-            class="splash-status"
-            id="splash-status"
-        >
-            SYSTEM INITIALIZING
-        </div>
-
-        <div class="splash-progress">
-            <div
-                class="splash-progress-bar"
-                id="splash-bar"
-            ></div>
-        </div>
-
-        <div
-            class="splash-percent"
-            id="splash-percent"
-        >
-            0%
-        </div>
-
-    </div>
+<div class="logo-mark">
+<div class="logo-inner">
+<span>S</span>
+</div>
 </div>
 
-<!-- =========================================================
+<div class="splash-title">SENRAI</div>
+
+<div class="splash-subtitle">
+PERSONAL PROGRESSION SYSTEM
+</div>
+
+<div class="loading-container">
+
+<div class="loading-bar">
+<div class="loading-fill" id="loadingFill"></div>
+</div>
+
+<div class="loading-text">
+<span id="loadingStatus">SYSTEM INITIALIZING</span>
+<span id="loadingPercent">0%</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
      APP
-========================================================= -->
+========================= -->
 
-<div id="app" class="hidden">
+<div id="app">
 
-    <header class="topbar">
+<header>
 
-        <div class="topbar-inner">
+<div class="brand">
 
-            <div class="brand">
-                SENRAI
-            </div>
+<div class="brand-mark">
+<span>S</span>
+</div>
 
-            <div class="user-mini">
-
-                <div
-                    class="user-mini-name"
-                    id="top-user-name"
-                >
-                    Player
-                </div>
-
-                <div
-                    class="user-mini-level"
-                    id="top-user-level"
-                >
-                    LEVEL 1
-                </div>
-
-            </div>
-
-        </div>
-
-    </header>
-
-    <main id="page-content"></main>
-
-    <nav class="bottom-nav">
-
-        <div class="nav-inner">
-
-            <button
-                class="nav-btn active"
-                data-page="home"
-            >
-                <span class="nav-icon">⌂</span>
-                <span class="nav-label">HOME</span>
-            </button>
-
-            <button
-                class="nav-btn"
-                data-page="quests"
-            >
-                <span class="nav-icon">⚔</span>
-                <span class="nav-label">QUESTS</span>
-            </button>
-
-            <button
-                class="nav-btn"
-                data-page="stats"
-            >
-                <span class="nav-icon">◈</span>
-                <span class="nav-label">STATS</span>
-            </button>
-
-            <button
-                class="nav-btn"
-                data-page="achievements"
-            >
-                <span class="nav-icon">♛</span>
-                <span class="nav-label">ACHIEVEMENTS</span>
-            </button>
-
-            <button
-                class="nav-btn"
-                data-page="history"
-            >
-                <span class="nav-icon">◷</span>
-                <span class="nav-label">HISTORY</span>
-            </button>
-
-            <button
-                class="nav-btn"
-                data-page="life"
-            >
-                <span class="nav-icon">✦</span>
-                <span class="nav-label">LIFE</span>
-            </button>
-
-            <button
-                class="nav-btn"
-                data-page="settings"
-            >
-                <span class="nav-icon">⚙</span>
-                <span class="nav-label">SETTINGS</span>
-            </button>
-
-        </div>
-
-    </nav>
+<div class="brand-name">
+SENRAI
+</div>
 
 </div>
 
-<div id="toast-container"></div>
+<div class="system-status">
+<span class="status-dot"></span>
+SYSTEM ONLINE
+</div>
 
-<!-- =========================================================
-     MODAL
-========================================================= -->
+</header>
+
+<!-- =========================
+     HOME
+========================= -->
+
+<main id="homeView" class="view active">
+
+<section class="hero">
+
+<div class="hero-top">
+
+<div>
+
+<div class="hero-label">
+CURRENT LEVEL
+</div>
+
+<div class="level">
+<span id="level">1</span>
+<span>LVL</span>
+</div>
+
+</div>
+
+<div class="hero-xp">
+
+<div class="hero-xp-number">
+<span id="xp">0</span> XP
+</div>
+
+<div class="hero-xp-label">
+CURRENT EXPERIENCE
+</div>
+
+</div>
+
+</div>
+
+<div class="xp-track">
+<div class="xp-fill" id="xpBar"></div>
+</div>
+
+<div class="xp-footer">
+
+<span id="xpProgress">
+0 / 100 XP
+</span>
+
+<span id="nextLevel">
+LEVEL 2
+</span>
+
+</div>
+
+</section>
+
+<section class="summary-grid">
+
+<div class="summary-card">
+
+<div class="summary-label">
+TODAY
+</div>
+
+<div class="summary-value">
+<span id="todayCount">0</span> / 4
+</div>
+
+<div class="summary-sub">
+DAILY QUESTS
+</div>
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-label">
+STREAK
+</div>
+
+<div class="summary-value streak-value">
+<span id="streak">0</span>
+</div>
+
+<div class="summary-sub">
+DAYS ACTIVE
+</div>
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-label">
+TODAY XP
+</div>
+
+<div class="summary-value">
+<span id="todayXP">0</span>
+</div>
+
+<div class="summary-sub">
+EXPERIENCE EARNED
+</div>
+
+</div>
+
+</section>
+
+<!-- CURRENT OBJECTIVE -->
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+CURRENT OBJECTIVE
+</div>
+
+<div class="section-description">
+MAKE PROGRESS
+</div>
+
+</div>
+
+<div class="objective">
+
+<div class="objective-tag">
+MAIN QUEST
+</div>
+
+<h2>
+Become better than yesterday.
+</h2>
+
+<p>
+You don't need to change your entire life today. Complete a few meaningful actions and keep moving forward.
+</p>
+
+</div>
+
+</section>
+
+<!-- SYSTEM REFLECTION -->
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+SYSTEM REFLECTION
+</div>
+
+<div class="section-description">
+SENRAI IS LEARNING
+</div>
+
+</div>
+
+<div class="reflection-card">
+
+<div class="reflection-label">
+SYSTEM REFLECTION
+</div>
+
+<div class="reflection-title" id="reflectionTitle">
+KEEP DISCOVERING YOUR BUILD.
+</div>
+
+<div class="reflection-text" id="reflectionText">
+SENRAI is still learning how you move. Your choices will shape what the system notices next.
+</div>
+
+<div class="reflection-divider"></div>
+
+<div class="reflection-suggestion-label">
+SUGGESTED SIDE QUEST
+</div>
+
+<div class="reflection-suggestion" id="reflectionSuggestion">
+Try something slightly outside your normal routine.
+</div>
+
+<div class="reflection-reward" id="reflectionReward">
++25 XP • +1 WIS
+</div>
+
+<div class="reflection-actions">
+
+<button
+id="acceptReflectionButton"
+class="primary">
+ACCEPT QUEST
+</button>
+
+<button
+id="refreshReflectionButton"
+class="reflection-dismiss">
+ANOTHER REFLECTION
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- QUICK QUESTS -->
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+QUICK QUESTS
+</div>
+
+<button onclick="showView('quests')">
+VIEW ALL
+</button>
+
+</div>
+
+<div class="quest-list" id="homeDailyQuests"></div>
+
+</section>
+
+<!-- LIFE QUEST -->
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+LIFE QUEST
+</div>
+
+<div class="section-description">
+OPTIONAL
+</div>
+
+</div>
+
+<div class="life-quest">
+
+<div class="life-label">
+RANDOM ENCOUNTER
+</div>
+
+<div class="life-text" id="homeLifeText">
+Your next adventure is waiting.
+</div>
+
+<div class="button-row">
+
+<button
+id="homeSurprise"
+class="primary">
+🎲 SURPRISE ME
+</button>
+
+<button
+id="homeCompleteLife"
+disabled>
+COMPLETE QUEST
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     QUESTS
+========================= -->
+
+<main id="questsView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+DAILY QUESTS
+</div>
+
+<div class="section-description">
+RESET DAILY
+</div>
+
+</div>
+
+<div class="quest-list" id="dailyQuests"></div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+CREATE QUEST
+</div>
+
+<div class="section-description">
+DEFINE YOUR OWN PATH
+</div>
+
+</div>
+
+<div class="panel create-quest">
+
+<div class="form-grid">
+
+<div class="form-group full">
+
+<label class="form-label">
+QUEST NAME
+</label>
+
+<input
+id="questNameInput"
+type="text"
+placeholder="What do you want to accomplish?"
+maxlength="80">
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+QUEST TYPE
+</label>
+
+<select id="questTypeInput">
+
+<option value="MAIN">
+MAIN QUEST
+</option>
+
+<option value="DAILY">
+DAILY QUEST
+</option>
+
+<option value="SIDE">
+SIDE QUEST
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+DIFFICULTY
+</label>
+
+<select id="questDifficultyInput">
+
+<option value="EASY">
+EASY • +10 XP
+</option>
+
+<option value="NORMAL">
+NORMAL • +25 XP
+</option>
+
+<option value="HARD">
+HARD • +50 XP
+</option>
+
+<option value="EXTREME">
+EXTREME • +100 XP
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">
+STAT
+</label>
+
+<select id="questStatInput">
+
+<option value="STR">
+STR • FITNESS
+</option>
+
+<option value="INT">
+INT • LEARNING
+</option>
+
+<option value="WIS">
+WIS • PERSONAL GROWTH
+</option>
+
+<option value="CHA">
+CHA • SOCIAL
+</option>
+
+<option value="DEX">
+DEX • PRODUCTIVITY
+</option>
+
+<option value="CRE">
+CRE • CREATIVITY
+</option>
+
+<option value="VIT">
+VIT • HEALTH
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button
+class="create-button"
+id="createQuestButton">
++ CREATE QUEST
+</button>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+YOUR QUESTS
+</div>
+
+<div class="section-description">
+PERSONAL OBJECTIVES
+</div>
+
+</div>
+
+<div id="customQuestList"></div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+SIDE QUEST
+</div>
+
+<div class="section-description">
+SOCIAL
+</div>
+
+</div>
+
+<div class="side-card">
+
+<div class="side-left">
+
+<div class="side-icon">
+☎
+</div>
+
+<div>
+
+<div class="side-name">
+Call someone you haven't talked to recently
+</div>
+
+<div class="side-meta">
++20 XP • +1 CHA
+</div>
+
+</div>
+
+</div>
+
+<button id="sideQuestButton">
+COMPLETE
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     STATS
+========================= -->
+
+<main id="statsView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+CHARACTER STATS
+</div>
+
+<div class="section-description">
+YOUR DEVELOPMENT
+</div>
+
+</div>
+
+<div class="stats-grid" id="statsGrid"></div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+PROGRESSION
+</div>
+
+<div class="section-description">
+KEEP BUILDING
+</div>
+
+</div>
+
+<div class="objective">
+
+<div class="objective-tag">
+SYSTEM NOTE
+</div>
+
+<h2>
+Your stats grow through action.
+</h2>
+
+<p>
+Every completed quest strengthens the stat connected to it. There is no single correct build — your life determines your character.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     ACHIEVEMENTS
+========================= -->
+
+<main id="achievementsView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+ACHIEVEMENTS
+</div>
+
+<div class="section-description">
+<span id="achievementCount">0 / 7</span> UNLOCKED
+</div>
+
+</div>
+
+<div class="achievement-grid" id="achievementGrid"></div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     LIFE
+========================= -->
+
+<main id="lifeView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+LIFE QUEST
+</div>
+
+<div class="section-description">
+RANDOM ENCOUNTER
+</div>
+
+</div>
+
+<div class="life-quest">
+
+<div class="life-label">
+SURPRISE ME
+</div>
+
+<div class="life-text" id="lifeQuestText">
+Your next adventure is waiting.
+</div>
+
+<div class="button-row">
+
+<button
+id="surpriseButton"
+class="primary">
+🎲 SURPRISE ME
+</button>
+
+<button
+id="completeLifeButton"
+disabled>
+COMPLETE QUEST
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+THE IDEA
+</div>
+
+<div class="section-description">
+SENRAI
+</div>
+
+</div>
+
+<div class="objective">
+
+<div class="objective-tag">
+LIFE SYSTEM
+</div>
+
+<h2>
+Make room for things that make life better.
+</h2>
+
+<p>
+Not every quest needs to be productive. Some quests are about people, experiences, curiosity, fun, or simply noticing the world around you.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+SENRAI • YOUR LIFE, YOUR PROGRESS
+</footer>
+
+</div>
+
+<!-- =========================
+     NAV
+========================= -->
+
+<nav class="navbar">
+
+<button
+class="nav-button active"
+data-view="home">
+
+<span class="nav-icon">
+⌂
+</span>
+
+HOME
+
+</button>
+
+<button
+class="nav-button"
+data-view="quests">
+
+<span class="nav-icon">
+⚔
+</span>
+
+QUESTS
+
+</button>
+
+<button
+class="nav-button"
+data-view="stats">
+
+<span class="nav-icon">
+◈
+</span>
+
+STATS
+
+</button>
+
+<button
+class="nav-button"
+data-view="achievements">
+
+<span class="nav-icon">
+🏆
+</span>
+
+ACHIEVEMENTS
+
+</button>
+
+<button
+class="nav-button"
+data-view="life">
+
+<span class="nav-icon">
+✦
+</span>
+
+LIFE
+
+</button>
+
+</nav>
 
 <div
-    id="modal"
-    class="modal hidden"
->
-    <div
-        class="modal-box"
-        id="modal-content"
-    ></div>
+class="notification"
+id="notification">
 </div>
 
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+/* =========================
+   STORAGE
+========================= */
 
-const SUPABASE_URL =
-    "https://qkonsmkzxzkxziektmfx.supabase.co";
+const STORAGE_KEY="theSystemData";
+const CUSTOM_QUESTS_KEY="senraiCustomQuests";
+const ACHIEVEMENTS_KEY="senraiAchievements";
 
-const SUPABASE_KEY =
-    "sb_publishable_Jr9ED_DV29-CqvpS0TS7UQ_yYytM-d3";
+/* =========================
+   PLAYER DATA
+========================= */
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+let data=JSON.parse(localStorage.getItem(STORAGE_KEY))||{
 
-/* =========================================================
-   STORAGE KEYS
-========================================================= */
+level:1,
 
-const PROFILE_KEY =
-    "theSystemData";
+xp:0,
 
-const CUSTOM_QUESTS_KEY =
-    "senraiCustomQuests";
+completed:[],
 
-const ACHIEVEMENTS_KEY =
-    "senraiAchievements";
+stats:{
+STR:0,
+INT:0,
+WIS:0,
+CHA:0,
+DEX:0,
+CRE:0,
+VIT:0
+},
 
-const DAILY_COMPLETED_KEY =
-    "senraiDailyCompleted";
+streak:0,
 
-const DAILY_SKIPPED_KEY =
-    "senraiDailySkipped";
+lastActiveDate:null,
 
-const PERMANENT_COMPLETED_KEY =
-    "senraiPermanentCompleted";
+lastResetDate:null,
 
-const MAIN_QUESTS_KEY =
-    "senraiMainQuests";
+completedToday:0,
 
-const SIDE_QUESTS_KEY =
-    "senraiSideQuests";
+todayXP:0,
 
-const DAY_START_KEY =
-    "senraiDayStartHour";
+totalXP:0,
 
-const HISTORY_KEY =
-    "senraiHistory";
+lifeQuestCompletions:0,
 
-/* =========================================================
-   STATS
-========================================================= */
+socialCompletions:0,
 
-const STAT_INFO = {
-
-    STR: {
-        name: "Strength",
-        description: "Fitness & physical action"
-    },
-
-    INT: {
-        name: "Intelligence",
-        description: "Learning & studying"
-    },
-
-    WIS: {
-        name: "Wisdom",
-        description: "Personal growth & reflection"
-    },
-
-    CHA: {
-        name: "Charisma",
-        description: "Social connection"
-    },
-
-    DEX: {
-        name: "Dexterity",
-        description: "Productivity & execution"
-    },
-
-    CRE: {
-        name: "Creativity",
-        description: "Creative expression"
-    },
-
-    VIT: {
-        name: "Vitality",
-        description: "Health & recovery"
-    }
+totalQuestsCompleted:0
 
 };
 
-/* =========================================================
-   DIFFICULTIES
-========================================================= */
+data.totalXP=data.totalXP||0;
+data.lifeQuestCompletions=data.lifeQuestCompletions||0;
+data.socialCompletions=data.socialCompletions||0;
+data.totalQuestsCompleted=data.totalQuestsCompleted||0;
 
-const DIFFICULTIES = {
+let customQuests=
+JSON.parse(localStorage.getItem(CUSTOM_QUESTS_KEY))||[];
 
-    EASY: {
-        label: "Easy",
-        xp: 10
-    },
+let unlockedAchievements=
+JSON.parse(localStorage.getItem(ACHIEVEMENTS_KEY))||[];
 
-    NORMAL: {
-        label: "Normal",
-        xp: 25
-    },
+let currentLifeQuest=null;
 
-    HARD: {
-        label: "Hard",
-        xp: 50
-    },
+let currentReflectionQuest=null;
 
-    EXTREME: {
-        label: "Extreme",
-        xp: 100
-    }
+let currentReflectionIndex=0;
 
-};
+/* =========================
+   DAILY QUESTS
+========================= */
 
-/* =========================================================
-   DEFAULT PROFILE
-========================================================= */
+const dailyData=[
 
-let profile = {
+{
+id:"bed",
+name:"Make your bed",
+xp:10,
+stat:"DEX",
+difficulty:"EASY"
+},
 
-    id: null,
+{
+id:"water",
+name:"Drink some water",
+xp:10,
+stat:"VIT",
+difficulty:"EASY"
+},
 
-    name: "Player",
+{
+id:"procrastination",
+name:"Do something you've been putting off",
+xp:25,
+stat:"WIS",
+difficulty:"NORMAL"
+},
 
-    level: 1,
-
-    xp: 0,
-
-    total_xp: 0,
-
-    streak: 0,
-
-    last_active_date: null,
-
-    total_quests_completed: 0,
-
-    total_life_quests: 0,
-
-    social_quests_completed: 0,
-
-    day_start_hour: 0,
-
-    stats: {
-
-        STR: 0,
-        INT: 0,
-        WIS: 0,
-        CHA: 0,
-        DEX: 0,
-        CRE: 0,
-        VIT: 0
-
-    }
-
-};
-
-let currentPage = "home";
-
-let lifeQuest = null;
-
-/* =========================================================
-   LOCAL STORAGE HELPERS
-========================================================= */
-
-function readJSON(
-    key,
-    fallback
-) {
-
-    try {
-
-        const raw =
-            localStorage.getItem(key);
-
-        if (!raw) {
-            return fallback;
-        }
-
-        return JSON.parse(raw);
-
-    } catch {
-
-        return fallback;
-
-    }
-
+{
+id:"outside",
+name:"Go outside for at least 5 minutes",
+xp:10,
+stat:"VIT",
+difficulty:"EASY"
 }
-
-function writeJSON(
-    key,
-    value
-) {
-
-    localStorage.setItem(
-        key,
-        JSON.stringify(value)
-    );
-
-}
-
-/* =========================================================
-   HISTORY SYSTEM
-========================================================= */
-
-function getHistory() {
-
-    return readJSON(
-        HISTORY_KEY,
-        []
-    );
-
-}
-
-function saveHistory(history) {
-
-    writeJSON(
-        HISTORY_KEY,
-        history
-    );
-
-}
-
-function addHistoryEntry(entry) {
-
-    const history =
-        getHistory();
-
-    history.push({
-
-        id:
-            "history-" +
-            Date.now() +
-            "-" +
-            Math.random()
-                .toString(36)
-                .slice(2),
-
-        timestamp:
-            new Date().toISOString(),
-
-        personalDay:
-            getPersonalDayKey(),
-
-        ...entry
-
-    });
-
-    /*
-     * Keep the most recent 500
-     * history entries locally.
-     */
-    if (history.length > 500) {
-
-        history.splice(
-            0,
-            history.length - 500
-        );
-
-    }
-
-    saveHistory(history);
-
-}
-
-function getHistoryForDay(
-    day
-) {
-
-    return getHistory()
-        .filter(
-            entry =>
-                entry.personalDay === day
-        );
-
-}
-
-function getHistoryQuestCount() {
-
-    return getHistory()
-        .filter(
-            entry =>
-                entry.type === "QUEST_COMPLETE"
-        )
-        .length;
-
-}
-
-function getHistoryXP() {
-
-    return getHistory()
-        .filter(
-            entry =>
-                entry.type === "QUEST_COMPLETE" ||
-                entry.type === "LIFE_QUEST" ||
-                entry.type === "ACHIEVEMENT"
-        )
-        .reduce(
-            (sum, entry) =>
-                sum +
-                Number(entry.xp || 0),
-            0
-        );
-
-}
-
-function getHistoryStatGrowth() {
-
-    const growth = {
-
-        STR: 0,
-        INT: 0,
-        WIS: 0,
-        CHA: 0,
-        DEX: 0,
-        CRE: 0,
-        VIT: 0
-
-    };
-
-    getHistory()
-        .forEach(entry => {
-
-            if (
-                entry.stat &&
-                growth[entry.stat] !== undefined
-            ) {
-
-                growth[entry.stat] +=
-                    Number(
-                        entry.statPoints || 0
-                    );
-
-            }
-
-        });
-
-    return growth;
-
-}
-
-function getLongestHistoricalStreak() {
-
-    const history =
-        getHistory()
-            .filter(
-                entry =>
-                    entry.type ===
-                    "STREAK_MILESTONE"
-            );
-
-    if (!history.length) {
-
-        return Math.max(
-            0,
-            Number(profile.streak || 0)
-        );
-
-    }
-
-    return Math.max(
-        Number(profile.streak || 0),
-        ...history.map(
-            entry =>
-                Number(entry.streak || 0)
-        )
-    );
-
-}
-
-/* =========================================================
-   DAY / PERSONAL SCHEDULE
-========================================================= */
-
-function getDayStartHour() {
-
-    if (
-        profile &&
-        Number.isInteger(
-            Number(
-                profile.day_start_hour
-            )
-        )
-    ) {
-
-        return Number(
-            profile.day_start_hour
-        );
-
-    }
-
-    const local =
-        Number(
-            localStorage.getItem(
-                DAY_START_KEY
-            )
-        );
-
-    if (
-        Number.isInteger(local)
-    ) {
-
-        return local;
-
-    }
-
-    return 0;
-
-}
-
-function getPersonalDayKey(
-    date = new Date()
-) {
-
-    const startHour =
-        getDayStartHour();
-
-    const adjusted =
-        new Date(date);
-
-    if (
-        adjusted.getHours() <
-        startHour
-    ) {
-
-        adjusted.setDate(
-            adjusted.getDate() - 1
-        );
-
-    }
-
-    const y =
-        adjusted.getFullYear();
-
-    const m =
-        String(
-            adjusted.getMonth() + 1
-        ).padStart(2, "0");
-
-    const d =
-        String(
-            adjusted.getDate()
-        ).padStart(2, "0");
-
-    return `${y}-${m}-${d}`;
-
-}
-
-function getYesterdayPersonalDayKey() {
-
-    const date =
-        new Date();
-
-    date.setDate(
-        date.getDate() - 1
-    );
-
-    return getPersonalDayKey(
-        date
-    );
-
-}
-
-function formatPersonalDay() {
-
-    const start =
-        getDayStartHour();
-
-    const date =
-        new Date();
-
-    if (
-        date.getHours() <
-        start
-    ) {
-
-        date.setDate(
-            date.getDate() - 1
-        );
-
-    }
-
-    return date.toLocaleDateString(
-        undefined,
-        {
-            weekday: "long",
-            month: "long",
-            day: "numeric"
-        }
-    );
-
-}
-
-function formatHistoryDate(
-    dateString
-) {
-
-    const date =
-        new Date(
-            dateString + "T12:00:00"
-        );
-
-    return date.toLocaleDateString(
-        undefined,
-        {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-        }
-    );
-
-}
-
-function formatHistoryTime(
-    timestamp
-) {
-
-    return new Date(
-        timestamp
-    ).toLocaleTimeString(
-        undefined,
-        {
-            hour: "numeric",
-            minute: "2-digit"
-        }
-    );
-
-}
-
-function formatHour(hour) {
-
-    hour = Number(hour);
-
-    if (hour === 0) {
-        return "12:00 AM";
-    }
-
-    if (hour === 12) {
-        return "12:00 PM";
-    }
-
-    if (hour < 12) {
-        return `${hour}:00 AM`;
-    }
-
-    return `${hour - 12}:00 PM`;
-
-}
-
-async function saveSchedule(
-    hour
-) {
-
-    profile.day_start_hour =
-        Number(hour);
-
-    localStorage.setItem(
-        DAY_START_KEY,
-        String(hour)
-    );
-
-    if (profile.id) {
-
-        await supabaseClient
-            .from("profiles")
-            .update({
-                day_start_hour:
-                    Number(hour)
-            })
-            .eq(
-                "id",
-                profile.id
-            );
-
-    }
-
-    showToast(
-        `Personal day now starts at ${formatHour(hour)}.`,
-        "success"
-    );
-
-    render();
-
-}
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-async function getCurrentUser() {
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .auth
-            .getUser();
-
-    if (error) {
-        return null;
-    }
-
-    return data.user;
-
-}
-
-async function loadProfile() {
-
-    const user =
-        await getCurrentUser();
-
-    if (!user) {
-
-        showToast(
-            "Please sign in to SENRAI.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-    profile.id =
-        user.id;
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq(
-                "id",
-                user.id
-            )
-            .maybeSingle();
-
-    if (error) {
-
-        console.error(error);
-
-        showToast(
-            "Could not load your profile.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-    if (data) {
-
-        profile = {
-
-            ...profile,
-
-            ...data,
-
-            stats: {
-
-                ...profile.stats,
-
-                ...(data.stats || {})
-
-            }
-
-        };
-
-        localStorage.setItem(
-            DAY_START_KEY,
-            String(
-                profile.day_start_hour ?? 0
-            )
-        );
-
-    } else {
-
-        await createProfile(user);
-
-    }
-
-}
-
-async function createProfile(
-    user
-) {
-
-    const name =
-        user.user_metadata?.name ||
-        user.email?.split("@")[0] ||
-        "Player";
-
-    const newProfile = {
-
-        id: user.id,
-
-        name,
-
-        level: 1,
-
-        xp: 0,
-
-        total_xp: 0,
-
-        streak: 0,
-
-        last_active_date: null,
-
-        total_quests_completed: 0,
-
-        total_life_quests: 0,
-
-        social_quests_completed: 0,
-
-        day_start_hour: 0,
-
-        stats: {
-
-            STR: 0,
-            INT: 0,
-            WIS: 0,
-            CHA: 0,
-            DEX: 0,
-            CRE: 0,
-            VIT: 0
-
-        }
-
-    };
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("profiles")
-            .insert(
-                newProfile
-            );
-
-    if (error) {
-
-        console.error(error);
-
-        return;
-
-    }
-
-    profile =
-        newProfile;
-
-}
-
-async function saveProfile() {
-
-    if (!profile.id) {
-        return;
-    }
-
-    const payload = {
-
-        name:
-            profile.name,
-
-        level:
-            profile.level,
-
-        xp:
-            profile.xp,
-
-        total_xp:
-            profile.total_xp,
-
-        streak:
-            profile.streak,
-
-        last_active_date:
-            profile.last_active_date,
-
-        total_quests_completed:
-            profile.total_quests_completed,
-
-        total_life_quests:
-            profile.total_life_quests,
-
-        social_quests_completed:
-            profile.social_quests_completed,
-
-        day_start_hour:
-            profile.day_start_hour,
-
-        stats:
-            profile.stats
-
-    };
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("profiles")
-            .update(
-                payload
-            )
-            .eq(
-                "id",
-                profile.id
-            );
-
-    if (error) {
-        console.error(error);
-    }
-
-}
-
-/* =========================================================
-   XP
-========================================================= */
-
-function xpNeededForLevel(
-    level
-) {
-
-    return Math.max(
-        100,
-        Number(level) * 100
-    );
-
-}
-
-async function addXP(
-    amount,
-    stat = null
-) {
-
-    amount =
-        Number(amount) || 0;
-
-    profile.xp +=
-        amount;
-
-    profile.total_xp +=
-        amount;
-
-    if (
-        stat &&
-        profile.stats[stat] !== undefined
-    ) {
-
-        profile.stats[stat] += 1;
-
-    }
-
-    let leveledUp =
-        false;
-
-    while (
-        profile.xp >=
-        xpNeededForLevel(
-            profile.level
-        )
-    ) {
-
-        profile.xp -=
-            xpNeededForLevel(
-                profile.level
-            );
-
-        profile.level += 1;
-
-        leveledUp =
-            true;
-
-        addHistoryEntry({
-
-            type:
-                "LEVEL_UP",
-
-            level:
-                profile.level,
-
-            xp:
-                0
-
-        });
-
-    }
-
-    await saveProfile();
-
-    if (leveledUp) {
-
-        showToast(
-            `SYSTEM LEVEL UP • LEVEL ${profile.level}`,
-            "success"
-        );
-
-    }
-
-}
-
-/* =========================================================
-   STREAK
-========================================================= */
-
-async function updateStreak() {
-
-    const today =
-        getPersonalDayKey();
-
-    if (
-        profile.last_active_date ===
-        today
-    ) {
-
-        return;
-
-    }
-
-    const yesterday =
-        getYesterdayPersonalDayKey();
-
-    if (
-        profile.last_active_date ===
-        yesterday
-    ) {
-
-        profile.streak += 1;
-
-    } else {
-
-        profile.streak = 1;
-
-    }
-
-    profile.last_active_date =
-        today;
-
-    await saveProfile();
-
-    if (
-        profile.streak === 3 ||
-        profile.streak === 7 ||
-        profile.streak === 14 ||
-        profile.streak === 30 ||
-        profile.streak === 50 ||
-        profile.streak === 100
-    ) {
-
-        addHistoryEntry({
-
-            type:
-                "STREAK_MILESTONE",
-
-            streak:
-                profile.streak
-
-        });
-
-        showToast(
-            `STREAK MILESTONE • ${profile.streak} DAYS`,
-            "success"
-        );
-
-    }
-
-}
-
-/* =========================================================
-   QUEST STORAGE
-========================================================= */
-
-function getCustomQuests() {
-
-    return readJSON(
-        CUSTOM_QUESTS_KEY,
-        []
-    );
-
-}
-
-function saveCustomQuests(
-    quests
-) {
-
-    writeJSON(
-        CUSTOM_QUESTS_KEY,
-        quests
-    );
-
-}
-
-function getMainQuests() {
-
-    return readJSON(
-        MAIN_QUESTS_KEY,
-        []
-    );
-
-}
-
-function saveMainQuests(
-    quests
-) {
-
-    writeJSON(
-        MAIN_QUESTS_KEY,
-        quests
-    );
-
-}
-
-function getSideQuests() {
-
-    return readJSON(
-        SIDE_QUESTS_KEY,
-        []
-    );
-
-}
-
-function saveSideQuests(
-    quests
-) {
-
-    writeJSON(
-        SIDE_QUESTS_KEY,
-        quests
-    );
-
-}
-
-function getDailyCompleted() {
-
-    const data =
-        readJSON(
-            DAILY_COMPLETED_KEY,
-            {}
-        );
-
-    const day =
-        getPersonalDayKey();
-
-    return data[day] || [];
-
-}
-
-function setDailyCompleted(
-    ids
-) {
-
-    const data =
-        readJSON(
-            DAILY_COMPLETED_KEY,
-            {}
-        );
-
-    data[
-        getPersonalDayKey()
-    ] = ids;
-
-    writeJSON(
-        DAILY_COMPLETED_KEY,
-        data
-    );
-
-}
-
-function getDailySkipped() {
-
-    const data =
-        readJSON(
-            DAILY_SKIPPED_KEY,
-            {}
-        );
-
-    const day =
-        getPersonalDayKey();
-
-    return data[day] || [];
-
-}
-
-function setDailySkipped(
-    ids
-) {
-
-    const data =
-        readJSON(
-            DAILY_SKIPPED_KEY,
-            {}
-        );
-
-    data[
-        getPersonalDayKey()
-    ] = ids;
-
-    writeJSON(
-        DAILY_SKIPPED_KEY,
-        data
-    );
-
-}
-
-/* =========================================================
-   DEFAULT DAILY QUESTS
-========================================================= */
-
-const DEFAULT_DAILY_QUESTS = [
-
-    {
-        id: "bed",
-        name: "Make your bed",
-        description:
-            "Start your day by taking care of one small thing.",
-        xp: 10,
-        stat: "DEX",
-        difficulty: "EASY"
-    },
-
-    {
-        id: "water",
-        name: "Drink some water",
-        description:
-            "Take a moment to hydrate.",
-        xp: 10,
-        stat: "VIT",
-        difficulty: "EASY"
-    },
-
-    {
-        id: "procrastination",
-        name:
-            "Do something you've been putting off",
-        description:
-            "Move one thing from your mental list into reality.",
-        xp: 25,
-        stat: "WIS",
-        difficulty: "NORMAL"
-    },
-
-    {
-        id: "outside",
-        name:
-            "Go outside for at least 5 minutes",
-        description:
-            "Fresh air counts.",
-        xp: 10,
-        stat: "VIT",
-        difficulty: "EASY"
-    }
 
 ];
 
-function getAllDailyQuests() {
-
-    const custom =
-        getCustomQuests()
-            .filter(
-                q =>
-                    q.type === "DAILY"
-            );
-
-    return [
-        ...DEFAULT_DAILY_QUESTS,
-        ...custom
-    ];
-
-}
-
-/* =========================================================
-   QUEST COMPLETION
-========================================================= */
-
-async function completeDailyQuest(
-    id
-) {
-
-    const completed =
-        getDailyCompleted();
-
-    if (
-        completed.includes(id)
-    ) {
-        return;
-    }
-
-    const skipped =
-        getDailySkipped();
-
-    if (
-        skipped.includes(id)
-    ) {
-        return;
-    }
-
-    const quest =
-        getAllDailyQuests()
-            .find(
-                q =>
-                    q.id === id
-            );
-
-    if (!quest) {
-        return;
-    }
-
-    completed.push(id);
-
-    setDailyCompleted(
-        completed
-    );
-
-    await updateStreak();
-
-    await addXP(
-        quest.xp,
-        quest.stat
-    );
-
-    await questCompletedStats(
-        quest
-    );
-
-    addHistoryEntry({
-
-        type:
-            "QUEST_COMPLETE",
-
-        questType:
-            "DAILY",
-
-        questName:
-            quest.name,
-
-        xp:
-            quest.xp,
-
-        stat:
-            quest.stat,
-
-        statPoints:
-            1
-
-    });
-
-    await checkAchievements();
-
-    showToast(
-        `QUEST COMPLETE • +${quest.xp} XP`,
-        "success"
-    );
-
-    render();
-
-}
-
-async function skipDailyQuest(
-    id
-) {
-
-    const completed =
-        getDailyCompleted();
-
-    if (
-        completed.includes(id)
-    ) {
-        return;
-    }
-
-    const skipped =
-        getDailySkipped();
-
-    if (
-        !skipped.includes(id)
-    ) {
-
-        skipped.push(id);
-
-    }
-
-    setDailySkipped(
-        skipped
-    );
-
-    showToast(
-        "Quest skipped. No penalty.",
-        "warning"
-    );
-
-    render();
-
-}
-
-async function completeSideQuest(
-    id
-) {
-
-    const quests =
-        getSideQuests();
-
-    const quest =
-        quests.find(
-            q =>
-                q.id === id
-        );
-
-    if (
-        !quest ||
-        quest.completed
-    ) {
-        return;
-    }
-
-    quest.completed =
-        true;
-
-    saveSideQuests(
-        quests
-    );
-
-    await updateStreak();
-
-    await addXP(
-        quest.xp,
-        quest.stat
-    );
-
-    await questCompletedStats(
-        quest
-    );
-
-    addHistoryEntry({
-
-        type:
-            "QUEST_COMPLETE",
-
-        questType:
-            "SIDE",
-
-        questName:
-            quest.name,
-
-        xp:
-            quest.xp,
-
-        stat:
-            quest.stat,
-
-        statPoints:
-            1
-
-    });
-
-    await checkAchievements();
-
-    showToast(
-        `SIDE QUEST COMPLETE • +${quest.xp} XP`,
-        "success"
-    );
-
-    render();
-
-}
-
-function skipSideQuest(
-    id
-) {
-
-    const quests =
-        getSideQuests();
-
-    const quest =
-        quests.find(
-            q =>
-                q.id === id
-        );
-
-    if (!quest) {
-        return;
-    }
-
-    quest.skipped =
-        true;
-
-    saveSideQuests(
-        quests
-    );
-
-    showToast(
-        "Side quest skipped. No penalty.",
-        "warning"
-    );
-
-    render();
-
-}
-
-async function questCompletedStats(
-    quest
-) {
-
-    profile.total_quests_completed += 1;
-
-    if (
-        quest.stat === "CHA"
-    ) {
-
-        profile.social_quests_completed += 1;
-
-    }
-
-    await saveProfile();
-
-}
-
-/* =========================================================
-   MAIN QUESTS
-========================================================= */
-
-function createMainQuestObject(
-    data
-) {
-
-    const objectives =
-        data.objectives
-            .split("\n")
-            .map(
-                x =>
-                    x.trim()
-            )
-            .filter(Boolean)
-            .map(
-                (
-                    text,
-                    index
-                ) => ({
-
-                    id:
-                        `${Date.now()}-${index}`,
-
-                    text,
-
-                    completed:
-                        false
-
-                })
-            );
-
-    return {
-
-        id:
-            "main-" +
-            Date.now(),
-
-        type:
-            "MAIN",
-
-        name:
-            data.name,
-
-        description:
-            data.description || "",
-
-        stat:
-            data.stat,
-
-        xp:
-            Number(data.xp),
-
-        dueDate:
-            data.dueDate || null,
-
-        notes:
-            data.notes || "",
-
-        objectives,
-
-        completed:
-            false,
-
-        skipped:
-            false
-
-    };
-
-}
-
-async function toggleMainObjective(
-    questId,
-    objectiveId
-) {
-
-    const quests =
-        getMainQuests();
-
-    const quest =
-        quests.find(
-            q =>
-                q.id === questId
-        );
-
-    if (
-        !quest ||
-        quest.skipped
-    ) {
-        return;
-    }
-
-    const objective =
-        quest.objectives.find(
-            o =>
-                o.id === objectiveId
-        );
-
-    if (!objective) {
-        return;
-    }
-
-    objective.completed =
-        !objective.completed;
-
-    const allDone =
-        quest.objectives.length > 0 &&
-        quest.objectives.every(
-            o =>
-                o.completed
-        );
-
-    if (
-        allDone &&
-        !quest.completed
-    ) {
-
-        quest.completed =
-            true;
-
-        await updateStreak();
-
-        await addXP(
-            quest.xp,
-            quest.stat
-        );
-
-        await questCompletedStats(
-            quest
-        );
-
-        addHistoryEntry({
-
-            type:
-                "QUEST_COMPLETE",
-
-            questType:
-                "MAIN",
-
-            questName:
-                quest.name,
-
-            xp:
-                quest.xp,
-
-            stat:
-                quest.stat,
-
-            statPoints:
-                1
-
-        });
-
-        await checkAchievements();
-
-        showToast(
-            `MAIN QUEST COMPLETE • +${quest.xp} XP`,
-            "success"
-        );
-
-    }
-
-    saveMainQuests(
-        quests
-    );
-
-    render();
-
-}
-
-function skipMainQuest(
-    id
-) {
-
-    const quests =
-        getMainQuests();
-
-    const quest =
-        quests.find(
-            q =>
-                q.id === id
-        );
-
-    if (!quest) {
-        return;
-    }
-
-    quest.skipped =
-        true;
-
-    saveMainQuests(
-        quests
-    );
-
-    showToast(
-        "Main quest skipped. Your progress is safe.",
-        "warning"
-    );
-
-    render();
-
-}
-
-/* =========================================================
-   CUSTOM QUESTS
-========================================================= */
-
-function createCustomQuest(
-    data
-) {
-
-    const quest = {
-
-        id:
-            "custom-" +
-            Date.now(),
-
-        name:
-            data.name,
-
-        description:
-            data.description || "",
-
-        type:
-            data.type,
-
-        difficulty:
-            data.difficulty,
-
-        xp:
-            DIFFICULTIES[
-                data.difficulty
-            ].xp,
-
-        stat:
-            data.stat,
-
-        dueDate:
-            data.dueDate || null,
-
-        notes:
-            data.notes || "",
-
-        recurring:
-            data.type === "DAILY",
-
-        completed:
-            false,
-
-        skipped:
-            false
-
-    };
-
-    const quests =
-        getCustomQuests();
-
-    quests.push(
-        quest
-    );
-
-    saveCustomQuests(
-        quests
-    );
-
-    closeModal();
-
-    showToast(
-        "Quest created.",
-        "success"
-    );
-
-    render();
-
-}
-
-async function completeCustomQuest(
-    id
-) {
-
-    const quests =
-        getCustomQuests();
-
-    const quest =
-        quests.find(
-            q =>
-                q.id === id
-        );
-
-    if (
-        !quest ||
-        quest.completed
-    ) {
-        return;
-    }
-
-    if (
-        quest.type === "DAILY"
-    ) {
-
-        await completeDailyQuest(
-            id
-        );
-
-        return;
-
-    }
-
-    quest.completed =
-        true;
-
-    saveCustomQuests(
-        quests
-    );
-
-    await updateStreak();
-
-    await addXP(
-        quest.xp,
-        quest.stat
-    );
-
-    await questCompletedStats(
-        quest
-    );
-
-    addHistoryEntry({
-
-        type:
-            "QUEST_COMPLETE",
-
-        questType:
-            quest.type,
-
-        questName:
-            quest.name,
-
-        xp:
-            quest.xp,
-
-        stat:
-            quest.stat,
-
-        statPoints:
-            1
-
-    });
-
-    await checkAchievements();
-
-    showToast(
-        `QUEST COMPLETE • +${quest.xp} XP`,
-        "success"
-    );
-
-    render();
-
-}
-
-function skipCustomQuest(
-    id
-) {
-
-    const quests =
-        getCustomQuests();
-
-    const quest =
-        quests.find(
-            q =>
-                q.id === id
-        );
-
-    if (!quest) {
-        return;
-    }
-
-    if (
-        quest.type === "DAILY"
-    ) {
-
-        skipDailyQuest(
-            id
-        );
-
-        return;
-
-    }
-
-    quest.skipped =
-        true;
-
-    saveCustomQuests(
-        quests
-    );
-
-    showToast(
-        "Quest skipped. No penalty.",
-        "warning"
-    );
-
-    render();
-
-}
-
-function deleteCustomQuest(
-    id
-) {
-
-    const quests =
-        getCustomQuests()
-            .filter(
-                q =>
-                    q.id !== id
-            );
-
-    saveCustomQuests(
-        quests
-    );
-
-    showToast(
-        "Quest removed.",
-        "warning"
-    );
-
-    render();
-
-}
-
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
-
-const ACHIEVEMENT_DEFINITIONS = [
-
-    {
-        id:
-            "first-step",
-
-        name:
-            "FIRST STEP",
-
-        description:
-            "Complete your first quest.",
-
-        reward:
-            50,
-
-        condition:
-            () =>
-                profile.total_quests_completed >= 1
-    },
-
-    {
-        id:
-            "century",
-
-        name:
-            "CENTURY",
-
-        description:
-            "Earn 100 total XP.",
-
-        reward:
-            50,
-
-        condition:
-            () =>
-                profile.total_xp >= 100
-    },
-
-    {
-        id:
-            "getting-serious",
-
-        name:
-            "GETTING SERIOUS",
-
-        description:
-            "Reach Level 5.",
-
-        reward:
-            100,
-
-        condition:
-            () =>
-                profile.level >= 5
-    },
-
-    {
-        id:
-            "consistency",
-
-        name:
-            "CONSISTENCY",
-
-        description:
-            "Reach a 7-day streak.",
-
-        reward:
-            100,
-
-        condition:
-            () =>
-                profile.streak >= 7
-    },
-
-    {
-        id:
-            "explorer",
-
-        name:
-            "EXPLORER",
-
-        description:
-            "Complete 10 Life Quests.",
-
-        reward:
-            100,
-
-        condition:
-            () =>
-                profile.total_life_quests >= 10
-    },
-
-    {
-        id:
-            "social-link",
-
-        name:
-            "SOCIAL LINK",
-
-        description:
-            "Complete 5 social quests.",
-
-        reward:
-            100,
-
-        condition:
-            () =>
-                profile.social_quests_completed >= 5
-    },
-
-    {
-        id:
-            "secret",
-
-        name:
-            "???",
-
-        description:
-            "Something is waiting.",
-
-        reward:
-            150,
-
-        secret:
-            true,
-
-        condition:
-            () =>
-                profile.total_quests_completed >= 25 &&
-                profile.level >= 3
-    }
-
-];
-
-async function checkAchievements() {
-
-    const unlocked =
-        readJSON(
-            ACHIEVEMENTS_KEY,
-            []
-        );
-
-    let changed =
-        false;
-
-    for (
-        const achievement
-        of ACHIEVEMENT_DEFINITIONS
-    ) {
-
-        if (
-            unlocked.includes(
-                achievement.id
-            )
-        ) {
-
-            continue;
-
-        }
-
-        if (
-            achievement.condition()
-        ) {
-
-            unlocked.push(
-                achievement.id
-            );
-
-            profile.total_xp +=
-                achievement.reward;
-
-            profile.xp +=
-                achievement.reward;
-
-            addHistoryEntry({
-
-                type:
-                    "ACHIEVEMENT",
-
-                achievementName:
-                    achievement.name,
-
-                xp:
-                    achievement.reward
-
-            });
-
-            changed =
-                true;
-
-            showToast(
-                `ACHIEVEMENT UNLOCKED • ${achievement.name}`,
-                "success"
-            );
-
-        }
-
-    }
-
-    if (changed) {
-
-        while (
-            profile.xp >=
-            xpNeededForLevel(
-                profile.level
-            )
-        ) {
-
-            profile.xp -=
-                xpNeededForLevel(
-                    profile.level
-                );
-
-            profile.level +=
-                1;
-
-        }
-
-        writeJSON(
-            ACHIEVEMENTS_KEY,
-            unlocked
-        );
-
-        await saveProfile();
-
-    }
-
-}
-
-/* =========================================================
+/* =========================
    LIFE QUESTS
-========================================================= */
+========================= */
 
-const LIFE_QUESTS = [
+const lifeQuests=[
 
-    "Call or text someone you haven't talked to in a while.",
+"Call or text someone you haven't talked to in a while.",
 
-    "Call a family member just to say hi.",
+"Call a family member just to say hi.",
 
-    "Tell someone you appreciate them.",
+"Tell someone you appreciate them.",
 
-    "Go outside for 5 minutes.",
+"Go outside for 5 minutes and just breathe.",
 
-    "Watch the sunset.",
+"Watch the sunset if you get the chance.",
 
-    "Take a different route somewhere.",
+"Take a different route somewhere today.",
 
-    "Learn a random fact.",
+"Learn one completely random fact.",
 
-    "Put your phone down for 20 minutes.",
+"Put your phone down for 20 minutes.",
 
-    "Take a cool photo.",
+"Take a photo of something you think looks cool.",
 
-    "Do something kind for someone.",
+"Do something kind for someone without expecting anything back.",
 
-    "Work on a hobby.",
+"Spend 15 minutes working on a hobby.",
 
-    "Clean something you've been ignoring.",
+"Clean one thing you've been ignoring.",
 
-    "Listen to an album from beginning to end.",
+"Listen to a song you haven't heard in a long time.",
 
-    "Write down one thing you're grateful for.",
+"Write down one thing you're grateful for.",
 
-    "Try something you've never tried before.",
+"Try something you've never tried before.",
 
-    "Spend 10 minutes doing absolutely nothing."
+"Take a few minutes to think about where you want to be a year from now."
 
 ];
 
-function generateLifeQuest() {
+/* =========================
+   ACHIEVEMENTS
+========================= */
 
-    const index =
-        Math.floor(
-            Math.random() *
-            LIFE_QUESTS.length
-        );
+const achievementDefs=[
 
-    lifeQuest =
-        LIFE_QUESTS[index];
+{
+id:"first",
+icon:"⚡",
+title:"FIRST STEP",
+desc:"Complete your first quest.",
+reward:50,
+check:()=>data.totalQuestsCompleted>=1,
+progress:()=>Math.min(data.totalQuestsCompleted,1),
+max:1
+},
 
-    render();
+{
+id:"century",
+icon:"💯",
+title:"CENTURY",
+desc:"Earn 100 total XP.",
+reward:50,
+check:()=>data.totalXP>=100,
+progress:()=>Math.min(data.totalXP,100),
+max:100
+},
 
+{
+id:"serious",
+icon:"◆",
+title:"GETTING SERIOUS",
+desc:"Reach Level 5.",
+reward:100,
+check:()=>data.level>=5,
+progress:()=>Math.min(data.level,5),
+max:5
+},
+
+{
+id:"consistency",
+icon:"🔥",
+title:"CONSISTENCY",
+desc:"Reach a 7-day streak.",
+reward:100,
+check:()=>data.streak>=7,
+progress:()=>Math.min(data.streak,7),
+max:7
+},
+
+{
+id:"explorer",
+icon:"✦",
+title:"EXPLORER",
+desc:"Complete 10 Life Quests.",
+reward:100,
+check:()=>data.lifeQuestCompletions>=10,
+progress:()=>Math.min(data.lifeQuestCompletions,10),
+max:10
+},
+
+{
+id:"social",
+icon:"☏",
+title:"SOCIAL LINK",
+desc:"Complete 5 social quests.",
+reward:100,
+check:()=>data.socialCompletions>=5,
+progress:()=>Math.min(data.socialCompletions,5),
+max:5
+},
+
+{
+id:"secret",
+icon:"🔒",
+title:"???",
+desc:"A hidden achievement. Keep living and keep progressing.",
+reward:150,
+secret:true,
+check:()=>data.totalQuestsCompleted>=25&&data.level>=3,
+progress:()=>0,
+max:1
 }
 
-async function completeLifeQuest() {
+];
 
-    if (!lifeQuest) {
-        return;
-    }
+/* =========================
+   SAVE
+========================= */
 
-    const completedQuest =
-        lifeQuest;
+function save(){
 
-    await updateStreak();
-
-    await addXP(
-        15,
-        "WIS"
-    );
-
-    profile.total_life_quests +=
-        1;
-
-    await saveProfile();
-
-    addHistoryEntry({
-
-        type:
-            "LIFE_QUEST",
-
-        questName:
-            completedQuest,
-
-        xp:
-            15,
-
-        stat:
-            "WIS",
-
-        statPoints:
-            1
-
-    });
-
-    await checkAchievements();
-
-    showToast(
-        "LIFE QUEST COMPLETE • +15 XP",
-        "success"
-    );
-
-    lifeQuest =
-        null;
-
-    render();
-
-}
-
-function skipLifeQuest() {
-
-    lifeQuest =
-        null;
-
-    showToast(
-        "No pressure. Maybe another time.",
-        "warning"
-    );
-
-    render();
-
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function openModal(
-    html
-) {
-
-    document.getElementById(
-        "modal-content"
-    ).innerHTML =
-        html;
-
-    document.getElementById(
-        "modal"
-    ).classList.remove(
-        "hidden"
-    );
-
-}
-
-function closeModal() {
-
-    document.getElementById(
-        "modal"
-    ).classList.add(
-        "hidden"
-    );
-
-}
-
-document.getElementById(
-    "modal"
-).addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target.id ===
-            "modal"
-        ) {
-
-            closeModal();
-
-        }
-
-    }
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(data)
 );
 
-/* =========================================================
-   CREATE QUEST MODAL
-========================================================= */
+}
 
-function openCreateQuestModal() {
+function saveCustom(){
 
-    openModal(`
-
-        <div class="modal-header">
-
-            <div class="modal-title">
-                Create Quest
-            </div>
-
-            <button
-                class="close-btn"
-                onclick="closeModal()"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Quest Name
-            </label>
-
-            <input
-                id="create-name"
-                placeholder="What do you want to accomplish?"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Description
-            </label>
-
-            <textarea
-                id="create-description"
-                placeholder="Optional..."
-            ></textarea>
-
-        </div>
-
-        <div class="form-grid">
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Type
-                </label>
-
-                <select id="create-type">
-
-                    <option value="SIDE">
-                        SIDE QUEST
-                    </option>
-
-                    <option value="DAILY">
-                        DAILY QUEST
-                    </option>
-
-                    <option value="MAIN">
-                        MAIN QUEST
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Difficulty
-                </label>
-
-                <select id="create-difficulty">
-
-                    <option value="EASY">
-                        EASY • +10 XP
-                    </option>
-
-                    <option
-                        value="NORMAL"
-                        selected
-                    >
-                        NORMAL • +25 XP
-                    </option>
-
-                    <option value="HARD">
-                        HARD • +50 XP
-                    </option>
-
-                    <option value="EXTREME">
-                        EXTREME • +100 XP
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-        <div class="form-grid">
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Stat
-                </label>
-
-                <select id="create-stat">
-
-                    <option value="STR">
-                        STR • Strength
-                    </option>
-
-                    <option value="INT">
-                        INT • Intelligence
-                    </option>
-
-                    <option value="WIS">
-                        WIS • Wisdom
-                    </option>
-
-                    <option value="CHA">
-                        CHA • Charisma
-                    </option>
-
-                    <option value="DEX">
-                        DEX • Dexterity
-                    </option>
-
-                    <option value="CRE">
-                        CRE • Creativity
-                    </option>
-
-                    <option value="VIT">
-                        VIT • Vitality
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="form-group">
-
-                <label class="form-label">
-                    Due Date
-                </label>
-
-                <input
-                    id="create-date"
-                    type="date"
-                >
-
-            </div>
-
-        </div>
-
-        <div
-            id="main-objectives-field"
-            class="form-group hidden"
-        >
-
-            <label class="form-label">
-                Main Quest Objectives
-            </label>
-
-            <textarea
-                id="create-objectives"
-                placeholder="One objective per line&#10;&#10;Learn variables&#10;Learn functions&#10;Build a project"
-            ></textarea>
-
-        </div>
-
-        <div class="form-group">
-
-            <label class="form-label">
-                Notes
-            </label>
-
-            <textarea
-                id="create-notes"
-                placeholder="Optional notes..."
-            ></textarea>
-
-        </div>
-
-        <button
-            class="btn btn-primary btn-full"
-            onclick="submitCreateQuest()"
-        >
-            CREATE QUEST
-        </button>
-
-    `);
-
-    document.getElementById(
-        "create-type"
-    ).addEventListener(
-        "change",
-        updateCreateQuestFields
-    );
+localStorage.setItem(
+CUSTOM_QUESTS_KEY,
+JSON.stringify(customQuests)
+);
 
 }
 
-function updateCreateQuestFields() {
+function saveAchievements(){
 
-    const type =
-        document.getElementById(
-            "create-type"
-        ).value;
-
-    const objectives =
-        document.getElementById(
-            "main-objectives-field"
-        );
-
-    if (
-        type === "MAIN"
-    ) {
-
-        objectives.classList.remove(
-            "hidden"
-        );
-
-    } else {
-
-        objectives.classList.add(
-            "hidden"
-        );
-
-    }
+localStorage.setItem(
+ACHIEVEMENTS_KEY,
+JSON.stringify(unlockedAchievements)
+);
 
 }
 
-function submitCreateQuest() {
+/* =========================
+   DATES
+========================= */
 
-    const name =
-        document.getElementById(
-            "create-name"
-        ).value.trim();
+function todayString(){
 
-    if (!name) {
+const d=new Date();
 
-        showToast(
-            "Give your quest a name first.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-    const type =
-        document.getElementById(
-            "create-type"
-        ).value;
-
-    const difficulty =
-        document.getElementById(
-            "create-difficulty"
-        ).value;
-
-    const stat =
-        document.getElementById(
-            "create-stat"
-        ).value;
-
-    const description =
-        document.getElementById(
-            "create-description"
-        ).value.trim();
-
-    const dueDate =
-        document.getElementById(
-            "create-date"
-        ).value;
-
-    const notes =
-        document.getElementById(
-            "create-notes"
-        ).value.trim();
-
-    if (
-        type === "MAIN"
-    ) {
-
-        const objectives =
-            document.getElementById(
-                "create-objectives"
-            ).value.trim();
-
-        if (!objectives) {
-
-            showToast(
-                "Add at least one objective.",
-                "warning"
-            );
-
-            return;
-
-        }
-
-        const objectiveCount =
-            objectives
-                .split("\n")
-                .filter(Boolean)
-                .length;
-
-        const quest =
-            createMainQuestObject({
-
-                name,
-
-                description,
-
-                difficulty,
-
-                stat,
-
-                xp:
-                    DIFFICULTIES[
-                        difficulty
-                    ].xp *
-                    Math.max(
-                        1,
-                        objectiveCount
-                    ),
-
-                dueDate,
-
-                notes,
-
-                objectives
-
-            });
-
-        const quests =
-            getMainQuests();
-
-        quests.push(
-            quest
-        );
-
-        saveMainQuests(
-            quests
-        );
-
-        closeModal();
-
-        showToast(
-            "Main quest created.",
-            "success"
-        );
-
-        render();
-
-        return;
-
-    }
-
-    createCustomQuest({
-
-        name,
-
-        description,
-
-        type,
-
-        difficulty,
-
-        stat,
-
-        dueDate,
-
-        notes
-
-    });
+return d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0");
 
 }
 
-/* =========================================================
-   RENDER HELPERS
-========================================================= */
+function yesterdayString(){
 
-function escapeHTML(
-    value
-) {
+const d=new Date();
 
-    return String(
-        value ?? ""
-    )
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+d.setDate(d.getDate()-1);
+
+return d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0");
 
 }
 
-function questTypeBadge(
-    type
-) {
+function checkDailyReset(){
 
-    const label =
-        type === "MAIN"
-            ? "MAIN QUEST"
-            : type === "DAILY"
-                ? "DAILY"
-                : "SIDE QUEST";
+const t=todayString();
 
-    return `
+if(data.lastResetDate!==t){
 
-        <span
-            class="badge ${type.toLowerCase()}"
-        >
-            ${label}
-        </span>
+data.completed=[];
 
-    `;
+data.completedToday=0;
+
+data.todayXP=0;
+
+data.lastResetDate=t;
+
+save();
 
 }
 
-function difficultyBadge(
-    difficulty,
-    xp
-) {
+}
 
-    return `
+/* =========================
+   XP
+========================= */
 
-        <span class="badge xp">
-            +${xp} XP
-        </span>
+function xpNeededForLevel(level){
 
-    `;
+return level*100;
 
 }
 
-function renderQuestActions(
-    quest,
-    completeAction,
-    skipAction,
-    deleteAction = null
-) {
+let notificationTimeout;
 
-    if (
-        quest.completed ||
-        quest.skipped
-    ) {
+function showNotification(message){
 
-        return `
+const n=
+document.getElementById("notification");
 
-            <div class="quest-actions">
+n.textContent=message;
 
-                ${
-                    quest.completed
+n.classList.add("show");
 
-                        ? `
-                            <span class="badge">
-                                ✓ COMPLETED
-                            </span>
-                        `
+clearTimeout(notificationTimeout);
 
-                        : `
-                            <span class="badge skipped">
-                                SKIPPED
-                            </span>
-                        `
-                }
-
-                ${
-                    deleteAction
-
-                        ? `
-                            <button
-                                class="btn btn-small btn-danger"
-                                onclick="${deleteAction}"
-                            >
-                                DELETE
-                            </button>
-                        `
-
-                        : ""
-                }
-
-            </div>
-
-        `;
-
-    }
-
-    return `
-
-        <div class="quest-actions">
-
-            <button
-                class="btn btn-primary"
-                onclick="${completeAction}"
-            >
-                COMPLETE
-            </button>
-
-            <button
-                class="btn"
-                onclick="${skipAction}"
-            >
-                SKIP
-            </button>
-
-            ${
-                deleteAction
-
-                    ? `
-                        <button
-                            class="btn btn-small btn-danger"
-                            onclick="${deleteAction}"
-                        >
-                            DELETE
-                        </button>
-                    `
-
-                    : ""
-            }
-
-        </div>
-
-    `;
+notificationTimeout=setTimeout(
+()=>n.classList.remove("show"),
+3000
+);
 
 }
 
-/* =========================================================
-   RENDER HOME
-========================================================= */
+function addXP(amount){
 
-function renderHome() {
+const oldLevel=data.level;
 
-    const needed =
-        xpNeededForLevel(
-            profile.level
-        );
+data.xp+=amount;
 
-    const xpPercent =
-        Math.min(
-            100,
-            (
-                profile.xp /
-                needed
-            ) * 100
-        );
+data.totalXP+=amount;
 
-    const daily =
-        getAllDailyQuests();
+while(
+data.xp>=xpNeededForLevel(data.level)
+){
 
-    const completed =
-        getDailyCompleted();
+data.xp-=xpNeededForLevel(data.level);
 
-    const skipped =
-        getDailySkipped();
-
-    const dailyFinished =
-        completed.length +
-        skipped.length;
-
-    const progress =
-        daily.length
-
-            ? Math.round(
-                (
-                    dailyFinished /
-                    daily.length
-                ) * 100
-            )
-
-            : 0;
-
-    const main =
-        getMainQuests()
-            .find(
-                q =>
-                    !q.completed &&
-                    !q.skipped
-            );
-
-    return `
-
-        <div class="page">
-
-            <div class="welcome">
-
-                <div class="welcome-small">
-                    PERSONAL PROGRESSION SYSTEM
-                </div>
-
-                <div class="welcome-name">
-                    Welcome, ${escapeHTML(
-                        profile.name
-                    )}
-                </div>
-
-                <div class="personal-day">
-                    PERSONAL DAY • ${formatPersonalDay()}
-                </div>
-
-            </div>
-
-            <div class="card">
-
-                <div class="level-row">
-
-                    <div>
-
-                        <div class="level-label">
-                            LEVEL
-                        </div>
-
-                        <div class="level-number">
-                            ${profile.level}
-                        </div>
-
-                    </div>
-
-                    <div class="xp-text">
-                        ${profile.xp} / ${needed} XP
-                    </div>
-
-                </div>
-
-                <div class="progress-track">
-
-                    <div
-                        class="progress-fill"
-                        style="width:${xpPercent}%"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <div class="home-grid">
-
-                <div class="stat-mini">
-
-                    <div class="stat-mini-label">
-                        STREAK
-                    </div>
-
-                    <div class="stat-mini-value streak-number">
-                        ${profile.streak}
-                    </div>
-
-                </div>
-
-                <div class="stat-mini">
-
-                    <div class="stat-mini-label">
-                        TOTAL XP
-                    </div>
-
-                    <div class="stat-mini-value">
-                        ${profile.total_xp}
-                    </div>
-
-                </div>
-
-                <div class="stat-mini">
-
-                    <div class="stat-mini-label">
-                        QUESTS
-                    </div>
-
-                    <div class="stat-mini-value">
-                        ${profile.total_quests_completed}
-                    </div>
-
-                </div>
-
-                <div class="stat-mini">
-
-                    <div class="stat-mini-label">
-                        LIFE QUESTS
-                    </div>
-
-                    <div class="stat-mini-value">
-                        ${profile.total_life_quests}
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="section-label">
-                TODAY
-            </div>
-
-            <div class="card">
-
-                <div class="card-title">
-                    Daily Progress
-                </div>
-
-                <div class="quest-progress-row">
-
-                    <span>
-                        ${dailyFinished} / ${daily.length}
-                    </span>
-
-                    <span>
-                        ${progress}%
-                    </span>
-
-                </div>
-
-                <div class="quest-progress-track">
-
-                    <div
-                        class="quest-progress-fill"
-                        style="width:${progress}%"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <div class="section-label">
-                CURRENT OBJECTIVE
-            </div>
-
-            <div class="card">
-
-                ${
-                    main
-
-                        ? `
-
-                            <div class="objective-home">
-                                ${escapeHTML(
-                                    main.name
-                                )}
-                            </div>
-
-                            <div class="quest-description">
-                                ${escapeHTML(
-                                    main.description
-                                )}
-                            </div>
-
-                            <button
-                                class="btn btn-primary"
-                                style="margin-top:14px"
-                                onclick="navigate('quests')"
-                            >
-                                VIEW QUEST
-                            </button>
-
-                        `
-
-                        : `
-
-                            <div class="objective-home">
-                                Choose something worth working toward.
-                            </div>
-
-                            <div class="quest-description">
-                                Your next objective doesn't have to be huge.
-                            </div>
-
-                            <button
-                                class="btn"
-                                style="margin-top:14px"
-                                onclick="openCreateQuestModal()"
-                            >
-                                CREATE QUEST
-                            </button>
-
-                        `
-                }
-
-            </div>
-
-            <div class="section-label">
-                QUICK ACTIONS
-            </div>
-
-            <div class="quick-actions">
-
-                <button
-                    class="btn"
-                    onclick="navigate('quests')"
-                >
-                    ⚔ QUESTS
-                </button>
-
-                <button
-                    class="btn"
-                    onclick="generateLifeQuest(); navigate('life')"
-                >
-                    ✦ SURPRISE ME
-                </button>
-
-                <button
-                    class="btn"
-                    onclick="navigate('stats')"
-                >
-                    ◈ STATS
-                </button>
-
-                <button
-                    class="btn"
-                    onclick="navigate('history')"
-                >
-                    ◷ HISTORY
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
+data.level++;
 
 }
 
-/* =========================================================
-   RENDER DAILY QUEST
-========================================================= */
+save();
 
-function renderDailyQuestCard(
-    quest
-) {
+if(data.level>oldLevel){
 
-    const completed =
-        getDailyCompleted()
-            .includes(
-                quest.id
-            );
-
-    const skipped =
-        getDailySkipped()
-            .includes(
-                quest.id
-            );
-
-    return `
-
-        <div class="card quest-card
-            ${completed ? "completed" : ""}
-            ${skipped ? "skipped" : ""}
-        ">
-
-            <div class="quest-top">
-
-                <div class="quest-info">
-
-                    <div class="quest-name">
-                        ${escapeHTML(
-                            quest.name
-                        )}
-                    </div>
-
-                    <div class="quest-description">
-                        ${escapeHTML(
-                            quest.description
-                        )}
-                    </div>
-
-                    <div class="quest-meta">
-
-                        ${questTypeBadge(
-                            "DAILY"
-                        )}
-
-                        ${difficultyBadge(
-                            quest.difficulty,
-                            quest.xp
-                        )}
-
-                        <span class="badge">
-                            ${quest.stat}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            ${
-                completed
-
-                    ? `
-
-                        <div class="quest-actions">
-
-                            <span class="badge">
-                                ✓ COMPLETED
-                            </span>
-
-                        </div>
-
-                    `
-
-                    : skipped
-
-                        ? `
-
-                            <div class="quest-actions">
-
-                                <span class="badge skipped">
-                                    SKIPPED • NO PENALTY
-                                </span>
-
-                            </div>
-
-                        `
-
-                        : `
-
-                            <div class="quest-actions">
-
-                                <button
-                                    class="btn btn-primary"
-                                    onclick="completeDailyQuest('${quest.id}')"
-                                >
-                                    COMPLETE
-                                </button>
-
-                                <button
-                                    class="btn"
-                                    onclick="skipDailyQuest('${quest.id}')"
-                                >
-                                    SKIP
-                                </button>
-
-                            </div>
-
-                        `
-            }
-
-        </div>
-
-    `;
+showNotification(
+"SENRAI LEVEL UP • LEVEL "+data.level
+);
 
 }
 
-/* =========================================================
-   RENDER MAIN QUEST
-========================================================= */
+checkAchievements();
 
-function renderMainQuestCard(
-    quest
-) {
-
-    const total =
-        quest.objectives.length;
-
-    const completed =
-        quest.objectives
-            .filter(
-                o =>
-                    o.completed
-            )
-            .length;
-
-    const percent =
-        total
-
-            ? Math.round(
-                (
-                    completed /
-                    total
-                ) * 100
-            )
-
-            : 0;
-
-    return `
-
-        <div class="card quest-card
-            ${quest.completed ? "completed" : ""}
-            ${quest.skipped ? "skipped" : ""}
-        ">
-
-            <div class="quest-top">
-
-                <div class="quest-info">
-
-                    <div class="quest-name">
-                        ${escapeHTML(
-                            quest.name
-                        )}
-                    </div>
-
-                    <div class="quest-description">
-                        ${escapeHTML(
-                            quest.description
-                        )}
-                    </div>
-
-                    <div class="quest-meta">
-
-                        ${questTypeBadge(
-                            "MAIN"
-                        )}
-
-                        <span class="badge xp">
-                            +${quest.xp} XP
-                        </span>
-
-                        <span class="badge">
-                            ${quest.stat}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="quest-progress">
-
-                <div class="quest-progress-row">
-
-                    <span>
-                        PROGRESS
-                    </span>
-
-                    <span>
-                        ${completed} / ${total}
-                    </span>
-
-                </div>
-
-                <div class="quest-progress-track">
-
-                    <div
-                        class="quest-progress-fill"
-                        style="width:${percent}%"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <div class="objectives">
-
-                ${
-                    quest.objectives
-                        .map(
-                            objective => `
-
-                                <div
-                                    class="objective ${
-                                        objective.completed
-                                            ? "done"
-                                            : ""
-                                    }"
-                                    onclick="${
-                                        quest.completed ||
-                                        quest.skipped
-
-                                            ? ""
-
-                                            : `toggleMainObjective('${quest.id}','${objective.id}')`
-                                    }"
-                                >
-
-                                    <div class="objective-check">
-
-                                        ${
-                                            objective.completed
-                                                ? "✓"
-                                                : ""
-                                        }
-
-                                    </div>
-
-                                    <div>
-                                        ${escapeHTML(
-                                            objective.text
-                                        )}
-                                    </div>
-
-                                </div>
-
-                            `
-                        )
-                        .join("")
-                }
-
-            </div>
-
-            ${
-                quest.notes
-
-                    ? `
-
-                        <div class="quest-note">
-                            ${escapeHTML(
-                                quest.notes
-                            )}
-                        </div>
-
-                    `
-
-                    : ""
-            }
-
-            ${
-                quest.dueDate
-
-                    ? `
-
-                        <div class="quest-date">
-                            DUE • ${escapeHTML(
-                                quest.dueDate
-                            )}
-                        </div>
-
-                    `
-
-                    : ""
-            }
-
-            ${
-                quest.completed
-
-                    ? `
-
-                        <div class="quest-actions">
-
-                            <span class="badge">
-                                ✓ MAIN QUEST COMPLETE
-                            </span>
-
-                        </div>
-
-                    `
-
-                    : quest.skipped
-
-                        ? `
-
-                            <div class="quest-actions">
-
-                                <span class="badge skipped">
-                                    SKIPPED • NO PENALTY
-                                </span>
-
-                            </div>
-
-                        `
-
-                        : `
-
-                            <div class="quest-actions">
-
-                                <button
-                                    class="btn"
-                                    onclick="skipMainQuest('${quest.id}')"
-                                >
-                                    SKIP
-                                </button>
-
-                            </div>
-
-                        `
-            }
-
-        </div>
-
-    `;
+updateUI();
 
 }
 
-/* =========================================================
-   RENDER SIDE QUEST
-========================================================= */
+/* =========================
+   STREAK
+========================= */
 
-function renderSideQuestCard(
-    quest
-) {
+function updateStreak(){
 
-    return `
+const today=todayString();
 
-        <div class="card quest-card
-            ${quest.completed ? "completed" : ""}
-            ${quest.skipped ? "skipped" : ""}
-        ">
+if(data.lastActiveDate===today)return;
 
-            <div class="quest-name">
-                ${escapeHTML(
-                    quest.name
-                )}
-            </div>
+data.streak=
+data.lastActiveDate===yesterdayString()
+?data.streak+1
+:1;
 
-            <div class="quest-description">
-                ${escapeHTML(
-                    quest.description
-                )}
-            </div>
-
-            <div class="quest-meta">
-
-                ${questTypeBadge(
-                    "SIDE"
-                )}
-
-                <span class="badge xp">
-                    +${quest.xp} XP
-                </span>
-
-                <span class="badge">
-                    ${quest.stat}
-                </span>
-
-            </div>
-
-            ${
-                renderQuestActions(
-
-                    quest,
-
-                    `completeSideQuest('${quest.id}')`,
-
-                    `skipSideQuest('${quest.id}')`
-
-                )
-            }
-
-        </div>
-
-    `;
+data.lastActiveDate=today;
 
 }
 
-/* =========================================================
-   RENDER CUSTOM QUEST
-========================================================= */
+/* =========================
+   QUEST RECORD
+========================= */
 
-function renderCustomQuestCard(
-    quest
-) {
+function completeQuestRecord(
+stat,
+xp,
+isSocial=false
+){
 
-    const isDaily =
-        quest.type === "DAILY";
+data.stats[stat]++;
 
-    if (isDaily) {
+data.completedToday++;
 
-        return renderDailyQuestCard(
-            quest
-        );
+data.todayXP+=xp;
 
-    }
+data.totalQuestsCompleted++;
 
-    return `
+if(isSocial){
+data.socialCompletions++;
+}
 
-        <div class="card quest-card
-            ${quest.completed ? "completed" : ""}
-            ${quest.skipped ? "skipped" : ""}
-        ">
+updateStreak();
 
-            <div class="quest-name">
-                ${escapeHTML(
-                    quest.name
-                )}
-            </div>
-
-            <div class="quest-description">
-                ${escapeHTML(
-                    quest.description
-                )}
-            </div>
-
-            <div class="quest-meta">
-
-                ${questTypeBadge(
-                    quest.type
-                )}
-
-                <span class="badge xp">
-                    +${quest.xp} XP
-                </span>
-
-                <span class="badge">
-                    ${quest.stat}
-                </span>
-
-            </div>
-
-            ${
-                quest.dueDate
-
-                    ? `
-
-                        <div class="quest-date">
-                            DUE • ${escapeHTML(
-                                quest.dueDate
-                            )}
-                        </div>
-
-                    `
-
-                    : ""
-            }
-
-            ${
-                quest.notes
-
-                    ? `
-
-                        <div class="quest-note">
-                            ${escapeHTML(
-                                quest.notes
-                            )}
-                        </div>
-
-                    `
-
-                    : ""
-            }
-
-            ${
-                renderQuestActions(
-
-                    quest,
-
-                    `completeCustomQuest('${quest.id}')`,
-
-                    `skipCustomQuest('${quest.id}')`,
-
-                    `deleteCustomQuest('${quest.id}')`
-
-                )
-            }
-
-        </div>
-
-    `;
+addXP(xp);
 
 }
 
-/* =========================================================
-   RENDER QUESTS
-========================================================= */
+/* =========================
+   DAILY COMPLETE
+========================= */
 
-function renderQuests() {
+function completeDaily(id){
 
-    const daily =
-        getAllDailyQuests();
+if(data.completed.includes(id))return;
 
-    const mains =
-        getMainQuests();
+const q=
+dailyData.find(x=>x.id===id);
 
-    const sides =
-        getSideQuests();
+if(!q)return;
 
-    const custom =
-        getCustomQuests()
-            .filter(
-                q =>
-                    q.type !== "DAILY"
-            );
+data.completed.push(id);
 
-    return `
+completeQuestRecord(
+q.stat,
+q.xp,
+q.stat==="CHA"
+);
 
-        <div class="page">
+save();
 
-            <h1 class="page-title">
-                Quests
-            </h1>
+renderDaily();
 
-            <p class="page-subtitle">
-                You choose what is worth pursuing.
-                Complete it, skip it, or come back later.
-            </p>
+updateUI();
 
-            <button
-                class="btn btn-primary btn-full"
-                onclick="openCreateQuestModal()"
-            >
-                + CREATE QUEST
-            </button>
-
-            <div class="section-label">
-                MAIN QUESTS
-            </div>
-
-            ${
-                mains.length
-
-                    ? mains
-                        .map(
-                            renderMainQuestCard
-                        )
-                        .join("")
-
-                    : `
-
-                        <div class="card">
-
-                            <div class="card-title">
-                                NO ACTIVE MAIN QUEST
-                            </div>
-
-                            <div class="quest-description">
-                                Give yourself something meaningful
-                                to work toward.
-                            </div>
-
-                            <button
-                                class="btn"
-                                style="margin-top:13px"
-                                onclick="openCreateQuestModal()"
-                            >
-                                CREATE MAIN QUEST
-                            </button>
-
-                        </div>
-
-                    `
-            }
-
-            <div class="section-label">
-                DAILY QUESTS
-            </div>
-
-            ${
-                daily
-                    .map(
-                        renderDailyQuestCard
-                    )
-                    .join("")
-            }
-
-            <div class="section-label">
-                SIDE QUESTS
-            </div>
-
-            ${
-                sides.length
-
-                    ? sides
-                        .map(
-                            renderSideQuestCard
-                        )
-                        .join("")
-
-                    : `
-
-                        <div class="card">
-
-                            <div class="quest-description">
-                                No side quests yet.
-                            </div>
-
-                        </div>
-
-                    `
-            }
-
-            <div class="section-label">
-                CUSTOM QUESTS
-            </div>
-
-            ${
-                custom.length
-
-                    ? custom
-                        .map(
-                            renderCustomQuestCard
-                        )
-                        .join("")
-
-                    : `
-
-                        <div class="card">
-
-                            <div class="quest-description">
-                                Create your own quests
-                                whenever you want.
-                            </div>
-
-                        </div>
-
-                    `
-            }
-
-        </div>
-
-    `;
+showNotification(
+"+"+q.xp+" XP • QUEST COMPLETE"
+);
 
 }
 
-/* =========================================================
-   RENDER STATS
-========================================================= */
+/* =========================
+   QUEST XP
+========================= */
 
-function renderStats() {
+function getQuestXP(d){
 
-    const total =
-        Object.values(
-            profile.stats
-        ).reduce(
-            (
-                sum,
-                value
-            ) =>
-                sum +
-                Number(
-                    value || 0
-                ),
-            0
-        );
+return{
 
-    return `
+EASY:10,
 
-        <div class="page">
+NORMAL:25,
 
-            <h1 class="page-title">
-                Stats
-            </h1>
+HARD:50,
 
-            <p class="page-subtitle">
-                Your character grows through the things
-                you choose to do in real life.
-            </p>
+EXTREME:100
 
-            <div class="card">
-
-                <div class="card-title">
-                    Overall Progression
-                </div>
-
-                <div class="level-row">
-
-                    <div>
-
-                        <div class="level-number">
-                            ${total}
-                        </div>
-
-                    </div>
-
-                    <div class="xp-text">
-                        STAT POINTS
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="card">
-
-                ${
-                    Object.entries(
-                        STAT_INFO
-                    )
-                    .map(
-                        (
-                            [
-                                key,
-                                info
-                            ]
-                        ) => {
-
-                            const value =
-                                Number(
-                                    profile.stats[
-                                        key
-                                    ] || 0
-                                );
-
-                            const percent =
-                                Math.min(
-                                    100,
-                                    value
-                                );
-
-                            return `
-
-                                <div class="stat-row">
-
-                                    <div class="stat-header">
-
-                                        <div>
-
-                                            <div class="stat-name">
-                                                ${key} • ${info.name}
-                                            </div>
-
-                                            <div class="stat-description">
-                                                ${info.description}
-                                            </div>
-
-                                        </div>
-
-                                        <div class="stat-value">
-                                            ${value}
-                                        </div>
-
-                                    </div>
-
-                                    <div class="stat-track">
-
-                                        <div
-                                            class="stat-fill"
-                                            style="width:${percent}%"
-                                        ></div>
-
-                                    </div>
-
-                                </div>
-
-                            `;
-
-                        }
-                    )
-                    .join("")
-                }
-
-            </div>
-
-        </div>
-
-    `;
+}[d]||10;
 
 }
 
-/* =========================================================
-   RENDER ACHIEVEMENTS
-========================================================= */
+/* =========================
+   CREATE CUSTOM QUEST
+========================= */
 
-function renderAchievements() {
+function createCustomQuest(){
 
-    const unlocked =
-        readJSON(
-            ACHIEVEMENTS_KEY,
-            []
-        );
+const name=
+document.getElementById(
+"questNameInput"
+).value.trim();
 
-    return `
+if(!name){
 
-        <div class="page">
+showNotification(
+"ENTER A QUEST NAME"
+);
 
-            <h1 class="page-title">
-                Achievements
-            </h1>
-
-            <p class="page-subtitle">
-                Milestones earned by simply living,
-                progressing, and sticking with yourself.
-            </p>
-
-            <div class="card">
-
-                ${
-                    ACHIEVEMENT_DEFINITIONS
-                        .map(
-                            achievement => {
-
-                                const isUnlocked =
-                                    unlocked.includes(
-                                        achievement.id
-                                    );
-
-                                const name =
-                                    achievement.secret &&
-                                    !isUnlocked
-
-                                        ? "???"
-
-                                        : achievement.name;
-
-                                const description =
-                                    achievement.secret &&
-                                    !isUnlocked
-
-                                        ? "A secret achievement."
-
-                                        : achievement.description;
-
-                                return `
-
-                                    <div class="achievement ${
-                                        isUnlocked
-                                            ? ""
-                                            : "locked"
-                                    }">
-
-                                        <div class="achievement-icon">
-
-                                            ${
-                                                isUnlocked
-                                                    ? "♛"
-                                                    : "?"
-                                            }
-
-                                        </div>
-
-                                        <div>
-
-                                            <div class="achievement-name">
-                                                ${name}
-                                            </div>
-
-                                            <div class="achievement-description">
-                                                ${description}
-                                            </div>
-
-                                        </div>
-
-                                        <div class="achievement-reward">
-                                            +${achievement.reward}
-                                        </div>
-
-                                    </div>
-
-                                `;
-
-                            }
-                        )
-                        .join("")
-                }
-
-            </div>
-
-        </div>
-
-    `;
+return;
 
 }
 
-/* =========================================================
-   HISTORY LOOK-BACK
-========================================================= */
+const difficulty=
+document.getElementById(
+"questDifficultyInput"
+).value;
 
-function renderLookBack() {
+customQuests.unshift({
 
-    const history =
-        getHistory();
+id:
+Date.now().toString()+
+Math.random().toString(36).slice(2),
 
-    const questCount =
-        getHistoryQuestCount();
+name:name,
 
-    const totalXP =
-        getHistoryXP();
+type:
+document.getElementById(
+"questTypeInput"
+).value,
 
-    const longestStreak =
-        getLongestHistoricalStreak();
+difficulty:difficulty,
 
-    const unlocked =
-        readJSON(
-            ACHIEVEMENTS_KEY,
-            []
-        );
+stat:
+document.getElementById(
+"questStatInput"
+).value,
 
-    if (
-        history.length === 0
-    ) {
+xp:getQuestXP(difficulty),
 
-        return `
+completed:false
 
-            <div class="card look-back">
+});
 
-                <div class="look-back-title">
-                    YOUR JOURNEY IS JUST BEGINNING
-                </div>
+saveCustom();
 
-                <div class="look-back-big">
-                    Your first chapter hasn't been written yet.
-                </div>
+document.getElementById(
+"questNameInput"
+).value="";
 
-                <div class="look-back-text">
-                    Complete a quest and SENRAI will start
-                    building your history here.
-                </div>
+renderCustom();
 
-            </div>
-
-        `;
-
-    }
-
-    return `
-
-        <div class="card look-back">
-
-            <div class="look-back-title">
-                LOOK BACK
-            </div>
-
-            <div class="look-back-big">
-                You're already making progress.
-            </div>
-
-            <div class="look-back-text">
-                ${questCount} quests completed,
-                ${totalXP} XP earned,
-                ${unlocked.length} achievements unlocked,
-                and a longest recorded streak of
-                ${longestStreak} day${
-                    longestStreak === 1
-                        ? ""
-                        : "s"
-                }.
-                <br><br>
-                The point isn't to become perfect.
-                It's to look back and realize
-                you kept moving.
-            </div>
-
-        </div>
-
-    `;
+showNotification(
+"QUEST CREATED"
+);
 
 }
 
-/* =========================================================
-   HISTORY ENTRY
-========================================================= */
+/* =========================
+   COMPLETE CUSTOM
+========================= */
 
-function renderHistoryEntry(
-    entry
-) {
+function completeCustom(id){
 
-    let icon =
-        "✦";
+const q=
+customQuests.find(
+x=>x.id===id
+);
 
-    let name =
-        "Progress";
+if(!q||q.completed)return;
 
-    let meta =
-        formatHistoryTime(
-            entry.timestamp
-        );
+q.completed=true;
 
-    let reward =
-        "";
+data.stats[q.stat]++;
 
-    if (
-        entry.type ===
-        "QUEST_COMPLETE"
-    ) {
+data.totalQuestsCompleted++;
 
-        icon =
-            "⚔";
+if(q.stat==="CHA"){
+data.socialCompletions++;
+}
 
-        name =
-            entry.questName;
+addXP(q.xp);
 
-        meta =
-            `${entry.questType} • ${formatHistoryTime(
-                entry.timestamp
-            )}`;
+saveCustom();
 
-        reward =
-            `+${entry.xp} XP`;
+renderCustom();
 
-    }
+updateUI();
 
-    if (
-        entry.type ===
-        "LIFE_QUEST"
-    ) {
-
-        icon =
-            "✦";
-
-        name =
-            entry.questName;
-
-        meta =
-            `LIFE QUEST • ${formatHistoryTime(
-                entry.timestamp
-            )}`;
-
-        reward =
-            `+${entry.xp} XP`;
-
-    }
-
-    if (
-        entry.type ===
-        "ACHIEVEMENT"
-    ) {
-
-        icon =
-            "♛";
-
-        name =
-            entry.achievementName;
-
-        meta =
-            `ACHIEVEMENT • ${formatHistoryTime(
-                entry.timestamp
-            )}`;
-
-        reward =
-            `+${entry.xp} XP`;
-
-    }
-
-    if (
-        entry.type ===
-        "LEVEL_UP"
-    ) {
-
-        icon =
-            "◆";
-
-        name =
-            `Reached Level ${entry.level}`;
-
-        meta =
-            `LEVEL UP • ${formatHistoryTime(
-                entry.timestamp
-            )}`;
-
-    }
-
-    if (
-        entry.type ===
-        "STREAK_MILESTONE"
-    ) {
-
-        icon =
-            "🔥";
-
-        name =
-            `${entry.streak}-Day Streak`;
-
-        meta =
-            `STREAK MILESTONE • ${formatHistoryTime(
-                entry.timestamp
-            )}`;
-
-    }
-
-    return `
-
-        <div class="history-entry">
-
-            <div class="history-icon">
-                ${icon}
-            </div>
-
-            <div class="history-entry-info">
-
-                <div class="history-entry-name">
-                    ${escapeHTML(
-                        name
-                    )}
-                </div>
-
-                <div class="history-entry-meta">
-                    ${escapeHTML(
-                        meta
-                    )}
-                </div>
-
-            </div>
-
-            ${
-                reward
-
-                    ? `
-
-                        <div class="history-entry-xp">
-                            ${reward}
-                        </div>
-
-                    `
-
-                    : ""
-            }
-
-        </div>
-
-    `;
+showNotification(
+"+"+q.xp+" XP • QUEST COMPLETE"
+);
 
 }
 
-/* =========================================================
-   RENDER HISTORY
-========================================================= */
+/* =========================
+   DELETE CUSTOM
+========================= */
 
-function renderHistory() {
+function deleteCustom(id){
 
-    const history =
-        getHistory()
-            .slice()
-            .sort(
-                (
-                    a,
-                    b
-                ) =>
-                    new Date(
-                        b.timestamp
-                    ) -
-                    new Date(
-                        a.timestamp
-                    )
-            );
+customQuests=
+customQuests.filter(
+q=>q.id!==id
+);
 
-    const questCount =
-        getHistoryQuestCount();
+saveCustom();
 
-    const totalXP =
-        getHistoryXP();
+renderCustom();
 
-    const statGrowth =
-        getHistoryStatGrowth();
-
-    const longestStreak =
-        getLongestHistoricalStreak();
-
-    const activeDays =
-        new Set(
-            history.map(
-                entry =>
-                    entry.personalDay
-            )
-        ).size;
-
-    /*
-     * Group history by personal day.
-     */
-    const grouped = {};
-
-    history.forEach(
-        entry => {
-
-            const day =
-                entry.personalDay;
-
-            if (!grouped[day]) {
-                grouped[day] = [];
-            }
-
-            grouped[day].push(
-                entry
-            );
-
-        }
-    );
-
-    const days =
-        Object.keys(
-            grouped
-        ).sort(
-            (a, b) =>
-                b.localeCompare(a)
-        );
-
-    return `
-
-        <div class="page">
-
-            <h1 class="page-title">
-                History
-            </h1>
-
-            <p class="page-subtitle">
-                A record of the things you actually did.
-                No punishment for what you skipped.
-            </p>
-
-            <div class="history-summary">
-
-                <div class="history-stat">
-
-                    <div class="history-stat-label">
-                        QUESTS
-                    </div>
-
-                    <div class="history-stat-value">
-                        ${questCount}
-                    </div>
-
-                </div>
-
-                <div class="history-stat">
-
-                    <div class="history-stat-label">
-                        XP EARNED
-                    </div>
-
-                    <div class="history-stat-value">
-                        ${totalXP}
-                    </div>
-
-                </div>
-
-                <div class="history-stat">
-
-                    <div class="history-stat-label">
-                        ACTIVE DAYS
-                    </div>
-
-                    <div class="history-stat-value">
-                        ${activeDays}
-                    </div>
-
-                </div>
-
-                <div class="history-stat">
-
-                    <div class="history-stat-label">
-                        LONGEST STREAK
-                    </div>
-
-                    <div class="history-stat-value">
-                        ${longestStreak}
-                    </div>
-
-                </div>
-
-            </div>
-
-            ${renderLookBack()}
-
-            <div class="section-label">
-                RECENT STAT GROWTH
-            </div>
-
-            <div class="card">
-
-                ${
-                    Object.entries(
-                        statGrowth
-                    )
-                    .map(
-                        (
-                            [
-                                stat,
-                                amount
-                            ]
-                        ) => `
-
-                            <div class="stat-row">
-
-                                <div class="stat-header">
-
-                                    <div>
-
-                                        <div class="stat-name">
-                                            ${stat} • ${
-                                                STAT_INFO[
-                                                    stat
-                                                ].name
-                                            }
-                                        </div>
-
-                                    </div>
-
-                                    <div class="stat-value">
-                                        +${amount}
-                                    </div>
-
-                                </div>
-
-                                <div class="stat-description">
-                                    ${
-                                        STAT_INFO[
-                                            stat
-                                        ].description
-                                    }
-                                </div>
-
-                            </div>
-
-                        `
-                    )
-                    .join("")
-                }
-
-            </div>
-
-            <div class="section-label">
-                JOURNEY
-            </div>
-
-            ${
-                days.length
-
-                    ? days
-                        .map(
-                            day => {
-
-                                const entries =
-                                    grouped[
-                                        day
-                                    ];
-
-                                const dayXP =
-                                    entries
-                                        .reduce(
-                                            (
-                                                sum,
-                                                entry
-                                            ) =>
-                                                sum +
-                                                Number(
-                                                    entry.xp ||
-                                                    0
-                                                ),
-                                            0
-                                        );
-
-                                return `
-
-                                    <div class="history-day">
-
-                                        <div class="history-day-header">
-
-                                            <div class="history-date">
-                                                ${formatHistoryDate(
-                                                    day
-                                                )}
-                                            </div>
-
-                                            <div class="history-day-xp">
-                                                ${
-                                                    dayXP
-                                                        ? `+${dayXP} XP`
-                                                        : ""
-                                                }
-                                            </div>
-
-                                        </div>
-
-                                        <div class="card">
-
-                                            ${
-                                                entries
-                                                    .map(
-                                                        renderHistoryEntry
-                                                    )
-                                                    .join("")
-                                            }
-
-                                        </div>
-
-                                    </div>
-
-                                `;
-
-                            }
-                        )
-                        .join("")
-
-                    : `
-
-                        <div class="card">
-
-                            <div class="quest-description">
-                                Nothing here yet.
-                                Complete your first quest
-                                and your journey will appear.
-                            </div>
-
-                        </div>
-
-                    `
-            }
-
-        </div>
-
-    `;
+showNotification(
+"QUEST REMOVED"
+);
 
 }
 
-/* =========================================================
-   RENDER LIFE
-========================================================= */
+/* =========================
+   RENDER DAILY
+========================= */
 
-function renderLife() {
+function renderDaily(){
 
-    return `
+const targets=[
 
-        <div class="page">
+document.getElementById(
+"dailyQuests"
+),
 
-            <h1 class="page-title">
-                Life
-            </h1>
+document.getElementById(
+"homeDailyQuests"
+)
 
-            <p class="page-subtitle">
-                SENRAI isn't only about productivity.
-                Sometimes the quest is simply to experience life.
-            </p>
+];
 
-            <div class="card">
+targets.forEach(c=>{
 
-                <div class="card-title">
-                    Random Life Quest
-                </div>
+if(!c)return;
 
-                <div class="life-quest">
+c.innerHTML="";
 
-                    <div class="life-icon">
-                        ✦
-                    </div>
+dailyData.forEach(q=>{
 
-                    ${
-                        lifeQuest
+const el=
+document.createElement("div");
 
-                            ? `
+el.className=
+"quest "+
+q.difficulty.toLowerCase()+
+(data.completed.includes(q.id)
+?" completed"
+:"");
 
-                                <div class="life-text">
-                                    ${escapeHTML(
-                                        lifeQuest
-                                    )}
-                                </div>
+el.innerHTML=`
 
-                                <div
-                                    class="quest-actions"
-                                    style="justify-content:center"
-                                >
+<div class="quest-check">
+✓
+</div>
 
-                                    <button
-                                        class="btn btn-primary"
-                                        onclick="completeLifeQuest()"
-                                    >
-                                        I DID IT
-                                    </button>
+<div class="quest-info">
 
-                                    <button
-                                        class="btn"
-                                        onclick="skipLifeQuest()"
-                                    >
-                                        SKIP
-                                    </button>
+<div class="quest-name">
+${q.name}
+</div>
 
-                                </div>
+<div class="quest-meta">
+${q.difficulty} • ${q.stat}
+</div>
 
-                            `
+</div>
 
-                            : `
+<div class="quest-reward">
 
-                                <div class="life-text">
-                                    Need something random?
-                                </div>
+<div class="xp-reward">
++${q.xp} XP
+</div>
 
-                                <button
-                                    class="btn btn-primary"
-                                    style="margin-top:18px"
-                                    onclick="generateLifeQuest()"
-                                >
-                                    SURPRISE ME
-                                </button>
+<div class="stat-reward">
++1 ${q.stat}
+</div>
 
-                            `
-                    }
+</div>
 
-                </div>
+`;
 
-            </div>
+el.addEventListener(
+"click",
+()=>completeDaily(q.id)
+);
 
-            <div class="card">
+c.appendChild(el);
 
-                <div class="card-title">
-                    Philosophy
-                </div>
+});
 
-                <div class="life-philosophy">
-                    You're not trying to become a perfect person.
-                    You're just trying to make small progress
-                    in your life.
-                    <br><br>
-                    SENRAI should adapt to the person —
-                    not force the person to adapt to SENRAI.
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
+});
 
 }
 
-/* =========================================================
-   RENDER SETTINGS
-========================================================= */
+/* =========================
+   RENDER CUSTOM
+========================= */
 
-function renderSettings() {
+function renderCustom(){
 
-    const current =
-        getDayStartHour();
+const c=
+document.getElementById(
+"customQuestList"
+);
 
-    const options = [
-        0,
-        3,
-        6,
-        9,
-        12,
-        15,
-        18,
-        21
-    ];
+c.innerHTML="";
 
-    return `
+if(!customQuests.length){
 
-        <div class="page">
+c.innerHTML=
+'<div class="empty-state">NO CUSTOM QUESTS YET. CREATE ONE ABOVE.</div>';
 
-            <h1 class="page-title">
-                Settings
-            </h1>
-
-            <p class="page-subtitle">
-                Make SENRAI fit your life.
-            </p>
-
-            <div class="section-label">
-                PERSONAL SCHEDULE
-            </div>
-
-            <div class="card">
-
-                <div class="card-title">
-                    When Does Your Day Start?
-                </div>
-
-                <div class="schedule-options">
-
-                    ${
-                        options
-                            .map(
-                                hour => `
-
-                                    <button
-                                        class="schedule-option ${
-                                            current === hour
-                                                ? "active"
-                                                : ""
-                                        }"
-                                        onclick="saveSchedule(${hour})"
-                                    >
-                                        ${formatHour(
-                                            hour
-                                        )}
-                                    </button>
-
-                                `
-                            )
-                            .join("")
-                    }
-
-                </div>
-
-                <div class="settings-note">
-                    Your SENRAI day does not have to start
-                    at midnight. Choose when your personal
-                    day begins. Daily quests, streaks and
-                    progress will follow your schedule.
-                </div>
-
-            </div>
-
-            <div class="section-label">
-                ACCOUNT
-            </div>
-
-            <div class="card">
-
-                <div class="card-title">
-                    Profile
-                </div>
-
-                <div class="quest-name">
-                    ${escapeHTML(
-                        profile.name
-                    )}
-                </div>
-
-                <div class="quest-description">
-                    Your progress is synced to your SENRAI account.
-                </div>
-
-                <button
-                    class="btn btn-danger"
-                    style="margin-top:14px"
-                    onclick="signOut()"
-                >
-                    SIGN OUT
-                </button>
-
-            </div>
-
-            <div class="section-label">
-                SENRAI
-            </div>
-
-            <div class="card">
-
-                <div class="quest-description">
-                    SENRAI — The System that moves you forward.
-                </div>
-
-                <div class="quest-note">
-                    The System is here to guide you,
-                    not control you.
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
+return;
 
 }
 
-/* =========================================================
-   PAGE RENDER
-========================================================= */
+customQuests.forEach(q=>{
 
-function render() {
+const card=
+document.createElement("div");
 
-    const page =
-        document.getElementById(
-            "page-content"
-        );
+card.className="custom-quest";
 
-    if (!page) {
-        return;
-    }
+if(q.completed){
+card.style.opacity=".4";
+}
 
-    document.getElementById(
-        "top-user-name"
-    ).textContent =
-        profile.name ||
-        "Player";
+card.innerHTML=`
 
-    document.getElementById(
-        "top-user-level"
-    ).textContent =
-        `LEVEL ${profile.level}`;
+<div class="custom-quest-main">
 
-    switch (
-        currentPage
-    ) {
+<div class="custom-quest-name">
+${escapeHTML(q.name)}
+</div>
 
-        case "quests":
+<div class="custom-quest-meta">
+${q.type} • ${q.difficulty} • ${q.stat} • +${q.xp} XP
+</div>
 
-            page.innerHTML =
-                renderQuests();
+</div>
 
-            break;
+<div class="custom-quest-actions">
 
-        case "stats":
+<button
+class="custom-complete"
+${q.completed?"disabled":""}>
 
-            page.innerHTML =
-                renderStats();
+${q.completed
+?"COMPLETED"
+:"COMPLETE"}
 
-            break;
+</button>
 
-        case "achievements":
+<button
+class="delete-button"
+title="Delete quest">
+×
+</button>
 
-            page.innerHTML =
-                renderAchievements();
+</div>
 
-            break;
+`;
 
-        case "history":
+card.querySelector(
+".custom-complete"
+).addEventListener(
+"click",
+()=>completeCustom(q.id)
+);
 
-            page.innerHTML =
-                renderHistory();
+card.querySelector(
+".delete-button"
+).addEventListener(
+"click",
+()=>deleteCustom(q.id)
+);
 
-            break;
+c.appendChild(card);
 
-        case "life":
-
-            page.innerHTML =
-                renderLife();
-
-            break;
-
-        case "settings":
-
-            page.innerHTML =
-                renderSettings();
-
-            break;
-
-        default:
-
-            page.innerHTML =
-                renderHome();
-
-    }
-
-    document
-        .querySelectorAll(
-            ".nav-btn"
-        )
-        .forEach(
-            button => {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.page ===
-                    currentPage
-                );
-
-            }
-        );
+});
 
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* =========================
+   ESCAPE HTML
+========================= */
 
-function navigate(
-    page
-) {
+function escapeHTML(s){
 
-    currentPage =
-        page;
+const d=
+document.createElement("div");
 
-    render();
+d.textContent=s;
 
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
+return d.innerHTML;
 
 }
+
+/* =========================
+   SYSTEM REFLECTION
+========================= */
+
+function buildReflectionOptions(){
+
+const stats=data.stats;
+
+const labels={
+
+STR:"Strength",
+
+INT:"Intelligence",
+
+WIS:"Wisdom",
+
+CHA:"Charisma",
+
+DEX:"Dexterity",
+
+CRE:"Creativity",
+
+VIT:"Vitality"
+
+};
+
+const entries=
+Object.entries(stats);
+
+let highest=
+entries.reduce(
+(a,b)=>b[1]>a[1]?b:a
+);
+
+let lowest=
+entries.reduce(
+(a,b)=>b[1]<a[1]?b:a
+);
+
+const options=[];
+
+/* EARLY SYSTEM */
+
+if(data.totalQuestsCompleted<3){
+
+options.push({
+
+title:"THE SYSTEM IS JUST BEGINNING.",
+
+text:"You're still building your character profile. Every quest gives SENRAI more information about how you choose to move forward.",
+
+quest:"Complete one small task you've been avoiding.",
+
+xp:25,
+
+stat:"DEX"
+
+});
+
+}
+
+/* MOMENTUM */
+
+if(data.streak>=3){
+
+options.push({
+
+title:"YOU'RE BUILDING MOMENTUM.",
+
+text:"Your recent activity is starting to form a pattern. Keep the next step small enough that you actually want to do it.",
+
+quest:"Finish one small task before you move on to something else.",
+
+xp:25,
+
+stat:"DEX"
+
+});
+
+}
+
+/* BALANCE */
+
+if(
+entries.length &&
+highest.value>lowest.value+2
+){
+
+options.push({
+
+title:"YOUR BUILD IS TAKING SHAPE.",
+
+text:
+"You've been developing "+
+labels[highest.stat]+
+" more than "+
+labels[lowest.stat]+
+". SENRAI isn't asking you to become balanced — just giving you another path to explore.",
+
+quest:
+"Spend 20 minutes doing something that develops "+
+labels[lowest.stat]+".",
+
+xp:25,
+
+stat:lowest.stat
+
+});
+
+}
+
+/* CREATIVITY */
+
+if(
+(stats.CRE||0)<=1 &&
+data.totalQuestsCompleted>=3
+){
+
+options.push({
+
+title:"NOT EVERYTHING HAS TO BE PRODUCTIVE.",
+
+text:"Your Creativity hasn't moved much yet. Maybe make something simply because you enjoy making it.",
+
+quest:"Spend 30 minutes on a hobby with no productivity goal.",
+
+xp:25,
+
+stat:"CRE"
+
+});
+
+}
+
+/* SOCIAL */
+
+if(
+(stats.CHA||0)<=1 &&
+data.totalQuestsCompleted>=5
+){
+
+options.push({
+
+title:"YOUR WORLD COULD USE ANOTHER CONNECTION.",
+
+text:"You've been progressing mostly on your own. A small social action can still count as progress.",
+
+quest:"Reach out to someone you haven't talked to in a while.",
+
+xp:25,
+
+stat:"CHA"
+
+});
+
+}
+
+/* WISDOM */
+
+if(
+(stats.WIS||0)<=1 &&
+data.totalQuestsCompleted>=5
+){
+
+options.push({
+
+title:"SLOW DOWN FOR A MOMENT.",
+
+text:"You've been taking action, but reflection is part of progress too. Give yourself a little space to think.",
+
+quest:"Write down one thing you learned about yourself this week.",
+
+xp:25,
+
+stat:"WIS"
+
+});
+
+}
+
+/* HEALTH */
+
+if(
+(stats.VIT||0)<=1 &&
+data.totalQuestsCompleted>=5
+){
+
+options.push({
+
+title:"YOUR BODY IS PART OF THE SYSTEM.",
+
+text:"Progress isn't only about getting more done. Recovery and basic health give everything else a stronger foundation.",
+
+quest:"Take a 15-minute walk or spend 15 minutes outside.",
+
+xp:25,
+
+stat:"VIT"
+
+});
+
+}
+
+/* YOU'VE DONE ENOUGH */
+
+if(data.completedToday>=4){
+
+options.push({
+
+title:"YOU'VE DONE ENOUGH FOR TODAY.",
+
+text:"You've already completed your daily quests. You don't need to turn every free moment into another task.",
+
+quest:"Do something you genuinely enjoy for 30 minutes with no goal attached.",
+
+xp:25,
+
+stat:"WIS"
+
+});
+
+}
+
+/* DEFAULT */
+
+if(!options.length){
+
+options.push({
+
+title:"KEEP DISCOVERING YOUR BUILD.",
+
+text:"SENRAI is still learning how you move. Your choices will shape what the system notices next.",
+
+quest:"Try something slightly outside your normal routine.",
+
+xp:25,
+
+stat:"WIS"
+
+});
+
+}
+
+return options;
+
+}
+
+/* =========================
+   RENDER REFLECTION
+========================= */
+
+function renderReflection(forceNext=false){
+
+const title=
+document.getElementById(
+"reflectionTitle"
+);
+
+const text=
+document.getElementById(
+"reflectionText"
+);
+
+const suggestion=
+document.getElementById(
+"reflectionSuggestion"
+);
+
+const reward=
+document.getElementById(
+"reflectionReward"
+);
+
+if(
+!title||
+!text||
+!suggestion||
+!reward
+)return;
+
+const options=
+buildReflectionOptions();
+
+if(forceNext){
+
+currentReflectionIndex=
+(currentReflectionIndex+1)%
+options.length;
+
+}
+
+if(
+currentReflectionIndex>=options.length
+){
+
+currentReflectionIndex=0;
+
+}
+
+const r=
+options[currentReflectionIndex];
+
+currentReflectionQuest=r;
+
+title.textContent=
+r.title.toUpperCase();
+
+text.textContent=
+r.text;
+
+suggestion.textContent=
+r.quest;
+
+reward.textContent=
+"+"+
+r.xp+
+" XP • +1 "+
+r.stat;
+
+}
+
+/* =========================
+   ACCEPT REFLECTION QUEST
+========================= */
+
+function acceptReflectionQuest(){
+
+if(!currentReflectionQuest)return;
+
+const r=
+currentReflectionQuest;
+
+customQuests.unshift({
+
+id:
+Date.now().toString()+
+Math.random().toString(36).slice(2),
+
+name:r.quest,
+
+type:"SIDE",
+
+difficulty:"NORMAL",
+
+stat:r.stat,
+
+xp:r.xp,
+
+completed:false,
+
+source:"SYSTEM_REFLECTION"
+
+});
+
+saveCustom();
+
+showNotification(
+"SYSTEM QUEST ACCEPTED"
+);
+
+renderCustom();
+
+const button=
+document.getElementById(
+"acceptReflectionButton"
+);
+
+if(button){
+
+button.textContent=
+"QUEST ACCEPTED";
+
+button.disabled=true;
+
+}
+
+}
+
+/* =========================
+   LIFE QUEST
+========================= */
+
+function generateLife(){
+
+currentLifeQuest=
+lifeQuests[
+Math.floor(
+Math.random()*
+lifeQuests.length
+)
+];
 
 document
-    .querySelectorAll(
-        ".nav-btn"
-    )
-    .forEach(
-        button => {
+.querySelectorAll(
+"#lifeQuestText,#homeLifeText"
+)
+.forEach(
+e=>e.textContent=
+currentLifeQuest
+);
 
-            button.addEventListener(
-                "click",
-                () => {
-
-                    navigate(
-                        button.dataset.page
-                    );
-
-                }
-            );
-
-        }
-    );
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(
-    message,
-    type = ""
-) {
-
-    const container =
-        document.getElementById(
-            "toast-container"
-        );
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-    toast.className =
-        `toast ${type}`;
-
-    toast.textContent =
-        message;
-
-    container.appendChild(
-        toast
-    );
-
-    setTimeout(
-        () => {
-
-            toast.style.opacity =
-                "0";
-
-            toast.style.transform =
-                "translateY(-5px)";
-
-            setTimeout(
-                () => {
-
-                    toast.remove();
-
-                },
-                300
-            );
-
-        },
-        2800
-    );
+document
+.querySelectorAll(
+"#completeLifeButton,#homeCompleteLife"
+)
+.forEach(
+e=>e.disabled=false
+);
 
 }
 
-/* =========================================================
-   SIGN OUT
-========================================================= */
+function completeLife(){
 
-async function signOut() {
+if(!currentLifeQuest)return;
 
-    await supabaseClient
-        .auth
-        .signOut();
+currentLifeQuest=null;
 
-    location.reload();
+data.stats.WIS++;
 
-}
+data.lifeQuestCompletions++;
 
-/* =========================================================
-   SPLASH
-========================================================= */
+data.totalQuestsCompleted++;
 
-function runSplash() {
+addXP(15);
 
-    const splash =
-        document.getElementById(
-            "splash"
-        );
+document
+.querySelectorAll(
+"#lifeQuestText,#homeLifeText"
+)
+.forEach(
+e=>
+e.textContent=
+"Quest complete. The next one awaits."
+);
 
-    const bar =
-        document.getElementById(
-            "splash-bar"
-        );
+document
+.querySelectorAll(
+"#completeLifeButton,#homeCompleteLife"
+)
+.forEach(
+e=>e.disabled=true
+);
 
-    const percent =
-        document.getElementById(
-            "splash-percent"
-        );
+save();
 
-    const status =
-        document.getElementById(
-            "splash-status"
-        );
+updateUI();
 
-    const statuses = [
-
-        "SYSTEM INITIALIZING",
-
-        "LOADING PROFILE",
-
-        "SYNCING PROGRESS DATA",
-
-        "INITIALIZING QUEST SYSTEM",
-
-        "CALIBRATING CHARACTER STATS",
-
-        "SYSTEM READY"
-
-    ];
-
-    const start =
-        performance.now();
-
-    const duration =
-        2200;
-
-    function frame(
-        now
-    ) {
-
-        const progress =
-            Math.min(
-                1,
-                (
-                    now -
-                    start
-                ) /
-                duration
-            );
-
-        const value =
-            Math.floor(
-                progress * 100
-            );
-
-        bar.style.width =
-            value + "%";
-
-        percent.textContent =
-            value + "%";
-
-        const index =
-            Math.min(
-                statuses.length - 1,
-                Math.floor(
-                    progress *
-                    statuses.length
-                )
-            );
-
-        status.textContent =
-            statuses[index];
-
-        if (
-            progress < 1
-        ) {
-
-            requestAnimationFrame(
-                frame
-            );
-
-        } else {
-
-            setTimeout(
-                () => {
-
-                    splash.classList.add(
-                        "hide"
-                    );
-
-                },
-                250
-            );
-
-        }
-
-    }
-
-    requestAnimationFrame(
-        frame
-    );
-
-    /*
-     * Emergency fallback so the
-     * splash can never trap the user.
-     */
-    setTimeout(
-        () => {
-
-            splash.classList.add(
-                "hide"
-            );
-
-        },
-        3500
-    );
+showNotification(
+"+15 XP • LIFE QUEST COMPLETE"
+);
 
 }
 
-/* =========================================================
-   STARTUP
-========================================================= */
+/* =========================
+   SIDE QUEST
+========================= */
 
-async function startApp() {
+function completeSide(){
 
-    try {
+const b=
+document.getElementById(
+"sideQuestButton"
+);
 
-        runSplash();
+if(b.disabled)return;
 
-        await loadProfile();
+data.stats.CHA++;
 
-        await checkAchievements();
+data.socialCompletions++;
 
-        render();
+data.totalQuestsCompleted++;
 
-        document
-            .getElementById(
-                "app"
-            )
-            .classList.remove(
-                "hidden"
-            );
+addXP(20);
 
-    } catch (
-        error
-    ) {
+b.textContent=
+"COMPLETED";
 
-        console.error(
-            "SENRAI startup error:",
-            error
-        );
+b.disabled=true;
 
-        document
-            .getElementById(
-                "app"
-            )
-            .classList.remove(
-                "hidden"
-            );
+save();
 
-        render();
+updateUI();
 
-    } finally {
-
-        setTimeout(
-            () => {
-
-                document
-                    .getElementById(
-                        "splash"
-                    )
-                    .classList.add(
-                        "hide"
-                    );
-
-            },
-            3500
-        );
-
-    }
+showNotification(
+"+20 XP • SOCIAL LINK"
+);
 
 }
 
-startApp();
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+function checkAchievements(){
+
+achievementDefs.forEach(a=>{
+
+if(
+!unlockedAchievements.includes(a.id)&&
+a.check()
+){
+
+unlockedAchievements.push(a.id);
+
+saveAchievements();
+
+data.totalXP+=a.reward;
+
+data.xp+=a.reward;
+
+while(
+data.xp>=xpNeededForLevel(data.level)
+){
+
+data.xp-=
+xpNeededForLevel(data.level);
+
+data.level++;
+
+}
+
+save();
+
+showNotification(
+"ACHIEVEMENT UNLOCKED • "+
+a.title+
+" • +"+
+a.reward+
+" XP"
+);
+
+}
+
+});
+
+renderAchievements();
+
+}
+
+/* =========================
+   RENDER ACHIEVEMENTS
+========================= */
+
+function renderAchievements(){
+
+const c=
+document.getElementById(
+"achievementGrid"
+);
+
+c.innerHTML="";
+
+let count=0;
+
+achievementDefs.forEach(a=>{
+
+const unlocked=
+unlockedAchievements.includes(
+a.id
+);
+
+if(unlocked)count++;
+
+const hidden=
+a.secret&&!unlocked;
+
+const current=
+a.progress();
+
+const pct=
+a.max
+?Math.min(
+current/a.max*100,
+100
+)
+:0;
+
+const el=
+document.createElement("div");
+
+el.className=
+"achievement "+
+(unlocked
+?"unlocked"
+:"locked");
+
+el.innerHTML=`
+
+<div class="achievement-status">
+${unlocked
+?"UNLOCKED"
+:"LOCKED"}
+</div>
+
+<div class="achievement-icon">
+${hidden
+?"🔒"
+:a.icon}
+</div>
+
+<div class="achievement-title">
+${hidden
+?"???"
+:a.title}
+</div>
+
+<div class="achievement-desc">
+${hidden
+?"Hidden achievement. Keep progressing."
+:a.desc}
+</div>
+
+<div class="achievement-reward">
++${a.reward} XP
+</div>
+
+${
+!unlocked&&!hidden
+?`
+
+<div class="achievement-progress">
+
+<div style="width:${pct}%"></div>
+
+</div>
+
+<div class="achievement-desc">
+${current} / ${a.max}
+</div>
+
+`
+:""
+}
+
+`;
+
+c.appendChild(el);
+
+});
+
+document.getElementById(
+"achievementCount"
+).textContent=
+count+
+" / "+
+achievementDefs.length+
+" UNLOCKED";
+
+}
+
+/* =========================
+   STATS
+========================= */
+
+function renderStats(){
+
+const names={
+
+STR:"STR • FITNESS",
+
+INT:"INT • LEARNING",
+
+WIS:"WIS • PERSONAL GROWTH",
+
+CHA:"CHA • SOCIAL",
+
+DEX:"DEX • PRODUCTIVITY",
+
+CRE:"CRE • CREATIVITY",
+
+VIT:"VIT • HEALTH"
+
+};
+
+const classes={
+
+STR:"str",
+INT:"int",
+WIS:"wis",
+CHA:"cha",
+DEX:"dex",
+CRE:"cre",
+VIT:"vit"
+
+};
+
+const c=
+document.getElementById(
+"statsGrid"
+);
+
+c.innerHTML="";
+
+Object.keys(data.stats).forEach(s=>{
+
+const v=data.stats[s];
+
+const el=
+document.createElement("div");
+
+el.className="stat";
+
+el.innerHTML=`
+
+<div class="stat-top">
+
+<div class="stat-name">
+${names[s]}
+</div>
+
+<div class="stat-value">
+${v}
+</div>
+
+</div>
+
+<div class="stat-bar">
+
+<div
+class="stat-fill ${classes[s]}"
+style="width:${Math.min(v,100)}%">
+</div>
+
+</div>
+
+`;
+
+c.appendChild(el);
+
+});
+
+}
+
+/* =========================
+   UPDATE UI
+========================= */
+
+function updateUI(){
+
+document.getElementById(
+"level"
+).textContent=
+data.level;
+
+document.getElementById(
+"xp"
+).textContent=
+data.xp;
+
+document.getElementById(
+"todayCount"
+).textContent=
+data.completedToday;
+
+document.getElementById(
+"streak"
+).textContent=
+data.streak;
+
+document.getElementById(
+"todayXP"
+).textContent=
+data.todayXP;
+
+const need=
+xpNeededForLevel(
+data.level
+);
+
+const pct=
+Math.min(
+data.xp/need*100,
+100
+);
+
+document.getElementById(
+"xpBar"
+).style.width=
+pct+"%";
+
+document.getElementById(
+"xpProgress"
+).textContent=
+data.xp+
+" / "+
+need+
+" XP";
+
+document.getElementById(
+"nextLevel"
+).textContent=
+"LEVEL "+
+(data.level+1);
+
+renderStats();
+
+renderAchievements();
+
+renderReflection(false);
+
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showView(view){
+
+document
+.querySelectorAll(".nav-button")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+document
+.querySelectorAll(".view")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+const button=
+document.querySelector(
+`.nav-button[data-view="${view}"]`
+);
+
+if(button)
+button.classList.add("active");
+
+const target=
+document.getElementById(
+view+"View"
+);
+
+if(target)
+target.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+document
+.querySelectorAll(".nav-button")
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>showView(
+btn.dataset.view
+)
+);
+
+});
+
+document
+.getElementById(
+"createQuestButton"
+)
+.addEventListener(
+"click",
+createCustomQuest
+);
+
+document
+.getElementById(
+"questNameInput"
+)
+.addEventListener(
+"keydown",
+e=>{
+
+if(e.key==="Enter")
+createCustomQuest();
+
+}
+);
+
+document
+.getElementById(
+"surpriseButton"
+)
+.addEventListener(
+"click",
+generateLife
+);
+
+document
+.getElementById(
+"completeLifeButton"
+)
+.addEventListener(
+"click",
+completeLife
+);
+
+document
+.getElementById(
+"homeSurprise"
+)
+.addEventListener(
+"click",
+generateLife
+);
+
+document
+.getElementById(
+"homeCompleteLife"
+)
+.addEventListener(
+"click",
+completeLife
+);
+
+document
+.getElementById(
+"sideQuestButton"
+)
+.addEventListener(
+"click",
+completeSide
+);
+
+document
+.getElementById(
+"acceptReflectionButton"
+)
+.addEventListener(
+"click",
+acceptReflectionQuest
+);
+
+document
+.getElementById(
+"refreshReflectionButton"
+)
+.addEventListener(
+"click",
+()=>{
+
+currentReflectionIndex++;
+
+const b=
+document.getElementById(
+"acceptReflectionButton"
+);
+
+if(b){
+
+b.textContent=
+"ACCEPT QUEST";
+
+b.disabled=false;
+
+}
+
+renderReflection(true);
+
+}
+);
+
+/* =========================
+   INITIALIZE
+========================= */
+
+checkDailyReset();
+
+renderDaily();
+
+renderCustom();
+
+updateUI();
+
+/* =========================
+   SPLASH LOADING
+========================= */
+
+const messages=[
+
+"SYSTEM INITIALIZING",
+
+"LOADING PROFILE",
+
+"SYNCING PROGRESS DATA",
+
+"INITIALIZING QUEST SYSTEM",
+
+"CALIBRATING CHARACTER STATS",
+
+"SYSTEM READY"
+
+];
+
+let progress=0;
+
+const fill=
+document.getElementById(
+"loadingFill"
+);
+
+const percent=
+document.getElementById(
+"loadingPercent"
+);
+
+const status=
+document.getElementById(
+"loadingStatus"
+);
+
+const interval=
+setInterval(()=>{
+
+progress+=
+Math.floor(
+Math.random()*9
+)+4;
+
+if(progress>=100){
+
+progress=100;
+
+clearInterval(interval);
+
+}
+
+fill.style.width=
+progress+"%";
+
+percent.textContent=
+progress+"%";
+
+status.textContent=
+messages[
+Math.min(
+Math.floor(progress/20),
+messages.length-1
+)
+];
+
+if(progress>=100){
+
+setTimeout(
+()=>{
+document
+.getElementById("splash")
+.classList.add("hidden")
+},
+500
+);
+
+}
+
+},180);
 
 </script>
 
