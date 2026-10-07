@@ -78,18 +78,15 @@ button.tap-fx{animation:tap .28s ease-out}
 button.tap-fx:after{content:"";position:absolute;inset:0;border:1px solid var(--cyan);border-radius:inherit;opacity:0;animation:ring .38s ease-out;pointer-events:none}
 @keyframes tap{0%{transform:scale(1)}35%{transform:scale(.965);filter:brightness(1.3)}100%{transform:scale(1)}}
 @keyframes ring{0%{opacity:.7;transform:scale(.92)}100%{opacity:0;transform:scale(1.08)}}
-.list{display:grid;gap:10px}
 .quest{padding:15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
 .quest-top{display:flex;justify-content:space-between;gap:12px}
 .quest-title{font-weight:700}
 .quest-meta{font-size:11px;color:var(--muted);margin-top:5px}
 .quest button{margin-top:11px;width:100%;height:40px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
 .done{opacity:.45}
+.list{display:grid;gap:10px}
 textarea,input[type=text]{width:100%;border:1px solid var(--line);background:#080c14;color:#fff;border-radius:11px;padding:13px;outline:none}
 textarea{min-height:110px;resize:vertical}
-select{background:#080c14;color:#fff;border:1px solid var(--line);padding:10px;border-radius:9px}
-.muted{color:var(--muted)}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .center{text-align:center}
 .core{width:190px;height:190px;border-radius:50%;margin:20px auto;display:flex;align-items:center;justify-content:center;border:1px solid rgba(89,217,255,.25);box-shadow:0 0 55px rgba(89,217,255,.08),inset 0 0 40px rgba(89,217,255,.04);position:relative}
 .core:before,.core:after{content:"";position:absolute;border:1px solid rgba(89,217,255,.12);border-radius:50%}
@@ -152,59 +149,81 @@ select{background:#080c14;color:#fff;border:1px solid var(--line);padding:10px;b
 <div class="xp" id="xpText">0 / 100 XP</div>
 <div class="xpbar"><span id="xpFill" style="width:0%"></span></div>
 </div>
+
 <div class="panel center">
 <div class="eyebrow">SYSTEM CORE</div>
 <div class="core"><div class="core-dot"></div></div>
 <div id="coreStatus">AWAITING ACTION</div>
 <p id="corePath">Choose something that moves you forward.</p>
 </div>
+
 <div class="grid">
 <div class="panel stat"><strong id="statLevel">1</strong><span>Level</span></div>
 <div class="panel stat"><strong id="statXp">0</strong><span>Total XP</span></div>
 <div class="panel stat"><strong id="statQuests">0</strong><span>Quests</span></div>
 <div class="panel stat"><strong id="statDays">0</strong><span>Days Active</span></div>
 </div>
+
 <div class="panel">
 <div class="eyebrow">CURRENT OBJECTIVE</div>
 <h2 id="objectiveTitle">Start moving.</h2>
 <p id="objectiveText">Complete one useful action today.</p>
-<div class="actions"><button class="primary" id="objectiveBtn">ACCEPT QUEST</button><button class="secondary" id="anotherBtn">ANOTHER</button></div>
+<div class="actions">
+<button class="primary" id="objectiveBtn">ACCEPT QUEST</button>
+<button class="secondary" id="anotherBtn">ANOTHER</button>
+</div>
 </div>
 </section>
 
 <section id="quests" class="view">
-<div class="eyebrow">QUEST LOG</div><h1>Quests</h1><p>Small actions. Real progress.</p>
+<div class="eyebrow">QUEST LOG</div>
+<h1>Quests</h1>
+<p>Small actions. Real progress.</p>
 <div id="questList" class="list"></div>
 <div class="panel">
-<h2>Create Quest</h2><p>Make your own objective.</p>
+<h2>Create Quest</h2>
+<p>Make your own objective.</p>
 <input id="customQuest" type="text" placeholder="What do you want to accomplish?">
 <div class="actions"><button class="primary" id="addQuest">CREATE QUEST</button></div>
 </div>
 </section>
 
 <section id="life" class="view">
-<div class="eyebrow">LIFE ENCOUNTER</div><h1>Life</h1><p>Real-world actions that move you forward.</p>
+<div class="eyebrow">LIFE ENCOUNTER</div>
+<h1>Life</h1>
+<p>Real-world actions that move you forward.</p>
 <div class="panel center">
 <div class="core"><div class="core-dot"></div></div>
 <h2 id="lifeTitle">Your next encounter is waiting.</h2>
 <p id="lifeText">Step outside your routine.</p>
-<div class="actions"><button class="primary" id="lifeAccept">ACCEPT</button><button class="secondary" id="lifeAnother">ANOTHER</button></div>
+<div class="actions">
+<button class="primary" id="lifeAccept">ACCEPT</button>
+<button class="secondary" id="lifeAnother">ANOTHER</button>
+</div>
 </div>
 </section>
 
 <section id="stats" class="view">
-<div class="eyebrow">SYSTEM ANALYSIS</div><h1>Stats</h1><p>Your progress over time.</p>
+<div class="eyebrow">SYSTEM ANALYSIS</div>
+<h1>Stats</h1>
+<p>Your progress over time.</p>
 <div class="grid">
 <div class="panel stat"><strong id="sCompleted">0</strong><span>Completed</span></div>
 <div class="panel stat"><strong id="sXp">0</strong><span>XP Earned</span></div>
 <div class="panel stat"><strong id="sLevel">1</strong><span>Level</span></div>
 <div class="panel stat"><strong id="sActive">0</strong><span>Active Days</span></div>
 </div>
-<div class="panel"><div class="eyebrow">SYSTEM REFLECTION</div><h2 id="reflection">You are building momentum.</h2><p id="reflectionText">Keep going.</p></div>
+<div class="panel">
+<div class="eyebrow">SYSTEM REFLECTION</div>
+<h2 id="reflection">You are building momentum.</h2>
+<p id="reflectionText">Keep going.</p>
+</div>
 </section>
 
 <section id="moments" class="view">
-<div class="eyebrow">MEMORY LOG</div><h1>Moments</h1><p>Keep track of the things that matter.</p>
+<div class="eyebrow">MEMORY LOG</div>
+<h1>Moments</h1>
+<p>Keep track of the things that matter.</p>
 <div class="panel">
 <textarea id="momentInput" placeholder="What happened today?"></textarea>
 <div class="actions"><button class="primary" id="saveMoment">SAVE MOMENT</button></div>
@@ -213,9 +232,22 @@ select{background:#080c14;color:#fff;border:1px solid var(--line);padding:10px;b
 </section>
 
 <section id="profile" class="view">
-<div class="eyebrow">SYSTEM PROFILE</div><h1>Profile</h1>
-<div class="panel"><div class="row"><div><div class="muted">ACCOUNT</div><strong id="accountEmail">—</strong></div><button class="secondary" id="signOut" style="height:42px;padding:0 14px;border-radius:9px">SIGN OUT</button></div></div>
-<div class="panel"><div class="eyebrow">TITLE</div><h2 id="profileTitle">AWAKENING</h2><p>Your journey is just beginning.</p></div>
+<div class="eyebrow">SYSTEM PROFILE</div>
+<h1>Profile</h1>
+<div class="panel">
+<div class="row">
+<div>
+<div class="muted">ACCOUNT</div>
+<strong id="accountEmail">—</strong>
+</div>
+<button class="secondary" id="signOut" style="height:42px;padding:0 14px;border-radius:9px">SIGN OUT</button>
+</div>
+</div>
+<div class="panel">
+<div class="eyebrow">TITLE</div>
+<h2 id="profileTitle">AWAKENING</h2>
+<p>Your journey is just beginning.</p>
+</div>
 </section>
 
 </div>
@@ -230,14 +262,31 @@ select{background:#080c14;color:#fff;border:1px solid var(--line);padding:10px;b
 
 <script>
 (function(){
-var splash=document.getElementById("splash"),bar=document.getElementById("loadBar"),pct=document.getElementById("loadPct"),txt=document.getElementById("loadText"),done=false,p=0;
+var splash=document.getElementById("splash"),
+bar=document.getElementById("loadBar"),
+pct=document.getElementById("loadPct"),
+txt=document.getElementById("loadText"),
+done=false,p=0;
+
 window.__senraiFinishBoot=function(){
-if(done)return;done=true;if(bar)bar.style.width="100%";if(pct)pct.textContent="100%";if(txt)txt.textContent="SYSTEM READY";
-setTimeout(function(){if(splash)splash.classList.add("hidden")},250)
+if(done)return;
+done=true;
+if(bar)bar.style.width="100%";
+if(pct)pct.textContent="100%";
+if(txt)txt.textContent="SYSTEM READY";
+setTimeout(function(){
+if(splash)splash.classList.add("hidden")
+},250)
 };
-var iv=setInterval(function(){p=Math.min(92,p+8);if(bar)bar.style.width=p+"%";if(pct)pct.textContent=p+"%";if(p>=92)clearInterval(iv)},100);
+
+var iv=setInterval(function(){
+p=Math.min(92,p+8);
+if(bar)bar.style.width=p+"%";
+if(pct)pct.textContent=p+"%";
+if(p>=92)clearInterval(iv)
+},100);
+
 setTimeout(window.__senraiFinishBoot,2500);
-setTimeout(function(){var a=document.getElementById("authGate");if(a&&!a.classList.contains("show"))a.classList.add("show");if(splash)splash.classList.add("hidden")},4000);
 })();
 </script>
 
@@ -250,9 +299,23 @@ const SUPABASE_URL="https://qkonsmkzxzkxziektmfx.supabase.co";
 const SUPABASE_KEY="sb_publishable_Jr9ED_DV29-CqvpS0TS7UQ_yYytM-d3";
 
 let sb=null,authUser=null,mode="signin";
+
 const $=id=>document.getElementById(id);
-const wait=(ms)=>new Promise(r=>setTimeout(r,ms));
-const timeout=(promise,ms)=>Promise.race([promise,new Promise((_,rej)=>setTimeout(()=>rej(new Error("TIMEOUT")),ms))]);
+const timeout=(promise,ms)=>Promise.race([
+promise,
+new Promise((_,rej)=>setTimeout(()=>rej(new Error("TIMEOUT")),ms))
+]);
+
+let data={
+xp:0,
+level:1,
+completed:0,
+activeDays:0,
+lastDay:"",
+quests:[],
+moments:[],
+objective:0
+};
 
 const defaultQuests=[
 ["Hydrate","Drink a full glass of water.",10],
@@ -262,63 +325,6 @@ const defaultQuests=[
 ["Connect","Message or call someone you care about.",15]
 ];
 
-let data={
-xp:0,level:1,completed:0,activeDays:0,lastDay:"",
-quests:[],moments:[],objective:0
-};
-
-function fresh(){
-return {xp:0,level:1,completed:0,activeDays:0,lastDay:"",quests:[],moments:[],objective:0}
-}
-function key(){return authUser?"senrai_"+authUser.id:"senrai_guest"}
-function load(){
-try{data=JSON.parse(localStorage.getItem(key())||"null")||fresh()}catch(e){data=fresh()}
-if(!Array.isArray(data.quests))data.quests=[];
-if(!Array.isArray(data.moments))data.moments=[];
-}
-function save(){try{localStorage.setItem(key(),JSON.stringify(data))}catch(e){}}
-function today(){return new Date().toISOString().slice(0,10)}
-function xpNeeded(){return 100+(data.level-1)*50}
-function toast(t){
-const x=$("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)
-}
-function glitch(strong=false){
-const x=$("systemGlitch");x.classList.remove("active");void x.offsetWidth;x.classList.add("active");setTimeout(()=>x.classList.remove("active"),360)
-}
-
-function updateDay(){
-const d=today();
-if(data.lastDay!==d){
-if(data.lastDay)data.activeDays++;
-data.lastDay=d;save()
-}
-}
-
-function reward(title,xp){
-data.xp+=xp;data.completed++;
-while(data.xp>=xpNeeded()){
-data.xp-=xpNeeded();data.level++;glitch(true);toast("LEVEL UP — "+data.level)
-}
-save();render();toast("+"+xp+" XP • "+title)
-}
-
-function questPool(){
-return defaultQuests.map((q,i)=>({id:"daily_"+i,title:q[0],text:q[1],xp:q[2]}))
-}
-function renderQuests(){
-const box=$("questList"),all=[...questPool(),...data.quests];
-box.innerHTML="";
-all.forEach(q=>{
-const el=document.createElement("div");el.className="quest";
-el.innerHTML='<div class="quest-top"><div><div class="quest-title">'+escapeHtml(q.title)+'</div><div class="quest-meta">'+escapeHtml(q.text)+'</div></div><strong>+'+q.xp+' XP</strong></div><button>COMPLETE</button>';
-el.querySelector("button").onclick=()=>{el.classList.add("done");reward(q.title,q.xp)};
-box.appendChild(el)
-})
-}
-function escapeHtml(s){
-return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))
-}
-
 const objectives=[
 ["Start moving.","Complete one useful action today."],
 ["Clear the noise.","Clean or organize one small thing."],
@@ -326,12 +332,6 @@ const objectives=[
 ["Reconnect.","Reach out to someone important."],
 ["Take control.","Handle one task you've been avoiding."]
 ];
-function renderObjective(){
-const o=objectives[data.objective%objectives.length];
-$("objectiveTitle").textContent=o[0];$("objectiveText").textContent=o[1]
-}
-function anotherObjective(){data.objective=(data.objective+1)%objectives.length;save();renderObjective();glitch()}
-function acceptObjective(){reward("Objective",20);data.objective=(data.objective+1)%objectives.length;save();renderObjective()}
 
 const lifePool=[
 ["Take a different route","Change your normal routine today.",20],
@@ -341,126 +341,438 @@ const lifePool=[
 ["Try something new","Do one thing outside your normal routine.",25],
 ["Reset your space","Make the place around you feel better.",15]
 ];
-let lifeIndex=Math.floor(Math.random()*lifePool.length);
-function renderLife(){
-const q=lifePool[lifeIndex%lifePool.length];
-$("lifeTitle").textContent=q[0];$("lifeText").textContent=q[1]
-}
-function anotherLife(){lifeIndex=(lifeIndex+1)%lifePool.length;renderLife();glitch()}
-function acceptLife(){const q=lifePool[lifeIndex%lifePool.length];reward("Life Encounter",q[2])}
 
-function renderMoments(){
-const box=$("momentsList");box.innerHTML="";
-data.moments.slice().reverse().forEach(m=>{
-const el=document.createElement("div");el.className="panel";
-el.innerHTML="<div>"+escapeHtml(m.text)+"</div><div class='muted' style='font-size:10px;margin-top:8px'>"+escapeHtml(m.date)+"</div>";
+let lifeIndex=Math.floor(Math.random()*lifePool.length);
+
+function fresh(){
+return{
+xp:0,
+level:1,
+completed:0,
+activeDays:0,
+lastDay:"",
+quests:[],
+moments:[],
+objective:0
+}
+}
+
+function key(){
+return authUser?"senrai_"+authUser.id:"senrai_guest"
+}
+
+function load(){
+try{
+data=JSON.parse(localStorage.getItem(key())||"null")||fresh()
+}catch(e){
+data=fresh()
+}
+if(!Array.isArray(data.quests))data.quests=[];
+if(!Array.isArray(data.moments))data.moments=[];
+}
+
+function save(){
+try{
+localStorage.setItem(key(),JSON.stringify(data))
+}catch(e){}
+}
+
+function today(){
+return new Date().toISOString().slice(0,10)
+}
+
+function xpNeeded(){
+return 100+(data.level-1)*50
+}
+
+function toast(t){
+const x=$("toast");
+x.textContent=t;
+x.classList.add("show");
+setTimeout(()=>x.classList.remove("show"),1800)
+}
+
+function glitch(){
+const x=$("systemGlitch");
+x.classList.remove("active");
+void x.offsetWidth;
+x.classList.add("active");
+setTimeout(()=>x.classList.remove("active"),360)
+}
+
+function updateDay(){
+const d=today();
+if(data.lastDay!==d){
+if(data.lastDay)data.activeDays++;
+data.lastDay=d;
+save()
+}
+}
+
+function reward(title,xp){
+data.xp+=xp;
+data.completed++;
+
+while(data.xp>=xpNeeded()){
+data.xp-=xpNeeded();
+data.level++;
+glitch();
+toast("LEVEL UP — "+data.level)
+}
+
+save();
+render();
+toast("+"+xp+" XP • "+title)
+}
+
+function questPool(){
+return defaultQuests.map((q,i)=>({
+id:"daily_"+i,
+title:q[0],
+text:q[1],
+xp:q[2]
+}))
+}
+
+function escapeHtml(s){
+return String(s).replace(/[&<>"']/g,m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[m]))
+}
+
+function renderQuests(){
+const box=$("questList");
+const all=[...questPool(),...data.quests];
+
+box.innerHTML="";
+
+all.forEach(q=>{
+const el=document.createElement("div");
+el.className="quest";
+
+el.innerHTML=
+'<div class="quest-top">'+
+'<div>'+
+'<div class="quest-title">'+escapeHtml(q.title)+'</div>'+
+'<div class="quest-meta">'+escapeHtml(q.text)+'</div>'+
+'</div>'+
+'<strong>+'+q.xp+' XP</strong>'+
+'</div>'+
+'<button>COMPLETE</button>';
+
+el.querySelector("button").onclick=()=>{
+el.classList.add("done");
+reward(q.title,q.xp)
+};
+
 box.appendChild(el)
 })
 }
+
+function renderObjective(){
+const o=objectives[data.objective%objectives.length];
+$("objectiveTitle").textContent=o[0];
+$("objectiveText").textContent=o[1]
+}
+
+function anotherObjective(){
+data.objective=(data.objective+1)%objectives.length;
+save();
+renderObjective();
+glitch()
+}
+
+function acceptObjective(){
+reward("Objective",20);
+data.objective=(data.objective+1)%objectives.length;
+save();
+renderObjective()
+}
+
+function renderLife(){
+const q=lifePool[lifeIndex%lifePool.length];
+$("lifeTitle").textContent=q[0];
+$("lifeText").textContent=q[1]
+}
+
+function anotherLife(){
+lifeIndex=(lifeIndex+1)%lifePool.length;
+renderLife();
+glitch()
+}
+
+function acceptLife(){
+const q=lifePool[lifeIndex%lifePool.length];
+reward("Life Encounter",q[2])
+}
+
+function renderMoments(){
+const box=$("momentsList");
+box.innerHTML="";
+
+data.moments.slice().reverse().forEach(m=>{
+const el=document.createElement("div");
+el.className="panel";
+
+el.innerHTML=
+"<div>"+escapeHtml(m.text)+"</div>"+
+"<div class='muted' style='font-size:10px;margin-top:8px'>"+
+escapeHtml(m.date)+
+"</div>";
+
+box.appendChild(el)
+})
+}
+
 function saveMoment(){
-const v=$("momentInput").value.trim();if(!v)return;
-data.moments.push({text:v,date:new Date().toLocaleString()});$("momentInput").value="";save();renderMoments();toast("MOMENT SAVED");glitch()
+const v=$("momentInput").value.trim();
+if(!v)return;
+
+data.moments.push({
+text:v,
+date:new Date().toLocaleString()
+});
+
+$("momentInput").value="";
+save();
+renderMoments();
+toast("MOMENT SAVED");
+glitch()
 }
 
 function render(){
 updateDay();
+
 $("level").textContent=data.level;
 $("statLevel").textContent=data.level;
 $("statXp").textContent=data.xp;
 $("statQuests").textContent=data.completed;
 $("statDays").textContent=data.activeDays;
+
 $("xpText").textContent=data.xp+" / "+xpNeeded()+" XP";
 $("xpFill").style.width=Math.min(100,data.xp/xpNeeded()*100)+"%";
+
 $("sCompleted").textContent=data.completed;
 $("sXp").textContent=data.xp;
 $("sLevel").textContent=data.level;
 $("sActive").textContent=data.activeDays;
-$("reflection").textContent=data.completed?"Momentum detected.":"System awaiting first action.";
-$("reflectionText").textContent=data.completed?"Every completed action is proof that you are moving forward.":"Start small. One completed action is enough.";
-renderObjective();renderQuests();renderMoments()
+
+$("reflection").textContent=data.completed?
+"Momentum detected.":
+"System awaiting first action.";
+
+$("reflectionText").textContent=data.completed?
+"Every completed action is proof that you are moving forward.":
+"Start small. One completed action is enough.";
+
+renderObjective();
+renderQuests();
+renderMoments()
 }
 
 function showAuth(message=""){
 $("app").classList.add("auth-locked");
 document.querySelector(".nav").classList.add("auth-locked");
 $("authGate").classList.add("show");
+
 if(message)$("authMessage").textContent=message
 }
+
 function hideAuth(){
 $("authGate").classList.remove("show");
 $("app").classList.remove("auth-locked");
 document.querySelector(".nav").classList.remove("auth-locked");
+
 $("accountEmail").textContent=authUser?.email||"";
-window.__senraiFinishBoot();
+
+if(window.__senraiFinishBoot)window.__senraiFinishBoot();
+
 render()
 }
+
 function setMode(m){
 mode=m;
+
 $("signInTab").classList.toggle("active",m==="signin");
 $("signUpTab").classList.toggle("active",m==="signup");
+
 $("confirmWrap").style.display=m==="signup"?"block":"none";
 $("forgotBtn").style.display=m==="signin"?"block":"none";
-$("authSubmit").textContent=m==="signin"?"ENTER SYSTEM":"CREATE ACCOUNT";
+
+$("authSubmit").textContent=
+m==="signin"?"ENTER SYSTEM":"CREATE ACCOUNT";
+
 $("authMessage").textContent=""
 }
 
 async function submitAuth(){
-const email=$("authEmail").value.trim(),pass=$("authPassword").value,confirm=$("authConfirm").value;
-if(!email||!pass){$("authMessage").textContent="ENTER EMAIL AND PASSWORD.";return}
-if(mode==="signup"&&pass!==confirm){$("authMessage").textContent="PASSWORDS DO NOT MATCH.";return}
-if(!sb){$("authMessage").textContent="AUTHENTICATION SERVICE UNAVAILABLE.";return}
-$("authSubmit").disabled=true;$("authMessage").textContent="CONNECTING TO SYSTEM...";
+const email=$("authEmail").value.trim();
+const pass=$("authPassword").value;
+const confirm=$("authConfirm").value;
+
+if(!email||!pass){
+$("authMessage").textContent="ENTER EMAIL AND PASSWORD.";
+return
+}
+
+if(mode==="signup"&&pass!==confirm){
+$("authMessage").textContent="PASSWORDS DO NOT MATCH.";
+return
+}
+
+if(!sb){
+$("authMessage").textContent="AUTHENTICATION SERVICE UNAVAILABLE.";
+return
+}
+
+$("authSubmit").disabled=true;
+$("authMessage").textContent="CONNECTING TO SYSTEM...";
+
 try{
 let r;
-if(mode==="signin")r=await timeout(sb.auth.signInWithPassword({email,password:pass}),7000);
-else r=await timeout(sb.auth.signUp({email,password:pass}),7000);
+
+if(mode==="signin"){
+r=await timeout(
+sb.auth.signInWithPassword({
+email,
+password:pass
+}),
+7000
+)
+}else{
+r=await timeout(
+sb.auth.signUp({
+email,
+password:pass
+}),
+7000
+)}
+
 if(r.error)throw r.error;
+
 if(mode==="signup"&&!r.data.session){
-$("authMessage").textContent="ACCOUNT CREATED. CHECK YOUR EMAIL TO CONFIRM ACCESS."
+$("authMessage").textContent=
+"ACCOUNT CREATED. CHECK YOUR EMAIL TO CONFIRM ACCESS."
 }else if(r.data.session){
-authUser=r.data.session.user;load();hideAuth();toast("SYSTEM ACCESS GRANTED");glitch(true)
+authUser=r.data.session.user;
+load();
+hideAuth();
+toast("SYSTEM ACCESS GRANTED");
+glitch()
 }
-}catch(e){$("authMessage").textContent=e.message||"AUTHENTICATION FAILED."}
-finally{$("authSubmit").disabled=false}
+
+}catch(e){
+$("authMessage").textContent=
+e.message||"AUTHENTICATION FAILED."
+}
+
+finally{
+$("authSubmit").disabled=false
+}
 }
 
 async function forgot(){
 const email=$("authEmail").value.trim();
-if(!email){$("authMessage").textContent="ENTER YOUR EMAIL FIRST.";return}
+
+if(!email){
+$("authMessage").textContent="ENTER YOUR EMAIL FIRST.";
+return
+}
+
+if(!sb){
+$("authMessage").textContent="AUTHENTICATION SERVICE UNAVAILABLE.";
+return
+}
+
 try{
-const r=await timeout(sb.auth.resetPasswordForEmail(email),7000);
+const r=await timeout(
+sb.auth.resetPasswordForEmail(email),
+7000
+);
+
 if(r.error)throw r.error;
+
 $("authMessage").textContent="PASSWORD RESET EMAIL SENT."
-}catch(e){$("authMessage").textContent=e.message||"RESET FAILED."}
+}catch(e){
+$("authMessage").textContent=
+e.message||"RESET FAILED."
+}
 }
 
 async function signOut(){
 if(sb)await sb.auth.signOut();
-authUser=null;data=fresh();$("authEmail").value="";$("authPassword").value="";showAuth("SIGNED OUT.")
+
+authUser=null;
+data=fresh();
+
+$("authEmail").value="";
+$("authPassword").value="";
+
+showAuth("SIGNED OUT.")
 }
 
 async function startAuth(){
 try{
-if(!window.supabase)throw new Error("AUTH SERVICE DID NOT LOAD");
-sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const r=await timeout(sb.auth.getSession(),5000);
-if(r.error)throw r.error;
-if(r.data.session){
-authUser=r.data.session.user;load();hideAuth()
-}else showAuth()
-sb.auth.onAuthStateChange((event,session)=>{
-if(session&&!authUser){authUser=session.user;load();hideAuth()}
-if(!session&&authUser){authUser=null;showAuth("SIGNED OUT.")}
-})
-}catch(e){showAuth("AUTHENTICATION SERVICE UNAVAILABLE.")}
+if(!window.supabase){
+throw new Error("AUTH SERVICE DID NOT LOAD")
 }
 
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{
-document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+sb=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+const r=await timeout(
+sb.auth.getSession(),
+5000
+);
+
+if(r.error)throw r.error;
+
+if(r.data.session){
+authUser=r.data.session.user;
+load();
+hideAuth()
+}else{
+showAuth()
+}
+
+sb.auth.onAuthStateChange((event,session)=>{
+if(session&&!authUser){
+authUser=session.user;
+load();
+hideAuth()
+}
+
+if(!session&&authUser){
+authUser=null;
+showAuth("SIGNED OUT.")
+}
+})
+
+}catch(e){
+showAuth("AUTHENTICATION SERVICE UNAVAILABLE.")
+}
+}
+
+document.querySelectorAll(".nav button").forEach(b=>{
+b.onclick=()=>{
+document.querySelectorAll(".nav button")
+.forEach(x=>x.classList.remove("active"));
+
 b.classList.add("active");
-document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+
+document.querySelectorAll(".view")
+.forEach(v=>v.classList.remove("active"));
+
 $(b.dataset.view).classList.add("active");
-glitch(b.dataset.view==="life")
+
+if(b.dataset.view==="life")glitch()
+}
 });
 
 $("signInTab").onclick=()=>setMode("signin");
@@ -468,38 +780,65 @@ $("signUpTab").onclick=()=>setMode("signup");
 $("authSubmit").onclick=submitAuth;
 $("forgotBtn").onclick=forgot;
 $("signOut").onclick=signOut;
+
 $("objectiveBtn").onclick=acceptObjective;
 $("anotherBtn").onclick=anotherObjective;
+
 $("lifeAccept").onclick=acceptLife;
 $("lifeAnother").onclick=anotherLife;
+
 $("addQuest").onclick=()=>{
-const v=$("customQuest").value.trim();if(!v)return;
-data.quests.push({id:"custom_"+Date.now(),title:v,text:"Custom quest",xp:20});
-$("customQuest").value="";save();renderQuests();toast("QUEST CREATED");glitch()
+const v=$("customQuest").value.trim();
+
+if(!v)return;
+
+data.quests.push({
+id:"custom_"+Date.now(),
+title:v,
+text:"Custom quest",
+xp:20
+});
+
+$("customQuest").value="";
+save();
+renderQuests();
+toast("QUEST CREATED");
+glitch()
 };
+
 $("saveMoment").onclick=saveMoment;
 
 document.addEventListener("click",e=>{
 const b=e.target.closest("button");
+
 if(!b||b.disabled)return;
-b.classList.remove("tap-fx");void b.offsetWidth;b.classList.add("tap-fx");
-setTimeout(()=>b.classList.remove("tap-fx"),400)
+
+b.classList.remove("tap-fx");
+void b.offsetWidth;
+b.classList.add("tap-fx");
+
+setTimeout(()=>{
+b.classList.remove("tap-fx")
+},400)
 });
 
 setMode("signin");
 renderLife();
 render();
 startAuth();
-
-})();
 </script>
 
 <script>
 setTimeout(function(){
-const splash=document.getElementById("splash"),auth=document.getElementById("authGate");
+const splash=document.getElementById("splash");
+const auth=document.getElementById("authGate");
+
 if(splash&&!splash.classList.contains("hidden")){
 splash.classList.add("hidden");
-if(auth&&!auth.classList.contains("show"))auth.classList.add("show");
+
+if(auth&&!auth.classList.contains("show")){
+auth.classList.add("show")
+}
 }
 },4500);
 </script>
