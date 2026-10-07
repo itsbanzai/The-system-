@@ -1,470 +1,395 @@
 <!doctype html><html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05070b">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SENRAI">
-<link rel="icon" href="senrai-logo.png">
-<link rel="apple-touch-icon" href="senrai-logo.png">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#03060a"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SENRAI">
+<link rel="icon" href="senrai-logo.png"><link rel="apple-touch-icon" href="senrai-logo.png">
 <title>SENRAI — The System That Moves You Forward</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#05070b;--p:#0d1118dd;--p2:#101620;--line:#252d38;--text:#edf2f8;--muted:#7c8796;--dim:#4f5968;--cyan:#69e2dc;--blue:#65a9ff;--purple:#a87cff;--green:#5df2a5;--orange:#ffad58;--red:#ff687b}
-html{scroll-behavior:smooth}body{background:radial-gradient(circle at 50% -20%,#121b28 0,#05070b 42%);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#10151d;color:var(--text);border-radius:12px;padding:11px 14px;font-size:9px;letter-spacing:1.5px;transition:.2s}button:hover{border-color:#687589;background:#171d27}.primary{background:#edf2f8;color:#05070b;border-color:#edf2f8;font-weight:900}.danger{color:#ff7888;border-color:#482832}.ghost{background:transparent}.hidden{display:none!important}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:#03060a;color:#edf3f8;font-family:Inter,Arial,sans-serif;min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer}.hide{display:none!important}
+:root{--bg:#03060a;--glass:#0b1017d9;--glass2:#101721;--line:#26303c;--text:#edf3f8;--muted:#778494;--dim:#4b5766;--cyan:#6ce6df;--blue:#6baaff;--purple:#a980ff;--green:#5cf2a6;--gold:#f1d36b;--red:#ff6e80;--orange:#ffb05c}
 
-#splash{position:fixed;inset:0;background:#030508;z-index:9999;display:grid;place-items:center;transition:.7s}.splash-inner{text-align:center;width:min(390px,84%)}.splash-logo{width:min(250px,70vw);height:auto;object-fit:contain;margin:0 auto 28px;display:block}.splash-sub{font-size:8px;letter-spacing:3px;color:#667181}.load{height:2px;background:#161b23;margin-top:40px;border-radius:9px;overflow:hidden}.load i{display:block;width:0;height:100%;background:#edf2f8;transition:.25s}.load-info{display:flex;justify-content:space-between;margin-top:10px;color:#56606e;font-size:7px;letter-spacing:1.5px}
+#boot{position:fixed;inset:0;z-index:99999;background:#020407;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .8s,visibility .8s}
+#boot.out{opacity:0;visibility:hidden}.boot-grid{position:absolute;inset:0;background-image:linear-gradient(#fff00009 1px,transparent 1px),linear-gradient(90deg,#fff00009 1px,transparent 1px);background-size:45px 45px;mask-image:linear-gradient(#000,transparent 80%);animation:gridMove 8s linear infinite}
+@keyframes gridMove{to{transform:translateY(45px)}}.boot-glow{position:absolute;width:65vw;height:65vw;border-radius:50%;background:radial-gradient(circle,#69e2dc12,transparent 65%);filter:blur(12px)}
+.boot-box{width:min(420px,84%);position:relative;text-align:center}.boot-logo{width:min(260px,72vw);display:block;margin:auto;filter:drop-shadow(0 0 30px #69e2dc15)}
+.boot-line{height:1px;background:#202a35;margin:30px 0 16px;position:relative;overflow:hidden}.boot-line i{display:block;width:0;height:100%;background:linear-gradient(90deg,transparent,#edf3f8,transparent);transition:width .3s}
+.boot-status{display:flex;justify-content:space-between;color:#586574;font-size:7px;letter-spacing:2px}.boot-status span:last-child{color:#aeb9c7}
+.boot-scan{height:1px;background:#69e2dc18;margin-top:24px;position:relative;overflow:hidden}.boot-scan i{position:absolute;width:35%;height:100%;background:#69e2dc66;animation:scan 2s linear infinite}@keyframes scan{from{left:-35%}to{left:100%}}
 
-#authGate{position:fixed;inset:0;z-index:9000;background:radial-gradient(circle at 50% 15%,#14202d,#05070b 48%);display:none;place-items:center;padding:20px;overflow:auto}.auth-box{width:min(420px,100%);border:1px solid #28313e;background:#0b1017e8;backdrop-filter:blur(20px);border-radius:25px;padding:28px;box-shadow:0 25px 80px #0008}.auth-logo{width:105px;display:block;margin:0 auto 18px}.auth-kicker{text-align:center;color:var(--cyan);font-size:8px;letter-spacing:3px}.auth-title{text-align:center;font-size:25px;font-weight:950;margin-top:8px}.auth-sub{text-align:center;color:var(--muted);font-size:9px;line-height:1.5;margin:7px 0 22px}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#080b10;border-radius:12px;padding:3px;margin-bottom:18px}.auth-tabs button{border:0;background:transparent}.auth-tabs button.active{background:#171e28;color:#fff}.field{margin-top:11px}.field label{display:block;color:var(--muted);font-size:7px;letter-spacing:2px;margin-bottom:6px}input,select,textarea{width:100%;background:#080c11;border:1px solid #29313d;color:var(--text);border-radius:12px;padding:12px;outline:0;font-size:10px}input:focus,textarea:focus,select:focus{border-color:#68778b}.auth-submit{width:100%;margin-top:17px}.auth-links{display:flex;justify-content:space-between;gap:10px;margin-top:13px}.auth-links button{border:0;background:transparent;padding:4px;color:#687586;font-size:7px}.auth-status{text-align:center;min-height:17px;color:#ff7888;font-size:8px;line-height:1.4;margin-top:10px}.auth-status.good{color:var(--green)}
+#auth{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% 10%,#10202b,#03060a 55%);overflow:auto}
+.auth-grid{position:absolute;inset:0;background-image:linear-gradient(#fff00006 1px,transparent 1px),linear-gradient(90deg,#fff00006 1px,transparent 1px);background-size:38px 38px}
+.auth-card{position:relative;width:min(430px,100%);padding:28px;border:1px solid #293541;background:#080d14e8;backdrop-filter:blur(22px);border-radius:26px;box-shadow:0 30px 100px #0009}
+.auth-logo{width:95px;display:block;margin:0 auto 17px}.auth-kicker{text-align:center;color:var(--cyan);font-size:7px;letter-spacing:3px}.auth-title{text-align:center;font-size:26px;font-weight:950;margin-top:8px}.auth-sub{text-align:center;color:var(--muted);font-size:9px;line-height:1.55;margin:7px auto 22px;max-width:320px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#05080c;border:1px solid #1e2732;border-radius:13px;padding:3px}.auth-tabs button{border:0;background:transparent;color:#657181;border-radius:10px;padding:10px;font-size:7px;letter-spacing:1.5px}.auth-tabs .on{background:#151d27;color:#edf3f8}
+.field{margin-top:13px}.field label{display:block;color:#697686;font-size:7px;letter-spacing:1.8px;margin-bottom:6px}input,select,textarea{width:100%;background:#060a0f;border:1px solid #29323e;color:#edf3f8;border-radius:12px;padding:12px;outline:none;font-size:10px}input:focus,select:focus,textarea:focus{border-color:#718094}
+.auth-submit{width:100%;border:1px solid #edf3f8;background:#edf3f8;color:#03060a;border-radius:12px;padding:13px;margin-top:17px;font-size:8px;font-weight:950;letter-spacing:1.8px}.auth-links{display:flex;justify-content:space-between;margin-top:12px}.auth-links button{border:0;background:transparent;color:#596676;font-size:7px;padding:4px}.auth-msg{text-align:center;min-height:18px;margin-top:11px;font-size:8px;color:var(--red);line-height:1.4}.auth-msg.good{color:var(--green)}
 
-#app{width:min(1100px,100%);margin:auto;padding:18px 14px 105px;display:none}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:7px 3px 18px}.brand{font-size:19px;font-weight:950;letter-spacing:5px}.online{font-size:7px;color:var(--green);letter-spacing:1.5px}.online b{display:inline-block;width:5px;height:5px;background:var(--green);border-radius:50%;margin-right:5px;box-shadow:0 0 9px var(--green)}
+#app{display:none;width:min(1120px,100%);margin:auto;padding:17px 14px 105px}
+header{height:55px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-size:19px;font-weight:950;letter-spacing:5px}.sys-state{font-size:7px;color:var(--green);letter-spacing:1.7px}.sys-state b{display:inline-block;width:5px;height:5px;background:var(--green);border-radius:50%;margin-right:6px;box-shadow:0 0 10px var(--green)}
 
-.view{display:none}.view.active{display:block;animation:in .3s ease}@keyframes in{from{opacity:0;transform:translateY(7px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
-.section{margin-top:23px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:10px}.section-title{font-size:10px;font-weight:950;letter-spacing:2.5px}.section-sub{font-size:7px;color:var(--muted);letter-spacing:1.5px}
-.panel,.hero,.quest,.stat,.card,.objective,.life-box{border:1px solid var(--line);background:var(--p);backdrop-filter:blur(13px);border-radius:20px;box-shadow:0 15px 45px #0002}
+.view{display:none}.view.active{display:block;animation:viewIn .3s ease}@keyframes viewIn{from{opacity:0;transform:translateY(9px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+.section{margin-top:24px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:10px}.section-title{font-size:10px;font-weight:950;letter-spacing:2.5px}.section-sub{font-size:7px;color:var(--muted);letter-spacing:1.5px}
 
-.hero{margin-top:19px;padding:22px;background:radial-gradient(circle at 100% 0,#65a9ff12,transparent 38%),#0d1118dd}.hero-top{display:flex;justify-content:space-between}.label{font-size:7px;color:var(--muted);letter-spacing:2px}.level{font-size:40px;font-weight:950;margin-top:5px;line-height:1}.level small{font-size:9px;color:var(--muted);letter-spacing:2px}.xp{text-align:right}.xp strong{font-size:20px}.xp small{display:block;color:var(--muted);font-size:7px;letter-spacing:1.5px;margin-top:4px}.track{height:5px;background:#181d26;border-radius:99px;overflow:hidden;margin-top:22px}.track i{height:100%;display:block;width:0;background:linear-gradient(90deg,#647184,#eef3f8);border-radius:99px;transition:.5s}.xp-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:7px;margin-top:7px}
+.panel,.hero,.quest,.stat,.card,.objective,.path,.life-panel,.moment{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(14px);border-radius:20px;box-shadow:0 18px 55px #0002}
+.hero{margin-top:19px;padding:22px;background:radial-gradient(circle at 100% 0,#6baaff12,transparent 40%),#0b1017dc}.hero-top{display:flex;justify-content:space-between}.label{color:#687686;font-size:7px;letter-spacing:2px}.level{font-size:42px;font-weight:950;line-height:1;margin-top:5px}.level small{font-size:9px;color:#687686;letter-spacing:2px}.xp{text-align:right}.xp strong{font-size:21px}.xp small{display:block;color:#687686;font-size:7px;letter-spacing:1.5px;margin-top:4px}.track{height:5px;background:#171d25;border-radius:99px;overflow:hidden}.hero .track{margin-top:22px}.track i{height:100%;display:block;width:0;background:linear-gradient(90deg,#607084,#f1f4f7);border-radius:99px;transition:.5s}.xp-foot{display:flex;justify-content:space-between;color:#657180;font-size:7px;margin-top:7px}
 
-.core{margin-top:11px;padding:15px;border:1px solid #28313c;border-radius:24px;background:radial-gradient(circle at 50% 50%,#69e2dc0d,transparent 30%),#0a0e14ee;position:relative;overflow:hidden}.core-head,.core-foot{display:flex;justify-content:space-between;align-items:center}.core-kicker{font-size:6px;color:#687484;letter-spacing:2px}.core-title{font-size:11px;font-weight:900;margin-top:3px}.active{color:var(--green);font-size:7px;letter-spacing:1.5px}.core-orbit{height:215px;display:grid;place-items:center;position:relative}.ring{position:absolute;border:1px solid #69e2dc28;border-radius:50%;animation:spin 16s linear infinite}.r1{width:165px;height:165px;border-top-color:#69e2dc99}.r2{width:125px;height:125px;border-color:#a87cff3d;animation-direction:reverse;animation-duration:11s}.r3{width:92px;height:92px;border-style:dashed;border-color:#65a9ff4a;animation-duration:8s}.core-center{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#27343e,#080c11 72%);border:1px solid #566477;box-shadow:0 0 35px #69e2dc20;font-weight:950;font-size:7px;letter-spacing:2px;z-index:2}.core-center b{font-size:22px;color:var(--cyan);line-height:1;text-shadow:0 0 18px #69e2dc88}.core-foot{border-top:1px solid #1d242d;padding-top:9px;color:#596473;font-size:6px;letter-spacing:1.2px}@keyframes spin{to{transform:rotate(360deg)}}
+.core{margin-top:11px;padding:16px;border:1px solid #293440;border-radius:25px;background:radial-gradient(circle at 50% 48%,#6ce6df0d,transparent 29%),linear-gradient(135deg,#fff00005,transparent 55%),#080d13ee;position:relative;overflow:hidden}.core:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#fff00006 50%,transparent 65%);transform:translateX(-120%);animation:sweep 8s infinite}@keyframes sweep{70%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.core-top,.core-bottom{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}.core-kicker{font-size:6px;color:#697687;letter-spacing:2.5px}.core-title{font-size:11px;font-weight:950;margin-top:4px}.core-active{font-size:7px;color:var(--green);letter-spacing:1.5px}.core-orbit{height:230px;display:grid;place-items:center;position:relative}.core-ring{position:absolute;border:1px solid #6ce6df28;border-radius:50%;animation:spin 17s linear infinite}.core-ring.a{width:176px;height:176px;border-top-color:#6ce6df99}.core-ring.b{width:135px;height:135px;border-color:#a980ff3d;animation-direction:reverse;animation-duration:12s}.core-ring.c{width:101px;height:101px;border-style:dashed;border-color:#6baaff44;animation-duration:9s}.core-node{position:absolute;border:1px solid #303b47;background:#080d13;border-radius:99px;padding:5px 7px;color:#7d8b9b;font-size:6px;letter-spacing:1px}.node1{top:27px}.node2{right:calc(50% - 120px);top:50%}.node3{left:calc(50% - 120px);top:65%}.core-center{width:88px;height:88px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:radial-gradient(circle at 35% 25%,#293741,#070b10 72%);border:1px solid #5d6b7b;box-shadow:0 0 40px #6ce6df18,inset 0 0 25px #fff00006;position:relative;z-index:2;font-size:7px;font-weight:950;letter-spacing:2px}.core-center b{font-size:23px;line-height:1;color:var(--cyan);text-shadow:0 0 18px #6ce6df88}.core-center small{color:#657180;font-size:5px;letter-spacing:2px}.core-bottom{border-top:1px solid #1c252e;padding-top:9px;color:#566373;font-size:6px;letter-spacing:1.2px}@keyframes spin{to{transform:rotate(360deg)}}
 
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}.summary .card{padding:14px}.summary b{font-size:21px;display:block;margin-top:6px}.summary small{font-size:7px;color:var(--muted);letter-spacing:1px}.orange{color:var(--orange)}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}.summary .card{padding:14px}.summary small{font-size:7px;color:#687686;letter-spacing:1.5px}.summary b{display:block;font-size:22px;margin-top:6px}.orange{color:var(--orange)}
 
-.objective{padding:17px;border-left:2px solid var(--blue)}.tag{font-size:7px;color:var(--blue);letter-spacing:2px}.objective h2{font-size:17px;margin:6px 0}.desc{color:#aab3bf;font-size:9px;line-height:1.5}.objective .track{margin-top:12px}.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:7px;margin-top:6px}
+.objective{padding:18px;border-left:2px solid var(--blue)}.tag{font-size:7px;color:var(--blue);letter-spacing:2px}.objective h2{font-size:18px;margin:7px 0}.desc{font-size:9px;color:#aab4c0;line-height:1.55}.objective .track{margin-top:13px}.meta{display:flex;justify-content:space-between;color:#697687;font-size:7px;margin-top:6px}
 
-.reflection{padding:19px;position:relative;overflow:hidden;background:radial-gradient(circle at 100% 0,#65a9ff12,transparent 40%),#0d1118dd}.reflection:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--blue),var(--purple))}.reflection h2{font-size:16px;margin:7px 0}.reflection p{color:#aab3bf;font-size:9px;line-height:1.55}.recommend{border-top:1px solid var(--line);margin-top:15px;padding-top:13px}.recommend small{font-size:7px;color:var(--muted);letter-spacing:2px}.recommend b{display:block;font-size:11px;margin-top:6px}.reward{color:var(--green);font-size:7px;margin-top:5px}.actions{display:flex;gap:7px;margin-top:13px}.actions>*{flex:1}
+.reflection{padding:20px;position:relative;overflow:hidden;background:radial-gradient(circle at 100% 0,#6baaff12,transparent 40%),#0b1017dc}.reflection:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--blue),var(--purple))}.reflection h2{font-size:17px;margin:8px 0}.reflection p{font-size:9px;color:#aab4c0;line-height:1.55}.recommend{border-top:1px solid var(--line);margin-top:16px;padding-top:14px}.recommend small{font-size:7px;color:#687686;letter-spacing:2px}.recommend b{display:block;font-size:12px;margin-top:6px}.reward{color:var(--green);font-size:7px;margin-top:5px}.actions{display:flex;gap:7px;margin-top:14px}.actions>*{flex:1}
 
-.path{padding:17px}.path-title{font-size:18px;font-weight:950}.path-desc{color:var(--muted);font-size:8px;line-height:1.5;margin-top:5px}.stage{border-top:1px solid var(--line);padding:12px 0 0;margin-top:13px}.stage-top{display:flex;justify-content:space-between}.stage-name{font-size:9px;font-weight:900}.stage-state{font-size:6px;color:var(--muted);letter-spacing:1px}.stage-state.done{color:var(--green)}.stage-q{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;padding:10px;border:1px solid #252e3a;border-radius:12px}.stage-q span{font-size:8px}.stage-q small{color:var(--muted);font-size:6px;display:block;margin-top:3px}
+.path{padding:18px}.path-name{font-size:19px;font-weight:950}.path-desc{font-size:8px;color:#778494;line-height:1.5;margin-top:5px}.stage{border-top:1px solid var(--line);margin-top:14px;padding-top:13px}.stage-top{display:flex;justify-content:space-between}.stage-name{font-size:8px;font-weight:900;letter-spacing:1px}.stage-state{font-size:6px;color:#697687;letter-spacing:1px}.stage-state.done{color:var(--green)}.stage-q{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #26313d;border-radius:13px;padding:11px;margin-top:8px}.stage-q span{font-size:8px}.stage-q small{display:block;color:#697687;font-size:6px;margin-top:3px}
 
-.quest-list{display:grid;gap:8px}.quest{padding:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}.quest h3{font-size:10px}.quest p{color:var(--muted);font-size:8px;margin-top:4px}.pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.pill{font-size:6px;color:var(--muted);border:1px solid #2a313d;border-radius:99px;padding:4px 6px}.pill.xp{color:var(--green)}.quest.done{opacity:.42}.quest.done h3{text-decoration:line-through}
+.quest-list{display:grid;gap:8px}.quest{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px}.quest h3{font-size:10px}.quest p{font-size:8px;color:#748191;margin-top:4px}.pills{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}.pill{border:1px solid #2b3541;border-radius:99px;padding:4px 6px;font-size:6px;color:#778494}.pill.xp{color:var(--green)}.quest.done{opacity:.42}.quest.done h3{text-decoration:line-through}
 
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}.form-card{padding:16px}.create{width:100%;margin-top:12px}.field-label{font-size:7px;color:var(--muted);letter-spacing:1.5px;display:block;margin-bottom:6px}
+.form-card{padding:17px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}.field-label{display:block;color:#697687;font-size:7px;letter-spacing:1.5px;margin-bottom:6px}.field{margin-top:11px}.create{width:100%;margin-top:13px;padding:13px;border-radius:12px;border:1px solid #edf3f8;background:#edf3f8;color:#03060a;font-size:8px;font-weight:950;letter-spacing:1.5px}
 
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{padding:15px}.stat-top{display:flex;justify-content:space-between}.stat-name{font-size:10px;font-weight:900}.stat-value{font-size:16px;font-weight:900}.stat p{font-size:7px;color:var(--muted);margin:5px 0 9px}.stat .track{height:4px;margin:0}.stat:nth-child(1) i{background:var(--red)}.stat:nth-child(2) i{background:var(--blue)}.stat:nth-child(3) i{background:var(--purple)}.stat:nth-child(4) i{background:var(--orange)}.stat:nth-child(5) i{background:var(--cyan)}.stat:nth-child(6) i{background:#e98bff}.stat:nth-child(7) i{background:var(--green)}
+.life-panel{padding:18px;text-align:center;background:radial-gradient(circle at 50% 35%,#6ce6df0c,transparent 30%),#080d13ed;overflow:hidden}.life-top{display:flex;justify-content:space-between;text-align:left}.life-kicker{font-size:6px;color:#697687;letter-spacing:2.5px}.life-title{font-size:12px;font-weight:950;margin-top:4px}.live{font-size:7px;color:var(--cyan);letter-spacing:1.5px}.orb{height:270px;display:grid;place-items:center;position:relative}.orb .ring{position:absolute;border-radius:50%;border:1px solid #6ce6df28;animation:spin 18s linear infinite}.orb .r1{width:255px;height:255px;border-style:dashed;border-top-color:#6ce6df99}.orb .r2{width:205px;height:205px;border-left-color:#6baaff99;animation-duration:12s;animation-direction:reverse}.orb .r3{width:155px;height:155px;border-top-color:#a980ff99;animation-duration:8s}.life-core{width:112px;height:112px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 25%,#293741,#070b10 72%);border:1px solid #607080;box-shadow:0 0 50px #6ce6df1d;position:relative;z-index:2}.life-core b{font-size:29px;color:var(--cyan)}.life-core span{font-size:9px;font-weight:950;letter-spacing:2px}.life-question{color:var(--cyan);font-size:8px;font-weight:950;letter-spacing:2.5px}.life-prompt{font-size:8px;color:#778494;line-height:1.55;max-width:440px;margin:7px auto 14px}.life-buttons{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.life-buttons button{border-radius:99px;font-size:6px;padding:8px 10px}.response{text-align:left;margin-top:15px;padding:15px;border:1px solid #293440;background:#05090e99;border-radius:16px}.response small{font-size:6px;color:#697687;letter-spacing:2px}.response h3{font-size:13px;margin-top:6px}.response p{font-size:8px;color:#aab4c0;line-height:1.5;margin-top:5px}
 
-.life-box{padding:18px;text-align:center;overflow:hidden;background:radial-gradient(circle at 50% 38%,#69e2dc10,transparent 27%),#090d13ee}.life-head{display:flex;justify-content:space-between;text-align:left}.life-kicker{font-size:6px;color:#697586;letter-spacing:2px}.life-title{font-size:12px;font-weight:900;margin-top:4px}.orb{height:245px;display:grid;place-items:center;position:relative}.orb .ring:nth-child(1){width:230px;height:230px;border-style:dashed;border-top-color:#69e2dcaa}.orb .ring:nth-child(2){width:184px;height:184px;border-left-color:#65a9ffaa;animation-duration:11s;animation-direction:reverse}.orb .ring:nth-child(3){width:140px;height:140px;border-top-color:#a87cffaa;animation-duration:8s}.life-core{width:105px;height:105px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#293640,#080c11 72%);border:1px solid #5c6b7c;box-shadow:0 0 40px #69e2dc22;z-index:2}.life-core b{font-size:27px;color:var(--cyan)}.life-core span{font-size:8px;font-weight:900;letter-spacing:2px}.life-question{font-size:8px;color:var(--cyan);letter-spacing:2px;font-weight:900}.life-prompt{color:var(--muted);font-size:8px;line-height:1.5;max-width:430px;margin:7px auto 13px}.life-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}.life-buttons button{border-radius:99px;font-size:6px;padding:8px 10px}.response{text-align:left;margin-top:14px;border:1px solid #29313c;background:#060a0f99;border-radius:15px;padding:14px}.response small{color:var(--muted);font-size:6px;letter-spacing:2px}.response h3{font-size:12px;margin-top:6px}.response p{font-size:8px;color:#aab3bf;line-height:1.5;margin-top:5px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{padding:16px}.stat-top{display:flex;justify-content:space-between}.stat-name{font-size:10px;font-weight:900}.stat-value{font-size:16px;font-weight:950}.stat p{font-size:7px;color:#697687;line-height:1.4;margin:5px 0 9px}.stat .track{height:4px}.stat:nth-child(1) i{background:var(--red)}.stat:nth-child(2) i{background:var(--blue)}.stat:nth-child(3) i{background:var(--purple)}.stat:nth-child(4) i{background:var(--orange)}.stat:nth-child(5) i{background:var(--cyan)}.stat:nth-child(6) i{background:#e68dff}.stat:nth-child(7) i{background:var(--green)}
 
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.card{padding:16px}.card h3{font-size:10px}.card p{color:var(--muted);font-size:8px;line-height:1.5;margin-top:5px}.green{color:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.card{padding:16px}.card h3{font-size:10px}.card p{font-size:8px;color:#778494;line-height:1.5;margin-top:5px}.green{color:var(--green)}
 
-.achievement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.achievement{padding:15px}.achievement.locked{opacity:.4}.achievement-icon{font-size:20px}.achievement h3{font-size:10px;margin-top:6px}.achievement p{font-size:7px;color:var(--muted);line-height:1.45;margin-top:4px}
+.achievement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.achievement{padding:16px}.achievement.locked{opacity:.38}.achievement-icon{font-size:21px}.achievement h3{font-size:10px;margin-top:7px}.achievement p{font-size:7px;color:#778494;line-height:1.45;margin-top:5px}
 
-.moment{padding:14px;border:1px solid var(--line);border-radius:15px;background:var(--p);margin-bottom:8px}.moment-date{font-size:6px;color:var(--muted);letter-spacing:1.5px}.moment-text{font-size:9px;line-height:1.5;margin-top:6px}
+.moment{padding:14px;margin-bottom:8px}.moment-date{font-size:6px;color:#657180;letter-spacing:1.5px}.moment-text{font-size:9px;line-height:1.55;margin-top:7px}
 
-.setting{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 0;border-bottom:1px solid var(--line)}.setting:last-child{border:0}.setting h3{font-size:9px}.setting p{font-size:7px;color:var(--muted);margin-top:4px;line-height:1.4}
+.setting{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid var(--line)}.setting:last-child{border:0}.setting h3{font-size:9px}.setting p{font-size:7px;color:#778494;line-height:1.45;margin-top:4px}
 
-.navbar{position:fixed;z-index:500;bottom:0;left:0;right:0;height:72px;background:#080b10ee;border-top:1px solid #252c36;backdrop-filter:blur(20px);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:7px max(8px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom))}.nav-button{border:0;background:transparent;padding:3px;font-size:6px;color:#5f6978;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.nav-icon{width:28px;height:28px;display:grid;place-items:center;border-radius:10px;font-size:12px}.nav-button.active{color:#eef2f7}.nav-button.active .nav-icon{background:#171e27;color:var(--cyan)}.life-nav .nav-icon{width:45px;height:45px;border-radius:50%;margin-top:-24px;background:#101820;border:1px solid #3e505e;color:var(--cyan);box-shadow:0 0 28px #69e2dc18;font-size:18px}
+.navbar{position:fixed;z-index:500;bottom:0;left:0;right:0;height:72px;background:#070b10ee;border-top:1px solid #252e38;backdrop-filter:blur(22px);display:none;grid-template-columns:repeat(5,1fr);padding:6px 8px calc(6px + env(safe-area-inset-bottom))}.nav{border:0;background:transparent;color:#5e6a79;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:6px}.nav-icon{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;font-size:12px}.nav.active{color:#eef3f8}.nav.active .nav-icon{background:#17202a;color:var(--cyan)}.nav.life .nav-icon{width:46px;height:46px;border-radius:50%;margin-top:-24px;background:#101a22;border:1px solid #40505d;color:var(--cyan);box-shadow:0 0 30px #6ce6df1c;font-size:18px}
 
-.toast{position:fixed;z-index:10000;left:50%;bottom:88px;transform:translate(-50%,15px);background:#eaf0f7;color:#05070b;padding:10px 15px;border-radius:99px;font-size:8px;font-weight:900;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast{position:fixed;z-index:100000;left:50%;bottom:88px;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#edf3f8;color:#03060a;border-radius:99px;padding:10px 15px;font-size:7px;font-weight:950;letter-spacing:1px;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
 
-footer{text-align:center;color:#39414d;font-size:6px;letter-spacing:2px;margin-top:30px}
-@media(max-width:700px){#app{padding:14px 10px 100px}.summary{grid-template-columns:1fr 1fr}.stats,.grid2,.achievement-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.level{font-size:33px}.brand{font-size:17px;letter-spacing:4px}.hero{padding:18px}.life-buttons{gap:5px}}
-</style></head><body>
+#glitch{position:fixed;inset:0;z-index:100001;pointer-events:none;opacity:0;background:linear-gradient(transparent 49%,#fff00008 50%,transparent 51%)}#glitch.on{animation:glitch .28s steps(2,end)}@keyframes glitch{0%{opacity:0;transform:none}20%{opacity:.8;transform:translateX(-2px)}40%{opacity:.3;transform:translateX(3px)}60%{opacity:.6;transform:translateY(1px)}100%{opacity:0;transform:none}}
 
-<div id="splash"><div class="splash-inner"><img src="senrai-logo.png" class="splash-logo"><div class="splash-sub">PERSONAL PROGRESSION SYSTEM</div><div class="load"><i id="loadBar"></i></div><div class="load-info"><span id="loadText">SYSTEM INITIALIZING</span><span id="loadPct">0%</span></div></div></div>
+@media(max-width:700px){#app{padding:14px 10px 100px}.summary{grid-template-columns:1fr 1fr}.stats,.grid2,.achievement-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.level{font-size:34px}.brand{font-size:17px;letter-spacing:4px}.hero{padding:18px}.life-buttons{gap:5px}.orb{height:245px}.orb .r1{width:225px;height:225px}.orb .r2{width:180px;height:180px}.orb .r3{width:138px;height:138px}}
+</style>
+</head><body>
 
-<div id="authGate"><div class="auth-box">
+<div id="boot"><div class="boot-grid"></div><div class="boot-glow"></div><div class="boot-box"><img src="senrai-logo.png" class="boot-logo"><div class="boot-line"><i id="bootBar"></i></div><div class="boot-status"><span id="bootText">INITIALIZING SYSTEM</span><span id="bootPct">0%</span></div><div class="boot-scan"><i></i></div></div></div>
+
+<div id="auth"><div class="auth-grid"></div><div class="auth-card">
 <img src="senrai-logo.png" class="auth-logo">
-<div class="auth-kicker">SYSTEM ACCESS</div>
-<div class="auth-title" id="authTitle">WELCOME BACK</div>
-<div class="auth-sub" id="authSub">Sign in to access your personal progression system.</div>
-<div class="auth-tabs"><button id="loginTab" class="active">SIGN IN</button><button id="signupTab">CREATE ACCOUNT</button></div>
+<div class="auth-kicker">SYSTEM ACCESS</div><div class="auth-title" id="authTitle">WELCOME BACK</div>
+<div class="auth-sub" id="authSub">Sign in to continue your journey.</div>
+<div class="auth-tabs"><button id="loginTab" class="on">SIGN IN</button><button id="signupTab">CREATE ACCOUNT</button></div>
 <div class="field"><label>EMAIL</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
 <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" placeholder="••••••••"></div>
-<div class="field hidden" id="confirmWrap"><label>CONFIRM PASSWORD</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="••••••••"></div>
-<button class="primary auth-submit" id="authSubmit">ACCESS SYSTEM</button>
-<div class="auth-links"><button id="forgotButton">FORGOT PASSWORD</button><button id="authClear">CLEAR</button></div>
-<div class="auth-status" id="authStatus"></div>
+<div class="field hide" id="confirmBox"><label>CONFIRM PASSWORD</label><input id="confirm" type="password" autocomplete="new-password" placeholder="••••••••"></div>
+<button id="authSubmit" class="auth-submit">ACCESS SYSTEM</button>
+<div class="auth-links"><button id="forgot">FORGOT PASSWORD</button><button id="clearAuth">CLEAR</button></div>
+<div id="authMsg" class="auth-msg"></div>
 </div></div>
 
 <div id="app">
-<header><div class="brand">SENRAI</div><div class="online"><b></b>SYSTEM ONLINE</div></header>
+<header><div class="brand">SENRAI</div><div class="sys-state"><b></b>SYSTEM ONLINE</div></header>
 
 <main id="home" class="view active">
-<section class="hero"><div class="hero-top"><div><div class="label">CURRENT LEVEL</div><div class="level"><span id="level">1</span> <small>LVL</small></div></div><div class="xp"><strong><span id="xp">0</span> XP</strong><small>EXPERIENCE</small></div></div><div class="track"><i id="xpBar"></i></div><div class="xp-foot"><span id="xpText">0 / 100 XP</span><span id="next">LEVEL 2</span></div></section>
+<section class="hero"><div class="hero-top"><div><div class="label">CURRENT LEVEL</div><div class="level"><span id="level">1</span> <small>LVL</small></div></div><div class="xp"><strong><span id="xp">0</span> XP</strong><small>EXPERIENCE</small></div></div><div class="track" style="margin-top:22px"><i id="xpBar"></i></div><div class="xp-foot"><span id="xpText">0 / 100 XP</span><span id="nextLevel">LEVEL 2</span></div></section>
 
-<section class="core"><div class="core-head"><div><div class="core-kicker">SENRAI CORE</div><div class="core-title">SYSTEM ONLINE</div></div><div class="active">● ACTIVE</div></div><div class="core-orbit"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core-center"><b>✦</b>SENRAI</div></div><div class="core-foot"><span>THE SYSTEM THAT MOVES YOU FORWARD</span><span id="coreLvl">LVL 1</span></div></section>
+<section class="core"><div class="core-top"><div><div class="core-kicker">SENRAI CORE</div><div class="core-title">SYSTEM ONLINE</div></div><div class="core-active">● ACTIVE</div></div><div class="core-orbit"><div class="core-ring a"></div><div class="core-ring b"></div><div class="core-ring c"></div><div class="core-node node1">XP</div><div class="core-node node2">PATH</div><div class="core-node node3">LIFE</div><div class="core-center"><b>✦</b>SENRAI<small>READY</small></div></div><div class="core-bottom"><span>THE SYSTEM THAT MOVES YOU FORWARD</span><span id="coreLevel">LVL 1</span></div></section>
 
-<div class="summary"><div class="card"><small>TODAY</small><b id="todayCount">0</b><small>QUESTS</small></div><div class="card"><small>STREAK</small><b class="orange" id="streak">0</b><small>DAYS</small></div><div class="card"><small>TODAY XP</small><b id="todayXp">0</b><small>XP</small></div><div class="card"><small>MOMENTUM</small><b id="momentum">0</b><small>ACTIVITY</small></div></div>
+<div class="summary"><div class="card"><small>TODAY</small><b id="todayCount">0</b><small>QUESTS</small></div><div class="card"><small>STREAK</small><b id="streak" class="orange">0</b><small>DAYS</small></div><div class="card"><small>TODAY XP</small><b id="todayXp">0</b><small>XP</small></div><div class="card"><small>MOMENTUM</small><b id="momentum">0</b><small>ACTIVITY</small></div></div>
 
-<section class="section"><div class="section-head"><div class="section-title">CURRENT OBJECTIVE</div><div class="section-sub">MAIN PATH</div></div><div id="objectiveHome" class="objective"></div></section>
+<section class="section"><div class="section-head"><div class="section-title">CURRENT OBJECTIVE</div><div class="section-sub">MAIN PATH</div></div><div id="objective" class="objective"></div></section>
 
-<section class="section"><div class="section-head"><div class="section-title">SYSTEM REFLECTION</div><div class="section-sub">ADAPTIVE</div></div><div class="panel reflection"><div class="tag">SYSTEM INSIGHT</div><h2 id="reflectionTitle">Initializing...</h2><p id="reflectionText"></p><div class="recommend"><small>RECOMMENDED QUEST</small><b id="recommend"></b><div class="reward" id="recommendReward"></div></div><div class="actions"><button class="primary" id="acceptRecommend">ACCEPT</button><button id="anotherRecommend">ANOTHER</button></div></div></section>
+<section class="section"><div class="section-head"><div class="section-title">SYSTEM REFLECTION</div><div class="section-sub">ADAPTIVE GUIDANCE</div></div><div class="panel reflection"><div class="tag">SYSTEM INSIGHT</div><h2 id="reflectionTitle">Initializing...</h2><p id="reflectionText"></p><div class="recommend"><small>RECOMMENDED QUEST</small><b id="recommend"></b><div id="recommendReward" class="reward"></div></div><div class="actions"><button id="accept" class="auth-submit">ACCEPT QUEST</button><button id="another">ANOTHER</button></div></div></section>
 
-<section class="section"><div class="section-head"><div class="section-title">CURRENT PATH</div><div class="section-sub">PROGRESSION</div></div><div id="pathHome" class="path"></div></section>
+<section class="section"><div class="section-head"><div class="section-title">CURRENT PATH</div><div class="section-sub">PROGRESSION</div></div><div id="path" class="path"></div></section>
 
 <section class="section"><div class="section-head"><div class="section-title">QUICK QUESTS</div><button onclick="showView('quests')">VIEW ALL</button></div><div id="homeQuests" class="quest-list"></div></section>
 </main>
 
 <main id="quests" class="view">
-<section class="section"><div class="section-head"><div class="section-title">DAILY QUESTS</div><div class="section-sub">RESET DAILY</div></div><div id="dailyQuests" class="quest-list"></div></section>
-<section class="section"><div class="section-head"><div class="section-title">CREATE QUEST</div><div class="section-sub">YOUR CHOICE</div></div><div class="panel form-card"><div class="field"><label class="field-label">QUEST NAME</label><input id="qName" placeholder="What do you want to accomplish?"></div><div class="form-grid"><div class="field"><label class="field-label">DIFFICULTY</label><select id="qDiff"><option value="10">EASY • 10 XP</option><option value="25" selected>NORMAL • 25 XP</option><option value="50">HARD • 50 XP</option><option value="100">EXTREME • 100 XP</option></select></div><div class="field"><label class="field-label">STAT</label><select id="qStat"><option value="STR">STRENGTH</option><option value="INT">INTELLIGENCE</option><option value="WIS">WISDOM</option><option value="CHA">CHARISMA</option><option value="DEX">DEXTERITY</option><option value="CRE">CREATIVITY</option><option value="VIT">VITALITY</option></select></div></div><div class="field"><label class="field-label">DESCRIPTION</label><input id="qDesc" placeholder="Optional details"></div><button class="primary create" id="createQuest">+ CREATE QUEST</button></div></section>
-<section class="section"><div class="section-head"><div class="section-title">YOUR QUESTS</div></div><div id="customQuests" class="quest-list"></div></section>
+<section class="section"><div class="section-head"><div class="section-title">DAILY QUESTS</div><div class="section-sub">NO PENALTIES</div></div><div id="daily" class="quest-list"></div></section>
+<section class="section"><div class="section-head"><div class="section-title">CREATE QUEST</div><div class="section-sub">YOUR SYSTEM</div></div><div class="panel form-card"><div class="field"><label class="field-label">QUEST NAME</label><input id="qName" placeholder="What do you want to accomplish?"></div><div class="form-grid"><div class="field"><label class="field-label">DIFFICULTY</label><select id="qXp"><option value="10">EASY • +10 XP</option><option value="25" selected>NORMAL • +25 XP</option><option value="50">HARD • +50 XP</option><option value="100">EXTREME • +100 XP</option></select></div><div class="field"><label class="field-label">STAT</label><select id="qStat"><option>STR</option><option>INT</option><option>WIS</option><option>CHA</option><option>DEX</option><option>CRE</option><option>VIT</option></select></div></div><div class="field"><label class="field-label">DESCRIPTION</label><input id="qDesc" placeholder="Optional details"></div><button id="createQuest" class="create">+ CREATE QUEST</button></div></section>
+<section class="section"><div class="section-head"><div class="section-title">YOUR QUESTS</div><div class="section-sub">PERSONAL</div></div><div id="custom" class="quest-list"></div></section>
 </main>
 
-<main id="life" class="view"><section class="life-box"><div class="life-head"><div><div class="life-kicker">LIFE MODULE</div><div class="life-title">SYSTEM / READY</div></div><div class="active">● LIVE</div></div><div class="orb"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="life-core"><b>✦</b><span>SENRAI</span></div></div><div class="life-question">WHAT'S GOING ON?</div><div class="life-prompt">Choose what fits your current situation. The System gives you something real to do.</div><div class="life-buttons"><button onclick="lifePrompt('bored')">I'M BORED</button><button onclick="lifePrompt('lost')">I FEEL LOST</button><button onclick="lifePrompt('out')">I WANT TO GO OUT</button><button onclick="lifePrompt('random')">RANDOM</button></div><div class="response"><small>SYSTEM RESPONSE</small><h3 id="lifeTitle">WAITING FOR INPUT</h3><p id="lifeText">The System is ready.</p><div class="actions"><button class="primary" id="lifeGenerate">GENERATE QUEST</button><button id="lifeComplete" disabled>COMPLETE</button></div></div></section></main>
+<main id="life" class="view"><section class="life-panel"><div class="life-top"><div><div class="life-kicker">LIFE MODULE</div><div class="life-title">SYSTEM / READY</div></div><div class="live">● LIVE</div></div><div class="orb"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="life-core"><b>✦</b><span>SENRAI</span></div></div><div class="life-question">WHAT DO YOU NEED?</div><div class="life-prompt">SENRAI can give you something small, useful, social, creative, or completely random.</div><div class="life-buttons"><button onclick="lifePrompt('bored')">I'M BORED</button><button onclick="lifePrompt('lost')">I'M STUCK</button><button onclick="lifePrompt('out')">I WANT TO GO OUT</button><button onclick="lifePrompt('reset')">I NEED A RESET</button><button onclick="lifePrompt('random')">SURPRISE ME</button></div><div class="response"><small>SYSTEM RESPONSE</small><h3 id="lifeTitle">WAITING FOR INPUT</h3><p id="lifeText">Choose a direction.</p><div class="actions"><button id="lifeComplete" class="auth-submit" disabled>COMPLETE QUEST</button></div></div></section></main><main id="stats" class="view">
+<section class="section"><div class="section-head"><div class="section-title">CHARACTER STATS</div><div class="section-sub">LONG-TERM DEVELOPMENT</div></div><div id="statsGrid" class="stats"></div></section>
+<section class="section"><div class="section-head"><div class="section-title">WEEKLY MISSIONS</div><div class="section-sub">BONUS PROGRESSION</div></div><div id="weekly" class="grid2"></div></section>
+</main>
 
-<main id="stats" class="view"><section class="section"><div class="section-head"><div class="section-title">CHARACTER STATS</div><div class="section-sub">DEVELOPMENT</div></div><div id="statsGrid" class="stats"></div></section><section class="section"><div class="section-head"><div class="section-title">WEEKLY MISSION</div></div><div id="weekly" class="grid2"></div></section></main>
+<main id="moments" class="view">
+<section class="section"><div class="section-head"><div class="section-title">MOMENTS</div><div class="section-sub">KEEP WHAT MATTERS</div></div><div class="panel form-card"><label class="field-label">NEW MOMENT</label><textarea id="momentInput" rows="5" placeholder="Write something you want to remember..."></textarea><button id="saveMoment" class="create">SAVE MOMENT</button></div></section>
+<section class="section"><div class="section-head"><div class="section-title">YOUR RECORD</div></div><div id="momentsList"></div></section>
+</main>
 
-<main id="moments" class="view"><section class="section"><div class="section-head"><div class="section-title">MOMENTS</div><div class="section-sub">KEEP WHAT MATTERS</div></div><div class="panel form-card"><label class="field-label">NEW MOMENT</label><textarea id="momentText" rows="5" placeholder="Write something worth remembering..."></textarea><button class="primary create" id="saveMoment">SAVE MOMENT</button></div></section><section class="section"><div class="section-head"><div class="section-title">YOUR RECORD</div></div><div id="momentsList"></div></section></main><main id="system" class="view">
-<section class="section"><div class="section-head"><div class="section-title">SYSTEM</div><div class="section-sub">YOUR JOURNEY</div></div><div id="systemCards" class="grid2"></div></section>
-<section class="section"><div class="section-head"><div class="section-title">ACHIEVEMENTS</div></div><div id="achievements" class="achievement-grid"></div></section>
+<main id="system" class="view">
+<section class="section"><div class="section-head"><div class="section-title">SYSTEM STATUS</div><div class="section-sub">YOUR JOURNEY</div></div><div id="systemCards" class="grid2"></div></section>
+<section class="section"><div class="section-head"><div class="section-title">ACHIEVEMENTS</div><div class="section-sub">UNLOCK THROUGH ACTION</div></div><div id="achievements" class="achievement-grid"></div></section>
 </main>
 
 <main id="profile" class="view">
-<section class="section"><div class="section-head"><div class="section-title">PROFILE</div><div class="section-sub">SYSTEM IDENTITY</div></div><div class="panel card"><div class="label">CURRENT TITLE</div><h2 id="profileTitle" style="margin-top:6px">AWAKENING</h2><p id="profileEmail" class="desc" style="margin-top:6px"></p><div class="actions"><button onclick="showView('stats')">VIEW STATS</button><button class="danger" id="signOut">SIGN OUT</button></div></div></section>
+<section class="section"><div class="section-head"><div class="section-title">PROFILE</div><div class="section-sub">SYSTEM IDENTITY</div></div><div class="panel card"><div class="label">CURRENT TITLE</div><h2 id="profileTitle" style="margin-top:7px">AWAKENING</h2><p id="profileEmail" class="desc" style="margin-top:6px"></p><div class="actions"><button onclick="showView('stats')">VIEW STATS</button><button id="signOut" style="color:var(--red)">SIGN OUT</button></div></div></section>
 </main>
 
 <main id="settings" class="view">
 <section class="section"><div class="section-head"><div class="section-title">SETTINGS</div><div class="section-sub">SYSTEM CONTROL</div></div><div class="panel card">
-<div class="setting"><div><h3>ADAPTIVE GUIDANCE</h3><p>Allow SENRAI to adjust suggestions based on activity.</p></div><button id="guidanceBtn">ON</button></div>
-<div class="setting"><div><h3>REDUCED MOTION</h3><p>Reduce interface animation.</p></div><button id="motionBtn">OFF</button></div>
-<div class="setting"><div><h3>RESET LOCAL PROGRESS</h3><p>Erase progress stored on this device.</p></div><button class="danger" id="resetData">RESET</button></div>
-</div></section>
-</main>
+<div class="setting"><div><h3>ADAPTIVE GUIDANCE</h3><p>Allow SENRAI to adapt recommendations to your activity.</p></div><button id="guidance">ON</button></div>
+<div class="setting"><div><h3>REDUCED MOTION</h3><p>Reduce visual movement and transitions.</p></div><button id="motion">OFF</button></div>
+<div class="setting"><div><h3>RESET LOCAL PROGRESS</h3><p>Erase progress stored on this device.</p></div><button id="reset" style="color:var(--red)">RESET</button></div>
+</div></section></main>
 
-<footer>SENRAI — THE SYSTEM THAT MOVES YOU FORWARD</footer></div>
+<footer>SENRAI — THE SYSTEM THAT MOVES YOU FORWARD</footer>
+</div>
 
-<nav class="navbar" id="navbar">
-<button class="nav-button active" data-view="home"><span class="nav-icon">⌂</span>HOME</button>
-<button class="nav-button" data-view="quests"><span class="nav-icon">◆</span>QUESTS</button>
-<button class="nav-button life-nav" data-view="life"><span class="nav-icon">✦</span>LIFE</button>
-<button class="nav-button" data-view="stats"><span class="nav-icon">▥</span>STATS</button>
-<button class="nav-button" data-view="moments"><span class="nav-icon">◌</span>MOMENTS</button>
+<nav id="nav" class="navbar">
+<button class="nav active" data-view="home"><span class="nav-icon">⌂</span>HOME</button>
+<button class="nav" data-view="quests"><span class="nav-icon">◆</span>QUESTS</button>
+<button class="nav life" data-view="life"><span class="nav-icon">✦</span>LIFE</button>
+<button class="nav" data-view="stats"><span class="nav-icon">▥</span>STATS</button>
+<button class="nav" data-view="moments"><span class="nav-icon">◌</span>MOMENTS</button>
 </nav>
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast"></div><div id="glitch"></div>
 
 <script>
 const SUPABASE_URL="https://qkonsmkzxzkxziektmfx.supabase.co";
 const SUPABASE_KEY="sb_publishable_Jr9ED_DV29-CqvpS0TS7UQ_yYytM-d3";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const KEY="senrai_v4";
-const today=()=>new Date().toISOString().slice(0,10);
-const fresh=()=>({
-date:today(),xp:0,level:1,streak:0,todayXp:0,todayCount:0,
-stats:{STR:0,INT:0,WIS:0,CHA:0,DEX:0,CRE:0,VIT:0},
-completed:{},custom:[],moments:[],history:[],
-objective:{name:"Begin Your Journey",desc:"Choose one small thing that makes your life better today.",progress:0},
-settings:{guidance:true,motion:false},
-life:{title:"WAITING FOR INPUT",text:"The System is ready.",xp:0}
-});
+const STORE="senrai_system_v5";
+let session=null,rec=null,life=null;
 
-let D=fresh(),session=null,authMode="login",recommendation=null,currentLife=null;
+const fresh=()=>({date:day(),xp:0,level:1,streak:0,todayXP:0,todayCount:0,stats:{STR:0,INT:0,WIS:0,CHA:0,DEX:0,CRE:0,VIT:0},done:{},custom:[],moments:[],history:[],objective:{name:"Begin Your Journey",desc:"Choose one small action that makes your life better today.",progress:0},settings:{guidance:true,motion:false}});
+let D=fresh();
 
-const getKey=()=>KEY+"_"+(session?.user?.id||"guest");
-const load=()=>{try{const x=JSON.parse(localStorage.getItem(getKey()));if(x)D={...fresh(),...x,stats:{...fresh().stats,...x.stats},settings:{...fresh().settings,...x.settings}}}catch(e){D=fresh()}if(D.date!==today()){D.date=today();D.todayXp=0;D.todayCount=0;D.completed={}}};
-const save=()=>localStorage.setItem(getKey(),JSON.stringify(D));
-const xpNeeded=()=>100+(D.level-1)*50;
-const toast=m=>{const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)};
-const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const statName=s=>({STR:"STRENGTH",INT:"INTELLIGENCE",WIS:"WISDOM",CHA:"CHARISMA",DEX:"DEXTERITY",CRE:"CREATIVITY",VIT:"VITALITY"}[s]||s);
+function day(){return new Date().toISOString().slice(0,10)}
+function storage(){return STORE+"_"+(session?.user?.id||"guest")}
+function load(){try{const x=JSON.parse(localStorage.getItem(storage()));if(x)D={...fresh(),...x,stats:{...fresh().stats,...x.stats},settings:{...fresh().settings,...x.settings}}}catch(e){D=fresh()}if(D.date!==day()){D.date=day();D.todayXP=0;D.todayCount=0;D.done={}}}
+function save(){localStorage.setItem(storage(),JSON.stringify(D))}
+function needed(){return 100+(D.level-1)*50}
+function esc(x){return String(x??"").replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]))}
+function statName(s){return({STR:"STRENGTH",INT:"INTELLIGENCE",WIS:"WISDOM",CHA:"CHARISMA",DEX:"DEXTERITY",CRE:"CREATIVITY",VIT:"VITALITY"})[s]||s}
+function notify(x){const t=document.getElementById("toast");t.textContent=x;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2300)}
+function glitch(){const g=document.getElementById("glitch");g.classList.remove("on");void g.offsetWidth;g.classList.add("on")}
 
 const DAILY=[
-{id:"move",n:"Move your body",d:"Walk, stretch, exercise, or do something physical.",x:15,s:"STR"},
-{id:"learn",n:"Learn something",d:"Spend a little time learning or practicing.",x:15,s:"INT"},
-{id:"reset",n:"Reset your space",d:"Clean or organize one thing around you.",x:10,s:"DEX"},
-{id:"future",n:"Help future you",d:"Do one thing that makes tomorrow easier.",x:20,s:"WIS"}
+{id:"move",n:"Move Your Body",d:"Walk, stretch, exercise, or do something physical.",x:15,s:"STR"},
+{id:"learn",n:"Learn Something",d:"Spend a little time learning or practicing.",x:15,s:"INT"},
+{id:"reset",n:"Reset Your Space",d:"Clean or organize one source of friction.",x:10,s:"DEX"},
+{id:"future",n:"Help Future You",d:"Do one thing that makes tomorrow easier.",x:20,s:"WIS"}
 ];
 
 const LIFE={
-bored:[
-["Mini Adventure","Go somewhere nearby you've never actually explored.",25],
-["Creative Burst","Make something for 15 minutes with no goal.",20],
-["Social Ping","Message someone you genuinely want to talk to.",20],
-["Environment Shift","Change your environment for an hour.",20]],
-lost:[
-["Reset Point","Take 10 minutes and write down what is actually bothering you.",25],
-["One Direction","Pick one thing you can improve today and do only the first step.",25],
-["Clear The Noise","Put your phone away for 20 minutes and think.",20]],
-out:[
-["Outside Quest","Go somewhere public and spend 20 minutes there.",25],
-["New Place","Try a restaurant, store, park, arcade, or area you've never visited.",30],
-["People Quest","Start one small conversation with someone.",25]],
-random:[
-["Coin Flip Quest","Flip a coin. Heads: clean something. Tails: go outside.",20],
-["Photo Quest","Take one picture of something you normally overlook.",15],
-["Kindness Quest","Do one unexpectedly helpful thing for someone.",25],
-["Curiosity Quest","Look up something you've wondered about for years.",20]]
+bored:[["Mini Adventure","Go somewhere nearby you've never actually explored.",25],["Creative Burst","Make something for 15 minutes with no pressure.",20],["Social Ping","Message someone you genuinely want to talk to.",20]],
+lost:[["Reset Point","Write down what's actually bothering you for ten minutes.",25],["One Direction","Pick one thing you can improve and take the first step.",25],["Clear The Noise","Put your phone away for twenty minutes.",20]],
+out:[["New Place","Visit a restaurant, store, arcade, or area you've never tried.",30],["Outside Quest","Go somewhere public and spend twenty minutes there.",25],["People Quest","Start one small conversation with someone.",25]],
+reset:[["Environment Reset","Clean one small area until it feels different.",20],["Digital Reset","Delete ten things you don't need from your phone.",15],["Future Setup","Prepare one thing tonight that tomorrow-you will appreciate.",20]],
+random:[["Curiosity Quest","Look up something you've wondered about for years.",20],["Kindness Quest","Do one unexpectedly helpful thing.",25],["Photo Quest","Take a picture of something you normally overlook.",15],["Coin Flip Quest","Heads: clean something. Tails: go outside.",20]]
 };
 
 function showView(v){
  document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
  const el=document.getElementById(v);if(el)el.classList.add("active");
- document.querySelectorAll(".nav-button").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
- if(v==="stats")renderStats();
- if(v==="moments")renderMoments();
- if(v==="system")renderSystem();
- if(v==="profile")renderProfile();
- if(v==="settings")renderSettings();
- window.scrollTo({top:0,behavior:"smooth"});
+ document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
+ glitch();window.scrollTo({top:0,behavior:D.settings.motion?"auto":"smooth"});
+ if(v==="stats")renderStats();if(v==="moments")renderMoments();if(v==="system")renderSystem();if(v==="profile")renderProfile();if(v==="settings")renderSettings();
 }
+document.querySelectorAll(".nav").forEach(x=>x.onclick=()=>showView(x.dataset.view));
 
-document.querySelectorAll(".nav-button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
-
-function addXP(amount,stat="WIS",reason="Quest"){
- D.xp+=amount;D.todayXp+=amount;D.stats[stat]=(D.stats[stat]||0)+amount;D.todayCount++;
- D.history.unshift({date:new Date().toLocaleString(),text:reason,xp:amount});
- D.history=D.history.slice(0,30);
- while(D.xp>=xpNeeded()){
-  D.xp-=xpNeeded();D.level++;
-  toast("LEVEL UP — LEVEL "+D.level);
- }
- save();render();checkAchievements();
-}
-
-function questHTML(q,custom=false){
- const done=!!D.completed[q.id];
- return `<div class="quest ${done?"done":""}">
- <div><h3>${esc(q.n)}</h3><p>${esc(q.d)}</p><div class="pills"><span class="pill xp">+${q.x} XP</span><span class="pill">${statName(q.s)}</span></div></div>
- <button ${done?"disabled":""} onclick="${custom?`completeCustom('${q.id}')`:`completeQuest('${q.id}')`}">${done?"DONE":"COMPLETE"}</button></div>`;
-}
-
-function renderQuests(){
- document.getElementById("dailyQuests").innerHTML=DAILY.map(q=>questHTML(q)).join("");
- document.getElementById("homeQuests").innerHTML=DAILY.slice(0,3).map(q=>questHTML(q)).join("");
- document.getElementById("customQuests").innerHTML=D.custom.length?D.custom.map(q=>questHTML(q,true)).join(""):`<div class="card"><p class="desc">No personal quests yet. Create one above.</p></div>`;
-}
-
-function completeQuest(id){
- const q=DAILY.find(x=>x.id===id);if(!q||D.completed[id])return;
- D.completed[id]=true;addXP(q.x,q.s,q.n);
- if(D.todayCount===1)D.streak=Math.max(1,D.streak);
- else D.streak=Math.max(1,D.streak);
+function addXP(amount,stat,reason){
+ D.xp+=amount;D.todayXP+=amount;D.stats[stat]=(D.stats[stat]||0)+amount;D.todayCount++;
+ D.history.unshift({date:new Date().toLocaleString(),text:reason,xp:amount});D.history=D.history.slice(0,40);
+ while(D.xp>=needed()){D.xp-=needed();D.level++;glitch();notify("LEVEL UP — LEVEL "+D.level)}
  save();render();
 }
 
-function completeCustom(id){
- const q=D.custom.find(x=>x.id===id);if(!q||D.completed[id])return;
- D.completed[id]=true;addXP(q.x,q.s,q.n);save();render();
+function qHTML(q,custom=false){
+ const done=!!D.done[q.id];
+ return `<div class="quest ${done?"done":""}"><div><h3>${esc(q.n)}</h3><p>${esc(q.d)}</p><div class="pills"><span class="pill xp">+${q.x} XP</span><span class="pill">${statName(q.s)}</span></div></div><button ${done?"disabled":""} onclick="${custom?`finishCustom('${q.id}')`:`finishDaily('${q.id}')`}">${done?"DONE":"COMPLETE"}</button></div>`;
+}
+
+function renderQuests(){
+ document.getElementById("daily").innerHTML=DAILY.map(q=>qHTML(q)).join("");
+ document.getElementById("homeQuests").innerHTML=DAILY.slice(0,3).map(q=>qHTML(q)).join("");
+ document.getElementById("custom").innerHTML=D.custom.length?D.custom.map(q=>qHTML(q,true)).join(""):`<div class="card"><p class="desc">No personal quests yet.</p></div>`;
+}
+
+function finishDaily(id){
+ const q=DAILY.find(x=>x.id===id);if(!q||D.done[id])return;
+ D.done[id]=true;addXP(q.x,q.s,q.n);
+ if(D.todayCount===1)D.streak=Math.max(D.streak,1);
+ save();render();
+}
+function finishCustom(id){
+ const q=D.custom.find(x=>x.id===id);if(!q||D.done[id])return;
+ D.done[id]=true;addXP(q.x,q.s,q.n);save();render();
 }
 
 document.getElementById("createQuest").onclick=()=>{
- const n=document.getElementById("qName").value.trim();if(!n)return toast("ENTER A QUEST NAME");
- const q={id:"custom_"+Date.now(),n,d:document.getElementById("qDesc").value.trim()||"Personal quest.",x:+document.getElementById("qDiff").value,s:document.getElementById("qStat").value};
- D.custom.unshift(q);save();document.getElementById("qName").value="";document.getElementById("qDesc").value="";renderQuests();toast("QUEST CREATED");
+ const n=document.getElementById("qName").value.trim();if(!n)return notify("ENTER A QUEST NAME");
+ D.custom.unshift({id:"q"+Date.now(),n,d:document.getElementById("qDesc").value.trim()||"Personal quest.",x:+document.getElementById("qXp").value,s:document.getElementById("qStat").value});
+ save();document.getElementById("qName").value="";document.getElementById("qDesc").value="";renderQuests();notify("QUEST CREATED");glitch();
 };
 
-function generateRecommendation(){
- const pool=[
- ["Clear one small task","You don't need to fix everything. Create momentum with one finished thing.",15,"DEX"],
- ["Move for ten minutes","A small physical reset can change the direction of the day.",15,"STR"],
- ["Learn something useful","Spend 15 minutes becoming slightly better at something.",15,"INT"],
- ["Reach out","Send one honest message to someone you care about.",20,"CHA"],
- ["Write it down","Turn the noise in your head into something you can actually see.",15,"WIS"],
- ["Make something","Create something with no pressure for it to be good.",20,"CRE"]];
- recommendation=pool[Math.floor(Math.random()*pool.length)];
- document.getElementById("reflectionTitle").textContent=recommendation[0];
- document.getElementById("reflectionText").textContent=recommendation[1];
- document.getElementById("recommend").textContent=recommendation[0];
- document.getElementById("recommendReward").textContent="+"+recommendation[2]+" XP • "+statName(recommendation[3]);
+function recommendation(){
+ const p=[
+ ["Clear One Small Task","You don't need to fix everything. Create momentum with one finished thing.",15,"DEX"],
+ ["Move For Ten Minutes","A small physical reset can change the direction of the day.",15,"STR"],
+ ["Learn Something Useful","Spend fifteen minutes becoming slightly better at something.",15,"INT"],
+ ["Reach Out","Send one honest message to someone you care about.",20,"CHA"],
+ ["Write It Down","Turn the noise in your head into something you can actually see.",15,"WIS"],
+ ["Make Something","Create something with no pressure for it to be good.",20,"CRE"]];
+ rec=p[Math.floor(Math.random()*p.length)];
+ document.getElementById("reflectionTitle").textContent=rec[0];
+ document.getElementById("reflectionText").textContent=rec[1];
+ document.getElementById("recommend").textContent=rec[0];
+ document.getElementById("recommendReward").textContent="+"+rec[2]+" XP • "+statName(rec[3]);
 }
-document.getElementById("anotherRecommend").onclick=generateRecommendation;
-document.getElementById("acceptRecommend").onclick=()=>{
- if(!recommendation)return;
- D.custom.unshift({id:"rec_"+Date.now(),n:recommendation[0],d:recommendation[1],x:recommendation[2],s:recommendation[3]});
- save();renderQuests();toast("QUEST ADDED TO YOUR PATH");
-};
+document.getElementById("another").onclick=()=>{recommendation();glitch()};
+function recommendation(){const p=[["Clear One Small Task","You don't need to fix everything. Create momentum with one finished thing.",15,"DEX"],["Move For Ten Minutes","A small physical reset can change the direction of the day.",15,"STR"],["Learn Something Useful","Spend fifteen minutes becoming slightly better at something.",15,"INT"],["Reach Out","Send one honest message to someone you care about.",20,"CHA"],["Write It Down","Turn the noise in your head into something you can actually see.",15,"WIS"],["Make Something","Create something with no pressure for it to be good.",20,"CRE"]];rec=p[Math.floor(Math.random()*p.length)];document.getElementById("reflectionTitle").textContent=rec[0];document.getElementById("reflectionText").textContent=rec[1];document.getElementById("recommend").textContent=rec[0];document.getElementById("recommendReward").textContent="+"+rec[2]+" XP • "+statName(rec[3])}
+document.getElementById("accept").onclick=()=>{if(!rec)return;D.custom.unshift({id:"r"+Date.now(),n:rec[0],d:rec[1],x:rec[2],s:rec[3]});save();renderQuests();notify("QUEST ADDED TO YOUR SYSTEM");glitch()};
 
 function renderObjective(){
  const o=D.objective;
- document.getElementById("objectiveHome").innerHTML=`<div class="tag">ACTIVE OBJECTIVE</div><h2>${esc(o.name)}</h2><p class="desc">${esc(o.desc)}</p><div class="track"><i style="width:${o.progress}%"></i></div><div class="meta"><span>${o.progress}% COMPLETE</span><span>KEEP MOVING</span></div>`;
- document.getElementById("pathHome").innerHTML=`<div class="path-title">${esc(o.name)}</div><div class="path-desc">${esc(o.desc)}</div>
- <div class="stage"><div class="stage-top"><span class="stage-name">STAGE 01 — START</span><span class="stage-state ${o.progress>=100?"done":""}">${o.progress>=100?"COMPLETE":"ACTIVE"}</span></div><div class="stage-q"><div><span>Take the first step</span><small>Small actions create momentum.</small></div><button onclick="advanceObjective()">+25%</button></div></div>`;
+ document.getElementById("objective").innerHTML=`<div class="tag">ACTIVE OBJECTIVE</div><h2>${esc(o.name)}</h2><p class="desc">${esc(o.desc)}</p><div class="track" style="margin-top:13px"><i style="width:${o.progress}%"></i></div><div class="meta"><span>${o.progress}% COMPLETE</span><span>NO PENALTY</span></div>`;
+ document.getElementById("path").innerHTML=`<div class="path-name">${esc(o.name)}</div><div class="path-desc">${esc(o.desc)}</div><div class="stage"><div class="stage-top"><span class="stage-name">STAGE 01 — BEGIN</span><span class="stage-state ${o.progress>=100?"done":""}">${o.progress>=100?"COMPLETE":"ACTIVE"}</span></div><div class="stage-q"><div><span>Take one small step</span><small>Momentum comes from movement.</small></div><button onclick="advanceObjective()">+25%</button></div></div>`;
 }
-function advanceObjective(){D.objective.progress=Math.min(100,D.objective.progress+25);addXP(10,"WIS","Objective progress");save();render()}function lifePrompt(type){
- const arr=LIFE[type]||LIFE.random,q=arr[Math.floor(Math.random()*arr.length)];
- currentLife={title:q[0],text:q[1],xp:q[2]};
+function advanceObjective(){D.objective.progress=Math.min(100,D.objective.progress+25);addXP(10,"WIS","Objective progress");save();render()}
+
+function lifePrompt(type){
+ const a=LIFE[type]||LIFE.random,q=a[Math.floor(Math.random()*a.length)];
+ life={title:q[0],text:q[1],xp:q[2]};
  document.getElementById("lifeTitle").textContent=q[0];
- document.getElementById("lifeText").textContent=q[1]+"  +"+q[2]+" XP if you complete it.";
- document.getElementById("lifeComplete").disabled=false;
+ document.getElementById("lifeText").textContent=q[1]+"  +"+q[2]+" XP if completed.";
+ document.getElementById("lifeComplete").disabled=false;glitch();
 }
-document.getElementById("lifeGenerate").onclick=()=>lifePrompt("random");
-document.getElementById("lifeComplete").onclick=()=>{
- if(!currentLife)return;
- addXP(currentLife.xp,"WIS","Life Quest — "+currentLife.title);
- currentLife=null;
- document.getElementById("lifeTitle").textContent="QUEST COMPLETE";
- document.getElementById("lifeText").textContent="Nice. The System noticed.";
- document.getElementById("lifeComplete").disabled=true;
-};
+document.getElementById("lifeComplete").onclick=()=>{if(!life)return;addXP(life.xp,"WIS","Life Quest — "+life.title);life=null;document.getElementById("lifeTitle").textContent="QUEST COMPLETE";document.getElementById("lifeText").textContent="The System noticed.";document.getElementById("lifeComplete").disabled=true;glitch()};
 
 function renderStats(){
- const names=["STR","INT","WIS","CHA","DEX","CRE","VIT"];
- document.getElementById("statsGrid").innerHTML=names.map(s=>{
-  const v=D.stats[s]||0,p=Math.min(100,v/3);
-  return `<div class="stat"><div class="stat-top"><span class="stat-name">${statName(s)}</span><span class="stat-value">${v}</span></div><p>${({STR:"Fitness & physical capability",INT:"Learning & problem solving",WIS:"Growth & self-awareness",CHA:"Communication & relationships",DEX:"Execution & organization",CRE:"Ideas & creativity",VIT:"Health & recovery"})[s]}</p><div class="track"><i style="width:${p}%"></i></div></div>`;
- }).join("");
- const completed=Object.keys(D.completed).length;
- document.getElementById("weekly").innerHTML=`<div class="card"><h3>Momentum Week</h3><p>Complete 7 quests this week.</p><strong class="green" style="display:block;margin-top:10px">${Math.min(completed,7)} / 7</strong></div><div class="card"><h3>System Level</h3><p>Reach level 5.</p><strong class="green" style="display:block;margin-top:10px">LVL ${D.level} / 5</strong></div>`;
+ const ss=["STR","INT","WIS","CHA","DEX","CRE","VIT"];
+ document.getElementById("statsGrid").innerHTML=ss.map(s=>{let v=D.stats[s]||0;return `<div class="stat"><div class="stat-top"><span class="stat-name">${statName(s)}</span><span class="stat-value">${v}</span></div><p>${({STR:"Fitness & physical capability",INT:"Learning & problem solving",WIS:"Growth & self-awareness",CHA:"Communication & relationships",DEX:"Execution & organization",CRE:"Ideas & imagination",VIT:"Health & recovery"})[s]}</p><div class="track"><i style="width:${Math.min(100,v/3)}%"></i></div></div>`}).join("");
+ const c=Object.keys(D.done).length;
+ document.getElementById("weekly").innerHTML=`<div class="card"><h3>MOMENTUM WEEK</h3><p>Complete seven quests.</p><strong class="green" style="display:block;margin-top:10px">${Math.min(c,7)} / 7</strong></div><div class="card"><h3>LEVEL RISE</h3><p>Reach level five.</p><strong class="green" style="display:block;margin-top:10px">LVL ${D.level} / 5</strong></div>`;
 }
 
 const ACH=[
-["✦","First Step","Complete your first quest.",()=>Object.keys(D.completed).length>=1],
-["⚡","Awakened","Reach level 2.",()=>D.level>=2],
-["◆","Momentum","Complete 5 quests.",()=>Object.keys(D.completed).length>=5],
-["◈","Explorer","Complete a Life Quest.",()=>D.history.some(x=>x.text.startsWith("Life Quest"))],
-["∞","Committed","Reach a 3 day streak.",()=>D.streak>=3],
-["◇","System Builder","Create a custom quest.",()=>D.custom.length>0]
-];
-
-function checkAchievements(){
- const unlocked=JSON.parse(localStorage.getItem(getKey()+"_ach")||"{}");
- ACH.forEach((a,i)=>{if(a[3]()&&!unlocked[i]){unlocked[i]=true;toast("ACHIEVEMENT UNLOCKED — "+a[1])}});
- localStorage.setItem(getKey()+"_ach",JSON.stringify(unlocked));
+["✦","FIRST STEP","Complete your first quest.",()=>Object.keys(D.done).length>=1],
+["⚡","AWAKENED","Reach level 2.",()=>D.level>=2],
+["◆","MOMENTUM","Complete five quests.",()=>Object.keys(D.done).length>=5],
+["◈","EXPLORER","Complete a Life Quest.",()=>D.history.some(x=>String(x.text).startsWith("Life Quest"))],
+["∞","COMMITTED","Reach a three day streak.",()=>D.streak>=3],
+["◇","SYSTEM BUILDER","Create a custom quest.",()=>D.custom.length>0]
+];function checkAchievements(){
+ const key=storage()+"_ach",u=JSON.parse(localStorage.getItem(key)||"{}");
+ ACH.forEach((a,i)=>{if(a[3]()&&!u[i]){u[i]=true;glitch();notify("ACHIEVEMENT UNLOCKED — "+a[1])}});
+ localStorage.setItem(key,JSON.stringify(u));
 }
 
 function renderSystem(){
- const unlocked=JSON.parse(localStorage.getItem(getKey()+"_ach")||"{}");
+ const u=JSON.parse(localStorage.getItem(storage()+"_ach")||"{}"),c=Object.keys(D.done).length;
  document.getElementById("systemCards").innerHTML=[
-  ["CURRENT LEVEL","Level "+D.level,"Your progression is building."],
-  ["TOTAL XP",D.level*100+D.xp+" XP","Every completed action counts."],
-  ["QUESTS",Object.keys(D.completed).length,"No penalty for skipping."],
-  ["STREAK",D.streak+" days","Momentum, not perfection."]
+ ["CURRENT LEVEL","LEVEL "+D.level,"Your progression is building."],
+ ["TOTAL XP",(D.level-1)*100+D.xp+" XP","Every completed action counts."],
+ ["QUESTS",c,"Skipping never breaks your progress."],
+ ["MOMENTUM",D.todayCount+" TODAY","Keep moving at your own pace."]
  ].map(x=>`<div class="card"><div class="label">${x[0]}</div><h3 style="margin-top:7px">${x[1]}</h3><p>${x[2]}</p></div>`).join("");
- document.getElementById("achievements").innerHTML=ACH.map((a,i)=>`<div class="achievement ${unlocked[i]?"":"locked"}"><div class="achievement-icon">${a[0]}</div><h3>${a[1]}</h3><p>${a[2]}</p><div style="margin-top:8px;font-size:6px;color:${unlocked[i]?"var(--green)":"var(--muted)"}">${unlocked[i]?"UNLOCKED":"LOCKED"}</div></div>`).join("");
+ document.getElementById("achievements").innerHTML=ACH.map((a,i)=>`<div class="achievement ${u[i]?"":"locked"}"><div class="achievement-icon">${a[0]}</div><h3>${a[1]}</h3><p>${a[2]}</p><div style="font-size:6px;margin-top:9px;color:${u[i]?"var(--green)":"var(--muted)"}">${u[i]?"UNLOCKED":"LOCKED"}</div></div>`).join("");
 }
 
 function renderMoments(){
- const el=document.getElementById("momentsList");
- el.innerHTML=D.moments.length?D.moments.map(m=>`<div class="moment"><div class="moment-date">${m.date}</div><div class="moment-text">${esc(m.text)}</div></div>`).join(""):`<div class="card"><p class="desc">Nothing here yet. Save something worth remembering.</p></div>`;
+ document.getElementById("momentsList").innerHTML=D.moments.length?D.moments.map(m=>`<div class="moment"><div class="moment-date">${esc(m.date)}</div><div class="moment-text">${esc(m.text)}</div></div>`).join(""):`<div class="card"><p class="desc">Your story starts here. Save something worth remembering.</p></div>`;
 }
 document.getElementById("saveMoment").onclick=()=>{
- const t=document.getElementById("momentText").value.trim();if(!t)return;
- D.moments.unshift({date:new Date().toLocaleString(),text:t});D.moments=D.moments.slice(0,50);save();
- document.getElementById("momentText").value="";renderMoments();toast("MOMENT SAVED");
+ const x=document.getElementById("momentInput").value.trim();if(!x)return notify("WRITE SOMETHING FIRST");
+ D.moments.unshift({date:new Date().toLocaleString(),text:x});D.moments=D.moments.slice(0,60);save();document.getElementById("momentInput").value="";renderMoments();notify("MOMENT RECORDED");glitch();
 };
 
-function renderProfile(){
- document.getElementById("profileEmail").textContent=session?.user?.email||"SYSTEM USER";
- document.getElementById("profileTitle").textContent=D.level>=10?"SYSTEM MASTER":D.level>=5?"PATHFINDER":D.level>=2?"AWAKENED":"AWAKENING";
-}
-function renderSettings(){
- document.getElementById("guidanceBtn").textContent=D.settings.guidance?"ON":"OFF";
- document.getElementById("motionBtn").textContent=D.settings.motion?"ON":"OFF";
-}
-document.getElementById("guidanceBtn").onclick=()=>{D.settings.guidance=!D.settings.guidance;save();renderSettings()};
-document.getElementById("motionBtn").onclick=()=>{D.settings.motion=!D.settings.motion;document.body.style.setProperty("scroll-behavior",D.settings.motion?"auto":"smooth");save();renderSettings()};
-document.getElementById("resetData").onclick=()=>{
- if(confirm("Reset all SENRAI progress on this device?")){localStorage.removeItem(getKey());localStorage.removeItem(getKey()+"_ach");D=fresh();render();toast("SYSTEM RESET")}
-};
+function renderProfile(){document.getElementById("profileEmail").textContent=session?.user?.email||"SYSTEM USER";document.getElementById("profileTitle").textContent=D.level>=20?"SYSTEM MASTER":D.level>=10?"ASCENDANT":D.level>=5?"PATHFINDER":D.level>=2?"INITIATE":"AWAKENING"}
+function renderSettings(){document.getElementById("guidance").textContent=D.settings.guidance?"ON":"OFF";document.getElementById("motion").textContent=D.settings.motion?"ON":"OFF"}
+document.getElementById("guidance").onclick=()=>{D.settings.guidance=!D.settings.guidance;save();renderSettings()};
+document.getElementById("motion").onclick=()=>{D.settings.motion=!D.settings.motion;document.documentElement.style.scrollBehavior=D.settings.motion?"auto":"smooth";save();renderSettings()};
+document.getElementById("reset").onclick=()=>{if(confirm("Reset your SENRAI progress on this device?")){localStorage.removeItem(storage());localStorage.removeItem(storage()+"_ach");D=fresh();render();notify("SYSTEM RESET")}};
 
 function render(){
  document.getElementById("level").textContent=D.level;
  document.getElementById("xp").textContent=D.xp;
- document.getElementById("coreLvl").textContent="LVL "+D.level;
- document.getElementById("xpText").textContent=D.xp+" / "+xpNeeded()+" XP";
- document.getElementById("next").textContent="LEVEL "+(D.level+1);
- document.getElementById("xpBar").style.width=Math.min(100,D.xp/xpNeeded()*100)+"%";
+ document.getElementById("coreLevel").textContent="LVL "+D.level;
+ document.getElementById("xpText").textContent=D.xp+" / "+needed()+" XP";
+ document.getElementById("nextLevel").textContent="LEVEL "+(D.level+1);
+ document.getElementById("xpBar").style.width=Math.min(100,D.xp/needed()*100)+"%";
  document.getElementById("todayCount").textContent=D.todayCount;
  document.getElementById("streak").textContent=D.streak;
- document.getElementById("todayXp").textContent=D.todayXp;
+ document.getElementById("todayXp").textContent=D.todayXP;
  document.getElementById("momentum").textContent=Math.min(99,D.todayCount*10+D.level);
  renderObjective();renderQuests();renderStats();renderMoments();renderProfile();renderSettings();checkAchievements();
 }
 
-function bootProgress(n,t){
- document.getElementById("loadBar").style.width=n+"%";
- document.getElementById("loadPct").textContent=n+"%";
- document.getElementById("loadText").textContent=t;
-}
-
-async function enterSystem(s){
- session=s;load();
- document.getElementById("authGate").style.display="none";
- document.getElementById("app").style.display="block";
- document.getElementById("navbar").style.display="grid";
- generateRecommendation();render();
-}
-
-async function showAuth(){
- document.getElementById("app").style.display="none";
- document.getElementById("navbar").style.display="none";
- document.getElementById("authGate").style.display="grid";
-}
+let authMode="login";
+function authMessage(x,good=false){const e=document.getElementById("authMsg");e.textContent=x;e.className="auth-msg"+(good?" good":"")}
 
 document.getElementById("loginTab").onclick=()=>{
- authMode="login";
- document.getElementById("loginTab").classList.add("active");
- document.getElementById("signupTab").classList.remove("active");
- document.getElementById("confirmWrap").classList.add("hidden");
- document.getElementById("authTitle").textContent="WELCOME BACK";
- document.getElementById("authSub").textContent="Sign in to access your personal progression system.";
- document.getElementById("authSubmit").textContent="ACCESS SYSTEM";
- document.getElementById("authStatus").textContent="";
+ authMode="login";document.getElementById("loginTab").classList.add("on");document.getElementById("signupTab").classList.remove("on");
+ document.getElementById("confirmBox").classList.add("hide");document.getElementById("authTitle").textContent="WELCOME BACK";document.getElementById("authSub").textContent="Sign in to continue your journey.";document.getElementById("authSubmit").textContent="ACCESS SYSTEM";authMessage("");
 };
-
 document.getElementById("signupTab").onclick=()=>{
- authMode="signup";
- document.getElementById("signupTab").classList.add("active");
- document.getElementById("loginTab").classList.remove("active");
- document.getElementById("confirmWrap").classList.remove("hidden");
- document.getElementById("authTitle").textContent="AWAKEN";
- document.getElementById("authSub").textContent="Create your System account and begin your progression.";
- document.getElementById("authSubmit").textContent="CREATE SYSTEM";
- document.getElementById("authStatus").textContent="";
+ authMode="signup";document.getElementById("signupTab").classList.add("on");document.getElementById("loginTab").classList.remove("on");
+ document.getElementById("confirmBox").classList.remove("hide");document.getElementById("authTitle").textContent="AWAKEN";document.getElementById("authSub").textContent="Create your System account and begin your progression.";document.getElementById("authSubmit").textContent="CREATE SYSTEM";authMessage("");
 };
-
-document.getElementById("authClear").onclick=()=>{
- ["email","password","confirmPassword"].forEach(id=>document.getElementById(id).value="");
- document.getElementById("authStatus").textContent="";
-};
+document.getElementById("clearAuth").onclick=()=>{["email","password","confirm"].forEach(x=>document.getElementById(x).value="");authMessage("")};
 
 document.getElementById("authSubmit").onclick=async()=>{
- const email=document.getElementById("email").value.trim();
- const pass=document.getElementById("password").value;
- const confirm=document.getElementById("confirmPassword").value;
- const status=document.getElementById("authStatus");
- status.className="auth-status";
- if(!email||!pass)return status.textContent="ENTER YOUR EMAIL AND PASSWORD.";
- if(pass.length<6)return status.textContent="PASSWORD MUST BE AT LEAST 6 CHARACTERS.";
- if(authMode==="signup"&&pass!==confirm)return status.textContent="PASSWORDS DO NOT MATCH.";
- status.textContent="CONTACTING SYSTEM...";
+ const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value,confirm=document.getElementById("confirm").value;
+ if(!email||!password)return authMessage("ENTER YOUR EMAIL AND PASSWORD.");
+ if(password.length<6)return authMessage("PASSWORD MUST BE AT LEAST 6 CHARACTERS.");
+ if(authMode==="signup"&&password!==confirm)return authMessage("PASSWORDS DO NOT MATCH.");
+ authMessage("CONTACTING SYSTEM...",true);
  try{
-  let r;
-  if(authMode==="login")r=await sb.auth.signInWithPassword({email,password:pass});
-  else r=await sb.auth.signUp({email,password:pass});
+  const r=authMode==="login"?await supabase.auth.signInWithPassword({email,password}):await supabase.auth.signUp({email,password});
   if(r.error)throw r.error;
-  if(authMode==="signup"&&!r.data.session){
-   status.className="auth-status good";
-   status.textContent="ACCOUNT CREATED. CHECK YOUR EMAIL TO CONFIRM ACCESS.";
-  }else if(r.data.session)await enterSystem(r.data.session);
- }catch(e){status.textContent=e.message||"SYSTEM ACCESS FAILED."}
+  if(authMode==="signup"&&!r.data.session){authMessage("ACCOUNT CREATED. CHECK YOUR EMAIL TO CONFIRM ACCESS.",true)}
+  else if(r.data.session)enter(r.data.session);
+ }catch(e){authMessage(e.message||"SYSTEM ACCESS FAILED.")}
 };
 
-document.getElementById("forgotButton").onclick=async()=>{
- const email=document.getElementById("email").value.trim();
- if(!email)return document.getElementById("authStatus").textContent="ENTER YOUR EMAIL FIRST.";
- const r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.href});
- const s=document.getElementById("authStatus");
- if(r.error)s.textContent=r.error.message;
- else{s.className="auth-status good";s.textContent="PASSWORD RESET EMAIL SENT."}
+document.getElementById("forgot").onclick=async()=>{
+ const email=document.getElementById("email").value.trim();if(!email)return authMessage("ENTER YOUR EMAIL FIRST.");
+ const r=await supabase.auth.resetPasswordForEmail(email,{redirectTo:location.href});
+ if(r.error)authMessage(r.error.message);else authMessage("PASSWORD RESET EMAIL SENT.",true);
 };
 
-document.getElementById("signOut").onclick=async()=>{
- await sb.auth.signOut();
- session=null;
- showAuth();
- document.getElementById("authStatus").className="auth-status good";
- document.getElementById("authStatus").textContent="SIGNED OUT.";
-};
+document.getElementById("signOut").onclick=async()=>{await supabase.auth.signOut();session=null;document.getElementById("app").style.display="none";document.getElementById("nav").style.display="none";document.getElementById("auth").style.display="flex";authMessage("SIGNED OUT.",true);glitch()};
 
-sb.auth.onAuthStateChange(async(event,s)=>{
- if(s&&!session)await enterSystem(s);
- if(!s&&session){session=null;showAuth()}
+async function enter(s){
+ session=s;load();
+ document.getElementById("auth").style.display="none";
+ document.getElementById("app").style.display="block";
+ document.getElementById("nav").style.display="grid";
+ recommendation();render();
+}
+
+supabase.auth.onAuthStateChange(async(_,s)=>{
+ if(s&&!session)await enter(s);
+ if(!s&&session){session=null;document.getElementById("app").style.display="none";document.getElementById("nav").style.display="none";document.getElementById("auth").style.display="flex"}
 });
 
+function boot(n,text){document.getElementById("bootBar").style.width=n+"%";document.getElementById("bootPct").textContent=n+"%";document.getElementById("bootText").textContent=text}
+
 (async()=>{
- bootProgress(20,"LOADING CORE");
- await new Promise(r=>setTimeout(r,250));
- bootProgress(45,"CHECKING SYSTEM");
- const {data}=await sb.auth.getSession();
- bootProgress(70,"VERIFYING ACCESS");
- await new Promise(r=>setTimeout(r,250));
- bootProgress(90,"PREPARING SYSTEM");
- if(data.session)await enterSystem(data.session);else await showAuth();
- bootProgress(100,"SYSTEM READY");
- await new Promise(r=>setTimeout(r,350));
- document.getElementById("splash").style.opacity="0";
- setTimeout(()=>document.getElementById("splash").style.display="none",700);
+ try{
+  boot(15,"INITIALIZING SYSTEM");await new Promise(r=>setTimeout(r,220));
+  boot(32,"LOADING SENRAI CORE");await new Promise(r=>setTimeout(r,220));
+  boot(50,"CONNECTING TO SYSTEM");const r=await supabase.auth.getSession();
+  boot(72,"VERIFYING ACCESS");await new Promise(r=>setTimeout(r,220));
+  boot(88,"PREPARING INTERFACE");
+  if(r.data.session)await enter(r.data.session);
+  else document.getElementById("auth").style.display="flex";
+  boot(100,"SYSTEM READY");await new Promise(r=>setTimeout(r,300));
+  document.getElementById("boot").classList.add("out");
+  setTimeout(()=>document.getElementById("boot").style.display="none",850);
+ }catch(e){
+  console.error(e);
+  document.getElementById("auth").style.display="flex";
+  document.getElementById("boot").classList.add("out");
+  setTimeout(()=>document.getElementById("boot").style.display="none",850);
+  authMessage("SYSTEM CONNECTION ERROR. REFRESH AND TRY AGAIN.");
+ }
 })();
 </script></body></html>
