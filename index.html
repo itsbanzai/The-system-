@@ -2,851 +2,2809 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<meta name="theme-color" content="#07080c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SENRAI">
-<meta name="mobile-web-app-capable" content="yes">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
-<link rel="icon" href="senrai-logo.png">
-<link rel="apple-touch-icon" href="senrai-logo.png">
+<meta name="theme-color" content="#05070b">
 
-<title>SENRAI — The System that moves you forward.</title>
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
+
+<meta
+  name="apple-mobile-web-app-title"
+  content="SENRAI"
+>
+
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+>
+
+<link
+  rel="icon"
+  type="image/png"
+  href="senrai-logo.png"
+>
+
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="senrai-logo.png"
+>
+
+<title>SENRAI — The System That Moves You Forward</title>
 
 <style>
+
+/* =========================================================
+   SENRAI
+   GLASS SYSTEM UI
+   ========================================================= */
+
 :root{
-  --bg:#07080c;
-  --panel:#0d1017;
-  --panel2:#11151e;
-  --line:rgba(255,255,255,.09);
-  --text:#f4f6fb;
-  --muted:#8e97a8;
-  --cyan:#65e7ff;
-  --purple:#9b7cff;
-  --red:#ff536b;
-  --green:#69e6a3;
-  --gold:#ffd36a;
-  --shadow:0 18px 55px rgba(0,0,0,.35);
+
+  --bg:#05070b;
+  --bg2:#080b11;
+
+  --glass:rgba(17,22,31,.55);
+  --glass-strong:rgba(15,20,29,.72);
+  --glass-light:rgba(255,255,255,.045);
+
+  --line:rgba(255,255,255,.105);
+  --line-soft:rgba(255,255,255,.055);
+
+  --text:#f4f7fb;
+  --muted:#858e9e;
+  --dim:#515a69;
+
+  --cyan:#69e2dc;
+  --blue:#65a9ff;
+  --purple:#a87cff;
+  --green:#5df2a5;
+  --orange:#ffae57;
+  --red:#ff667a;
+  --gold:#f2d36b;
+
   --radius:22px;
+
+  --blur:24px;
+
+  --shadow:
+    0 20px 60px rgba(0,0,0,.28);
+
 }
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
 }
 
-html,body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+html{
+  scroll-behavior:smooth;
 }
 
 body{
+
+  background:
+    radial-gradient(
+      circle at 15% 5%,
+      rgba(101,169,255,.055),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 35%,
+      rgba(168,124,255,.045),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(105,226,220,.035),
+      transparent 30%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
   min-height:100vh;
+
   overflow-x:hidden;
+
 }
 
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
 
-button{
-  color:inherit;
-  border:0;
-  cursor:pointer;
-}
+/* =========================================================
+   ATMOSPHERIC GLASS BACKGROUND
+   ========================================================= */
 
-button:active{
-  transform:scale(.98);
-}
+body::before{
 
-body:before{
   content:"";
+
   position:fixed;
+
   inset:0;
+
   pointer-events:none;
-  opacity:.045;
-  background-image:radial-gradient(#fff .6px,transparent .6px);
+
+  z-index:0;
+
+  opacity:.055;
+
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,.9) .55px,
+      transparent .55px
+    );
+
   background-size:5px 5px;
-  mix-blend-mode:screen;
-  z-index:100;
+
 }
+
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  inset:-30%;
+
+  pointer-events:none;
+
+  z-index:0;
+
+  background:
+    radial-gradient(
+      ellipse at 30% 30%,
+      rgba(105,226,220,.035),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 70% 65%,
+      rgba(168,124,255,.035),
+      transparent 30%
+    );
+
+  animation:
+    atmosphereMove 18s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes atmosphereMove{
+
+  from{
+    transform:translate3d(-2%,-1%,0);
+  }
+
+  to{
+    transform:translate3d(2%,2%,0);
+  }
+
+}
+
+
+/* =========================================================
+   PARTICLE FIELD
+   ========================================================= */
+
+#particleField{
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  overflow:hidden;
+
+  z-index:1;
+
+}
+
+
+.particle{
+
+  position:absolute;
+
+  width:2px;
+  height:2px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.55);
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,.18);
+
+  animation:
+    particleFloat linear infinite;
+
+}
+
+
+.particle.cyan{
+
+  background:rgba(105,226,220,.8);
+
+  box-shadow:
+    0 0 9px rgba(105,226,220,.35);
+
+}
+
+
+.particle.purple{
+
+  background:rgba(168,124,255,.75);
+
+  box-shadow:
+    0 0 9px rgba(168,124,255,.3);
+
+}
+
+
+@keyframes particleFloat{
+
+  0%{
+
+    transform:
+      translate3d(0,20px,0)
+      scale(.7);
+
+    opacity:0;
+
+  }
+
+  15%{
+    opacity:.35;
+  }
+
+  50%{
+
+    transform:
+      translate3d(
+        var(--drift),
+        -35px,
+        0
+      )
+      scale(1);
+
+    opacity:.65;
+
+  }
+
+  85%{
+    opacity:.2;
+  }
+
+  100%{
+
+    transform:
+      translate3d(
+        calc(var(--drift) * -1),
+        -90px,
+        0
+      )
+      scale(.6);
+
+    opacity:0;
+
+  }
+
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
 
 #app{
-  min-height:100vh;
-  padding-bottom:96px;
-}
 
-.screen{
-  display:none;
-  max-width:900px;
+  position:relative;
+
+  z-index:2;
+
+  width:min(1000px,100%);
+
   margin:auto;
-  padding:22px 18px 34px;
+
+  padding:
+    18px
+    14px
+    115px;
+
 }
 
-.screen.active{
-  display:block;
-}
 
-.topbar{
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
-  margin:4px 0 24px;
+
+  padding:
+    8px
+    4px
+    20px;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.065);
+
 }
 
-.brand{
-  font-weight:900;
-  letter-spacing:.24em;
-  font-size:18px;
+
+.brand-name{
+
+  font-size:19px;
+
+  font-weight:950;
+
+  letter-spacing:6px;
+
+  color:#f4f7fb;
+
+  text-shadow:
+    0 0 22px
+    rgba(255,255,255,.08);
+
 }
 
-.eyebrow{
-  font-size:10px;
-  letter-spacing:.22em;
-  color:var(--muted);
-  text-transform:uppercase;
+
+.system-status{
+
+  margin-top:5px;
+
+  font-size:7px;
+
+  color:var(--green);
+
+  letter-spacing:2px;
+
 }
 
-.top-action{
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px 12px;
+
+.status-dot{
+
+  display:inline-block;
+
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  margin-right:6px;
+
+  box-shadow:
+    0 0 9px
+    var(--green);
+
 }
 
-.card{
+
+/* =========================================================
+   GLASS
+   ========================================================= */
+
+.glass{
+
+  position:relative;
+
+  overflow:hidden;
+
   background:
     linear-gradient(
       145deg,
-      rgba(17,21,30,.96),
-      rgba(10,12,18,.96)
-    );
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:18px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.008)
+    ),
+    var(--glass);
+
+  border:
+    1px solid
+    var(--line);
+
+  backdrop-filter:
+    blur(var(--blur))
+    saturate(125%);
+
+  -webkit-backdrop-filter:
+    blur(var(--blur))
+    saturate(125%);
+
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0
+    rgba(255,255,255,.035);
+
 }
 
-.card:after{
+
+/*
+  Moving glass reflection.
+*/
+
+.glass::before{
+
   content:"";
+
   position:absolute;
-  width:150px;
-  height:150px;
-  right:-90px;
-  top:-100px;
-  border-radius:50%;
-  background:rgba(101,231,255,.05);
-  filter:blur(8px);
+
+  top:-120%;
+
+  left:-60%;
+
+  width:35%;
+
+  height:320%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.045),
+      transparent
+    );
+
+  transform:rotate(18deg);
+
   pointer-events:none;
+
+  animation:
+    glassSweep 12s ease-in-out infinite;
+
 }
+
+
+@keyframes glassSweep{
+
+  0%,
+  65%{
+
+    left:-70%;
+
+  }
+
+  80%{
+
+    left:125%;
+
+  }
+
+  100%{
+
+    left:125%;
+
+  }
+
+}
+
+
+/* =========================================================
+   VIEWS
+   ========================================================= */
+
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.section{
+  margin-top:25px;
+}
+
+
+.section-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:end;
+
+  gap:10px;
+
+  margin-bottom:11px;
+
+}
+
+
+.section-title{
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  font-weight:900;
+
+}
+
+
+.section-description{
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  letter-spacing:1.7px;
+
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .hero{
-  padding:22px;
-  text-align:center;
+
+  margin-top:20px;
+
+  padding:23px;
+
+  border-radius:var(--radius);
+
 }
 
-.hero h1{
-  font-size:32px;
-  margin:5px 0 3px;
+
+.hero-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:20px;
+
 }
 
-.sub{
+
+.hero-label{
+
   color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
+
+  font-size:8px;
+
+  letter-spacing:2px;
+
 }
+
 
 .level{
-  font-size:13px;
-  color:var(--cyan);
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  font-weight:800;
+
+  font-size:40px;
+
+  font-weight:950;
+
+  line-height:1;
+
+  margin-top:6px;
+
 }
 
-.xpbar{
-  height:7px;
+
+.level span{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  letter-spacing:2px;
+
+}
+
+
+.hero-xp{
+
+  text-align:right;
+
+}
+
+
+.hero-xp-number{
+
+  font-size:21px;
+
+  font-weight:900;
+
+}
+
+
+.hero-xp-label{
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  letter-spacing:2px;
+
+  margin-top:4px;
+
+}
+
+
+.xp-track{
+
+  height:6px;
+
+  margin-top:22px;
+
+  background:
+    rgba(255,255,255,.055);
+
   border-radius:99px;
-  background:#1a1e27;
+
   overflow:hidden;
-  margin:14px 0 6px;
+
 }
 
-.xpbar>span{
-  display:block;
+
+.xp-fill{
+
   height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      var(--blue),
+      var(--purple)
+    );
+
+  border-radius:99px;
+
+  box-shadow:
+    0 0 15px
+    rgba(105,226,220,.18);
+
+  transition:
+    width .5s ease;
+
+}
+
+
+.xp-footer{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  margin-top:8px;
+
+  letter-spacing:1px;
+
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.summary-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:9px;
+
+  margin-top:10px;
+
+}
+
+
+.summary-card{
+
+  padding:15px;
+
+  border-radius:18px;
+
+}
+
+
+.summary-label{
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  letter-spacing:1.8px;
+
+}
+
+
+.summary-value{
+
+  font-size:21px;
+
+  font-weight:900;
+
+  margin-top:7px;
+
+}
+
+
+.summary-sub{
+
+  color:var(--dim);
+
+  font-size:7px;
+
+  margin-top:4px;
+
+}
+
+
+.streak-value{
+
+  color:var(--orange);
+
+}
+
+
+/* =========================================================
+   CORE
+   ========================================================= */
+
+.core-card{
+
+  min-height:390px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:25px;
+
+  margin-top:20px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(105,226,220,.065),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.008)
+    ),
+    rgba(10,14,21,.54);
+
+}
+
+
+.core{
+
+  position:relative;
+
+  width:310px;
+
+  height:310px;
+
+  display:grid;
+
+  place-items:center;
+
+}
+
+
+.core-ring{
+
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(105,226,220,.14);
+
+  animation:
+    coreSpin 24s linear infinite;
+
+}
+
+
+.core-ring::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:32px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(168,124,255,.12);
+
+}
+
+
+.core-ring::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:70px;
+
+  border-radius:50%;
+
+  border:
+    1px dashed
+    rgba(255,255,255,.08);
+
+  animation:
+    coreSpinReverse 14s linear infinite;
+
+}
+
+
+.core-ring.two{
+
+  width:240px;
+  height:240px;
+
+  border-color:
+    rgba(101,169,255,.1);
+
+  animation-duration:17s;
+
+}
+
+
+.core-ring.three{
+
+  width:175px;
+  height:175px;
+
+  border-color:
+    rgba(168,124,255,.1);
+
+  animation-duration:11s;
+
+}
+
+
+.core-orbit{
+
+  position:absolute;
+
+  width:350px;
+
+  height:155px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.045);
+
+  transform:rotate(-22deg);
+
+  animation:
+    orbitSpin 18s linear infinite;
+
+}
+
+
+.core-orbit::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:var(--cyan);
+
+  box-shadow:
+    0 0 14px
+    var(--cyan);
+
+  top:3px;
+
+  left:50%;
+
+}
+
+
+.core-center{
+
+  position:relative;
+
+  z-index:5;
+
+  text-align:center;
+
+}
+
+
+.core-glyph{
+
+  font-size:28px;
+
+  color:var(--purple);
+
+  text-shadow:
+    0 0 22px
+    rgba(168,124,255,.4);
+
+  margin-bottom:7px;
+
+}
+
+
+.core-status{
+
+  color:var(--cyan);
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:4px;
+
+}
+
+
+.core-level{
+
+  font-size:45px;
+
+  font-weight:950;
+
+  margin:8px 0;
+
+  letter-spacing:-1px;
+
+}
+
+
+.core-path{
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
+
+.core-title{
+
+  display:inline-block;
+
+  margin-top:15px;
+
+  padding:8px 13px;
+
+  border:
+    1px solid
+    rgba(105,226,220,.25);
+
+  border-radius:99px;
+
+  color:var(--cyan);
+
+  background:
+    rgba(105,226,220,.055);
+
+  font-size:8px;
+
+  letter-spacing:2px;
+
+}
+
+
+@keyframes coreSpin{
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+
+@keyframes coreSpinReverse{
+
+  to{
+    transform:rotate(-360deg);
+  }
+
+}
+
+
+@keyframes orbitSpin{
+
+  to{
+    transform:
+      rotate(338deg);
+  }
+
+}
+
+
+/* =========================================================
+   OBJECTIVE
+   ========================================================= */
+
+.objective{
+
+  padding:19px;
+
+  border-radius:20px;
+
+  border-left:
+    2px solid
+    var(--blue);
+
+}
+
+
+.objective-tag{
+
+  color:var(--blue);
+
+  font-size:7px;
+
+  letter-spacing:2px;
+
+}
+
+
+.objective h2{
+
+  font-size:18px;
+
+  margin:7px 0;
+
+}
+
+
+.objective p{
+
+  color:#adb5c2;
+
+  font-size:10px;
+
+  line-height:1.55;
+
+}
+
+
+.objective-track{
+
+  height:5px;
+
+  background:
+    rgba(255,255,255,.055);
+
+  border-radius:99px;
+
+  overflow:hidden;
+
+  margin-top:13px;
+
+}
+
+
+.objective-fill{
+
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--purple)
+    );
+
+  border-radius:99px;
+
+}
+
+
+.objective-meta{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  margin-top:7px;
+
+}
+
+
+/* =========================================================
+   REFLECTION
+   ========================================================= */
+
+.reflection-card{
+
+  padding:20px;
+
+  border-radius:21px;
+
+  background:
+    radial-gradient(
+      circle at 90% 0,
+      rgba(101,169,255,.09),
+      transparent 38%
+    ),
+    var(--glass);
+
+}
+
+
+.reflection-label{
+
+  color:var(--blue);
+
+  font-size:7px;
+
+  letter-spacing:2px;
+
+}
+
+
+.reflection-title{
+
+  font-size:17px;
+
+  font-weight:900;
+
+  line-height:1.35;
+
+  margin:8px 0;
+
+}
+
+
+.reflection-text{
+
+  color:#adb5c2;
+
+  font-size:10px;
+
+  line-height:1.55;
+
+}
+
+
+.reflection-divider{
+
+  height:1px;
+
+  background:
+    rgba(255,255,255,.06);
+
+  margin:16px 0;
+
+}
+
+
+.reflection-suggestion-label{
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  letter-spacing:2px;
+
+}
+
+
+.reflection-suggestion{
+
+  font-size:13px;
+
+  font-weight:800;
+
+  margin-top:6px;
+
+}
+
+
+.reflection-reward{
+
+  color:var(--green);
+
+  font-size:7px;
+
+  letter-spacing:1px;
+
+  margin-top:5px;
+
+}
+
+
+.reflection-actions{
+
+  display:flex;
+
+  gap:8px;
+
+  margin-top:14px;
+
+}
+
+
+.reflection-actions button{
+
+  flex:1;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button{
+
+  border:
+    1px solid
+    rgba(255,255,255,.09);
+
+  background:
+    rgba(255,255,255,.045);
+
+  color:var(--text);
+
+  padding:11px 14px;
+
+  border-radius:13px;
+
+  font-size:8px;
+
+  letter-spacing:1.5px;
+
+  cursor:pointer;
+
+  transition:
+    transform .18s,
+    background .18s,
+    border-color .18s,
+    box-shadow .18s;
+
+}
+
+
+button:hover{
+
+  background:
+    rgba(255,255,255,.075);
+
+  border-color:
+    rgba(255,255,255,.18);
+
+}
+
+
+button:active{
+
+  transform:scale(.97);
+
+}
+
+
+.primary{
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(105,226,220,.17),
+      rgba(101,169,255,.15)
+    );
+
+  border-color:
+    rgba(105,226,220,.25);
+
+}
+
+
+.danger{
+
+  color:var(--red);
+
+  border-color:
+    rgba(255,102,122,.2);
+
+}
+
+
+.ghost{
+
+  background:transparent;
+
+}
+
+
+.full{
+  width:100%;
+}
+
+
+/* =========================================================
+   QUESTS
+   ========================================================= */
+
+.quest-list{
+
+  display:grid;
+
+  gap:9px;
+
+}
+
+
+.quest{
+
+  padding:15px;
+
+  border-radius:19px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+}
+
+
+.quest-main{
+
+  min-width:0;
+
+}
+
+
+.quest-title{
+
+  font-size:11px;
+
+  font-weight:850;
+
+}
+
+
+.quest-desc{
+
+  color:#8d96a5;
+
+  font-size:9px;
+
+  margin-top:4px;
+
+}
+
+
+.quest-meta{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:6px;
+
+  margin-top:7px;
+
+}
+
+
+.pill{
+
+  display:inline-flex;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  color:var(--muted);
+
+  background:
+    rgba(255,255,255,.025);
+
+  border-radius:99px;
+
+  padding:5px 8px;
+
+  font-size:6px;
+
+  letter-spacing:1px;
+
+}
+
+
+.pill.xp{
+  color:var(--green);
+}
+
+
+.pill.main{
+  color:var(--blue);
+}
+
+
+.quest.complete{
+
+  opacity:.42;
+
+}
+
+
+.quest.complete .quest-title{
+
+  text-decoration:line-through;
+
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+}
+
+
+.stat{
+
+  padding:17px;
+
+  border-radius:19px;
+
+}
+
+
+.stat-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+}
+
+
+.stat-name{
+
+  font-size:10px;
+
+  font-weight:900;
+
+}
+
+
+.stat-value{
+
+  font-size:18px;
+
+  font-weight:900;
+
+}
+
+
+.stat-note{
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  margin:5px 0 11px;
+
+}
+
+
+.stat-track{
+
+  height:5px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  border-radius:99px;
+
+  overflow:hidden;
+
+}
+
+
+.stat-fill{
+
+  height:100%;
+
+  border-radius:99px;
+
+}
+
+
+.stat-fill.str{
+  background:var(--red);
+}
+
+.stat-fill.int{
+  background:var(--blue);
+}
+
+.stat-fill.wis{
+  background:var(--purple);
+}
+
+.stat-fill.cha{
+  background:var(--orange);
+}
+
+.stat-fill.dex{
+  background:var(--cyan);
+}
+
+.stat-fill.cre{
+  background:#e98bff;
+}
+
+.stat-fill.vit{
+  background:var(--green);
+}
+
+
+/* =========================================================
+   WEEKLY
+   ========================================================= */
+
+.grid-2{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:10px;
+
+}
+
+
+.week-card{
+
+  padding:17px;
+
+  border-radius:18px;
+
+}
+
+
+.week-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+
+.week-title{
+
+  font-size:11px;
+
+  font-weight:900;
+
+}
+
+
+.week-xp{
+
+  color:var(--green);
+
+  font-size:8px;
+
+}
+
+
+.week-desc{
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  line-height:1.5;
+
+  margin:7px 0 12px;
+
+}
+
+
+.week-track{
+
+  height:5px;
+
+  background:
+    rgba(255,255,255,.055);
+
+  border-radius:99px;
+
+  overflow:hidden;
+
+}
+
+
+.week-fill{
+
+  height:100%;
+
   background:
     linear-gradient(
       90deg,
       var(--cyan),
       var(--purple)
     );
-  border-radius:99px;
-  transition:width .35s ease;
+
 }
 
-.xptext{
+
+.week-meta{
+
   display:flex;
+
   justify-content:space-between;
-  font-size:11px;
+
   color:var(--muted);
+
+  font-size:7px;
+
+  margin-top:6px;
+
 }
 
-/* SYSTEM CORE */
 
-.core{
-  min-height:360px;
-  display:grid;
-  place-items:center;
-  position:relative;
+/* =========================================================
+   LIFE
+   ========================================================= */
+
+.life-quest{
+
+  padding:22px;
+
+  border-radius:22px;
+
+  text-align:center;
+
   background:
     radial-gradient(
-      circle at center,
-      rgba(101,231,255,.11),
-      transparent 35%
+      circle at 50% 0,
+      rgba(105,226,220,.08),
+      transparent 45%
     ),
-    linear-gradient(
-      145deg,
-      #0d1119,
-      #080a10
-    );
+    var(--glass);
+
 }
 
-.core-rings{
-  position:absolute;
-  width:275px;
-  height:275px;
-  border:1px solid rgba(101,231,255,.18);
-  border-radius:50%;
-  animation:spin 24s linear infinite;
-}
 
-.core-rings:before,
-.core-rings:after{
-  content:"";
-  position:absolute;
-  inset:23px;
-  border:1px solid rgba(155,124,255,.15);
-  border-radius:50%;
-}
+.life-symbol{
 
-.core-rings:after{
-  inset:56px;
-  border-style:dashed;
-  animation:spin 12s linear infinite reverse;
-}
+  font-size:35px;
 
-.core-orbit{
-  position:absolute;
-  width:310px;
-  height:150px;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:50%;
-  transform:rotate(-22deg);
-  animation:spin 18s linear infinite;
-}
-
-.core-dot{
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:var(--cyan);
-  box-shadow:0 0 22px var(--cyan);
-  border-radius:50%;
-  top:7px;
-  left:50%;
-}
-
-.core-center{
-  text-align:center;
-  z-index:2;
-}
-
-.core-center .status{
-  font-size:10px;
-  letter-spacing:.3em;
   color:var(--cyan);
-  font-weight:800;
+
+  text-shadow:
+    0 0 25px
+    rgba(105,226,220,.3);
+
 }
 
-.core-center .big{
-  font-size:40px;
-  font-weight:900;
-  letter-spacing:.04em;
-  margin:7px 0;
-}
 
-.core-center .path{
-  font-size:12px;
-  color:var(--muted);
-}
+.life-label{
 
-.core-center .glyph{
-  font-size:25px;
-  margin-bottom:5px;
-  color:var(--purple);
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-/* GRIDS */
-
-.grid{
-  display:grid;
-  gap:12px;
-}
-
-.grid2{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-
-.grid3{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-
-.stat{
-  text-align:center;
-  padding:16px 10px;
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line);
-  border-radius:17px;
-}
-
-.stat b{
-  display:block;
-  font-size:21px;
-}
-
-.stat span{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  margin-top:4px;
-}
-
-.section-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:24px 3px 10px;
-}
-
-.section-title h2{
-  font-size:14px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin:0;
-}
-
-.section-title span{
-  font-size:11px;
-  color:var(--muted);
-}
-
-/* ROWS */
-
-.row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.grow{
-  flex:1;
-}
-
-.icon{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background:rgba(101,231,255,.08);
-  border:1px solid rgba(101,231,255,.13);
-  font-size:18px;
-}
-
-.item-title{
-  font-weight:750;
-  font-size:14px;
-}
-
-.item-meta{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:3px;
-}
-
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  border-radius:99px;
-  padding:6px 9px;
-  font-size:10px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.pill.cyan{
   color:var(--cyan);
-  border-color:rgba(101,231,255,.2);
+
+  font-size:7px;
+
+  letter-spacing:2px;
+
+  margin-top:8px;
+
 }
 
-.pill.red{
-  color:var(--red);
-  border-color:rgba(255,83,107,.2);
-}
 
-.pill.gold{
-  color:var(--gold);
-  border-color:rgba(255,211,106,.2);
-}
+.life-text{
 
-.pill.green{
-  color:var(--green);
-  border-color:rgba(105,230,163,.2);
-}
+  font-size:16px;
 
-/* BUTTONS */
-
-.btn{
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line);
-  padding:11px 14px;
-  border-radius:13px;
-  font-weight:750;
-  font-size:12px;
-}
-
-.btn.primary{
-  background:
-    linear-gradient(
-      135deg,
-      rgba(101,231,255,.18),
-      rgba(155,124,255,.18)
-    );
-  border-color:rgba(101,231,255,.25);
-}
-
-.btn.danger{
-  border-color:rgba(255,83,107,.25);
-  color:var(--red);
-}
-
-.btn.gold{
-  color:var(--gold);
-  border-color:rgba(255,211,106,.25);
-}
-
-.btn.full{
-  width:100%;
-}
-
-/* QUESTS */
-
-.quest.done{
-  opacity:.58;
-}
-
-.quest.done .item-title{
-  text-decoration:line-through;
-}
-
-.check{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  display:grid;
-  place-items:center;
-  font-size:14px;
-}
-
-.quest.done .check{
-  background:rgba(105,230,163,.14);
-  border-color:rgba(105,230,163,.3);
-  color:var(--green);
-}
-
-/* FORMS */
-
-textarea,
-input,
-select{
-  width:100%;
-  background:#090c12;
   color:var(--text);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  outline:none;
-}
 
-textarea:focus,
-input:focus,
-select:focus{
-  border-color:rgba(101,231,255,.35);
-}
+  font-weight:800;
 
-textarea{
-  min-height:110px;
-  resize:vertical;
-}
-
-.form-row{
-  display:flex;
-  gap:8px;
-}
-
-.form-row>*{
-  flex:1;
-}
-
-/* OTHER */
-
-.quote{
-  font-size:18px;
   line-height:1.45;
-  font-weight:700;
+
+  margin:9px 0 17px;
+
 }
 
-.quote em{
-  font-style:normal;
-  color:var(--cyan);
+
+/* =========================================================
+   ACHIEVEMENTS
+   ========================================================= */
+
+.achievement-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
 }
 
-.tiny{
-  font-size:10px;
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.timeline{
-  border-left:1px solid var(--line);
-  margin-left:8px;
-  padding-left:18px;
-}
-
-.timeline-item{
-  position:relative;
-  margin-bottom:18px;
-}
-
-.timeline-item:before{
-  content:"";
-  position:absolute;
-  left:-24px;
-  top:4px;
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--cyan);
-  box-shadow:0 0 12px rgba(101,231,255,.5);
-}
-
-.empty{
-  padding:24px;
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-}
 
 .achievement{
-  min-height:110px;
-}
 
-.achievement.unlocked{
-  border-color:rgba(255,211,106,.2);
-}
+  padding:16px;
 
-/* NAV */
+  border-radius:18px;
 
-.nav{
-  position:fixed;
-  z-index:90;
-  bottom:0;
-  left:0;
-  right:0;
-  height:82px;
-  padding:
-    9px
-    12px
-    calc(9px + env(safe-area-inset-bottom));
-  background:rgba(7,8,12,.92);
-  backdrop-filter:blur(22px);
-  border-top:1px solid var(--line);
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-}
-
-.nav button{
-  background:none;
-  color:#687181;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  min-width:55px;
-}
-
-.nav button.active{
-  color:var(--text);
-}
-
-.nav .life-btn{
   position:relative;
-  top:-21px;
+
 }
 
-.life-circle{
-  width:62px;
-  height:62px;
+
+.achievement.locked{
+
+  opacity:.4;
+
+}
+
+
+.achievement-icon{
+
+  font-size:22px;
+
+}
+
+
+.achievement-title{
+
+  font-size:10px;
+
+  font-weight:900;
+
+  margin-top:8px;
+
+}
+
+
+.achievement-desc{
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  line-height:1.45;
+
+  margin-top:5px;
+
+}
+
+
+.achievement-reward{
+
+  color:var(--green);
+
+  font-size:7px;
+
+  margin-top:9px;
+
+}
+
+
+.achievement-status{
+
+  position:absolute;
+
+  top:12px;
+
+  right:12px;
+
+  color:var(--muted);
+
+  font-size:6px;
+
+  letter-spacing:1px;
+
+}
+
+
+.achievement.unlocked .achievement-status{
+
+  color:var(--green);
+
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-card{
+
+  padding:22px;
+
+  text-align:center;
+
+  border-radius:21px;
+
+}
+
+
+.profile-avatar{
+
+  width:65px;
+
+  height:65px;
+
+  margin:auto;
+
   border-radius:50%;
+
   display:grid;
+
   place-items:center;
+
+  font-size:22px;
+
+  font-weight:900;
+
   background:
     radial-gradient(
       circle at 35% 30%,
-      #202735,
-      #0b0e15
+      rgba(255,255,255,.1),
+      rgba(255,255,255,.025)
     );
-  border:1px solid rgba(101,231,255,.38);
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
   box-shadow:
-    0 0 30px rgba(101,231,255,.12),
-    0 12px 30px rgba(0,0,0,.45);
-  font-size:20px;
+    inset 0 1px 1px
+    rgba(255,255,255,.08),
+    0 0 30px
+    rgba(105,226,220,.06);
+
 }
 
-.nav .life-btn.active .life-circle{
-  border-color:var(--cyan);
-  box-shadow:
-    0 0 32px rgba(101,231,255,.22);
+
+.profile-name{
+
+  font-size:18px;
+
+  font-weight:900;
+
+  margin-top:12px;
+
 }
 
-/* SPLASH */
+
+.profile-sub{
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  letter-spacing:2px;
+
+  margin-top:5px;
+
+}
+
+
+.profile-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:8px;
+
+  margin-top:16px;
+
+}
+
+
+.profile-stat{
+
+  background:
+    rgba(255,255,255,.025);
+
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
+  border-radius:13px;
+
+  padding:10px;
+
+}
+
+
+.profile-stat strong{
+
+  display:block;
+
+  font-size:15px;
+
+}
+
+
+.profile-stat span{
+
+  font-size:6px;
+
+  color:var(--muted);
+
+  letter-spacing:1px;
+
+}
+
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+.history-list{
+
+  display:grid;
+
+  gap:8px;
+
+}
+
+
+.history-item{
+
+  padding:13px;
+
+  border-radius:17px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+
+.history-title{
+
+  font-size:10px;
+
+  font-weight:800;
+
+}
+
+
+.history-text{
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  margin-top:4px;
+
+}
+
+
+.history-xp{
+
+  color:var(--green);
+
+  font-size:9px;
+
+  font-weight:800;
+
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+input,
+select,
+textarea{
+
+  width:100%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.09);
+
+  background:
+    rgba(5,8,13,.65);
+
+  color:var(--text);
+
+  border-radius:13px;
+
+  padding:11px 12px;
+
+  font-size:10px;
+
+  outline:none;
+
+}
+
+
+input:focus,
+select:focus,
+textarea:focus{
+
+  border-color:
+    rgba(105,226,220,.35);
+
+  box-shadow:
+    0 0 20px
+    rgba(105,226,220,.04);
+
+}
+
+
+textarea{
+
+  min-height:110px;
+
+  resize:vertical;
+
+}
+
+
+.form-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+}
+
+
+.form-group{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:6px;
+
+}
+
+
+.form-group.full{
+
+  grid-column:1/-1;
+
+}
+
+
+.form-label{
+
+  color:var(--muted);
+
+  font-size:7px;
+
+  letter-spacing:1.7px;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navbar{
+
+  position:fixed;
+
+  left:50%;
+
+  bottom:
+    calc(10px + env(safe-area-inset-bottom));
+
+  transform:
+    translateX(-50%);
+
+  width:
+    min(
+      700px,
+      calc(100% - 18px)
+    );
+
+  z-index:500;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  padding:5px;
+
+  border-radius:23px;
+
+  background:
+    rgba(10,13,19,.78);
+
+  border:
+    1px solid
+    rgba(255,255,255,.11);
+
+  backdrop-filter:
+    blur(28px)
+    saturate(135%);
+
+  -webkit-backdrop-filter:
+    blur(28px)
+    saturate(135%);
+
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.45),
+    inset 0 1px 0
+    rgba(255,255,255,.05);
+
+}
+
+
+.nav-button{
+
+  border:0;
+
+  background:transparent;
+
+  color:#687180;
+
+  padding:9px 4px;
+
+  border-radius:17px;
+
+  font-size:7px;
+
+  letter-spacing:1px;
+
+  min-height:58px;
+
+}
+
+
+.nav-button.active{
+
+  color:#f4f7fb;
+
+  background:
+    rgba(255,255,255,.045);
+
+}
+
+
+.nav-icon{
+
+  display:block;
+
+  font-size:15px;
+
+  margin-bottom:5px;
+
+}
+
+
+.life-nav{
+
+  background:transparent!important;
+
+  overflow:visible;
+
+}
+
+
+.life-nav .nav-icon{
+
+  width:51px;
+
+  height:51px;
+
+  border-radius:50%;
+
+  display:grid;
+
+  place-items:center;
+
+  margin:
+    -25px auto
+    5px;
+
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      rgba(255,255,255,.13),
+      rgba(11,15,21,.82) 68%
+    );
+
+  border:
+    1px solid
+    rgba(105,226,220,.38);
+
+  box-shadow:
+
+    0 0 0 5px
+    rgba(10,13,19,.9),
+
+    inset 0 1px 1px
+    rgba(255,255,255,.09),
+
+    0 8px 30px
+    rgba(0,0,0,.45),
+
+    0 0 25px
+    rgba(105,226,220,.09);
+
+  color:var(--cyan);
+
+}
+
+
+.life-nav.active .nav-icon{
+
+  border-color:
+    rgba(105,226,220,.7);
+
+  box-shadow:
+
+    0 0 0 5px
+    rgba(10,13,19,.9),
+
+    inset 0 1px 1px
+    rgba(255,255,255,.1),
+
+    0 8px 35px
+    rgba(0,0,0,.5),
+
+    0 0 35px
+    rgba(105,226,220,.18);
+
+}
+
+
+/* =========================================================
+   SPLASH
+   ========================================================= */
 
 #splash{
+
   position:fixed;
+
   inset:0;
-  background:#050609;
-  z-index:999;
-  display:grid;
-  place-items:center;
-  transition:opacity .55s ease;
+
+  z-index:9999;
+
+  background:#030407;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  transition:
+    opacity .8s,
+    visibility .8s;
+
 }
 
-.splash-inner{
-  text-align:center;
+
+#splash.hidden{
+
+  opacity:0;
+
+  visibility:hidden;
+
 }
+
+
+.splash-content{
+
+  width:min(430px,86%);
+
+  text-align:center;
+
+}
+
 
 .splash-logo{
-  width:110px;
-  height:110px;
+
+  width:min(270px,70vw);
+
+  max-height:170px;
+
   object-fit:contain;
-  filter:drop-shadow(0 0 25px rgba(101,231,255,.18));
-  animation:pulse 2s ease-in-out infinite;
+
+  margin-bottom:30px;
+
+  filter:
+    drop-shadow(
+      0 0 28px
+      rgba(105,226,220,.12)
+    );
+
 }
 
-.splash-word{
-  font-size:16px;
-  font-weight:900;
-  letter-spacing:.35em;
-  margin:16px 0 7px 7px;
-}
 
-.boot{
+.splash-subtitle{
+
+  color:#737c89;
+
   font-size:9px;
-  letter-spacing:.22em;
-  color:#626b7b;
-  text-transform:uppercase;
+
+  letter-spacing:3px;
+
 }
 
-@keyframes pulse{
-  50%{
-    transform:scale(1.035);
-    opacity:.78;
-  }
+
+.loading-container{
+
+  margin-top:48px;
+
 }
 
-/* MODAL */
+
+.loading-bar{
+
+  height:2px;
+
+  background:#171b23;
+
+  overflow:hidden;
+
+  border-radius:99px;
+
+}
+
+
+.loading-fill{
+
+  height:100%;
+
+  width:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      var(--blue),
+      var(--purple)
+    );
+
+  transition:width .2s;
+
+}
+
+
+.loading-text{
+
+  margin-top:12px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  color:#626a78;
+
+  font-size:8px;
+
+  letter-spacing:2px;
+
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
 
 .modal-backdrop{
+
   position:fixed;
+
   inset:0;
-  background:rgba(0,0,0,.65);
-  z-index:200;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  padding:14px;
+
+  z-index:900;
+
+  display:grid;
+
+  place-items:center;
+
+  padding:18px;
+
+  background:
+    rgba(0,0,0,.67);
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
 }
 
-.modal-backdrop.show{
-  display:flex;
-}
 
 .modal{
-  width:min(620px,100%);
-  background:#0c1017;
-  border:1px solid var(--line);
-  border-radius:24px 24px 18px 18px;
-  padding:20px;
-  box-shadow:0 25px 80px rgba(0,0,0,.6);
-  max-height:88vh;
+
+  width:min(650px,100%);
+
+  max-height:90vh;
+
   overflow:auto;
+
+  padding:20px;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.012)
+    ),
+    rgba(10,14,21,.8);
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
+  backdrop-filter:
+    blur(30px)
+    saturate(135%);
+
+  -webkit-backdrop-filter:
+    blur(30px)
+    saturate(135%);
+
+  box-shadow:
+    0 30px 90px
+    rgba(0,0,0,.6),
+
+    inset 0 1px 0
+    rgba(255,255,255,.06);
+
 }
 
-.modal h3{
-  margin:0 0 5px;
+
+.modal-head{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:15px;
+
 }
 
-/* TOAST */
+
+.modal-title{
+
+  font-size:13px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+
+}
+
+
+.close{
+
+  width:34px;
+
+  height:34px;
+
+  padding:0;
+
+  border-radius:50%;
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
 
 .toast{
+
   position:fixed;
+
   left:50%;
-  bottom:94px;
+
+  bottom:88px;
+
   transform:
-    translateX(-50%)
-    translateY(20px);
+    translate(-50%,120px);
+
+  background:
+    rgba(239,244,250,.92);
+
+  color:#050609;
+
+  padding:12px 18px;
+
+  border-radius:99px;
+
+  font-size:8px;
+
+  font-weight:900;
+
+  letter-spacing:1.5px;
+
+  z-index:10000;
+
   opacity:0;
-  z-index:300;
-  background:#151a24;
-  border:1px solid var(--line);
-  padding:11px 15px;
-  border-radius:14px;
-  font-size:12px;
-  transition:.25s;
-  pointer-events:none;
-  box-shadow:var(--shadow);
+
+  transition:.3s;
+
+  box-shadow:
+    0 10px 35px
+    rgba(0,0,0,.35);
+
 }
+
 
 .toast.show{
-  opacity:1;
+
   transform:
-    translateX(-50%)
-    translateY(0);
+    translate(-50%,0);
+
+  opacity:1;
+
 }
 
-/* MOOD */
 
-.mood{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+
+  text-align:center;
+
+  color:#343a45;
+
+  font-size:7px;
+
+  letter-spacing:3px;
+
+  margin-top:40px;
+
 }
 
-.mood button{
-  padding:9px 11px;
-  border-radius:12px;
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--line);
-  font-size:11px;
-  color:var(--muted);
-}
 
-.mood button.active{
-  color:var(--text);
-  border-color:rgba(101,231,255,.35);
-  background:rgba(101,231,255,.08);
-}
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-/* PATH */
+@media(max-width:700px){
 
-.stage{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
+  #app{
 
-.stage:last-child{
-  border-bottom:0;
-}
+    padding:
+      16px
+      11px
+      110px;
 
-.stage-num{
-  width:28px;
-  height:28px;
-  border-radius:9px;
-  display:grid;
-  place-items:center;
-  background:rgba(255,255,255,.05);
-  color:var(--muted);
-  font-size:11px;
-}
-
-.stage.current .stage-num{
-  background:rgba(101,231,255,.12);
-  color:var(--cyan);
-}
-
-.stage.complete .stage-num{
-  background:rgba(105,230,163,.12);
-  color:var(--green);
-}
-
-@media(max-width:560px){
-  .grid3{
-    grid-template-columns:repeat(3,1fr);
   }
 
-  .hero h1{
-    font-size:28px;
+
+  .summary-grid{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
   }
+
+
+  .stats-grid,
+  .achievement-grid,
+  .grid-2{
+
+    grid-template-columns:1fr;
+
+  }
+
+
+  .form-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+
+  .form-group.full{
+
+    grid-column:auto;
+
+  }
+
+
+  .hero{
+
+    padding:18px;
+
+  }
+
+
+  .level{
+
+    font-size:32px;
+
+  }
+
+
+  .core-card{
+
+    min-height:350px;
+
+  }
+
 
   .core{
-    min-height:320px;
+
+    width:275px;
+    height:275px;
+
   }
 
-  .core-rings{
-    width:245px;
-    height:245px;
-  }
 
   .core-orbit{
-    width:275px;
+
+    width:310px;
+
   }
+
+
+  .core-level{
+
+    font-size:39px;
+
+  }
+
+
+  .reflection-actions{
+
+    flex-direction:column;
+
+  }
+
+
+  .reflection-actions button{
+
+    width:100%;
+
+  }
+
 }
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+
+    animation-duration:.01ms!important;
+
+    animation-iteration-count:1!important;
+
+    scroll-behavior:auto!important;
+
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
+
+<!-- =======================================================
+     PARTICLES
+     ======================================================= -->
+
+<div id="particleField"></div>
+
+
+<!-- =======================================================
+     SPLASH
+     ======================================================= -->
+
 <div id="splash">
-  <div class="splash-inner">
+
+  <div class="splash-content">
+
     <img
       class="splash-logo"
       src="senrai-logo.png"
@@ -854,312 +2812,1459 @@ textarea{
       onerror="this.style.display='none'"
     >
 
-    <div class="splash-word">SENRAI</div>
-    <div class="boot">SYSTEM INITIALIZING</div>
+    <div class="splash-subtitle">
+      PERSONAL PROGRESSION SYSTEM
+    </div>
+
+    <div class="loading-container">
+
+      <div class="loading-bar">
+
+        <div
+          class="loading-fill"
+          id="loadingFill"
+        ></div>
+
+      </div>
+
+      <div class="loading-text">
+
+        <span id="loadingStatus">
+          SYSTEM INITIALIZING
+        </span>
+
+        <span id="loadingPercent">
+          0%
+        </span>
+
+      </div>
+
+    </div>
+
   </div>
+
 </div>
+
+
+<!-- =======================================================
+     APP
+     ======================================================= -->
 
 <div id="app">
 
-  <section id="home" class="screen active"></section>
 
-  <section id="quests" class="screen"></section>
+<header>
 
-  <section id="life" class="screen"></section>
+  <div>
 
-  <section id="stats" class="screen"></section>
+    <div class="brand-name">
+      SENRAI
+    </div>
 
-  <section id="moments" class="screen"></section>
+    <div class="system-status">
+      <span class="status-dot"></span>
+      THE SYSTEM THAT MOVES YOU FORWARD.
+    </div>
+
+  </div>
+
+
+  <button
+    onclick="openSettings()"
+    aria-label="Settings"
+  >
+    ⚙
+  </button>
+
+</header>
+
+
+<!-- =======================================================
+     HOME
+     ======================================================= -->
+
+<main
+  id="home"
+  class="view active"
+>
+
+
+  <!-- CORE -->
+
+  <section class="core-card glass">
+
+    <div class="core">
+
+      <div class="core-ring"></div>
+
+      <div class="core-ring two"></div>
+
+      <div class="core-ring three"></div>
+
+      <div class="core-orbit"></div>
+
+
+      <div class="core-center">
+
+        <div class="core-glyph">
+          ◈
+        </div>
+
+        <div class="core-status">
+          SYSTEM CORE ONLINE
+        </div>
+
+        <div
+          class="core-level"
+          id="coreLevel"
+        >
+          LEVEL 1
+        </div>
+
+        <div
+          class="core-path"
+          id="corePath"
+        >
+          You grow by experiencing more of life.
+        </div>
+
+        <div
+          class="core-title"
+          id="coreTitle"
+        >
+          SEEKER
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- XP -->
+
+  <section class="hero glass">
+
+    <div class="hero-top">
+
+      <div>
+
+        <div class="hero-label">
+          CURRENT LEVEL
+        </div>
+
+        <div class="level">
+          <span id="level">
+            1
+          </span>
+
+          <span>
+            LVL
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-xp">
+
+        <div class="hero-xp-number">
+
+          <span id="xp">
+            0
+          </span>
+
+          XP
+
+        </div>
+
+        <div class="hero-xp-label">
+          CURRENT EXPERIENCE
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="xp-track">
+
+      <div
+        class="xp-fill"
+        id="xpBar"
+        style="width:0%"
+      ></div>
+
+    </div>
+
+
+    <div class="xp-footer">
+
+      <span id="xpProgress">
+        0 / 100 XP
+      </span>
+
+      <span id="nextLevel">
+        LEVEL 2
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- SUMMARY -->
+
+  <section class="summary-grid">
+
+    <div class="summary-card glass">
+
+      <div class="summary-label">
+        TODAY
+      </div>
+
+      <div class="summary-value">
+        <span id="todayCount">0</span>
+      </div>
+
+      <div class="summary-sub">
+        QUESTS COMPLETE
+      </div>
+
+    </div>
+
+
+    <div class="summary-card glass">
+
+      <div class="summary-label">
+        STREAK
+      </div>
+
+      <div class="summary-value streak-value">
+        <span id="streak">0</span>
+      </div>
+
+      <div class="summary-sub">
+        DAYS ACTIVE
+      </div>
+
+    </div>
+
+
+    <div class="summary-card glass">
+
+      <div class="summary-label">
+        TODAY XP
+      </div>
+
+      <div class="summary-value">
+        <span id="todayXP">0</span>
+      </div>
+
+      <div class="summary-sub">
+        EXPERIENCE
+      </div>
+
+    </div>
+
+
+    <div class="summary-card glass">
+
+      <div class="summary-label">
+        MOMENTUM
+      </div>
+
+      <div class="summary-value">
+        <span id="momentum">0</span>
+      </div>
+
+      <div class="summary-sub">
+        RECENT ACTIVITY
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- QUIET MODE -->
+
+  <section
+    id="quietMode"
+    class="section"
+    style="display:none"
+  >
+
+    <div class="reflection-card glass">
+
+      <div class="reflection-label">
+        QUIET MODE
+      </div>
+
+      <div class="reflection-title">
+        The world is asleep.
+        You do not need to
+        <span style="color:var(--cyan)">
+          solve everything tonight.
+        </span>
+      </div>
+
+      <div class="reflection-text">
+        One small choice is enough.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- OBJECTIVE -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        CURRENT OBJECTIVE
+      </div>
+
+      <div class="section-description">
+        MAIN PATH
+      </div>
+
+    </div>
+
+
+    <div
+      id="homeObjective"
+      class="objective glass"
+    ></div>
+
+  </section>
+
+
+  <!-- REFLECTION -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        SYSTEM REFLECTION
+      </div>
+
+      <div class="section-description">
+        ADAPTIVE GUIDANCE
+      </div>
+
+    </div>
+
+
+    <div class="reflection-card glass">
+
+      <div class="reflection-label">
+        SYSTEM INSIGHT
+      </div>
+
+      <div
+        class="reflection-title"
+        id="reflectionTitle"
+      >
+        System observing.
+      </div>
+
+      <div
+        class="reflection-text"
+        id="reflectionText"
+      >
+        Your next action does not need to be perfect.
+      </div>
+
+      <div class="reflection-divider"></div>
+
+      <div class="reflection-suggestion-label">
+        RECOMMENDED QUEST
+      </div>
+
+      <div
+        class="reflection-suggestion"
+        id="reflectionSuggestion"
+      >
+        Choose one small action.
+      </div>
+
+      <div
+        class="reflection-reward"
+        id="reflectionReward"
+      >
+        +15 XP
+      </div>
+
+      <div class="reflection-actions">
+
+        <button
+          class="primary"
+          id="acceptReflectionButton"
+        >
+          ACCEPT QUEST
+        </button>
+
+        <button
+          class="ghost"
+          id="refreshReflectionButton"
+        >
+          ANOTHER SUGGESTION
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- QUICK QUESTS -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        TODAY'S QUESTS
+      </div>
+
+      <div
+        class="section-description"
+        id="todayQuestCount"
+      >
+        0 / 0
+      </div>
+
+    </div>
+
+
+    <div
+      id="homeQuestList"
+      class="quest-list"
+    ></div>
+
+  </section>
+
+
+  <!-- LIFE -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        LIFE ENCOUNTER
+      </div>
+
+      <div class="section-description">
+        OPTIONAL
+      </div>
+
+    </div>
+
+
+    <div class="life-quest glass">
+
+      <div class="life-symbol">
+        ✦
+      </div>
+
+      <div class="life-label">
+        REAL WORLD SIDE QUEST
+      </div>
+
+      <div
+        class="life-text"
+        id="homeLifeText"
+      >
+        Something is waiting outside your routine.
+      </div>
+
+      <button
+        class="primary full"
+        onclick="newLife()"
+      >
+        GENERATE ENCOUNTER
+      </button>
+
+      <button
+        class="full"
+        style="margin-top:8px"
+        id="homeCompleteLife"
+        onclick="completeLife()"
+        disabled
+      >
+        COMPLETE · +25 XP
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    SENRAI · KEEP MOVING
+  </footer>
+
+</main>
+
+
+<!-- =======================================================
+     QUESTS
+     ======================================================= -->
+
+<main
+  id="quests"
+  class="view"
+>
+
+  <section class="hero glass">
+
+    <div class="hero-label">
+      SYSTEM
+    </div>
+
+    <div class="level">
+      QUESTS
+    </div>
+
+    <div
+      style="
+        color:var(--muted);
+        font-size:10px;
+        line-height:1.6;
+        margin-top:8px
+      "
+    >
+      Do things that make your life better.
+      Earn XP. Level up.
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        DAILY QUESTS
+      </div>
+
+      <div
+        class="section-description"
+        id="questCount"
+      >
+        0 / 0
+      </div>
+
+    </div>
+
+
+    <div
+      id="questList"
+      class="quest-list"
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        CREATE QUEST
+      </div>
+
+      <div class="section-description">
+        YOUR SYSTEM
+      </div>
+
+    </div>
+
+
+    <div class="glass"
+      style="
+        padding:17px;
+        border-radius:19px
+      "
+    >
+
+      <div class="form-grid">
+
+        <div class="form-group full">
+
+          <label class="form-label">
+            QUEST
+          </label>
+
+          <input
+            id="customQuestInput"
+            placeholder="e.g. Apply to one job"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label class="form-label">
+            TYPE
+          </label>
+
+          <select id="customQuestType">
+
+            <option>CARE</option>
+            <option>DISCIPLINE</option>
+            <option>EXPLORATION</option>
+            <option>CREATIVE</option>
+            <option>SOCIAL</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label class="form-label">
+            XP
+          </label>
+
+          <input
+            id="customQuestXP"
+            type="number"
+            min="5"
+            max="100"
+            value="15"
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="primary full"
+        style="margin-top:12px"
+        onclick="addCustomQuest()"
+      >
+        ADD QUEST
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        YOUR QUESTS
+      </div>
+
+      <div class="section-description">
+        CUSTOM
+      </div>
+
+    </div>
+
+
+    <div
+      id="customQuestList"
+      class="quest-list"
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        WEEKLY MISSIONS
+      </div>
+
+      <div class="section-description">
+        OPTIONAL
+      </div>
+
+    </div>
+
+
+    <div
+      id="weeklyList"
+      class="grid-2"
+    ></div>
+
+  </section>
+
+</main>
+
+
+<!-- =======================================================
+     LIFE
+     ======================================================= -->
+
+<main
+  id="life"
+  class="view"
+>
+
+  <section class="hero glass">
+
+    <div class="hero-label">
+      LIFE SYSTEM
+    </div>
+
+    <div class="level">
+      LIFE
+    </div>
+
+    <div
+      style="
+        color:var(--muted);
+        font-size:10px;
+        margin-top:8px
+      "
+    >
+      The world is part of the game.
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="life-quest glass">
+
+      <div class="life-symbol">
+        ✦
+      </div>
+
+      <div class="life-label">
+        CURRENT ENCOUNTER
+      </div>
+
+      <div
+        class="life-text"
+        id="lifeText"
+      >
+        Generate a real-world encounter.
+      </div>
+
+      <button
+        class="primary full"
+        id="completeLifeButton"
+        onclick="completeLife()"
+        disabled
+      >
+        COMPLETE ENCOUNTER · +25 XP
+      </button>
+
+      <button
+        class="full"
+        style="margin-top:8px"
+        onclick="newLife()"
+      >
+        GENERATE ANOTHER
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        SYSTEM STATE
+      </div>
+
+      <div class="section-description">
+        HOW ARE YOU?
+      </div>
+
+    </div>
+
+
+    <div
+      id="moodButtons"
+      class="glass"
+      style="
+        padding:15px;
+        border-radius:19px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:7px
+      "
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        LIFE PHILOSOPHY
+      </div>
+
+    </div>
+
+
+    <div class="reflection-card glass">
+
+      <div class="reflection-title">
+        SENRAI guides.
+        It never controls.
+      </div>
+
+      <div class="reflection-text">
+
+        No broken streaks.
+        No punishment.
+        No guilt.
+
+        <br><br>
+
+        Missing a day does not erase progress.
+
+        <br><br>
+
+        The goal is simple:
+
+        <br><br>
+
+        <strong style="color:var(--cyan)">
+          Do things that make your life better.
+        </strong>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =======================================================
+     STATS
+     ======================================================= -->
+
+<main
+  id="stats"
+  class="view"
+>
+
+  <section class="profile-card glass">
+
+    <div class="profile-avatar">
+      S
+    </div>
+
+    <div
+      class="profile-name"
+      id="statsName"
+    >
+      Luis
+    </div>
+
+    <div
+      class="profile-sub"
+      id="statsTitle"
+    >
+      SEEKER · LEVEL 1
+    </div>
+
+    <div class="profile-grid">
+
+      <div class="profile-stat">
+
+        <strong id="profileXP">
+          0
+        </strong>
+
+        <span>
+          TOTAL XP
+        </span>
+
+      </div>
+
+      <div class="profile-stat">
+
+        <strong id="profileQuests">
+          0
+        </strong>
+
+        <span>
+          QUESTS
+        </span>
+
+      </div>
+
+      <div class="profile-stat">
+
+        <strong id="profileLife">
+          0
+        </strong>
+
+        <span>
+          LIFE
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        SYSTEM STATS
+      </div>
+
+      <div class="section-description">
+        PROGRESSION
+      </div>
+
+    </div>
+
+
+    <div
+      id="statsGrid"
+      class="stats-grid"
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        ACHIEVEMENTS
+      </div>
+
+      <div
+        class="section-description"
+        id="achievementCount"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div
+      id="achievementGrid"
+      class="achievement-grid"
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        TITLES
+      </div>
+
+      <div class="section-description">
+        SYSTEM IDENTITY
+      </div>
+
+    </div>
+
+
+    <div
+      id="titleGrid"
+      class="grid-2"
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div class="section-title">
+        HISTORY
+      </div>
+
+      <div class="section-description">
+        RECENT
+      </div>
+
+    </div>
+
+
+    <div
+      id="historyList"
+      class="history-list"
+    ></div>
+
+  </section>
+
+</main>
+
+
+<!-- =======================================================
+     MOMENTS
+     ======================================================= -->
+
+<main
+  id="moments"
+  class="view"
+>
+
+  <section class="hero glass">
+
+    <div class="hero-label">
+      PERSONAL ARCHIVE
+    </div>
+
+    <div class="level">
+      MOMENTS
+    </div>
+
+    <div
+      style="
+        color:var(--muted);
+        font-size:10px;
+        line-height:1.6;
+        margin-top:8px
+      "
+    >
+      Keep what the System cannot.
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="reflection-card glass">
+
+      <div class="reflection-title">
+        Not every day needs to be productive.
+      </div>
+
+      <div class="reflection-text">
+        Some days just need to mean something.
+      </div>
+
+      <button
+        class="primary full"
+        style="margin-top:14px"
+        onclick="openMoment()"
+      >
+        RECORD A MOMENT
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div
+      id="momentsList"
+    ></div>
+
+  </section>
+
+</main>
+
 
 </div>
 
-<nav class="nav">
+
+<!-- =======================================================
+     NAVIGATION
+     ======================================================= -->
+
+<nav class="navbar">
 
   <button
+    class="nav-button active"
     data-view="home"
     onclick="showView('home')"
   >
-    <span>⌂</span>
-    <span>Home</span>
+
+    <span class="nav-icon">
+      ⌂
+    </span>
+
+    HOME
+
   </button>
 
+
   <button
+    class="nav-button"
     data-view="quests"
     onclick="showView('quests')"
   >
-    <span>◇</span>
-    <span>Quests</span>
+
+    <span class="nav-icon">
+      ◇
+    </span>
+
+    QUESTS
+
   </button>
 
+
   <button
+    class="nav-button life-nav"
     data-view="life"
-    class="life-btn"
     onclick="showView('life')"
   >
-    <span class="life-circle">✦</span>
-    <span>Life</span>
+
+    <span class="nav-icon">
+      ✦
+    </span>
+
+    LIFE
+
   </button>
 
+
   <button
+    class="nav-button"
     data-view="stats"
     onclick="showView('stats')"
   >
-    <span>◌</span>
-    <span>Stats</span>
+
+    <span class="nav-icon">
+      ◌
+    </span>
+
+    STATS
+
   </button>
 
+
   <button
+    class="nav-button"
     data-view="moments"
     onclick="showView('moments')"
   >
-    <span>◈</span>
-    <span>Moments</span>
+
+    <span class="nav-icon">
+      ◈
+    </span>
+
+    MOMENTS
+
   </button>
 
 </nav>
 
+
+<!-- =======================================================
+     MODAL
+     ======================================================= -->
+
 <div
-  id="modal"
+  id="modalBackdrop"
   class="modal-backdrop"
-  onclick="if(event.target===this)closeModal()"
+  style="display:none"
+  onclick="
+    if(event.target===this)
+    closeModal()
+  "
 >
-  <div id="modalBody" class="modal"></div>
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <div
+        class="modal-title"
+        id="modalTitle"
+      >
+        SYSTEM
+      </div>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div id="modalBody"></div>
+
+  </div>
+
 </div>
 
-<div id="toast" class="toast"></div>
+
+<!-- =======================================================
+     TOAST
+     ======================================================= -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
 
 <script>
-'use strict';
-
-/* =========================================================
-   SENRAI
-   Personal Life System
-   ========================================================= */
-
-const KEY = 'senrai_v4';
-
-const TYPES = [
-  'CARE',
-  'DISCIPLINE',
-  'EXPLORATION',
-  'CREATIVE',
-  'SOCIAL',
-  'LIFE'
-];
-
-const MOODS = [
-  'LOW',
-  'CALM',
-  'FOCUSED',
-  'RESTLESS',
-  'MOTIVATED',
-  'LOST'
-];
-
-const PATHS = {
-
-  Explorer:{
-    icon:'◈',
-    desc:'You grow by experiencing more of life.',
-    stages:[
-      'Try something unfamiliar',
-      'Visit somewhere new',
-      'Document what you discovered',
-      'Build a wider world'
-    ]
-  },
-
-  Builder:{
-    icon:'◆',
-    desc:'You grow by creating things that did not exist before.',
-    stages:[
-      'Start small',
-      'Finish something',
-      'Improve your craft',
-      'Create something that lasts'
-    ]
-  },
-
-  Discipline:{
-    icon:'◇',
-    desc:'You grow through consistency without perfection.',
-    stages:[
-      'Choose one anchor habit',
-      'Repeat it',
-      'Strengthen the routine',
-      'Make discipline feel natural'
-    ]
-  },
-
-  Connection:{
-    icon:'✦',
-    desc:'You grow through meaningful moments with other people.',
-    stages:[
-      'Reach out',
-      'Have a real conversation',
-      'Make a shared memory',
-      'Build deeper connections'
-    ]
-  },
-
-  Balance:{
-    icon:'◌',
-    desc:'You grow by making room for yourself and your life.',
-    stages:[
-      'Slow down',
-      'Restore your energy',
-      'Protect your peace',
-      'Move forward with intention'
-    ]
-  }
-
-};
-
-const ENCOUNTERS = [
-
-  [
-    'Take a different route today.',
-    'Exploration',
-    'Leave your usual path for 15 minutes and notice three things you normally miss.'
-  ],
-
-  [
-    'Find a place you have never entered.',
-    'Exploration',
-    'A café, bookstore, arcade, park, shop, or any public place that feels new.'
-  ],
-
-  [
-    'Make something with no purpose.',
-    'Creative',
-    'A beat, sketch, photo, paragraph, playlist, or anything else. The point is simply to create.'
-  ],
-
-  [
-    'Send one genuine message.',
-    'Connection',
-    'Tell someone you appreciate something about them. No agenda.'
-  ],
-
-  [
-    'Reset one small part of your space.',
-    'Care',
-    'Clean or organize one area for exactly ten minutes. Stop when the timer ends.'
-  ],
-
-  [
-    'Go outside without your phone for ten minutes.',
-    'Balance',
-    'Let your brain be quiet for a little while.'
-  ],
-
-  [
-    'Do one thing you have been putting off.',
-    'Discipline',
-    'Choose the smallest version of it and finish that version.'
-  ],
-
-  [
-    'Visit somewhere just because it looks interesting.',
-    'Exploration',
-    'You do not need a reason beyond curiosity.'
-  ],
-
-  [
-    'Make tonight feel different.',
-    'Balance',
-    'Change the lighting, music, route, food, or routine. Create a small memory.'
-  ],
-
-  [
-    'Write down something you actually want.',
-    'Reflection',
-    'No practical filter. Just write the first honest answer that comes to mind.'
-  ]
-
-];
-
-const QUEST_POOL = [
-
-  ['Drink some water','CARE',10],
-  ['Clean one small area','CARE',15],
-  ['Take a 10-minute walk','CARE',15],
-  ['Stretch for five minutes','CARE',10],
-
-  ['Finish one task you have been avoiding','DISCIPLINE',20],
-  ['Put your phone away for 20 minutes','DISCIPLINE',15],
-  ['Do a five-minute reset','DISCIPLINE',10],
-
-  ['Try something new','EXPLORATION',20],
-  ['Go somewhere you have not been before','EXPLORATION',25],
-  ['Take a different route','EXPLORATION',15],
-
-  ['Create something for 15 minutes','CREATIVE',20],
-  ['Write down an idea','CREATIVE',10],
-  ['Make a playlist for your current mood','CREATIVE',15],
-
-  ['Text someone you care about','SOCIAL',15],
-  ['Have one real conversation','SOCIAL',20],
-  ['Give someone a genuine compliment','SOCIAL',15]
-
-];
-
 
 /* =========================================================
    DATA
    ========================================================= */
 
-function localDateKey(d = new Date()){
+const STORAGE_KEY = "senrai_glass_v1";
 
-  return (
-    d.getFullYear() +
-    '-' +
-    String(d.getMonth()+1).padStart(2,'0') +
-    '-' +
-    String(d.getDate()).padStart(2,'0')
-  );
+const MOODS = [
+  "LOW",
+  "CALM",
+  "FOCUSED",
+  "RESTLESS",
+  "MOTIVATED",
+  "LOST"
+];
 
-}
+const PATHS = {
 
-function weekKey(d = new Date()){
+  Explorer:{
+    icon:"◈",
+    desc:"You grow by experiencing more of life."
+  },
 
-  const x = new Date(d);
+  Builder:{
+    icon:"◆",
+    desc:"You grow by creating things that did not exist before."
+  },
 
-  const day = x.getDay();
+  Discipline:{
+    icon:"◇",
+    desc:"You grow through consistency without perfection."
+  },
 
-  x.setDate(
-    x.getDate() -
-    (day === 0 ? 6 : day - 1)
-  );
+  Connection:{
+    icon:"✦",
+    desc:"You grow through meaningful moments with other people."
+  },
 
-  return localDateKey(x);
+  Balance:{
+    icon:"◌",
+    desc:"You grow by making room for yourself and your life."
+  }
 
-}
+};
 
-function uid(){
 
-  return (
-    Date.now().toString(36) +
-    Math.random().toString(36).slice(2,7)
-  );
+const QUEST_POOL = [
 
-}
+  ["Drink some water","CARE",10],
 
-function defaults(){
+  ["Clean one small area","CARE",15],
+
+  ["Take a 10-minute walk","CARE",15],
+
+  ["Stretch for five minutes","CARE",10],
+
+  ["Finish one thing you have been avoiding","DISCIPLINE",20],
+
+  ["Put your phone away for 20 minutes","DISCIPLINE",15],
+
+  ["Do a five-minute reset","DISCIPLINE",10],
+
+  ["Try something new","EXPLORATION",20],
+
+  ["Take a different route","EXPLORATION",15],
+
+  ["Visit somewhere unfamiliar","EXPLORATION",25],
+
+  ["Create something for 15 minutes","CREATIVE",20],
+
+  ["Write down an idea","CREATIVE",10],
+
+  ["Make a playlist for your current mood","CREATIVE",15],
+
+  ["Text someone you care about","SOCIAL",15],
+
+  ["Have one real conversation","SOCIAL",20],
+
+  ["Give someone a genuine compliment","SOCIAL",15]
+
+];
+
+
+const LIFE_POOL = [
+
+  [
+    "Take a different route today.",
+    "EXPLORATION",
+    "Leave your usual path for a little while and notice three things you normally miss."
+  ],
+
+  [
+    "Find somewhere you have never entered.",
+    "EXPLORATION",
+    "A café, bookstore, arcade, shop, park, or anywhere that feels new."
+  ],
+
+  [
+    "Make something with no purpose.",
+    "CREATIVE",
+    "A beat, sketch, photo, paragraph, playlist, or anything else."
+  ],
+
+  [
+    "Send one genuine message.",
+    "SOCIAL",
+    "Tell someone you appreciate something about them."
+  ],
+
+  [
+    "Reset one small part of your space.",
+    "CARE",
+    "Clean or organize one area for ten minutes."
+  ],
+
+  [
+    "Go outside without your phone.",
+    "BALANCE",
+    "Give your brain a few quiet minutes."
+  ],
+
+  [
+    "Do one thing you have been putting off.",
+    "DISCIPLINE",
+    "Choose the smallest useful version and finish it."
+  ],
+
+  [
+    "Visit somewhere just because it looks interesting.",
+    "EXPLORATION",
+    "You do not need a reason beyond curiosity."
+  ],
+
+  [
+    "Make tonight feel different.",
+    "BALANCE",
+    "Change the music, lighting, route, food, or routine."
+  ]
+
+];
+
+
+const ACHIEVEMENTS = [
+
+  {
+    id:"first",
+    icon:"◇",
+    name:"FIRST STEP",
+    desc:"Complete your first quest.",
+    reward:25
+  },
+
+  {
+    id:"ten",
+    icon:"◆",
+    name:"MOMENTUM",
+    desc:"Complete 10 quests.",
+    reward:50
+  },
+
+  {
+    id:"life1",
+    icon:"✦",
+    name:"TOUCH GRASS",
+    desc:"Complete your first Life encounter.",
+    reward:50
+  },
+
+  {
+    id:"moment1",
+    icon:"◈",
+    name:"KEEP A MOMENT",
+    desc:"Write your first Moment.",
+    reward:25
+  },
+
+  {
+    id:"level5",
+    icon:"△",
+    name:"RISING",
+    desc:"Reach level 5.",
+    reward:100
+  }
+
+];
+
+
+const TITLES = [
+
+  ["SEEKER","Begin the journey.",1],
+
+  ["INITIATE","Reach level 5.",5],
+
+  ["PATHFINDER","Reach level 10.",10],
+
+  ["WAYFINDER","Reach level 20.",20],
+
+  ["AWAKENED","Reach level 30.",30]
+
+];
+
+
+let data = load();
+
+
+/* =========================================================
+   DEFAULT DATA
+   ========================================================= */
+
+function defaultData(){
 
   return {
 
-    name:'Luis',
+    name:"Luis",
+
+    xp:0,
 
     totalXP:0,
 
-    completed:0,
+    level:1,
 
-    created:0,
+    completed:0,
 
     lifeDone:0,
 
-    day:localDateKey(),
+    day:dateKey(),
 
     daily:[],
 
@@ -1171,81 +4276,112 @@ function defaults(){
 
     achievements:{},
 
-    titles:[],
+    mood:"CALM",
 
-    mood:'CALM',
-
-    favorite:'—',
-
-    path:'Explorer',
+    path:"Explorer",
 
     pathProgress:0,
 
     objective:
-      'Make one small choice today that improves tomorrow.',
+      "Make one small choice today that improves tomorrow.",
 
     objectiveSteps:[
-      'Choose one thing that matters',
-      'Take the smallest useful action',
-      'Finish before overthinking',
-      'Notice how it changed the day'
+      "Choose one thing that matters",
+      "Take the smallest useful action",
+      "Finish before overthinking",
+      "Notice how it changed the day"
     ],
 
-    settings:{
-      nightMode:true,
-      accent:'#65e7ff'
+    life:{
+      text:"",
+      type:"",
+      detail:"",
+      used:[]
     },
 
     weekly:{
       key:weekKey(),
-      missions:[],
-      claimed:[]
+      claimed:[],
+      missions:[]
     },
 
-    life:{
-      text:'',
-      type:'',
-      detail:'',
-      used:[]
-    },
-
-    booted:false
+    settings:{
+      quietMode:true
+    }
 
   };
 
 }
 
-let data = load();
 
 function load(){
 
   try{
 
-    const raw = localStorage.getItem(KEY);
+    const saved =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
 
-    if(raw){
+    if(saved){
 
-      return Object.assign(
-        defaults(),
-        JSON.parse(raw)
+      const parsed =
+        JSON.parse(saved);
+
+      return merge(
+        defaultData(),
+        parsed
       );
 
     }
 
   }catch(e){
 
-    console.warn('SENRAI storage recovery:',e);
+    console.warn(e);
 
   }
 
-  return defaults();
+  return defaultData();
 
 }
+
+
+function merge(base,extra){
+
+  Object.keys(extra || {})
+    .forEach(key=>{
+
+      if(
+        typeof extra[key] === "object" &&
+        extra[key] !== null &&
+        !Array.isArray(extra[key]) &&
+        typeof base[key] === "object"
+      ){
+
+        base[key] =
+          merge(
+            base[key],
+            extra[key]
+          );
+
+      }else{
+
+        base[key] =
+          extra[key];
+
+      }
+
+    });
+
+  return base;
+
+}
+
 
 function save(){
 
   localStorage.setItem(
-    KEY,
+    STORAGE_KEY,
     JSON.stringify(data)
   );
 
@@ -1253,10 +4389,86 @@ function save(){
 
 
 /* =========================================================
-   SYSTEM CALCULATIONS
+   DATES
    ========================================================= */
 
-function level(){
+function dateKey(d=new Date()){
+
+  return [
+
+    d.getFullYear(),
+
+    String(
+      d.getMonth()+1
+    ).padStart(2,"0"),
+
+    String(
+      d.getDate()
+    ).padStart(2,"0")
+
+  ].join("-");
+
+}
+
+
+function weekKey(d=new Date()){
+
+  const x =
+    new Date(d);
+
+  const day =
+    x.getDay();
+
+  x.setDate(
+    x.getDate() -
+    (day===0 ? 6 : day-1)
+  );
+
+  return dateKey(x);
+
+}
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function uid(){
+
+  return (
+    Date.now().toString(36) +
+    Math.random()
+      .toString(36)
+      .slice(2,7)
+  );
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(
+      /[&<>'"]/g,
+      char=>({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "'":"&#39;",
+        '"':"&quot;"
+
+      }[char])
+    );
+
+}
+
+
+/* =========================================================
+   LEVEL
+   ========================================================= */
+
+function getLevel(){
 
   return Math.floor(
     data.totalXP / 100
@@ -1264,89 +4476,32 @@ function level(){
 
 }
 
-function levelXP(){
+
+function currentLevelXP(){
 
   return data.totalXP % 100;
 
 }
 
-function title(){
 
-  const l = level();
+function currentTitle(){
 
-  if(l >= 30) return 'AWAKENED';
+  const l =
+    getLevel();
 
-  if(l >= 20) return 'WAYFINDER';
+  if(l>=30)
+    return "AWAKENED";
 
-  if(l >= 10) return 'PATHFINDER';
+  if(l>=20)
+    return "WAYFINDER";
 
-  if(l >= 5) return 'INITIATE';
+  if(l>=10)
+    return "PATHFINDER";
 
-  return 'SEEKER';
+  if(l>=5)
+    return "INITIATE";
 
-}
-
-function currentPath(){
-
-  return PATHS[data.path] || PATHS.Explorer;
-
-}
-
-function insight(){
-
-  const counts = {};
-
-  data.history.forEach(x=>{
-
-    counts[x.type] =
-      (counts[x.type] || 0) + 1;
-
-  });
-
-  const fav =
-    Object.entries(counts)
-      .sort((a,b)=>b[1]-a[1])[0]?.[0]
-    || '—';
-
-  data.favorite = fav;
-
-  const weakest =
-    TYPES
-      .filter(x=>x !== 'LIFE')
-      .sort(
-        (a,b)=>
-          (counts[a] || 0) -
-          (counts[b] || 0)
-      )[0]
-    || 'CARE';
-
-  const msgs = {
-
-    LOW:
-      'Lower the difficulty. A small win still moves you forward.',
-
-    CALM:
-      'You have room to choose deliberately. Follow curiosity.',
-
-    FOCUSED:
-      'Use the momentum. Finish one meaningful thing.',
-
-    RESTLESS:
-      'Change your environment. Movement may unlock the next step.',
-
-    MOTIVATED:
-      'This is a good window for a slightly harder quest.',
-
-    LOST:
-      'Do not solve your whole life tonight. Choose one direction.'
-
-  };
-
-  return {
-    fav,
-    weakest,
-    msg:msgs[data.mood] || msgs.CALM
-  };
+  return "SEEKER";
 
 }
 
@@ -1355,18 +4510,21 @@ function insight(){
    DAILY RESET
    ========================================================= */
 
-function resetDayIfNeeded(){
+function resetDay(){
 
-  if(data.day !== localDateKey()){
+  if(
+    data.day !== dateKey()
+  ){
 
-    data.day = localDateKey();
+    data.day =
+      dateKey();
 
-    data.daily = [];
+    data.daily=[];
 
-    data.life = {
-      text:'',
-      type:'',
-      detail:'',
+    data.life={
+      text:"",
+      type:"",
+      detail:"",
       used:data.life.used || []
     };
 
@@ -1378,501 +4536,387 @@ function resetDayIfNeeded(){
 
 
 /* =========================================================
-   DAILY QUEST GENERATION
+   DAILY QUESTS
    ========================================================= */
 
-function dailyQuests(){
+function ensureDaily(){
 
-  resetDayIfNeeded();
+  resetDay();
 
-  if(!data.daily.length){
+  if(data.daily.length)
+    return;
 
-    const shuffled =
-      [...QUEST_POOL]
-        .sort(()=>Math.random()-.5);
+  const shuffled =
+    [...QUEST_POOL]
+      .sort(
+        ()=>Math.random()-.5
+      );
 
-    data.daily =
-      shuffled
-        .slice(0,4)
-        .map(q=>({
+  data.daily =
+    shuffled
+      .slice(0,4)
+      .map(q=>({
 
-          id:uid(),
-          text:q[0],
-          type:q[1],
-          xp:q[2],
-          done:false
+        id:uid(),
 
-        }));
+        text:q[0],
+
+        type:q[1],
+
+        xp:q[2],
+
+        done:false
+
+      }));
+
+  save();
+
+}
+
+
+/* =========================================================
+   WEEKLY MISSIONS
+   ========================================================= */
+
+function ensureWeekly(){
+
+  const key =
+    weekKey();
+
+  if(
+    !data.weekly ||
+    data.weekly.key !== key
+  ){
+
+    data.weekly={
+
+      key:key,
+
+      claimed:[],
+
+      missions:[
+
+        {
+          id:"w1",
+          text:"Complete 5 quests",
+          goal:5,
+          xp:50,
+          icon:"◇"
+        },
+
+        {
+          id:"w2",
+          text:"Complete 2 Life encounters",
+          goal:2,
+          xp:60,
+          icon:"✦"
+        },
+
+        {
+          id:"w3",
+          text:"Write 3 Moments",
+          goal:3,
+          xp:40,
+          icon:"◈"
+        }
+
+      ]
+
+    };
 
     save();
 
   }
 
-  return data.daily;
+
+  data.weekly.missions[0].progress =
+    Math.min(
+      5,
+      data.completed
+    );
+
+
+  data.weekly.missions[1].progress =
+    Math.min(
+      2,
+      data.lifeDone
+    );
+
+
+  data.weekly.missions[2].progress =
+    Math.min(
+      3,
+      data.moments.filter(
+        m=>m.date >= key
+      ).length
+    );
+
+
+  save();
 
 }
 
 
 /* =========================================================
-   SYSTEM VOICE
+   QUEST HTML
    ========================================================= */
 
-function nightVoice(){
-
-  const h = new Date().getHours();
-
-  if(
-    !data.settings.nightMode ||
-    (h >= 6 && h < 22)
-  ){
-
-    return '';
-
-  }
+function questHTML(q){
 
   return `
 
-    <div class="card">
+    <div
+      class="
+        quest
+        glass
+        ${q.done ? "complete" : ""}
+      "
+    >
 
-      <div class="eyebrow">
-        QUIET MODE
-      </div>
+      <div class="quest-main">
 
-      <div class="quote">
-        The world is asleep.
-        You do not need to
-        <em>solve everything tonight.</em>
-      </div>
-
-      <div
-        class="tiny"
-        style="margin-top:8px"
-      >
-        One small choice is enough.
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER ENGINE
-   IMPORTANT:
-   RENDER FUNCTIONS DO NOT REWARD XP.
-   This prevents infinite render loops.
-   ========================================================= */
-
-function renderAll(){
-
-  setTheme();
-
-  dailyQuests();
-
-  renderHome();
-
-  renderQuests();
-
-  renderLife();
-
-  renderStats();
-
-  renderMoments();
-
-  updateNav();
-
-}
-
-
-/* =========================================================
-   HOME
-   ========================================================= */
-
-function renderHome(){
-
-  const el =
-    document.getElementById('home');
-
-  const l = level();
-
-  const x = levelXP();
-
-  const p = currentPath();
-
-  const i = insight();
-
-  const completedToday =
-    data.daily.filter(q=>q.done).length;
-
-  el.innerHTML = `
-
-    <div class="topbar">
-
-      <div>
-
-        <div class="brand">
-          SENRAI
+        <div class="quest-title">
+          ${escapeHTML(q.text)}
         </div>
 
-        <div class="eyebrow">
-          THE SYSTEM THAT MOVES YOU FORWARD.
+        <div class="quest-desc">
+          ${q.type}
         </div>
 
-      </div>
+        <div class="quest-meta">
 
-      <button
-        class="top-action"
-        onclick="openSettings()"
-      >
-        ⚙
-      </button>
+          <span class="pill xp">
+            +${q.xp} XP
+          </span>
 
-    </div>
-
-
-    <div class="card core">
-
-      <div class="core-rings">
-
-        <div class="core-dot"></div>
-
-      </div>
-
-      <div class="core-orbit"></div>
-
-      <div class="core-center">
-
-        <div class="glyph">
-          ${p.icon}
-        </div>
-
-        <div class="status">
-          SYSTEM CORE ONLINE
-        </div>
-
-        <div class="big">
-          LEVEL ${l}
-        </div>
-
-        <div class="path">
-          ${p.desc}
-        </div>
-
-        <div style="margin-top:14px">
-
-          <span class="pill cyan">
-            ${title()}
+          <span class="pill main">
+            ${q.type}
           </span>
 
         </div>
 
       </div>
 
-    </div>
 
-
-    <div class="card hero">
-
-      <div class="level">
-        ${escapeHTML(data.name).toUpperCase()}
-        ·
-        ${title()}
-      </div>
-
-      <h1>
-        ${data.totalXP} XP
-      </h1>
-
-      <div class="sub">
-        Progress without pressure.
-        Nothing breaks because you missed a day.
-      </div>
-
-      <div class="xpbar">
-
-        <span style="width:${x}%"></span>
-
-      </div>
-
-      <div class="xptext">
-
-        <span>
-          LEVEL ${l}
-        </span>
-
-        <span>
-          ${x}/100 TO NEXT LEVEL
-        </span>
-
-      </div>
-
-    </div>
-
-
-    ${nightVoice()}
-
-
-    <div class="grid grid3">
-
-      <div class="stat">
-        <b>${completedToday}</b>
-        <span>Today</span>
-      </div>
-
-      <div class="stat">
-        <b>${data.completed}</b>
-        <span>Completed</span>
-      </div>
-
-      <div class="stat">
-        <b>${data.lifeDone}</b>
-        <span>Life XP</span>
-      </div>
-
-    </div>
-
-
-    <div class="section-title">
-
-      <h2>
-        System Status
-      </h2>
-
-      <span>
-        LIVE
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="row">
-
-        <div class="icon">
-          ◉
-        </div>
-
-        <div class="grow">
-
-          <div class="item-title">
-            Path: ${data.path}
-          </div>
-
-          <div class="item-meta">
-            ${data.pathProgress}/${p.stages.length}
-            stages discovered
-          </div>
-
-        </div>
-
-        <span class="pill green">
-          STABLE
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="section-title">
-
-      <h2>
-        System Intelligence
-      </h2>
-
-      <span>
-        ADAPTIVE
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="grid grid2">
-
-        <div>
-
-          <div class="eyebrow">
-            FAVORITE TYPE
-          </div>
-
-          <div
-            style="margin-top:6px;font-weight:800"
-          >
-            ${i.fav}
-          </div>
-
-        </div>
-
-        <div>
-
-          <div class="eyebrow">
-            WEAKER AREA
-          </div>
-
-          <div
-            style="margin-top:6px;font-weight:800"
-          >
-            ${i.weakest}
-          </div>
-
-        </div>
-
-      </div>
-
-      <div
-        class="sub"
-        style="margin-top:14px"
+      <button
+        onclick="
+          completeQuest('${q.id}')
+        "
       >
-        ${i.msg}
+        ${q.done ? "DONE" : "COMPLETE"}
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER HOME
+   ========================================================= */
+
+function renderHome(){
+
+  const level =
+    getLevel();
+
+  const xp =
+    currentLevelXP();
+
+  const title =
+    currentTitle();
+
+  const path =
+    PATHS[data.path] ||
+    PATHS.Explorer;
+
+
+  document
+    .getElementById("coreLevel")
+    .textContent =
+      "LEVEL " + level;
+
+
+  document
+    .getElementById("corePath")
+    .textContent =
+      path.desc;
+
+
+  document
+    .getElementById("coreTitle")
+    .textContent =
+      title;
+
+
+  document
+    .getElementById("level")
+    .textContent =
+      level;
+
+
+  document
+    .getElementById("xp")
+    .textContent =
+      data.totalXP;
+
+
+  document
+    .getElementById("xpBar")
+    .style.width =
+      xp + "%";
+
+
+  document
+    .getElementById("xpProgress")
+    .textContent =
+      xp + " / 100 XP";
+
+
+  document
+    .getElementById("nextLevel")
+    .textContent =
+      "LEVEL " + (level+1);
+
+
+  const today =
+    data.daily
+      .filter(q=>q.done)
+      .length;
+
+
+  document
+    .getElementById("todayCount")
+    .textContent =
+      today;
+
+
+  document
+    .getElementById("todayXP")
+    .textContent =
+      data.daily
+        .filter(q=>q.done)
+        .reduce(
+          (sum,q)=>sum+q.xp,
+          0
+        );
+
+
+  document
+    .getElementById("streak")
+    .textContent =
+      calculateStreak();
+
+
+  document
+    .getElementById("momentum")
+    .textContent =
+      Math.min(
+        100,
+        data.history.length * 4
+      );
+
+
+  const qlist =
+    data.daily
+      .slice(0,2)
+      .map(questHTML)
+      .join("");
+
+
+  document
+    .getElementById("homeQuestList")
+    .innerHTML =
+      qlist ||
+      `<div class="glass" style="padding:18px;border-radius:18px;color:var(--muted);font-size:9px">
+        Daily quests complete. You can stop here.
+      </div>`;
+
+
+  document
+    .getElementById("todayQuestCount")
+    .textContent =
+      today +
+      " / " +
+      data.daily.length;
+
+
+  document
+    .getElementById("homeObjective")
+    .innerHTML = `
+
+      <div class="objective-tag">
+        MAIN QUEST
       </div>
 
-    </div>
-
-
-    <div class="section-title">
-
       <h2>
-        Current Objective
-      </h2>
-
-      <span>
-        OPTIONAL
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="item-title">
         ${escapeHTML(data.objective)}
-      </div>
+      </h2>
 
-      <div
-        class="sub"
-        style="margin-top:7px"
-      >
+      <p>
         Your objective is guidance,
         not a requirement.
+      </p>
+
+      <div class="objective-track">
+
+        <div
+          class="objective-fill"
+          style="width:${data.pathProgress * 25}%"
+        ></div>
+
+      </div>
+
+      <div class="objective-meta">
+
+        <span>
+          PATH PROGRESS
+        </span>
+
+        <span>
+          ${data.pathProgress}/4
+        </span>
+
       </div>
 
       <button
-        class="btn primary full"
+        class="primary full"
         style="margin-top:13px"
         onclick="showObjective()"
       >
         VIEW PATH
       </button>
 
-    </div>
+    `;
 
 
-    <div class="section-title">
-
-      <h2>
-        Adaptive Reflection
-      </h2>
-
-      <span>
-        ${data.mood}
-      </span>
-
-    </div>
+  const quiet =
+    document.getElementById(
+      "quietMode"
+    );
 
 
-    <div class="card">
-
-      <div class="quote">
-        “${reflection()}”
-      </div>
-
-    </div>
+  const hour =
+    new Date().getHours();
 
 
-    <div class="section-title">
+  if(
+    data.settings.quietMode &&
+    (hour>=22 || hour<6)
+  ){
 
-      <h2>
-        Quick Quest
-      </h2>
+    quiet.style.display="block";
 
-      <span>
-        ${completedToday}/${data.daily.length}
-      </span>
+  }else{
 
-    </div>
+    quiet.style.display="none";
 
-
-    ${
-      data.daily
-        .filter(q=>!q.done)
-        .slice(0,2)
-        .map(q=>questHTML(q))
-        .join('')
-      ||
-      `
-        <div class="card empty">
-          Daily quests complete.
-          You can stop here—or explore Life.
-        </div>
-      `
-    }
+  }
 
 
-    <div class="section-title">
-
-      <h2>
-        Life Encounter
-      </h2>
-
-      <span>
-        NO PENALTY
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="row">
-
-        <div class="icon">
-          ✦
-        </div>
-
-        <div class="grow">
-
-          <div class="item-title">
-            ${
-              data.life.text ||
-              'Something is waiting outside your routine.'
-            }
-          </div>
-
-          <div class="item-meta">
-            ${data.life.type || 'LIFE'}
-            · real-world side quest
-          </div>
-
-        </div>
-
-      </div>
-
-      <button
-        class="btn primary full"
-        style="margin-top:13px"
-        onclick="newLife()"
-      >
-        GENERATE ENCOUNTER
-      </button>
-
-    </div>
-
-  `;
+  renderReflection();
 
 }
 
@@ -1881,79 +4925,110 @@ function renderHome(){
    REFLECTION
    ========================================================= */
 
-function reflection(){
+function renderReflection(){
 
-  const r = {
+  const messages = {
 
-    LOW:
-      'You are allowed to move slowly. Progress does not have to look impressive.',
+    LOW:[
+      "You are allowed to move slowly.",
+      "Lower the difficulty. A small win still counts."
+    ],
 
-    CALM:
-      'You do not need a perfect plan. A clear next step is enough.',
+    CALM:[
+      "You do not need a perfect plan.",
+      "Choose one thing that feels useful."
+    ],
 
-    FOCUSED:
-      'Protect the momentum you have. Finish before adding more.',
+    FOCUSED:[
+      "Protect the momentum.",
+      "Finish one meaningful thing before adding another."
+    ],
 
-    RESTLESS:
-      'Maybe the answer is not more thinking. Change something around you.',
+    RESTLESS:[
+      "Maybe you need movement, not more thinking.",
+      "Change something around you."
+    ],
 
-    MOTIVATED:
-      'Use the energy while it is here—but leave yourself room to breathe.',
+    MOTIVATED:[
+      "This is a good window.",
+      "Use the energy—but leave yourself room to breathe."
+    ],
 
-    LOST:
-      'You are not behind. You are still choosing your direction.'
+    LOST:[
+      "You do not need to solve your entire life tonight.",
+      "Choose one direction and take one step."
+    ]
 
   };
 
-  return r[data.mood] || r.CALM;
 
-}
+  const set =
+    messages[data.mood] ||
+    messages.CALM;
 
 
-/* =========================================================
-   QUEST CARD
-   ========================================================= */
+  const quest =
+    QUEST_POOL[
+      Math.floor(
+        Math.random() *
+        QUEST_POOL.length
+      )
+    ];
 
-function questHTML(q){
 
-  return `
+  document
+    .getElementById("reflectionTitle")
+    .textContent =
+      set[0];
 
-    <div class="card quest ${q.done?'done':''}">
 
-      <div class="row">
+  document
+    .getElementById("reflectionText")
+    .textContent =
+      set[1];
 
-        <button
-          class="check"
-          onclick="completeQuest('${q.id}')"
-        >
-          ${q.done?'✓':'○'}
-        </button>
 
-        <div class="grow">
+  document
+    .getElementById("reflectionSuggestion")
+    .textContent =
+      quest[0];
 
-          <div class="item-title">
-            ${escapeHTML(q.text)}
-          </div>
 
-          <div class="item-meta">
-            ${q.type}
-            ·
-            +${q.xp} XP
-          </div>
+  document
+    .getElementById("reflectionReward")
+    .textContent =
+      "+" + quest[2] + " XP";
 
-        </div>
 
-        <span class="pill ${q.type==='DISCIPLINE'?'gold':'cyan'}">
+  document
+    .getElementById(
+      "acceptReflectionButton"
+    )
+    .onclick = ()=>{
 
-          ${q.done?'DONE':'QUEST'}
+      data.custom.push({
 
-        </span>
+        id:uid(),
 
-      </div>
+        text:quest[0],
 
-    </div>
+        type:quest[1],
 
-  `;
+        xp:quest[2],
+
+        done:false
+
+      });
+
+      save();
+
+      renderAll();
+
+      toast(
+        "QUEST ADDED"
+      );
+
+    };
 
 }
 
@@ -1964,316 +5039,233 @@ function questHTML(q){
 
 function renderQuests(){
 
-  const el =
-    document.getElementById('quests');
+  document
+    .getElementById("questList")
+    .innerHTML =
+      data.daily
+        .map(questHTML)
+        .join("");
 
-  const qs = dailyQuests();
 
-  el.innerHTML = `
+  document
+    .getElementById("questCount")
+    .textContent =
+      data.daily.filter(q=>q.done).length +
+      " / " +
+      data.daily.length;
 
-    <div class="topbar">
 
-      <div>
+  document
+    .getElementById("homeQuestList")
+    .innerHTML =
+      data.daily
+        .slice(0,2)
+        .map(questHTML)
+        .join("");
 
-        <div class="brand">
-          QUESTS
+
+  if(!data.custom.length){
+
+    document
+      .getElementById("customQuestList")
+      .innerHTML = `
+
+        <div
+          class="glass"
+          style="
+            padding:18px;
+            border-radius:18px;
+            color:var(--muted);
+            font-size:9px
+          "
+        >
+          Create a quest for something
+          that actually matters to you.
         </div>
 
-        <div class="eyebrow">
-          SMALL ACTIONS. REAL PROGRESS.
-        </div>
+      `;
 
-      </div>
+  }else{
 
-      <button
-        class="top-action"
-        onclick="openCustomQuest()"
-      >
-        ＋
-      </button>
+    document
+      .getElementById("customQuestList")
+      .innerHTML =
+        data.custom
+          .map(q=>`
 
-    </div>
-
-
-    <div class="card">
-
-      <div class="quote">
-
-        Do things that make your life better.
-        <em>Earn XP. Level up.</em>
-
-      </div>
-
-      <div
-        class="sub"
-        style="margin-top:8px"
-      >
-        Skipping quests never costs you progress.
-      </div>
-
-    </div>
-
-
-    <div class="section-title">
-
-      <h2>
-        Today's Quests
-      </h2>
-
-      <span>
-        ${qs.filter(q=>q.done).length}/${qs.length}
-      </span>
-
-    </div>
-
-
-    ${qs.map(q=>questHTML(q)).join('')}
-
-
-    <div class="section-title">
-
-      <h2>
-        Your Quests
-      </h2>
-
-      <span>
-        CREATED BY YOU
-      </span>
-
-    </div>
-
-
-    ${
-      data.custom.length
-
-      ?
-
-      data.custom.map(q=>`
-
-        <div class="card quest ${q.done?'done':''}">
-
-          <div class="row">
-
-            <button
-              class="check"
-              onclick="completeCustom('${q.id}')"
+            <div
+              class="
+                quest
+                glass
+                ${q.done ? "complete" : ""}
+              "
             >
-              ${q.done?'✓':'○'}
-            </button>
 
-            <div class="grow">
+              <div class="quest-main">
 
-              <div class="item-title">
-                ${escapeHTML(q.text)}
+                <div class="quest-title">
+                  ${escapeHTML(q.text)}
+                </div>
+
+                <div class="quest-meta">
+
+                  <span class="pill xp">
+                    +${q.xp} XP
+                  </span>
+
+                  <span class="pill">
+                    CUSTOM
+                  </span>
+
+                </div>
+
               </div>
 
-              <div class="item-meta">
-                CUSTOM · +${q.xp} XP
+
+              <div
+                style="
+                  display:flex;
+                  gap:6px
+                "
+              >
+
+                <button
+                  onclick="
+                    completeCustom('${q.id}')
+                  "
+                >
+                  ${q.done ? "DONE" : "COMPLETE"}
+                </button>
+
+                <button
+                  class="danger"
+                  onclick="
+                    deleteCustom('${q.id}')
+                  "
+                >
+                  ×
+                </button>
+
               </div>
 
             </div>
 
-            <button
-              class="btn danger"
-              onclick="deleteCustom('${q.id}')"
-            >
-              ×
-            </button>
+          `)
+          .join("");
 
-          </div>
-
-        </div>
-
-      `).join('')
-
-      :
-
-      `
-        <div class="card empty">
-          Create a quest for something that matters to you.
-        </div>
-      `
-    }
+  }
 
 
-    <div class="section-title">
-
-      <h2>
-        Weekly Mission
-      </h2>
-
-      <span>
-        ${data.weekly.key}
-      </span>
-
-    </div>
-
-
-    ${weeklyHTML()}
-
-  `;
+  renderWeekly();
 
 }
 
 
 /* =========================================================
-   WEEKLY MISSIONS
-   IMPORTANT:
-   THIS FUNCTION ONLY RENDERS.
-   IT NEVER CALLS reward().
+   WEEKLY
    ========================================================= */
 
-function weeklyHTML(){
+/*
+   IMPORTANT:
+   renderWeekly() NEVER awards XP.
+
+   It only displays the missions.
+*/
+
+function renderWeekly(){
 
   ensureWeekly();
 
-  return data.weekly.missions.map(m=>`
+  document
+    .getElementById("weeklyList")
+    .innerHTML =
+      data.weekly.missions
+        .map(m=>{
 
-    <div class="card">
+          const claimed =
+            data.weekly.claimed
+              .includes(m.id);
 
-      <div class="row">
-
-        <div class="icon">
-          ${m.icon}
-        </div>
-
-        <div class="grow">
-
-          <div class="item-title">
-            ${escapeHTML(m.text)}
-          </div>
-
-          <div class="item-meta">
-            ${m.progress}/${m.goal}
-            ·
-            +${m.xp} XP
-          </div>
-
-        </div>
-
-
-        ${
-          m.progress >= m.goal &&
-          !data.weekly.claimed.includes(m.id)
-
-          ?
-
-          `
-            <button
-              class="btn gold"
-              onclick="claimWeekly('${m.id}')"
-            >
-              CLAIM
-            </button>
-          `
-
-          :
-
-          `
-            <span
-              class="pill ${
-                data.weekly.claimed.includes(m.id)
-                  ? 'green'
-                  : ''
-              }"
-            >
-              ${
-                data.weekly.claimed.includes(m.id)
-                  ? 'CLAIMED'
-                  : Math.round(
-                      m.progress / m.goal * 100
-                    ) + '%'
-              }
-            </span>
-          `
-        }
-
-      </div>
-
-    </div>
-
-  `).join('');
-
-}
-
-
-/* =========================================================
-   WEEKLY DATA
-   ========================================================= */
-
-function ensureWeekly(){
-
-  const currentWeek = weekKey();
-
-  if(
-    data.weekly.key !== currentWeek ||
-    !data.weekly.missions.length
-  ){
-
-    data.weekly = {
-
-      key:currentWeek,
-
-      claimed:[],
-
-      missions:[
-
-        {
-          id:'w1',
-          text:'Complete 5 quests',
-          goal:5,
-          progress:Math.min(5,data.completed),
-          xp:50,
-          icon:'◇'
-        },
-
-        {
-          id:'w2',
-          text:'Complete 2 Life encounters',
-          goal:2,
-          progress:Math.min(2,data.lifeDone),
-          xp:60,
-          icon:'✦'
-        },
-
-        {
-          id:'w3',
-          text:'Write 3 Moments',
-          goal:3,
-          progress:
+          const percent =
             Math.min(
-              3,
-              data.moments.filter(
-                m=>m.date >= currentWeek
-              ).length
-            ),
-          xp:40,
-          icon:'◈'
-        }
+              100,
+              (
+                (m.progress || 0) /
+                m.goal
+              ) * 100
+            );
 
-      ]
 
-    };
+          return `
 
-    save();
+            <div class="week-card glass">
 
-  }else{
+              <div class="week-top">
 
-    data.weekly.missions[0].progress =
-      Math.min(5,data.completed);
+                <div class="week-title">
+                  ${escapeHTML(m.text)}
+                </div>
 
-    data.weekly.missions[1].progress =
-      Math.min(2,data.lifeDone);
+                <div class="week-xp">
+                  +${m.xp} XP
+                </div>
 
-    data.weekly.missions[2].progress =
-      Math.min(
-        3,
-        data.moments.filter(
-          m=>m.date >= currentWeek
-        ).length
-      );
+              </div>
 
-  }
+              <div class="week-desc">
+                Optional weekly mission.
+              </div>
+
+              <div class="week-track">
+
+                <div
+                  class="week-fill"
+                  style="
+                    width:${percent}%
+                  "
+                ></div>
+
+              </div>
+
+              <div class="week-meta">
+
+                <span>
+                  ${m.progress || 0}
+                  /
+                  ${m.goal}
+                </span>
+
+                ${
+                  claimed
+                  ?
+                  `<span style="color:var(--green)">
+                    CLAIMED
+                  </span>`
+                  :
+                  m.progress >= m.goal
+                  ?
+                  `<button
+                    class="primary"
+                    onclick="
+                      claimWeekly('${m.id}')
+                    "
+                  >
+                    CLAIM
+                  </button>`
+                  :
+                  `<span>
+                    IN PROGRESS
+                  </span>`
+                }
+
+              </div>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
 
 }
 
@@ -2284,173 +5276,61 @@ function ensureWeekly(){
 
 function renderLife(){
 
-  const el =
-    document.getElementById('life');
-
-  const e =
-    data.life.text
-
-      ?
-
-      data.life
-
-      :
-
-      {
-        text:'Generate a real-world encounter.',
-        type:'LIFE',
-        detail:
-          'The System will give you something optional to experience.'
-      };
+  const life =
+    data.life;
 
 
-  el.innerHTML = `
-
-    <div class="topbar">
-
-      <div>
-
-        <div class="brand">
-          LIFE
-        </div>
-
-        <div class="eyebrow">
-          THE WORLD IS PART OF THE GAME.
-        </div>
-
-      </div>
-
-    </div>
+  document
+    .getElementById("lifeText")
+    .textContent =
+      life.text ||
+      "Generate a real-world encounter.";
 
 
-    <div
-      class="card core"
-      style="min-height:280px"
-    >
-
-      <div class="core-rings"></div>
-
-      <div class="core-center">
-
-        <div class="glyph">
-          ✦
-        </div>
-
-        <div class="status">
-          LIFE ENCOUNTER
-        </div>
-
-        <div
-          class="big"
-          style="font-size:25px"
-        >
-          ${escapeHTML(e.type)}
-        </div>
-
-        <div class="path">
-          ${escapeHTML(e.text)}
-        </div>
-
-      </div>
-
-    </div>
+  document
+    .getElementById("homeLifeText")
+    .textContent =
+      life.text ||
+      "Something is waiting outside your routine.";
 
 
-    <div class="card">
-
-      <div class="eyebrow">
-        SIDE QUEST
-      </div>
-
-      <div
-        class="quote"
-        style="margin-top:8px"
-      >
-        ${escapeHTML(e.detail)}
-      </div>
-
-      <button
-        class="btn primary full"
-        style="margin-top:15px"
-        onclick="completeLife()"
-      >
-        COMPLETE ENCOUNTER · +25 XP
-      </button>
-
-      <button
-        class="btn full"
-        style="margin-top:8px"
-        onclick="newLife()"
-      >
-        GENERATE ANOTHER
-      </button>
-
-    </div>
+  const complete =
+    document.getElementById(
+      "completeLifeButton"
+    );
 
 
-    <div class="section-title">
-
-      <h2>
-        Weekly Life Challenge
-      </h2>
-
-      <span>
-        ${data.lifeDone}/2
-      </span>
-
-    </div>
+  const homeComplete =
+    document.getElementById(
+      "homeCompleteLife"
+    );
 
 
-    <div class="card">
-
-      <div class="item-title">
-        Have 2 small experiences outside your normal routine.
-      </div>
-
-      <div
-        class="sub"
-        style="margin-top:7px"
-      >
-        No score for how impressive they are.
-        Only that you lived them.
-      </div>
-
-    </div>
+  complete.disabled =
+    !life.text;
 
 
-    <div class="section-title">
-
-      <h2>
-        Choose Your State
-      </h2>
-
-      <span>
-        THE SYSTEM ADAPTS
-      </span>
-
-    </div>
+  homeComplete.disabled =
+    !life.text;
 
 
-    <div class="card">
-
-      <div class="mood">
-
-        ${MOODS.map(m=>`
+  document
+    .getElementById("moodButtons")
+    .innerHTML =
+      MOODS
+        .map(m=>`
 
           <button
-            class="${data.mood===m?'active':''}"
-            onclick="setMood('${m}')"
+            class="${data.mood===m?'primary':''}"
+            onclick="
+              setMood('${m}')
+            "
           >
             ${m}
           </button>
 
-        `).join('')}
-
-      </div>
-
-    </div>
-
-  `;
+        `)
+        .join("");
 
 }
 
@@ -2459,322 +5339,197 @@ function renderLife(){
    STATS
    ========================================================= */
 
+const STAT_TYPES = {
+
+  CARE:{
+    name:"CARE",
+    color:"green"
+  },
+
+  DISCIPLINE:{
+    name:"DISCIPLINE",
+    color:"red"
+  },
+
+  EXPLORATION:{
+    name:"EXPLORATION",
+    color:"blue"
+  },
+
+  CREATIVE:{
+    name:"CREATIVE",
+    color:"purple"
+  },
+
+  SOCIAL:{
+    name:"SOCIAL",
+    color:"orange"
+  }
+
+};
+
+
 function renderStats(){
 
-  const el =
-    document.getElementById('stats');
+  const counts={};
 
-  const p = currentPath();
+  data.history
+    .forEach(h=>{
 
-  const i = insight();
+      counts[h.type] =
+        (counts[h.type] || 0) + 1;
 
-  el.innerHTML = `
-
-    <div class="topbar">
-
-      <div>
-
-        <div class="brand">
-          STATS
-        </div>
-
-        <div class="eyebrow">
-          YOUR SYSTEM. YOUR DATA.
-        </div>
-
-      </div>
-
-    </div>
+    });
 
 
-    <div class="card hero">
+  document
+    .getElementById("statsGrid")
+    .innerHTML =
+      Object.keys(STAT_TYPES)
+        .map(type=>{
 
-      <div class="level">
-        SYSTEM PROFILE
-      </div>
+          const count =
+            counts[type] || 0;
 
-      <h1>
-        ${escapeHTML(data.name)}
-      </h1>
-
-      <div class="sub">
-        ${title()}
-        ·
-        ${data.path}
-        ·
-        ${data.mood}
-      </div>
-
-    </div>
+          const percent =
+            Math.min(
+              100,
+              count * 10
+            );
 
 
-    <div class="grid grid2">
+          return `
 
-      <div class="stat">
-        <b>${level()}</b>
-        <span>Level</span>
-      </div>
+            <div
+              class="
+                stat
+                glass
+              "
+            >
 
-      <div class="stat">
-        <b>${data.totalXP}</b>
-        <span>Total XP</span>
-      </div>
+              <div class="stat-top">
 
-      <div class="stat">
-        <b>${data.completed}</b>
-        <span>Quests</span>
-      </div>
+                <div class="stat-name">
+                  ${type}
+                </div>
 
-      <div class="stat">
-        <b>${data.moments.length}</b>
-        <span>Moments</span>
-      </div>
+                <div class="stat-value">
+                  ${count}
+                </div>
 
-    </div>
+              </div>
 
+              <div class="stat-note">
 
-    <div class="section-title">
+                ${getStatDescription(type)}
 
-      <h2>
-        Current Path
-      </h2>
+              </div>
 
-      <span>
-        ${data.pathProgress}/${p.stages.length}
-      </span>
+              <div class="stat-track">
 
-    </div>
+                <div
+                  class="stat-fill"
+                  style="
+                    width:${percent}%;
+                    background:
+                      ${getStatColor(type)}
+                  "
+                ></div>
 
-
-    <div class="card">
-
-      ${p.stages.map((s,n)=>`
-
-        <div
-          class="
-            stage
-            ${
-              n < data.pathProgress
-                ? 'complete'
-                : n === data.pathProgress
-                  ? 'current'
-                  : ''
-            }
-          "
-        >
-
-          <div class="stage-num">
-
-            ${
-              n < data.pathProgress
-                ? '✓'
-                : n+1
-            }
-
-          </div>
-
-          <div class="grow">
-
-            <div class="item-title">
-              ${escapeHTML(s)}
-            </div>
-
-            <div class="item-meta">
-
-              ${
-                n < data.pathProgress
-                  ? 'DISCOVERED'
-                  : n === data.pathProgress
-                    ? 'CURRENT STAGE'
-                    : 'LOCKED'
-              }
+              </div>
 
             </div>
 
-          </div>
+          `;
 
-        </div>
+        })
+        .join("");
 
-      `).join('')}
 
-    </div>
+  document
+    .getElementById("statsName")
+    .textContent =
+      data.name;
 
 
-    <div class="section-title">
+  document
+    .getElementById("statsTitle")
+    .textContent =
+      currentTitle() +
+      " · LEVEL " +
+      getLevel();
 
-      <h2>
-        My System
-      </h2>
 
-      <span>
-        PERSONAL
-      </span>
+  document
+    .getElementById("profileXP")
+    .textContent =
+      data.totalXP;
 
-    </div>
 
+  document
+    .getElementById("profileQuests")
+    .textContent =
+      data.completed;
 
-    <div class="card">
 
-      <div class="grid grid2">
+  document
+    .getElementById("profileLife")
+    .textContent =
+      data.lifeDone;
 
-        <div>
 
-          <div class="eyebrow">
-            CURRENT TITLE
-          </div>
+  renderAchievements();
 
-          <div
-            style="font-weight:800;margin-top:5px"
-          >
-            ${title()}
-          </div>
+  renderTitles();
 
-        </div>
+  renderHistory();
 
+}
 
-        <div>
 
-          <div class="eyebrow">
-            CURRENT STATE
-          </div>
+function getStatDescription(type){
 
-          <div
-            style="font-weight:800;margin-top:5px"
-          >
-            ${data.mood}
-          </div>
+  const map={
 
-        </div>
+    CARE:
+      "Taking care of yourself and your environment.",
 
+    DISCIPLINE:
+      "Following through when motivation fades.",
 
-        <div>
+    EXPLORATION:
+      "Curiosity, novelty, and experience.",
 
-          <div class="eyebrow">
-            FAVORITE TYPE
-          </div>
+    CREATIVE:
+      "Making something instead of only consuming.",
 
-          <div
-            style="font-weight:800;margin-top:5px"
-          >
-            ${i.fav}
-          </div>
+    SOCIAL:
+      "Connection, communication, and people."
 
-        </div>
+  };
 
+  return map[type];
 
-        <div>
+}
 
-          <div class="eyebrow">
-            PATH
-          </div>
 
-          <div
-            style="font-weight:800;margin-top:5px"
-          >
-            ${data.path}
-          </div>
+function getStatColor(type){
 
-        </div>
+  const map={
 
-      </div>
+    CARE:"#5df2a5",
 
+    DISCIPLINE:"#ff667a",
 
-      <button
-        class="btn primary full"
-        style="margin-top:14px"
-        onclick="openProfile()"
-      >
-        EDIT MY SYSTEM
-      </button>
+    EXPLORATION:"#65a9ff",
 
-    </div>
+    CREATIVE:"#a87cff",
 
+    SOCIAL:"#ffae57"
 
-    <div class="section-title">
+  };
 
-      <h2>
-        Achievements
-      </h2>
-
-      <span>
-        ${Object.keys(data.achievements).length}
-      </span>
-
-    </div>
-
-
-    <div class="grid grid2">
-
-      ${achievementsHTML()}
-
-    </div>
-
-
-    <div class="section-title">
-
-      <h2>
-        History
-      </h2>
-
-      <span>
-        RECENT
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      ${
-        data.history.length
-
-          ?
-
-          `
-            <div class="timeline">
-
-              ${
-                data.history
-                  .slice(-8)
-                  .reverse()
-                  .map(h=>`
-
-                    <div class="timeline-item">
-
-                      <div class="item-title">
-                        ${escapeHTML(h.text)}
-                      </div>
-
-                      <div class="item-meta">
-                        ${h.type}
-                        ·
-                        +${h.xp} XP
-                        ·
-                        ${h.date}
-                      </div>
-
-                    </div>
-
-                  `)
-                  .join('')
-              }
-
-            </div>
-          `
-
-          :
-
-          `
-            <div class="empty">
-              Your journey begins with the
-              first completed quest.
-            </div>
-          `
-      }
-
-    </div>
-
-  `;
+  return map[type];
 
 }
 
@@ -2783,98 +5538,212 @@ function renderStats(){
    ACHIEVEMENTS
    ========================================================= */
 
-const ACHIEVEMENTS = [
+function renderAchievements(){
 
-  [
-    'first',
-    'First Step',
-    'Complete your first quest.',
-    1
-  ],
+  document
+    .getElementById("achievementGrid")
+    .innerHTML =
+      ACHIEVEMENTS
+        .map(a=>{
 
-  [
-    'ten',
-    'Momentum',
-    'Complete 10 quests.',
-    10
-  ],
+          const unlocked =
+            !!data.achievements[a.id];
 
-  [
-    'life1',
-    'Touch Grass',
-    'Complete your first Life encounter.',
-    1
-  ],
 
-  [
-    'moment1',
-    'Keep a Moment',
-    'Write your first Moment.',
-    1
-  ],
+          return `
 
-  [
-    'level5',
-    'Level 5',
-    'Reach level 5.',
-    5
-  ],
+            <div
+              class="
+                achievement
+                glass
+                ${unlocked?'unlocked':'locked'}
+              "
+            >
 
-  [
-    'explorer',
-    'Curiosity Wins',
-    'Complete 5 exploration quests.',
-    5
-  ]
+              <div class="achievement-icon">
+                ${a.icon}
+              </div>
 
-];
+              <div class="achievement-status">
 
-function achievementsHTML(){
+                ${
+                  unlocked
+                    ? "UNLOCKED"
+                    : "LOCKED"
+                }
 
-  return ACHIEVEMENTS.map(a=>{
+              </div>
 
-    const unlocked =
-      !!data.achievements[a[0]];
+              <div class="achievement-title">
+                ${a.name}
+              </div>
 
-    return `
+              <div class="achievement-desc">
+                ${a.desc}
+              </div>
+
+              <div class="achievement-reward">
+                +${a.reward} XP
+              </div>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+
+  document
+    .getElementById(
+      "achievementCount"
+    )
+    .textContent =
+      Object.keys(
+        data.achievements
+      ).length;
+
+}
+
+
+/* =========================================================
+   TITLES
+   ========================================================= */
+
+function renderTitles(){
+
+  const level =
+    getLevel();
+
+
+  document
+    .getElementById("titleGrid")
+    .innerHTML =
+      TITLES
+        .map(t=>{
+
+          const unlocked =
+            level >= t[2];
+
+
+          return `
+
+            <div
+              class="
+                week-card
+                glass
+              "
+              style="
+                opacity:
+                  ${unlocked?1:.42}
+              "
+            >
+
+              <div class="week-top">
+
+                <div class="week-title">
+                  ${t[0]}
+                </div>
+
+                <div
+                  class="week-xp"
+                  style="
+                    color:
+                      ${unlocked
+                        ? 'var(--green)'
+                        : 'var(--muted)'}
+                  "
+                >
+                  ${
+                    unlocked
+                      ? "UNLOCKED"
+                      : "LOCKED"
+                  }
+                </div>
+
+              </div>
+
+              <div class="week-desc">
+                ${t[1]}
+              </div>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+}
+
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+function renderHistory(){
+
+  const list =
+    document.getElementById(
+      "historyList"
+    );
+
+
+  if(!data.history.length){
+
+    list.innerHTML = `
 
       <div
-        class="
-          card
-          achievement
-          ${unlocked?'unlocked':''}
+        class="glass"
+        style="
+          padding:18px;
+          border-radius:18px;
+          color:var(--muted);
+          font-size:9px
         "
       >
-
-        <div class="eyebrow">
-
-          ${
-            unlocked
-              ? 'UNLOCKED'
-              : 'LOCKED'
-          }
-
-        </div>
-
-        <div
-          style="font-size:22px;margin:7px 0"
-        >
-          ${unlocked?'🏆':'◇'}
-        </div>
-
-        <div class="item-title">
-          ${a[1]}
-        </div>
-
-        <div class="tiny">
-          ${a[2]}
-        </div>
-
+        Your journey begins with
+        your first completed action.
       </div>
 
     `;
 
-  }).join('');
+    return;
+
+  }
+
+
+  list.innerHTML =
+    data.history
+      .slice()
+      .reverse()
+      .slice(0,12)
+      .map(h=>`
+
+        <div class="history-item glass">
+
+          <div>
+
+            <div class="history-title">
+              ${escapeHTML(h.text)}
+            </div>
+
+            <div class="history-text">
+              ${h.type}
+              ·
+              ${h.date}
+            </div>
+
+          </div>
+
+          <div class="history-xp">
+            +${h.xp}
+          </div>
+
+        </div>
+
+      `)
+      .join("");
 
 }
 
@@ -2885,161 +5754,136 @@ function achievementsHTML(){
 
 function renderMoments(){
 
-  const el =
-    document.getElementById('moments');
+  const list =
+    document.getElementById(
+      "momentsList"
+    );
 
-  el.innerHTML = `
 
-    <div class="topbar">
+  if(!data.moments.length){
 
-      <div>
+    list.innerHTML = `
 
-        <div class="brand">
-          MOMENTS
-        </div>
-
-        <div class="eyebrow">
-          KEEP WHAT THE SYSTEM CANNOT.
-        </div>
-
-      </div>
-
-      <button
-        class="top-action"
-        onclick="openMoment()"
+      <div
+        class="glass"
+        style="
+          padding:22px;
+          border-radius:20px;
+          color:var(--muted);
+          font-size:9px;
+          text-align:center
+        "
       >
-        ＋
-      </button>
 
-    </div>
-
-
-    <div class="card">
-
-      <div class="quote">
-
-        Not every day needs to be productive.
-        Some days just need to
-        <em>mean something.</em>
-
-      </div>
-
-    </div>
-
-
-    ${
-      data.moments.length
-
-        ?
-
-        data.moments
-          .slice()
-          .reverse()
-          .map(m=>`
-
-            <div class="card">
-
-              <div class="eyebrow">
-                ${m.date}
-                ·
-                ${m.mood}
-              </div>
-
-              <div
-                class="quote"
-                style="font-size:15px;margin-top:8px"
-              >
-                ${escapeHTML(m.text)}
-              </div>
-
-            </div>
-
-          `)
-          .join('')
-
-        :
-
-        `
-          <div class="card empty">
-
-            Write down a thought,
-            memory, idea, or feeling.
-
-            <br><br>
-
-            This is your record of the journey.
-
-          </div>
-        `
-    }
-
-
-    <div class="section-title">
-
-      <h2>
-        Philosophy
-      </h2>
-
-      <span>
-        SENRAI
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="sub">
-
-        SENRAI guides.
-        It never controls.
-
-        There are no broken streaks.
-        No punishment.
-        No guilt.
-
-        The goal is simple:
+        Nothing here yet.
 
         <br><br>
 
-        <strong>
-          Do things that make your life better.
-        </strong>
+        Write down a thought,
+        memory, idea, or feeling.
 
       </div>
 
-    </div>
+    `;
 
-  `;
+    return;
+
+  }
+
+
+  list.innerHTML =
+    data.moments
+      .slice()
+      .reverse()
+      .map(m=>`
+
+        <div
+          class="reflection-card glass"
+          style="margin-bottom:10px"
+        >
+
+          <div class="reflection-label">
+            ${m.date} · ${m.mood}
+          </div>
+
+          <div
+            class="reflection-title"
+            style="font-size:15px"
+          >
+            ${escapeHTML(m.text)}
+          </div>
+
+        </div>
+
+      `)
+      .join("");
 
 }
 
 
 /* =========================================================
-   QUEST ACTIONS
+   STREAK
+   ========================================================= */
+
+function calculateStreak(){
+
+  const dates =
+    new Set(
+      data.history.map(
+        h=>h.date
+      )
+    );
+
+
+  let streak=0;
+
+  const d =
+    new Date();
+
+
+  while(
+    dates.has(
+      dateKey(d)
+    )
+  ){
+
+    streak++;
+
+    d.setDate(
+      d.getDate()-1
+    );
+
+  }
+
+
+  return streak;
+
+}
+
+
+/* =========================================================
+   COMPLETE QUEST
    ========================================================= */
 
 function completeQuest(id){
 
   const q =
-    data.daily.find(x=>x.id===id);
+    data.daily.find(
+      x=>x.id===id
+    );
 
-  if(!q || q.done){
+
+  if(!q || q.done)
     return;
-  }
 
-  q.done = true;
+
+  q.done=true;
+
 
   reward(
     q.xp,
     q.text,
     q.type
-  );
-
-  toast(
-    'QUEST COMPLETE · +' +
-    q.xp +
-    ' XP'
   );
 
 }
@@ -3048,47 +5892,50 @@ function completeQuest(id){
 function completeCustom(id){
 
   const q =
-    data.custom.find(x=>x.id===id);
+    data.custom.find(
+      x=>x.id===id
+    );
 
-  if(!q || q.done){
+
+  if(!q || q.done)
     return;
-  }
 
-  q.done = true;
+
+  q.done=true;
+
 
   reward(
     q.xp,
     q.text,
-    'CUSTOM'
-  );
-
-  toast(
-    'CUSTOM QUEST COMPLETE · +' +
-    q.xp +
-    ' XP'
+    "CUSTOM"
   );
 
 }
 
 
-/* =========================================================
-   XP REWARD
-   ========================================================= */
-
-function reward(xp,text,type){
+function reward(
+  xp,
+  text,
+  type
+){
 
   data.totalXP += xp;
 
   data.completed++;
 
+
   data.history.push({
 
-    text,
-    xp,
-    type,
-    date:localDateKey()
+    text:text,
+
+    xp:xp,
+
+    type:type,
+
+    date:dateKey()
 
   });
+
 
   advancePath(type);
 
@@ -3098,44 +5945,56 @@ function reward(xp,text,type){
 
   renderAll();
 
+  toast(
+    "QUEST COMPLETE · +" +
+    xp +
+    " XP"
+  );
+
 }
 
 
 /* =========================================================
-   PATH PROGRESSION
+   PATH
    ========================================================= */
 
 function advancePath(type){
 
-  const map = {
+  const map={
 
-    EXPLORATION:'Explorer',
-    CREATIVE:'Builder',
-    DISCIPLINE:'Discipline',
-    SOCIAL:'Connection',
-    CARE:'Balance'
+    EXPLORATION:"Explorer",
+
+    CREATIVE:"Builder",
+
+    DISCIPLINE:"Discipline",
+
+    SOCIAL:"Connection",
+
+    CARE:"Balance"
 
   };
 
+
   if(
     map[type] &&
-    data.path !== map[type] &&
-    data.completed >= 3
+    data.completed>=3
   ){
 
-    data.path = map[type];
+    data.path =
+      map[type];
 
   }
 
+
   if(
-    data.completed &&
-    data.completed % 4 === 0
+    data.completed>0 &&
+    data.completed%4===0
   ){
 
     data.pathProgress =
       Math.min(
-        currentPath().stages.length,
-        data.pathProgress + 1
+        4,
+        data.pathProgress+1
       );
 
   }
@@ -3144,73 +6003,85 @@ function advancePath(type){
 
 
 /* =========================================================
-   ACHIEVEMENT CHECKING
+   ACHIEVEMENT CHECK
    ========================================================= */
 
 function checkAchievements(){
 
-  const exploration =
-    data.history.filter(
-      h=>h.type === 'EXPLORATION'
-    ).length;
-
-  const candidates = {
+  const conditions={
 
     first:
-      data.completed >= 1,
+      data.completed>=1,
 
     ten:
-      data.completed >= 10,
+      data.completed>=10,
 
     life1:
-      data.lifeDone >= 1,
+      data.lifeDone>=1,
 
     moment1:
-      data.moments.length >= 1,
+      data.moments.length>=1,
 
     level5:
-      level() >= 5,
-
-    explorer:
-      exploration >= 5
+      getLevel()>=5
 
   };
 
 
-  Object.entries(candidates)
-    .forEach(([id,ok])=>{
+  Object.entries(
+    conditions
+  ).forEach(
+    ([id,condition])=>{
 
       if(
-        ok &&
+        condition &&
         !data.achievements[id]
       ){
 
-        data.achievements[id] =
-          localDateKey();
+        const achievement =
+          ACHIEVEMENTS.find(
+            a=>a.id===id
+          );
 
-        data.totalXP += 25;
+
+        data.achievements[id]=
+          dateKey();
+
+
+        data.totalXP +=
+          achievement.reward;
+
 
         data.history.push({
 
           text:
-            'Achievement unlocked: ' +
-            id,
+            "Achievement unlocked: " +
+            achievement.name,
 
-          xp:25,
+          xp:
+            achievement.reward,
 
-          type:'ACHIEVEMENT',
+          type:
+            "ACHIEVEMENT",
 
-          date:localDateKey()
+          date:
+            dateKey()
 
         });
 
-        toast(
-          'ACHIEVEMENT UNLOCKED · +25 XP'
+
+        setTimeout(
+          ()=>toast(
+            "ACHIEVEMENT · " +
+            achievement.name
+          ),
+          100
         );
 
       }
 
-    });
+    }
+  );
 
 }
 
@@ -3223,82 +6094,87 @@ function claimWeekly(id){
 
   ensureWeekly();
 
-  const m =
-    data.weekly.missions.find(
-      x=>x.id===id
-    );
 
-  if(!m){
-    return;
-  }
+  const mission =
+    data.weekly.missions
+      .find(
+        m=>m.id===id
+      );
 
-  if(m.progress < m.goal){
+
+  if(!mission)
     return;
-  }
+
 
   if(
-    data.weekly.claimed.includes(id)
-  ){
+    mission.progress <
+    mission.goal
+  )
     return;
-  }
+
+
+  if(
+    data.weekly.claimed
+      .includes(id)
+  )
+    return;
+
 
   /*
-    IMPORTANT FIX:
+    IMPORTANT:
 
-    Mark claimed BEFORE rendering.
+    Mark claimed BEFORE
+    renderAll().
 
-    This prevents:
+    The render function itself
+    NEVER rewards XP.
 
-    renderAll()
-      ↓
-    renderWeekly()
-      ↓
-    reward()
-      ↓
-    renderAll()
-      ↓
-    renderWeekly()
-      ↓
-    reward()
-      ↓
-    INFINITE LOOP
-
-    Weekly missions are now render-only.
+    This prevents the infinite
+    render loop from the previous
+    version.
   */
 
-  data.weekly.claimed.push(id);
+  data.weekly.claimed
+    .push(id);
 
-  data.totalXP += m.xp;
+
+  data.totalXP +=
+    mission.xp;
+
 
   data.history.push({
 
     text:
-      'Weekly mission: ' +
-      m.text,
+      "Weekly mission: " +
+      mission.text,
 
-    xp:m.xp,
+    xp:
+      mission.xp,
 
-    type:'WEEKLY',
+    type:
+      "WEEKLY",
 
-    date:localDateKey()
+    date:
+      dateKey()
 
   });
+
 
   save();
 
   renderAll();
 
   toast(
-    'WEEKLY REWARD · +' +
-    m.xp +
-    ' XP'
+    "WEEKLY REWARD · +" +
+    mission.xp +
+    " XP"
   );
 
 }
 
 
 /* =========================================================
-   LIFE ENCOUNTERS
+   LIFE ENCOUNTER
    ========================================================= */
 
 function newLife(){
@@ -3306,23 +6182,34 @@ function newLife(){
   let used =
     data.life.used || [];
 
+
   if(
     used.length >=
-    ENCOUNTERS.length
+    LIFE_POOL.length
   ){
 
-    used = [];
+    used=[];
 
   }
 
+
   const available =
-    ENCOUNTERS
-      .map((x,i)=>({x,i}))
+    LIFE_POOL
+      .map(
+        (x,i)=>({
+          item:x,
+          index:i
+        })
+      )
       .filter(
-        o=>!used.includes(o.i)
+        o=>
+          !used.includes(
+            o.index
+          )
       );
 
-  const pick =
+
+  const chosen =
     available[
       Math.floor(
         Math.random() *
@@ -3330,26 +6217,31 @@ function newLife(){
       )
     ];
 
-  data.life = {
 
-    text:pick.x[0],
+  data.life={
 
-    type:pick.x[1],
+    text:
+      chosen.item[0],
 
-    detail:pick.x[2],
+    type:
+      chosen.item[1],
+
+    detail:
+      chosen.item[2],
 
     used:[
       ...used,
-      pick.i
+      chosen.index
     ]
 
   };
+
 
   save();
 
   renderAll();
 
-  showView('life');
+  showView("life");
 
 }
 
@@ -3364,21 +6256,30 @@ function completeLife(){
 
   }
 
+
+  const life =
+    data.life;
+
+
   data.lifeDone++;
 
-  data.totalXP += 25;
+  data.totalXP +=25;
+
 
   data.history.push({
 
-    text:data.life.text,
+    text:
+      life.text,
 
     xp:25,
 
-    type:'LIFE',
+    type:"LIFE",
 
-    date:localDateKey()
+    date:
+      dateKey()
 
   });
+
 
   checkAchievements();
 
@@ -3387,7 +6288,7 @@ function completeLife(){
   renderAll();
 
   toast(
-    'LIFE ENCOUNTER COMPLETE · +25 XP'
+    "LIFE COMPLETE · +25 XP"
   );
 
 }
@@ -3397,121 +6298,18 @@ function completeLife(){
    MOOD
    ========================================================= */
 
-function setMood(m){
+function setMood(mood){
 
-  data.mood = m;
-
-  save();
-
-  renderAll();
-
-  toast(
-    'SYSTEM STATE · ' +
-    m
-  );
-
-}
-
-
-/* =========================================================
-   OBJECTIVE
-   ========================================================= */
-
-function showObjective(){
-
-  openModal(`
-
-    <h3>
-      Current Objective
-    </h3>
-
-    <div class="sub">
-
-      ${escapeHTML(data.objective)}
-
-    </div>
-
-    <div style="margin-top:14px">
-
-      ${
-        data.objectiveSteps.map((s,i)=>`
-
-          <div
-            class="
-              stage
-              ${i===0?'current':''}
-            "
-          >
-
-            <div class="stage-num">
-              ${i+1}
-            </div>
-
-            <div class="grow">
-
-              <div class="item-title">
-                ${escapeHTML(s)}
-              </div>
-
-            </div>
-
-          </div>
-
-        `).join('')
-      }
-
-    </div>
-
-    <button
-      class="btn primary full"
-      style="margin-top:12px"
-      onclick="
-        randomObjective();
-        closeModal();
-      "
-    >
-      GENERATE NEW OBJECTIVE
-    </button>
-
-  `);
-
-}
-
-
-function randomObjective(){
-
-  const objectives = [
-
-    'Do one thing that makes tomorrow easier.',
-
-    'Make tonight a little more memorable.',
-
-    'Choose curiosity over routine once today.',
-
-    'Finish something small before starting something new.',
-
-    'Give yourself ten quiet minutes.',
-
-    'Create something before consuming something.',
-
-    'Take one step toward a life you actually want.'
-
-  ];
-
-  data.objective =
-    objectives[
-      Math.floor(
-        Math.random() *
-        objectives.length
-      )
-    ];
+  data.mood =
+    mood;
 
   save();
 
   renderAll();
 
   toast(
-    'OBJECTIVE UPDATED'
+    "SYSTEM STATE · " +
+    mood
   );
 
 }
@@ -3521,71 +6319,19 @@ function randomObjective(){
    CUSTOM QUEST
    ========================================================= */
 
-function openCustomQuest(){
+function addCustomQuest(){
 
-  openModal(`
-
-    <h3>
-      Create Quest
-    </h3>
-
-    <div class="sub">
-      Make it useful, not punishing.
-    </div>
-
-    <input
-      id="newQuest"
-      placeholder="e.g. Apply to one job"
-      style="margin-top:14px"
-    >
-
-    <div
-      class="form-row"
-      style="margin-top:8px"
-    >
-
-      <select id="newType">
-
-        ${TYPES.map(t=>`
-
-          <option>
-            ${t}
-          </option>
-
-        `).join('')}
-
-      </select>
-
-      <input
-        id="newXP"
-        type="number"
-        min="5"
-        max="100"
-        value="15"
-      >
-
-    </div>
-
-    <button
-      class="btn primary full"
-      style="margin-top:12px"
-      onclick="addCustom()"
-    >
-      ADD QUEST
-    </button>
-
-  `);
-
-}
+  const input =
+    document.getElementById(
+      "customQuestInput"
+    );
 
 
-function addCustom(){
+  const type =
+    document.getElementById(
+      "customQuestType"
+    ).value;
 
-  const text =
-    document
-      .getElementById('newQuest')
-      .value
-      .trim();
 
   const xp =
     Math.max(
@@ -3593,46 +6339,52 @@ function addCustom(){
       Math.min(
         100,
         Number(
-          document
-            .getElementById('newXP')
-            .value
+          document.getElementById(
+            "customQuestXP"
+          ).value
         ) || 15
       )
     );
 
-  const type =
-    document
-      .getElementById('newType')
-      .value;
+
+  const text =
+    input.value.trim();
+
 
   if(!text){
+
+    toast(
+      "ENTER A QUEST"
+    );
+
     return;
+
   }
+
 
   data.custom.push({
 
     id:uid(),
 
-    text,
+    text:text,
 
-    xp,
+    type:type,
 
-    type,
+    xp:xp,
 
     done:false
 
   });
 
-  data.created++;
 
   save();
 
-  closeModal();
+  input.value="";
 
   renderAll();
 
   toast(
-    'QUEST CREATED'
+    "QUEST CREATED"
   );
 
 }
@@ -3658,55 +6410,69 @@ function deleteCustom(id){
 
 function openMoment(){
 
-  openModal(`
+  openModal(
 
-    <h3>
-      Record a Moment
-    </h3>
+    "RECORD A MOMENT",
 
-    <div class="sub">
-      What do you want future-you to remember?
-    </div>
+    `
 
-    <textarea
-      id="momentText"
-      placeholder="Write anything..."
-    ></textarea>
+      <div
+        style="
+          color:var(--muted);
+          font-size:9px;
+          margin-bottom:12px
+        "
+      >
+        What do you want future-you
+        to remember?
+      </div>
 
-    <button
-      class="btn primary full"
-      style="margin-top:10px"
-      onclick="addMoment()"
-    >
-      SAVE MOMENT
-    </button>
+      <textarea
+        id="momentInput"
+        placeholder="Write anything..."
+      ></textarea>
 
-  `);
+      <button
+        class="primary full"
+        style="margin-top:10px"
+        onclick="saveMoment()"
+      >
+        SAVE MOMENT
+      </button>
+
+    `
+
+  );
 
 }
 
 
-function addMoment(){
+function saveMoment(){
+
+  const input =
+    document.getElementById(
+      "momentInput"
+    );
+
 
   const text =
-    document
-      .getElementById('momentText')
-      .value
-      .trim();
+    input.value.trim();
 
-  if(!text){
+
+  if(!text)
     return;
-  }
+
 
   data.moments.push({
 
-    text,
+    text:text,
 
-    date:localDateKey(),
+    date:dateKey(),
 
     mood:data.mood
 
   });
+
 
   checkAchievements();
 
@@ -3717,115 +6483,163 @@ function addMoment(){
   renderAll();
 
   toast(
-    'MOMENT SAVED'
+    "MOMENT SAVED"
   );
 
 }
 
 
 /* =========================================================
-   MY SYSTEM PROFILE
+   OBJECTIVE
    ========================================================= */
 
-function openProfile(){
+function showObjective(){
 
-  openModal(`
+  openModal(
 
-    <h3>
-      My System
-    </h3>
+    "CURRENT OBJECTIVE",
 
-    <div class="sub">
-      This is the part of SENRAI that belongs only to you.
-    </div>
+    `
 
+      <div
+        style="
+          color:var(--cyan);
+          font-size:7px;
+          letter-spacing:2px
+        "
+      >
+        MAIN PATH
+      </div>
 
-    <label
-      class="eyebrow"
-      style="display:block;margin-top:15px"
-    >
-      NAME
-    </label>
+      <div
+        style="
+          font-size:20px;
+          font-weight:900;
+          margin-top:8px
+        "
+      >
+        ${escapeHTML(data.objective)}
+      </div>
 
-    <input
-      id="profileName"
-      value="${escapeAttr(data.name)}"
-    >
+      <div
+        style="
+          color:var(--muted);
+          font-size:9px;
+          line-height:1.6;
+          margin-top:9px
+        "
+      >
+        Your objective is optional.
+        SENRAI is here to help you move,
+        not pressure you.
+      </div>
 
+      <div style="margin-top:15px">
 
-    <label
-      class="eyebrow"
-      style="display:block;margin-top:12px"
-    >
-      PATH
-    </label>
+        ${
+          data.objectiveSteps
+            .map(
+              (step,i)=>`
 
-    <select id="profilePath">
+                <div
+                  style="
+                    display:flex;
+                    gap:10px;
+                    padding:11px 0;
+                    border-bottom:
+                      1px solid
+                      rgba(255,255,255,.055)
+                  "
+                >
 
-      ${
-        Object.keys(PATHS)
-          .map(p=>`
+                  <div
+                    style="
+                      width:25px;
+                      height:25px;
+                      display:grid;
+                      place-items:center;
+                      border-radius:8px;
+                      background:
+                        rgba(255,255,255,.045);
+                      color:var(--cyan);
+                      font-size:8px
+                    "
+                  >
+                    ${i+1}
+                  </div>
 
-            <option
-              ${p===data.path?'selected':''}
-            >
-              ${p}
-            </option>
+                  <div
+                    style="
+                      font-size:10px;
+                      font-weight:700
+                    "
+                  >
+                    ${escapeHTML(step)}
+                  </div>
 
-          `)
-          .join('')
-      }
+                </div>
 
-    </select>
+              `
+            )
+            .join("")
+        }
 
+      </div>
 
-    <label
-      class="eyebrow"
-      style="display:block;margin-top:12px"
-    >
-      PERSONAL RULE
-    </label>
+      <button
+        class="primary full"
+        style="margin-top:14px"
+        onclick="
+          randomObjective();
+          closeModal();
+        "
+      >
+        GENERATE NEW OBJECTIVE
+      </button>
 
-    <textarea>
-Do things that make your life better. Missing a day does not erase progress.
-    </textarea>
+    `
 
-
-    <button
-      class="btn primary full"
-      style="margin-top:12px"
-      onclick="saveProfile()"
-    >
-      SAVE MY SYSTEM
-    </button>
-
-  `);
+  );
 
 }
 
 
-function saveProfile(){
+function randomObjective(){
 
-  data.name =
-    document
-      .getElementById('profileName')
-      .value
-      .trim()
-    || 'Luis';
+  const objectives=[
 
-  data.path =
-    document
-      .getElementById('profilePath')
-      .value;
+    "Do one thing that makes tomorrow easier.",
+
+    "Make tonight a little more memorable.",
+
+    "Choose curiosity over routine once today.",
+
+    "Finish something small before starting something new.",
+
+    "Give yourself ten quiet minutes.",
+
+    "Create something before consuming something.",
+
+    "Take one step toward a life you actually want."
+
+  ];
+
+
+  data.objective =
+    objectives[
+      Math.floor(
+        Math.random() *
+        objectives.length
+      )
+    ];
+
 
   save();
-
-  closeModal();
 
   renderAll();
 
   toast(
-    'SYSTEM PROFILE UPDATED'
+    "OBJECTIVE UPDATED"
   );
 
 }
@@ -3837,94 +6651,118 @@ function saveProfile(){
 
 function openSettings(){
 
-  openModal(`
+  openModal(
 
-    <h3>
-      System Settings
-    </h3>
+    "SYSTEM SETTINGS",
 
-    <div class="sub">
-      Local-first.
-      Your data stays in this browser.
-    </div>
+    `
 
-
-    <div class="section-title">
-
-      <h2>
-        Quiet Mode
-      </h2>
-
-    </div>
+      <div
+        style="
+          color:var(--muted);
+          font-size:9px;
+          line-height:1.6
+        "
+      >
+        SENRAI is local-first.
+        Your progress is stored in this browser.
+      </div>
 
 
-    <button
-      class="btn full"
-      onclick="toggleNight()"
-    >
+      <div
+        style="
+          margin-top:18px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:12px
+        "
+      >
 
-      ${
-        data.settings.nightMode
-          ? 'DISABLE'
-          : 'ENABLE'
-      }
+        <div>
 
-      NIGHT SYSTEM VOICE
+          <div
+            style="
+              font-size:10px;
+              font-weight:800
+            "
+          >
+            Quiet Mode
+          </div>
 
-    </button>
+          <div
+            style="
+              color:var(--muted);
+              font-size:8px;
+              margin-top:4px
+            "
+          >
+            Changes the System's personality late at night.
+          </div>
 
+        </div>
 
-    <div class="section-title">
+        <button
+          onclick="toggleQuietMode()"
+        >
+          ${
+            data.settings.quietMode
+              ? "ON"
+              : "OFF"
+          }
+        </button>
 
-      <h2>
-        Accent
-      </h2>
-
-    </div>
-
-
-    <input
-      type="color"
-      id="accent"
-      value="${data.settings.accent}"
-      style="height:46px;padding:4px"
-    >
-
-
-    <button
-      class="btn primary full"
-      style="margin-top:10px"
-      onclick="saveAccent()"
-    >
-      SAVE ACCENT
-    </button>
-
-
-    <div class="section-title">
-
-      <h2>
-        Data
-      </h2>
-
-    </div>
+      </div>
 
 
-    <button
-      class="btn danger full"
-      onclick="resetSystem()"
-    >
-      RESET SENRAI
-    </button>
+      <div style="margin-top:18px">
 
-  `);
+        <div
+          style="
+            font-size:10px;
+            font-weight:800;
+            margin-bottom:8px
+          "
+        >
+          Profile Name
+        </div>
+
+        <input
+          id="profileName"
+          value="${escapeHTML(data.name)}"
+        >
+
+      </div>
+
+
+      <button
+        class="primary full"
+        style="margin-top:12px"
+        onclick="saveSettings()"
+      >
+        SAVE SYSTEM
+      </button>
+
+
+      <button
+        class="danger full"
+        style="margin-top:8px"
+        onclick="resetSystem()"
+      >
+        RESET SENRAI
+      </button>
+
+    `
+
+  );
 
 }
 
 
-function toggleNight(){
+function toggleQuietMode(){
 
-  data.settings.nightMode =
-    !data.settings.nightMode;
+  data.settings.quietMode =
+    !data.settings.quietMode;
 
   save();
 
@@ -3935,35 +6773,17 @@ function toggleNight(){
 }
 
 
-function saveAccent(){
+function saveSettings(){
 
-  data.settings.accent =
-    document
-      .getElementById('accent')
-      .value;
-
-  save();
-
-  closeModal();
-
-  renderAll();
-
-}
+  const name =
+    document.getElementById(
+      "profileName"
+    ).value.trim();
 
 
-function resetSystem(){
+  data.name =
+    name || "Luis";
 
-  if(
-    !confirm(
-      'Reset all SENRAI progress on this device?'
-    )
-  ){
-
-    return;
-
-  }
-
-  data = defaults();
 
   save();
 
@@ -3972,8 +6792,82 @@ function resetSystem(){
   renderAll();
 
   toast(
-    'SYSTEM RESET'
+    "SYSTEM UPDATED"
   );
+
+}
+
+
+function resetSystem(){
+
+  if(
+    !confirm(
+      "Reset all SENRAI progress on this device?"
+    )
+  )
+    return;
+
+
+  data =
+    defaultData();
+
+
+  save();
+
+  closeModal();
+
+  renderAll();
+
+  toast(
+    "SYSTEM RESET"
+  );
+
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+function openModal(
+  title,
+  body
+){
+
+  document
+    .getElementById(
+      "modalTitle"
+    )
+    .textContent =
+      title;
+
+
+  document
+    .getElementById(
+      "modalBody"
+    )
+    .innerHTML =
+      body;
+
+
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .style.display =
+      "grid";
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .style.display =
+      "none";
 
 }
 
@@ -3985,73 +6879,46 @@ function resetSystem(){
 function showView(view){
 
   document
-    .querySelectorAll('.screen')
-    .forEach(s=>
-      s.classList.remove('active')
+    .querySelectorAll(
+      ".view"
+    )
+    .forEach(
+      v=>
+        v.classList.remove(
+          "active"
+        )
     );
 
-  document
-    .getElementById(view)
-    .classList.add('active');
 
-  updateNav();
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
-}
+  const target =
+    document.getElementById(
+      view
+    );
 
 
-function updateNav(){
+  if(target)
+    target.classList.add(
+      "active"
+    );
 
-  const active =
-    document
-      .querySelector('.screen.active');
-
-  if(!active){
-    return;
-  }
 
   document
     .querySelectorAll(
-      '.nav button[data-view]'
+      ".nav-button"
     )
-    .forEach(b=>{
-
-      b.classList.toggle(
-        'active',
-        b.dataset.view === active.id
-      );
-
-    });
-
-}
+    .forEach(
+      button=>
+        button.classList.toggle(
+          "active",
+          button.dataset.view===view
+        )
+    );
 
 
-/* =========================================================
-   MODALS
-   ========================================================= */
-
-function openModal(html){
-
-  document
-    .getElementById('modalBody')
-    .innerHTML = html;
-
-  document
-    .getElementById('modal')
-    .classList.add('show');
-
-}
-
-
-function closeModal(){
-
-  document
-    .getElementById('modal')
-    .classList.remove('show');
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
@@ -4062,20 +6929,35 @@ function closeModal(){
 
 let toastTimer;
 
-function toast(text){
+function toast(message){
 
   const el =
-    document.getElementById('toast');
+    document.getElementById(
+      "toast"
+    );
 
-  el.textContent = text;
 
-  el.classList.add('show');
+  el.textContent =
+    message;
 
-  clearTimeout(toastTimer);
+
+  el.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
 
   toastTimer =
     setTimeout(
-      ()=>el.classList.remove('show'),
+      ()=>{
+        el.classList.remove(
+          "show"
+        );
+      },
       2200
     );
 
@@ -4083,56 +6965,135 @@ function toast(text){
 
 
 /* =========================================================
-   ESCAPING
+   PARTICLES
    ========================================================= */
 
-function escapeHTML(s){
+function createParticles(){
 
-  return String(s).replace(
-    /[&<>'"]/g,
-    c=>({
-
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      "'":'&#39;',
-      '"':'&quot;'
-
-    }[c])
-  );
-
-}
+  const field =
+    document.getElementById(
+      "particleField"
+    );
 
 
-function escapeAttr(s){
+  const count =
+    window.innerWidth < 600
+      ? 28
+      : 42;
 
-  return escapeHTML(s);
+
+  for(
+    let i=0;
+    i<count;
+    i++
+  ){
+
+    const particle =
+      document.createElement(
+        "div"
+      );
+
+
+    particle.className =
+      "particle";
+
+
+    const type =
+      Math.random();
+
+
+    if(type>.72){
+
+      particle.classList.add(
+        "cyan"
+      );
+
+    }else if(type>.55){
+
+      particle.classList.add(
+        "purple"
+      );
+
+    }
+
+
+    particle.style.left =
+      Math.random()*100 +
+      "%";
+
+
+    particle.style.top =
+      Math.random()*100 +
+      "%";
+
+
+    particle.style.setProperty(
+      "--drift",
+      (
+        Math.random()*70-35
+      ) +
+      "px"
+    );
+
+
+    particle.style.animationDuration =
+      (
+        7 +
+        Math.random()*12
+      ) +
+      "s";
+
+
+    particle.style.animationDelay =
+      (
+        Math.random()*-12
+      ) +
+      "s";
+
+
+    const size =
+      .7 +
+      Math.random()*1.5;
+
+
+    particle.style.width =
+      size+"px";
+
+
+    particle.style.height =
+      size+"px";
+
+
+    field.appendChild(
+      particle
+    );
+
+  }
 
 }
 
 
 /* =========================================================
-   THEME
+   RENDER ALL
    ========================================================= */
 
-function setTheme(){
+function renderAll(){
 
-  document
-    .documentElement
-    .style
-    .setProperty(
-      '--cyan',
-      data.settings.accent || '#65e7ff'
-    );
+  resetDay();
 
-  document
-    .querySelector(
-      'meta[name="theme-color"]'
-    )
-    .setAttribute(
-      'content',
-      '#07080c'
-    );
+  ensureDaily();
+
+  ensureWeekly();
+
+  renderHome();
+
+  renderQuests();
+
+  renderLife();
+
+  renderStats();
+
+  renderMoments();
 
 }
 
@@ -4143,32 +7104,116 @@ function setTheme(){
 
 function boot(){
 
-  resetDayIfNeeded();
-
-  ensureWeekly();
+  createParticles();
 
   renderAll();
 
-  setTimeout(()=>{
 
-    const splash =
-      document.getElementById('splash');
+  const fill =
+    document.getElementById(
+      "loadingFill"
+    );
 
-    splash.style.opacity = '0';
 
-    setTimeout(()=>{
+  const percent =
+    document.getElementById(
+      "loadingPercent"
+    );
 
-      splash.remove();
 
-    },600);
+  const status =
+    document.getElementById(
+      "loadingStatus"
+    );
 
-  },650);
+
+  const messages=[
+
+    "SYSTEM INITIALIZING",
+
+    "LOADING PROFILE",
+
+    "SYNCING PROGRESS DATA",
+
+    "CALIBRATING SYSTEM",
+
+    "BUILDING QUEST PATHS",
+
+    "SYSTEM READY"
+
+  ];
+
+
+  let progress=0;
+
+
+  const interval =
+    setInterval(
+      ()=>{
+
+        progress =
+          Math.min(
+            100,
+            progress +
+            Math.floor(
+              Math.random()*10
+            ) +
+            8
+          );
+
+
+        fill.style.width =
+          progress+"%";
+
+
+        percent.textContent =
+          progress+"%";
+
+
+        status.textContent =
+          messages[
+            Math.min(
+              messages.length-1,
+              Math.floor(
+                progress/20
+              )
+            )
+          ];
+
+
+        if(progress>=100){
+
+          clearInterval(
+            interval
+          );
+
+
+          setTimeout(
+            ()=>{
+
+              document
+                .getElementById(
+                  "splash"
+                )
+                .classList.add(
+                  "hidden"
+                );
+
+            },
+            500
+          );
+
+        }
+
+      },
+      120
+    );
 
 }
 
 
 window.addEventListener(
-  'load',
+  "load",
   boot
 );
 
