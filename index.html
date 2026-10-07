@@ -23,14 +23,22 @@
 --cyan:#69e2dc
 }
 
+html{
+scroll-behavior:smooth
+}
+
 body{
-background:radial-gradient(circle at 50% -10%,rgba(100,120,160,.12),transparent 35%),var(--bg);
+background:
+radial-gradient(circle at 50% -10%,rgba(100,120,160,.12),transparent 35%),
+var(--bg);
 color:var(--text);
 font-family:Arial,Helvetica,sans-serif;
 min-height:100vh
 }
 
-button,input,select{font-family:inherit}
+button,input,select{
+font-family:inherit
+}
 
 button{
 border:1px solid #343b48;
@@ -68,7 +76,9 @@ font-weight:bold
 position:fixed;
 inset:0;
 z-index:9999;
-background:radial-gradient(circle at center,rgba(90,110,150,.1),transparent 45%),#030407;
+background:
+radial-gradient(circle at center,rgba(90,110,150,.1),transparent 45%),
+#030407;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -168,7 +178,8 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding-bottom:22px;
-border-bottom:1px solid var(--line)
+border-bottom:1px solid var(--line);
+position:relative
 }
 
 .brand{
@@ -199,6 +210,12 @@ font-weight:800;
 letter-spacing:4px
 }
 
+.header-actions{
+display:flex;
+align-items:center;
+gap:12px
+}
+
 .system-status{
 font-size:9px;
 color:var(--green);
@@ -213,6 +230,151 @@ border-radius:50%;
 background:var(--green);
 margin-right:6px;
 box-shadow:0 0 8px var(--green)
+}
+
+.system-button{
+display:flex;
+align-items:center;
+gap:7px;
+padding:9px 11px;
+background:#0b0e14;
+border-color:#2b323e;
+font-size:8px;
+letter-spacing:1.5px
+}
+
+.system-button .system-icon{
+font-size:14px;
+line-height:1
+}
+
+/* =========================
+   SYSTEM MENU
+========================= */
+
+.system-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.62);
+backdrop-filter:blur(5px);
+z-index:2000;
+opacity:0;
+visibility:hidden;
+transition:.25s
+}
+
+.system-overlay.open{
+opacity:1;
+visibility:visible
+}
+
+.system-menu{
+position:fixed;
+right:18px;
+top:72px;
+width:min(340px,calc(100% - 36px));
+background:
+radial-gradient(circle at 100% 0%,rgba(101,169,255,.08),transparent 40%),
+#090b10;
+border:1px solid #2b323e;
+box-shadow:0 25px 70px rgba(0,0,0,.6);
+transform:translateY(-12px) scale(.98);
+transition:.25s;
+overflow:hidden
+}
+
+.system-overlay.open .system-menu{
+transform:translateY(0) scale(1)
+}
+
+.system-menu-header{
+padding:18px;
+border-bottom:1px solid var(--line)
+}
+
+.system-menu-label{
+font-size:8px;
+color:var(--blue);
+letter-spacing:3px
+}
+
+.system-menu-title{
+font-size:18px;
+font-weight:800;
+margin-top:5px
+}
+
+.system-menu-sub{
+font-size:9px;
+color:var(--muted);
+margin-top:5px
+}
+
+.system-menu-items{
+padding:7px
+}
+
+.system-menu-item{
+width:100%;
+display:flex;
+align-items:center;
+gap:13px;
+padding:14px 12px;
+border:1px solid transparent;
+background:transparent;
+text-align:left
+}
+
+.system-menu-item:hover{
+background:#11151c;
+border-color:#252c37
+}
+
+.system-menu-item.active{
+background:#141820;
+border-color:#2c3440
+}
+
+.menu-icon{
+width:32px;
+height:32px;
+border:1px solid #2c3440;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:15px;
+flex-shrink:0
+}
+
+.menu-copy{
+flex:1
+}
+
+.menu-title{
+font-size:10px;
+font-weight:bold;
+letter-spacing:1.5px
+}
+
+.menu-description{
+font-size:8px;
+color:var(--muted);
+margin-top:4px;
+letter-spacing:.5px
+}
+
+.menu-arrow{
+color:#505967;
+font-size:15px
+}
+
+.system-menu-footer{
+padding:12px 18px;
+border-top:1px solid var(--line);
+font-size:7px;
+color:#444b57;
+letter-spacing:2px;
+text-align:center
 }
 
 /* =========================
@@ -234,7 +396,9 @@ display:block
 .hero{
 margin-top:22px;
 border:1px solid var(--line);
-background:linear-gradient(135deg,rgba(255,255,255,.025),transparent),var(--panel);
+background:
+linear-gradient(135deg,rgba(255,255,255,.025),transparent),
+var(--panel);
 padding:24px;
 position:relative;
 overflow:hidden
@@ -401,7 +565,7 @@ line-height:1.5
 }
 
 /* =========================
-   SYSTEM REFLECTION
+   REFLECTION
 ========================= */
 
 .reflection-card{
@@ -484,12 +648,6 @@ flex:1
 
 .reflection-dismiss{
 color:#7c8491
-}
-
-.reflection-empty{
-color:var(--muted);
-font-size:10px;
-line-height:1.6
 }
 
 /* =========================
@@ -882,6 +1040,227 @@ color:var(--green)
 }
 
 /* =========================
+   HISTORY
+========================= */
+
+.history-summary{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:18px
+}
+
+.history-stat{
+border:1px solid var(--line);
+background:var(--panel);
+padding:15px
+}
+
+.history-stat-label{
+font-size:8px;
+color:var(--muted);
+letter-spacing:2px
+}
+
+.history-stat-value{
+font-size:22px;
+font-weight:800;
+margin-top:7px
+}
+
+.history-list{
+display:grid;
+gap:8px
+}
+
+.history-day{
+margin-bottom:8px
+}
+
+.history-day-header{
+font-size:8px;
+color:var(--muted);
+letter-spacing:2px;
+margin:18px 0 8px
+}
+
+.history-entry{
+display:flex;
+align-items:center;
+gap:12px;
+padding:13px;
+border:1px solid var(--line);
+background:var(--panel)
+}
+
+.history-icon{
+width:30px;
+height:30px;
+border:1px solid #303642;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0
+}
+
+.history-main{
+flex:1;
+min-width:0
+}
+
+.history-title{
+font-size:10px;
+font-weight:bold
+}
+
+.history-detail{
+font-size:8px;
+color:var(--muted);
+margin-top:4px;
+line-height:1.4
+}
+
+.history-xp{
+font-size:9px;
+color:var(--green);
+font-weight:bold
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-card{
+border:1px solid var(--line);
+background:
+radial-gradient(circle at 100% 0%,rgba(101,169,255,.08),transparent 40%),
+var(--panel);
+padding:22px
+}
+
+.profile-top{
+display:flex;
+align-items:center;
+gap:16px
+}
+
+.profile-avatar{
+width:58px;
+height:58px;
+border:1px solid #606a79;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:bold;
+transform:rotate(45deg)
+}
+
+.profile-avatar span{
+transform:rotate(-45deg)
+}
+
+.profile-name{
+font-size:18px;
+font-weight:800
+}
+
+.profile-label{
+font-size:8px;
+color:var(--muted);
+letter-spacing:2px;
+margin-top:5px
+}
+
+.profile-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:20px
+}
+
+.profile-stat{
+border:1px solid var(--line);
+padding:14px;
+background:#090b10
+}
+
+.profile-stat-label{
+font-size:8px;
+color:var(--muted);
+letter-spacing:1.5px
+}
+
+.profile-stat-value{
+font-size:17px;
+font-weight:bold;
+margin-top:6px
+}
+
+.profile-edit{
+margin-top:18px;
+display:flex;
+gap:8px
+}
+
+.profile-edit input{
+flex:1
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-list{
+display:grid;
+gap:10px
+}
+
+.settings-card{
+border:1px solid var(--line);
+background:var(--panel);
+padding:18px
+}
+
+.settings-title{
+font-size:11px;
+font-weight:bold;
+letter-spacing:1px
+}
+
+.settings-description{
+font-size:9px;
+color:var(--muted);
+line-height:1.5;
+margin-top:6px;
+max-width:700px
+}
+
+.setting-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-top:15px
+}
+
+.setting-select{
+max-width:180px
+}
+
+.setting-note{
+font-size:8px;
+color:#515967;
+line-height:1.5;
+margin-top:12px
+}
+
+.danger-button{
+color:var(--red);
+border-color:#3b252c
+}
+
+/* =========================
    NAVIGATION
 ========================= */
 
@@ -890,12 +1269,12 @@ position:fixed;
 left:50%;
 bottom:12px;
 transform:translateX(-50%);
-width:min(680px,calc(100% - 20px));
+width:min(560px,calc(100% - 20px));
 z-index:500;
 background:rgba(10,12,17,.96);
 border:1px solid #242a34;
 display:grid;
-grid-template-columns:repeat(5,1fr);
+grid-template-columns:repeat(4,1fr);
 padding:5px;
 backdrop-filter:blur(12px)
 }
@@ -940,7 +1319,8 @@ opacity:0;
 transition:.35s;
 box-shadow:0 10px 35px rgba(0,0,0,.35);
 text-align:center;
-white-space:nowrap
+white-space:nowrap;
+max-width:calc(100% - 30px)
 }
 
 .notification.show{
@@ -964,6 +1344,18 @@ margin-top:45px
 
 #app{
 padding:18px 12px 100px
+}
+
+header{
+padding-bottom:17px
+}
+
+.system-status{
+display:none
+}
+
+.system-button{
+padding:9px 10px
 }
 
 .hero{
@@ -1018,6 +1410,57 @@ letter-spacing:7px
 
 .custom-quest{
 align-items:flex-start
+}
+
+.system-menu{
+right:10px;
+top:68px;
+width:calc(100% - 20px)
+}
+
+.history-summary{
+grid-template-columns:1fr 1fr
+}
+
+.profile-grid{
+grid-template-columns:1fr 1fr
+}
+
+.profile-edit{
+flex-direction:column
+}
+
+.setting-row{
+align-items:flex-start;
+flex-direction:column
+}
+
+.setting-select{
+max-width:none;
+width:100%
+}
+
+}
+
+/* SMALL PHONES */
+
+@media(max-width:380px){
+
+.brand-name{
+font-size:15px;
+letter-spacing:3px
+}
+
+.system-button{
+font-size:7px
+}
+
+.summary-value{
+font-size:18px
+}
+
+.history-summary{
+grid-template-columns:1fr
 }
 
 }
@@ -1083,9 +1526,22 @@ SENRAI
 
 </div>
 
+<div class="header-actions">
+
 <div class="system-status">
 <span class="status-dot"></span>
 SYSTEM ONLINE
+</div>
+
+<button
+class="system-button"
+id="systemButton">
+
+<span class="system-icon">☰</span>
+<span>SYSTEM</span>
+
+</button>
+
 </div>
 
 </header>
@@ -1646,32 +2102,6 @@ Every completed quest strengthens the stat connected to it. There is no single c
 </main>
 
 <!-- =========================
-     ACHIEVEMENTS
-========================= -->
-
-<main id="achievementsView" class="view">
-
-<section class="section">
-
-<div class="section-header">
-
-<div class="section-title">
-ACHIEVEMENTS
-</div>
-
-<div class="section-description">
-<span id="achievementCount">0 / 7</span> UNLOCKED
-</div>
-
-</div>
-
-<div class="achievement-grid" id="achievementGrid"></div>
-
-</section>
-
-</main>
-
-<!-- =========================
      LIFE
 ========================= -->
 
@@ -1755,6 +2185,386 @@ Not every quest needs to be productive. Some quests are about people, experience
 
 </main>
 
+<!-- =========================
+     ACHIEVEMENTS
+========================= -->
+
+<main id="achievementsView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+ACHIEVEMENTS
+</div>
+
+<div class="section-description">
+<span id="achievementCount">0 / 7</span> UNLOCKED
+</div>
+
+</div>
+
+<div class="achievement-grid" id="achievementGrid"></div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     HISTORY
+========================= -->
+
+<main id="historyView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+HISTORY
+</div>
+
+<div class="section-description">
+YOUR JOURNEY
+</div>
+
+</div>
+
+<div class="history-summary">
+
+<div class="history-stat">
+
+<div class="history-stat-label">
+QUESTS
+</div>
+
+<div class="history-stat-value" id="historyQuestCount">
+0
+</div>
+
+</div>
+
+<div class="history-stat">
+
+<div class="history-stat-label">
+XP EARNED
+</div>
+
+<div class="history-stat-value" id="historyXP">
+0
+</div>
+
+</div>
+
+<div class="history-stat">
+
+<div class="history-stat-label">
+ACTIVE DAYS
+</div>
+
+<div class="history-stat-value" id="historyActiveDays">
+0
+</div>
+
+</div>
+
+</div>
+
+<div class="objective">
+
+<div class="objective-tag">
+LOOK BACK
+</div>
+
+<h2>
+Every completed action becomes part of your story.
+</h2>
+
+<p>
+SENRAI keeps a local record of your progress so you can see how you've been moving over time.
+</p>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+JOURNEY
+</div>
+
+<div class="section-description">
+RECENT ACTIVITY
+</div>
+
+</div>
+
+<div class="history-list" id="historyList"></div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<main id="profileView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+PROFILE
+</div>
+
+<div class="section-description">
+YOUR SYSTEM PROFILE
+</div>
+
+</div>
+
+<div class="profile-card">
+
+<div class="profile-top">
+
+<div class="profile-avatar">
+<span id="profileAvatar">S</span>
+</div>
+
+<div>
+
+<div class="profile-name" id="profileName">
+SYSTEM USER
+</div>
+
+<div class="profile-label">
+SENRAI PLAYER PROFILE
+</div>
+
+</div>
+
+</div>
+
+<div class="profile-grid">
+
+<div class="profile-stat">
+
+<div class="profile-stat-label">
+LEVEL
+</div>
+
+<div class="profile-stat-value" id="profileLevel">
+1
+</div>
+
+</div>
+
+<div class="profile-stat">
+
+<div class="profile-stat-label">
+TOTAL XP
+</div>
+
+<div class="profile-stat-value" id="profileTotalXP">
+0
+</div>
+
+</div>
+
+<div class="profile-stat">
+
+<div class="profile-stat-label">
+QUESTS COMPLETED
+</div>
+
+<div class="profile-stat-value" id="profileQuestCount">
+0
+</div>
+
+</div>
+
+<div class="profile-stat">
+
+<div class="profile-stat-label">
+BEST STREAK
+</div>
+
+<div class="profile-stat-value" id="profileStreak">
+0
+</div>
+
+</div>
+
+</div>
+
+<div class="profile-edit">
+
+<input
+id="profileNameInput"
+type="text"
+maxlength="30"
+placeholder="Enter your name">
+
+<button
+id="saveProfileButton"
+class="primary">
+SAVE NAME
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="objective">
+
+<div class="objective-tag">
+SENRAI PRINCIPLE
+</div>
+
+<h2>
+Your life determines your character.
+</h2>
+
+<p>
+There is no perfect build. SENRAI is here to help you notice your progress, not judge it.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<main id="settingsView" class="view">
+
+<section class="section">
+
+<div class="section-header">
+
+<div class="section-title">
+SETTINGS
+</div>
+
+<div class="section-description">
+SYSTEM CONFIGURATION
+</div>
+
+</div>
+
+<div class="settings-list">
+
+<div class="settings-card">
+
+<div class="settings-title">
+PERSONAL DAY
+</div>
+
+<div class="settings-description">
+Choose when your SENRAI day begins. This is useful if your schedule doesn't follow midnight-to-midnight days.
+</div>
+
+<div class="setting-row">
+
+<select
+id="dayStartSelect"
+class="setting-select">
+
+<option value="0">
+12:00 AM
+</option>
+
+<option value="3">
+3:00 AM
+</option>
+
+<option value="6">
+6:00 AM
+</option>
+
+<option value="9">
+9:00 AM
+</option>
+
+<option value="12">
+12:00 PM
+</option>
+
+<option value="15">
+3:00 PM
+</option>
+
+<option value="18">
+6:00 PM
+</option>
+
+<option value="21">
+9:00 PM
+</option>
+
+</select>
+
+</div>
+
+<div class="setting-note">
+Your daily quests, streak calculations, and daily progress can follow your personal schedule.
+</div>
+
+</div>
+
+<div class="settings-card">
+
+<div class="settings-title">
+SYSTEM PHILOSOPHY
+</div>
+
+<div class="settings-description">
+SENRAI guides you. It never punishes you. Skipping quests does not break your progress or create a failure state.
+</div>
+
+</div>
+
+<div class="settings-card">
+
+<div class="settings-title">
+LOCAL DATA
+</div>
+
+<div class="settings-description">
+Your current progress is stored in this browser using local storage.
+</div>
+
+<div class="setting-row">
+
+<button
+id="clearHistoryButton"
+class="danger-button">
+CLEAR HISTORY
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
 <footer>
 SENRAI • YOUR LIFE, YOUR PROGRESS
 </footer>
@@ -1762,7 +2572,7 @@ SENRAI • YOUR LIFE, YOUR PROGRESS
 </div>
 
 <!-- =========================
-     NAV
+     BOTTOM NAV
 ========================= -->
 
 <nav class="navbar">
@@ -1805,18 +2615,6 @@ STATS
 
 <button
 class="nav-button"
-data-view="achievements">
-
-<span class="nav-icon">
-🏆
-</span>
-
-ACHIEVEMENTS
-
-</button>
-
-<button
-class="nav-button"
 data-view="life">
 
 <span class="nav-icon">
@@ -1828,6 +2626,150 @@ LIFE
 </button>
 
 </nav>
+
+<!-- =========================
+     SYSTEM MENU
+========================= -->
+
+<div
+class="system-overlay"
+id="systemOverlay">
+
+<div
+class="system-menu"
+id="systemMenu">
+
+<div class="system-menu-header">
+
+<div class="system-menu-label">
+SENRAI SYSTEM
+</div>
+
+<div class="system-menu-title">
+SYSTEM MENU
+</div>
+
+<div class="system-menu-sub">
+Additional system functions and personal configuration.
+</div>
+
+</div>
+
+<div class="system-menu-items">
+
+<button
+class="system-menu-item"
+data-menu-view="achievements">
+
+<div class="menu-icon">
+🏆
+</div>
+
+<div class="menu-copy">
+
+<div class="menu-title">
+ACHIEVEMENTS
+</div>
+
+<div class="menu-description">
+Milestones you've unlocked.
+</div>
+
+</div>
+
+<div class="menu-arrow">
+›
+</div>
+
+</button>
+
+<button
+class="system-menu-item"
+data-menu-view="history">
+
+<div class="menu-icon">
+📜
+</div>
+
+<div class="menu-copy">
+
+<div class="menu-title">
+HISTORY
+</div>
+
+<div class="menu-description">
+Look back at your journey.
+</div>
+
+</div>
+
+<div class="menu-arrow">
+›
+</div>
+
+</button>
+
+<button
+class="system-menu-item"
+data-menu-view="profile">
+
+<div class="menu-icon">
+👤
+</div>
+
+<div class="menu-copy">
+
+<div class="menu-title">
+PROFILE
+</div>
+
+<div class="menu-description">
+Your character and identity.
+</div>
+
+</div>
+
+<div class="menu-arrow">
+›
+</div>
+
+</button>
+
+<button
+class="system-menu-item"
+data-menu-view="settings">
+
+<div class="menu-icon">
+⚙
+</div>
+
+<div class="menu-copy">
+
+<div class="menu-title">
+SETTINGS
+</div>
+
+<div class="menu-description">
+Configure your personal system.
+</div>
+
+</div>
+
+<div class="menu-arrow">
+›
+</div>
+
+</button>
+
+</div>
+
+<div class="system-menu-footer">
+THE SYSTEM THAT MOVES YOU FORWARD
+</div>
+
+</div>
+
+</div>
 
 <div
 class="notification"
@@ -1843,12 +2785,17 @@ id="notification">
 const STORAGE_KEY="theSystemData";
 const CUSTOM_QUESTS_KEY="senraiCustomQuests";
 const ACHIEVEMENTS_KEY="senraiAchievements";
+const HISTORY_KEY="senraiHistory";
+const PROFILE_KEY="senraiProfile";
+const SETTINGS_KEY="senraiSettings";
 
 /* =========================
    PLAYER DATA
 ========================= */
 
-let data=JSON.parse(localStorage.getItem(STORAGE_KEY))||{
+let data=JSON.parse(
+localStorage.getItem(STORAGE_KEY)
+)||{
 
 level:1,
 
@@ -1891,17 +2838,49 @@ data.lifeQuestCompletions=data.lifeQuestCompletions||0;
 data.socialCompletions=data.socialCompletions||0;
 data.totalQuestsCompleted=data.totalQuestsCompleted||0;
 
+data.stats=data.stats||{
+STR:0,
+INT:0,
+WIS:0,
+CHA:0,
+DEX:0,
+CRE:0,
+VIT:0
+};
+
 let customQuests=
-JSON.parse(localStorage.getItem(CUSTOM_QUESTS_KEY))||[];
+JSON.parse(
+localStorage.getItem(CUSTOM_QUESTS_KEY)
+)||[];
 
 let unlockedAchievements=
-JSON.parse(localStorage.getItem(ACHIEVEMENTS_KEY))||[];
+JSON.parse(
+localStorage.getItem(ACHIEVEMENTS_KEY)
+)||[];
+
+let history=
+JSON.parse(
+localStorage.getItem(HISTORY_KEY)
+)||[];
+
+let profile=
+JSON.parse(
+localStorage.getItem(PROFILE_KEY)
+)||{
+name:"SYSTEM USER"
+};
+
+let settings=
+JSON.parse(
+localStorage.getItem(SETTINGS_KEY)
+)||{
+dayStartHour:0
+};
 
 let currentLifeQuest=null;
-
 let currentReflectionQuest=null;
-
 let currentReflectionIndex=0;
+let notificationTimeout=null;
 
 /* =========================
    DAILY QUESTS
@@ -2074,28 +3053,95 @@ max:1
 ========================= */
 
 function save(){
-
 localStorage.setItem(
 STORAGE_KEY,
 JSON.stringify(data)
 );
-
 }
 
 function saveCustom(){
-
 localStorage.setItem(
 CUSTOM_QUESTS_KEY,
 JSON.stringify(customQuests)
 );
-
 }
 
 function saveAchievements(){
-
 localStorage.setItem(
 ACHIEVEMENTS_KEY,
 JSON.stringify(unlockedAchievements)
+);
+}
+
+function saveHistory(){
+localStorage.setItem(
+HISTORY_KEY,
+JSON.stringify(history.slice(0,500))
+);
+}
+
+function saveProfile(){
+localStorage.setItem(
+PROFILE_KEY,
+JSON.stringify(profile)
+);
+}
+
+function saveSettings(){
+localStorage.setItem(
+SETTINGS_KEY,
+JSON.stringify(settings)
+);
+}
+
+/* =========================
+   PERSONAL DAY
+========================= */
+
+function getPersonalDayKey(date=new Date()){
+
+const d=new Date(date);
+
+if(d.getHours()<Number(settings.dayStartHour||0)){
+d.setDate(d.getDate()-1);
+}
+
+return d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0");
+
+}
+
+function getPreviousPersonalDayKey(){
+
+const d=new Date();
+
+d.setDate(d.getDate()-1);
+
+return getPersonalDayKey(d);
+
+}
+
+function formatHistoryDate(key){
+
+const parts=key.split("-");
+
+if(parts.length!==3)return key;
+
+const d=new Date(
+Number(parts[0]),
+Number(parts[1])-1,
+Number(parts[2])
+);
+
+return d.toLocaleDateString(
+undefined,
+{
+weekday:"long",
+month:"long",
+day:"numeric",
+year:"numeric"
+}
 );
 
 }
@@ -2105,25 +3151,11 @@ JSON.stringify(unlockedAchievements)
 ========================= */
 
 function todayString(){
-
-const d=new Date();
-
-return d.getFullYear()+"-"+
-String(d.getMonth()+1).padStart(2,"0")+"-"+
-String(d.getDate()).padStart(2,"0");
-
+return getPersonalDayKey();
 }
 
 function yesterdayString(){
-
-const d=new Date();
-
-d.setDate(d.getDate()-1);
-
-return d.getFullYear()+"-"+
-String(d.getMonth()+1).padStart(2,"0")+"-"+
-String(d.getDate()).padStart(2,"0");
-
+return getPreviousPersonalDayKey();
 }
 
 function checkDailyReset(){
@@ -2133,11 +3165,8 @@ const t=todayString();
 if(data.lastResetDate!==t){
 
 data.completed=[];
-
 data.completedToday=0;
-
 data.todayXP=0;
-
 data.lastResetDate=t;
 
 save();
@@ -2147,16 +3176,194 @@ save();
 }
 
 /* =========================
+   HISTORY
+========================= */
+
+function addHistory(
+type,
+title,
+detail="",
+xp=0
+){
+
+history.unshift({
+
+id:
+Date.now().toString()+
+Math.random().toString(36).slice(2),
+
+type:type,
+
+title:title,
+
+detail:detail,
+
+xp:xp,
+
+date:todayString(),
+
+timestamp:new Date().toISOString()
+
+});
+
+history=history.slice(0,500);
+
+saveHistory();
+
+renderHistory();
+
+}
+
+function historyIcon(type){
+
+const icons={
+QUEST_COMPLETE:"✓",
+LIFE_QUEST:"✦",
+ACHIEVEMENT:"🏆",
+LEVEL_UP:"◆",
+STREAK_MILESTONE:"🔥",
+SYSTEM:"◈"
+};
+
+return icons[type]||"•";
+
+}
+
+function renderHistory(){
+
+const list=
+document.getElementById("historyList");
+
+if(!list)return;
+
+list.innerHTML="";
+
+const questCount=
+history.filter(
+x=>x.type==="QUEST_COMPLETE"||
+x.type==="LIFE_QUEST"
+).length;
+
+const xpEarned=
+history.reduce(
+(sum,x)=>sum+(Number(x.xp)||0),
+0
+);
+
+const activeDays=
+new Set(
+history
+.filter(x=>x.type!=="SYSTEM")
+.map(x=>x.date)
+).size;
+
+document.getElementById(
+"historyQuestCount"
+).textContent=
+questCount;
+
+document.getElementById(
+"historyXP"
+).textContent=
+xpEarned;
+
+document.getElementById(
+"historyActiveDays"
+).textContent=
+activeDays;
+
+if(!history.length){
+
+list.innerHTML=
+'<div class="empty-state">YOUR JOURNEY WILL APPEAR HERE AS YOU COMPLETE QUESTS.</div>';
+
+return;
+
+}
+
+const grouped={};
+
+history.forEach(entry=>{
+
+if(!grouped[entry.date]){
+grouped[entry.date]=[];
+}
+
+grouped[entry.date].push(entry);
+
+});
+
+Object.keys(grouped).forEach(date=>{
+
+const day=
+document.createElement("div");
+
+day.className="history-day";
+
+const header=
+document.createElement("div");
+
+header.className="history-day-header";
+
+header.textContent=
+formatHistoryDate(date);
+
+day.appendChild(header);
+
+grouped[date].forEach(entry=>{
+
+const row=
+document.createElement("div");
+
+row.className="history-entry";
+
+row.innerHTML=`
+
+<div class="history-icon">
+${historyIcon(entry.type)}
+</div>
+
+<div class="history-main">
+
+<div class="history-title">
+${escapeHTML(entry.title)}
+</div>
+
+<div class="history-detail">
+${escapeHTML(entry.detail||entry.type)}
+</div>
+
+</div>
+
+${
+entry.xp
+?`
+<div class="history-xp">
++${entry.xp} XP
+</div>
+`
+:""
+}
+
+`;
+
+day.appendChild(row);
+
+});
+
+list.appendChild(day);
+
+});
+
+}
+
+/* =========================
    XP
 ========================= */
 
 function xpNeededForLevel(level){
-
 return level*100;
-
 }
-
-let notificationTimeout;
 
 function showNotification(message){
 
@@ -2181,7 +3388,6 @@ function addXP(amount){
 const oldLevel=data.level;
 
 data.xp+=amount;
-
 data.totalXP+=amount;
 
 while(
@@ -2202,6 +3408,13 @@ showNotification(
 "SENRAI LEVEL UP • LEVEL "+data.level
 );
 
+addHistory(
+"LEVEL_UP",
+"Reached Level "+data.level,
+"SENRAI level increased.",
+0
+);
+
 }
 
 checkAchievements();
@@ -2220,12 +3433,37 @@ const today=todayString();
 
 if(data.lastActiveDate===today)return;
 
+const oldStreak=data.streak;
+
 data.streak=
 data.lastActiveDate===yesterdayString()
 ?data.streak+1
 :1;
 
 data.lastActiveDate=today;
+
+const milestones=[
+3,
+7,
+14,
+30,
+50,
+100
+];
+
+if(
+milestones.includes(data.streak) &&
+data.streak>oldStreak
+){
+
+addHistory(
+"STREAK_MILESTONE",
+data.streak+"-Day Streak",
+"You reached a new consistency milestone.",
+0
+);
+
+}
 
 }
 
@@ -2236,7 +3474,8 @@ data.lastActiveDate=today;
 function completeQuestRecord(
 stat,
 xp,
-isSocial=false
+isSocial=false,
+questName="Quest"
 ){
 
 data.stats[stat]++;
@@ -2253,6 +3492,13 @@ data.socialCompletions++;
 
 updateStreak();
 
+addHistory(
+"QUEST_COMPLETE",
+questName,
+"Completed "+stat+" quest.",
+xp
+);
+
 addXP(xp);
 
 }
@@ -2266,7 +3512,9 @@ function completeDaily(id){
 if(data.completed.includes(id))return;
 
 const q=
-dailyData.find(x=>x.id===id);
+dailyData.find(
+x=>x.id===id
+);
 
 if(!q)return;
 
@@ -2275,7 +3523,8 @@ data.completed.push(id);
 completeQuestRecord(
 q.stat,
 q.xp,
-q.stat==="CHA"
+q.stat==="CHA",
+q.name
 );
 
 save();
@@ -2299,11 +3548,8 @@ function getQuestXP(d){
 return{
 
 EASY:10,
-
 NORMAL:25,
-
 HARD:50,
-
 EXTREME:100
 
 }[d]||10;
@@ -2399,6 +3645,13 @@ if(q.stat==="CHA"){
 data.socialCompletions++;
 }
 
+addHistory(
+"QUEST_COMPLETE",
+q.name,
+"Completed custom "+q.type+" quest.",
+q.xp
+);
+
 addXP(q.xp);
 
 saveCustom();
@@ -2479,7 +3732,7 @@ el.innerHTML=`
 <div class="quest-info">
 
 <div class="quest-name">
-${q.name}
+${escapeHTML(q.name)}
 </div>
 
 <div class="quest-meta">
@@ -2557,7 +3810,10 @@ ${escapeHTML(q.name)}
 </div>
 
 <div class="custom-quest-meta">
-${q.type} • ${q.difficulty} • ${q.stat} • +${q.xp} XP
+${escapeHTML(q.type)} •
+${escapeHTML(q.difficulty)} •
+${escapeHTML(q.stat)} •
++${q.xp} XP
 </div>
 
 </div>
@@ -2613,7 +3869,8 @@ function escapeHTML(s){
 const d=
 document.createElement("div");
 
-d.textContent=s;
+d.textContent=
+String(s);
 
 return d.innerHTML;
 
@@ -2630,17 +3887,11 @@ const stats=data.stats;
 const labels={
 
 STR:"Strength",
-
 INT:"Intelligence",
-
 WIS:"Wisdom",
-
 CHA:"Charisma",
-
 DEX:"Dexterity",
-
 CRE:"Creativity",
-
 VIT:"Vitality"
 
 };
@@ -2660,17 +3911,17 @@ entries.reduce(
 
 const options=[];
 
-/* EARLY SYSTEM */
-
 if(data.totalQuestsCompleted<3){
 
 options.push({
 
 title:"THE SYSTEM IS JUST BEGINNING.",
 
-text:"You're still building your character profile. Every quest gives SENRAI more information about how you choose to move forward.",
+text:
+"You're still building your character profile. Every quest gives SENRAI more information about how you choose to move forward.",
 
-quest:"Complete one small task you've been avoiding.",
+quest:
+"Complete one small task you've been avoiding.",
 
 xp:25,
 
@@ -2679,8 +3930,6 @@ stat:"DEX"
 });
 
 }
-
-/* MOMENTUM */
 
 if(data.streak>=3){
 
@@ -2688,9 +3937,11 @@ options.push({
 
 title:"YOU'RE BUILDING MOMENTUM.",
 
-text:"Your recent activity is starting to form a pattern. Keep the next step small enough that you actually want to do it.",
+text:
+"Your recent activity is starting to form a pattern. Keep the next step small enough that you actually want to do it.",
 
-quest:"Finish one small task before you move on to something else.",
+quest:
+"Finish one small task before you move on to something else.",
 
 xp:25,
 
@@ -2699,8 +3950,6 @@ stat:"DEX"
 });
 
 }
-
-/* BALANCE */
 
 if(
 entries.length &&
@@ -2713,24 +3962,22 @@ title:"YOUR BUILD IS TAKING SHAPE.",
 
 text:
 "You've been developing "+
-labels[highest.stat]+
+labels[highest[0]]+
 " more than "+
-labels[lowest.stat]+
+labels[lowest[0]]+
 ". SENRAI isn't asking you to become balanced — just giving you another path to explore.",
 
 quest:
 "Spend 20 minutes doing something that develops "+
-labels[lowest.stat]+".",
+labels[lowest[0]]+".",
 
 xp:25,
 
-stat:lowest.stat
+stat:lowest[0]
 
 });
 
 }
-
-/* CREATIVITY */
 
 if(
 (stats.CRE||0)<=1 &&
@@ -2741,9 +3988,11 @@ options.push({
 
 title:"NOT EVERYTHING HAS TO BE PRODUCTIVE.",
 
-text:"Your Creativity hasn't moved much yet. Maybe make something simply because you enjoy making it.",
+text:
+"Your Creativity hasn't moved much yet. Maybe make something simply because you enjoy making it.",
 
-quest:"Spend 30 minutes on a hobby with no productivity goal.",
+quest:
+"Spend 30 minutes on a hobby with no productivity goal.",
 
 xp:25,
 
@@ -2752,8 +4001,6 @@ stat:"CRE"
 });
 
 }
-
-/* SOCIAL */
 
 if(
 (stats.CHA||0)<=1 &&
@@ -2764,9 +4011,11 @@ options.push({
 
 title:"YOUR WORLD COULD USE ANOTHER CONNECTION.",
 
-text:"You've been progressing mostly on your own. A small social action can still count as progress.",
+text:
+"You've been progressing mostly on your own. A small social action can still count as progress.",
 
-quest:"Reach out to someone you haven't talked to in a while.",
+quest:
+"Reach out to someone you haven't talked to in a while.",
 
 xp:25,
 
@@ -2775,8 +4024,6 @@ stat:"CHA"
 });
 
 }
-
-/* WISDOM */
 
 if(
 (stats.WIS||0)<=1 &&
@@ -2787,9 +4034,11 @@ options.push({
 
 title:"SLOW DOWN FOR A MOMENT.",
 
-text:"You've been taking action, but reflection is part of progress too. Give yourself a little space to think.",
+text:
+"You've been taking action, but reflection is part of progress too. Give yourself a little space to think.",
 
-quest:"Write down one thing you learned about yourself this week.",
+quest:
+"Write down one thing you learned about yourself this week.",
 
 xp:25,
 
@@ -2798,8 +4047,6 @@ stat:"WIS"
 });
 
 }
-
-/* HEALTH */
 
 if(
 (stats.VIT||0)<=1 &&
@@ -2810,9 +4057,11 @@ options.push({
 
 title:"YOUR BODY IS PART OF THE SYSTEM.",
 
-text:"Progress isn't only about getting more done. Recovery and basic health give everything else a stronger foundation.",
+text:
+"Progress isn't only about getting more done. Recovery and basic health give everything else a stronger foundation.",
 
-quest:"Take a 15-minute walk or spend 15 minutes outside.",
+quest:
+"Take a 15-minute walk or spend 15 minutes outside.",
 
 xp:25,
 
@@ -2822,17 +4071,17 @@ stat:"VIT"
 
 }
 
-/* YOU'VE DONE ENOUGH */
-
 if(data.completedToday>=4){
 
 options.push({
 
 title:"YOU'VE DONE ENOUGH FOR TODAY.",
 
-text:"You've already completed your daily quests. You don't need to turn every free moment into another task.",
+text:
+"You've already completed your daily quests. You don't need to turn every free moment into another task.",
 
-quest:"Do something you genuinely enjoy for 30 minutes with no goal attached.",
+quest:
+"Do something you genuinely enjoy for 30 minutes with no goal attached.",
 
 xp:25,
 
@@ -2842,17 +4091,17 @@ stat:"WIS"
 
 }
 
-/* DEFAULT */
-
 if(!options.length){
 
 options.push({
 
 title:"KEEP DISCOVERING YOUR BUILD.",
 
-text:"SENRAI is still learning how you move. Your choices will shape what the system notices next.",
+text:
+"SENRAI is still learning how you move. Your choices will shape what the system notices next.",
 
-quest:"Try something slightly outside your normal routine.",
+quest:
+"Try something slightly outside your normal routine.",
 
 xp:25,
 
@@ -3034,6 +4283,9 @@ function completeLife(){
 
 if(!currentLifeQuest)return;
 
+const completedQuest=
+currentLifeQuest;
+
 currentLifeQuest=null;
 
 data.stats.WIS++;
@@ -3041,6 +4293,13 @@ data.stats.WIS++;
 data.lifeQuestCompletions++;
 
 data.totalQuestsCompleted++;
+
+addHistory(
+"LIFE_QUEST",
+"Life Quest Complete",
+completedQuest,
+15
+);
 
 addXP(15);
 
@@ -3091,6 +4350,13 @@ data.socialCompletions++;
 
 data.totalQuestsCompleted++;
 
+addHistory(
+"QUEST_COMPLETE",
+"Call someone you haven't talked to recently",
+"Completed social side quest.",
+20
+);
+
 addXP(20);
 
 b.textContent=
@@ -3140,6 +4406,13 @@ data.level++;
 
 }
 
+addHistory(
+"ACHIEVEMENT",
+a.title,
+"Achievement unlocked.",
+a.reward
+);
+
 save();
 
 showNotification(
@@ -3168,6 +4441,8 @@ const c=
 document.getElementById(
 "achievementGrid"
 );
+
+if(!c)return;
 
 c.innerHTML="";
 
@@ -3278,17 +4553,11 @@ function renderStats(){
 const names={
 
 STR:"STR • FITNESS",
-
 INT:"INT • LEARNING",
-
 WIS:"WIS • PERSONAL GROWTH",
-
 CHA:"CHA • SOCIAL",
-
 DEX:"DEX • PRODUCTIVITY",
-
 CRE:"CRE • CREATIVITY",
-
 VIT:"VIT • HEALTH"
 
 };
@@ -3309,6 +4578,8 @@ const c=
 document.getElementById(
 "statsGrid"
 );
+
+if(!c)return;
 
 c.innerHTML="";
 
@@ -3349,6 +4620,104 @@ style="width:${Math.min(v,100)}%">
 c.appendChild(el);
 
 });
+
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+function renderProfile(){
+
+const name=
+profile.name||
+"SYSTEM USER";
+
+document.getElementById(
+"profileName"
+).textContent=
+name;
+
+document.getElementById(
+"profileAvatar"
+).textContent=
+name.charAt(0).toUpperCase();
+
+document.getElementById(
+"profileLevel"
+).textContent=
+data.level;
+
+document.getElementById(
+"profileTotalXP"
+).textContent=
+data.totalXP;
+
+document.getElementById(
+"profileQuestCount"
+).textContent=
+data.totalQuestsCompleted;
+
+document.getElementById(
+"profileStreak"
+).textContent=
+data.streak;
+
+const input=
+document.getElementById(
+"profileNameInput"
+);
+
+if(input&&document.activeElement!==input){
+input.value=
+profile.name==="SYSTEM USER"
+?""
+:profile.name;
+}
+
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+function renderSettings(){
+
+const select=
+document.getElementById(
+"dayStartSelect"
+);
+
+if(select){
+select.value=
+String(settings.dayStartHour||0);
+}
+
+}
+
+function changeDayStart(){
+
+const select=
+document.getElementById(
+"dayStartSelect"
+);
+
+if(!select)return;
+
+settings.dayStartHour=
+Number(select.value);
+
+saveSettings();
+
+checkDailyReset();
+
+renderDaily();
+
+updateUI();
+
+showNotification(
+"PERSONAL DAY UPDATED"
+);
 
 }
 
@@ -3414,10 +4783,11 @@ document.getElementById(
 (data.level+1);
 
 renderStats();
-
 renderAchievements();
-
 renderReflection(false);
+renderProfile();
+renderSettings();
+renderHistory();
 
 }
 
@@ -3434,31 +4804,87 @@ x=>x.classList.remove("active")
 );
 
 document
+.querySelectorAll(".system-menu-item")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+document
 .querySelectorAll(".view")
 .forEach(
 x=>x.classList.remove("active")
 );
 
-const button=
+const bottomButton=
 document.querySelector(
 `.nav-button[data-view="${view}"]`
 );
 
-if(button)
-button.classList.add("active");
+if(bottomButton){
+bottomButton.classList.add("active");
+}
+
+const menuButton=
+document.querySelector(
+`.system-menu-item[data-menu-view="${view}"]`
+);
+
+if(menuButton){
+menuButton.classList.add("active");
+}
 
 const target=
 document.getElementById(
 view+"View"
 );
 
-if(target)
+if(target){
 target.classList.add("active");
+}
+
+closeSystemMenu();
 
 window.scrollTo({
 top:0,
 behavior:"smooth"
 });
+
+}
+
+/* =========================
+   SYSTEM MENU
+========================= */
+
+function openSystemMenu(){
+
+document
+.getElementById("systemOverlay")
+.classList.add("open");
+
+}
+
+function closeSystemMenu(){
+
+document
+.getElementById("systemOverlay")
+.classList.remove("open");
+
+}
+
+function toggleSystemMenu(){
+
+const overlay=
+document.getElementById(
+"systemOverlay"
+);
+
+if(
+overlay.classList.contains("open")
+){
+closeSystemMenu();
+}else{
+openSystemMenu();
+}
 
 }
 
@@ -3480,6 +4906,45 @@ btn.dataset.view
 });
 
 document
+.querySelectorAll(".system-menu-item")
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>showView(
+btn.dataset.menuView
+)
+);
+
+});
+
+document
+.getElementById(
+"systemButton"
+)
+.addEventListener(
+"click",
+toggleSystemMenu
+);
+
+document
+.getElementById(
+"systemOverlay"
+)
+.addEventListener(
+"click",
+e=>{
+
+if(
+e.target.id==="systemOverlay"
+){
+closeSystemMenu();
+}
+
+}
+);
+
+document
 .getElementById(
 "createQuestButton"
 )
@@ -3496,8 +4961,9 @@ document
 "keydown",
 e=>{
 
-if(e.key==="Enter")
+if(e.key==="Enter"){
 createCustomQuest();
+}
 
 }
 );
@@ -3585,6 +5051,95 @@ renderReflection(true);
 }
 );
 
+document
+.getElementById(
+"saveProfileButton"
+)
+.addEventListener(
+"click",
+()=>{
+
+const input=
+document.getElementById(
+"profileNameInput"
+);
+
+const name=
+input.value.trim();
+
+if(!name){
+
+showNotification(
+"ENTER A NAME"
+);
+
+return;
+
+}
+
+profile.name=name;
+
+saveProfile();
+
+renderProfile();
+
+showNotification(
+"PROFILE UPDATED"
+);
+
+}
+);
+
+document
+.getElementById(
+"dayStartSelect"
+)
+.addEventListener(
+"change",
+changeDayStart
+);
+
+document
+.getElementById(
+"clearHistoryButton"
+)
+.addEventListener(
+"click",
+()=>{
+
+const confirmed=
+confirm(
+"Clear your SENRAI history? Your quests and XP will NOT be deleted."
+);
+
+if(!confirmed)return;
+
+history=[];
+
+saveHistory();
+
+renderHistory();
+
+showNotification(
+"HISTORY CLEARED"
+);
+
+}
+);
+
+/* ESCAPE CLOSE */
+
+document.addEventListener(
+"keydown",
+e=>{
+
+if(e.key==="Escape"){
+closeSystemMenu();
+}
+
+}
+);
+
 /* =========================
    INITIALIZE
 ========================= */
@@ -3668,9 +5223,11 @@ if(progress>=100){
 
 setTimeout(
 ()=>{
+
 document
 .getElementById("splash")
-.classList.add("hidden")
+.classList.add("hidden");
+
 },
 500
 );
@@ -3678,6 +5235,19 @@ document
 }
 
 },180);
+
+/* SAFETY FALLBACK */
+
+setTimeout(
+()=>{
+
+document
+.getElementById("splash")
+.classList.add("hidden");
+
+},
+7000
+);
 
 </script>
 
