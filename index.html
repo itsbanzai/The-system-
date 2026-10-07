@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#050609">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SENRAI">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" type="image/png" href="senrai-logo.png">
+<link rel="apple-touch-icon" sizes="180x180" href="senrai-logo.png">
 <title>SENRAI — The System That Moves You Forward</title>
 
 <style>
@@ -13,8 +19,7 @@ body{
   background:#050609;
   color:#f1f3f7;
   font-family:Inter,Arial,Helvetica,sans-serif;
-  min-height:100vh;
-  padding-bottom:90px;
+  min-height:100vh
 }
 button,input,select,textarea{font:inherit}
 button{
@@ -26,11 +31,16 @@ button{
   font-size:9px;
   letter-spacing:1.5px;
   cursor:pointer;
-  transition:.2s;
+  transition:.2s
 }
 button:hover{background:#191d25;border-color:#596476}
 button:disabled{opacity:.35;cursor:not-allowed}
-.primary{background:#edf2f8;color:#050609;border-color:#edf2f8;font-weight:800}
+.primary{
+  background:#edf2f8;
+  color:#050609;
+  border-color:#edf2f8;
+  font-weight:800
+}
 .danger{border-color:#4a2830;color:#ff8795}
 .ghost{background:transparent}
 .small{padding:8px 10px;font-size:8px}
@@ -50,10 +60,9 @@ button:disabled{opacity:.35;cursor:not-allowed}
   --orange:#ffae57;
   --red:#ff667a;
   --cyan:#69e2dc;
-  --gold:#f2d36b;
+  --gold:#f2d36b
 }
 
-/* SPLASH */
 #splash{
   position:fixed;
   inset:0;
@@ -63,7 +72,7 @@ button:disabled{opacity:.35;cursor:not-allowed}
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  transition:opacity .8s,visibility .8s;
+  transition:opacity .8s,visibility .8s
 }
 #splash.hidden{opacity:0;visibility:hidden}
 .smoke,.smoke:before,.smoke:after{
@@ -74,749 +83,1052 @@ button:disabled{opacity:.35;cursor:not-allowed}
   border-radius:50%;
   background:radial-gradient(circle,rgba(120,130,145,.12),transparent 65%);
   filter:blur(30px);
-  animation:drift 14s infinite alternate ease-in-out;
+  animation:drift 14s infinite alternate ease-in-out
 }
 .smoke{left:-20vw;top:20vh}
 .smoke:before{left:45vw;top:-20vh;animation-duration:18s}
 .smoke:after{left:20vw;top:40vh;animation-duration:22s}
+
 @keyframes drift{
   from{transform:translate3d(-5%,0,0) scale(.9)}
   to{transform:translate3d(8%,-6%,0) scale(1.15)}
 }
+
 .splash-content{
   width:min(430px,86%);
   text-align:center;
   position:relative;
-  z-index:2;
+  z-index:2
 }
 .splash-logo{
   width:min(270px,70vw);
   max-height:170px;
   object-fit:contain;
   filter:drop-shadow(0 0 25px rgba(230,240,255,.1));
-  margin-bottom:30px;
+  margin-bottom:30px
 }
 .splash-subtitle{
   color:#737c89;
   font-size:9px;
-  letter-spacing:3px;
+  letter-spacing:3px
 }
 .loading-container{margin-top:48px}
 .loading-bar{
   height:2px;
   background:#171b23;
   overflow:hidden;
-  border-radius:99px;
+  border-radius:99px
 }
 .loading-fill{
   height:100%;
   width:0;
   background:#e8edf5;
-  transition:width .3s;
+  transition:width .2s
 }
 .loading-text{
-  margin-top:10px;
+  margin-top:12px;
   display:flex;
   justify-content:space-between;
-  color:#4d5562;
-  font-size:7px;
-  letter-spacing:2px;
+  color:#626a78;
+  font-size:8px;
+  letter-spacing:2px
 }
 
-/* APP */
 #app{
-  max-width:1100px;
+  width:min(1100px,100%);
   margin:auto;
-  padding:16px 18px 60px;
+  padding:20px 16px 100px
 }
+
 header{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.brand-mark{
-  width:32px;
-  height:32px;
-  border:1px solid #333b49;
-  border-radius:9px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#0b0e13;
-  box-shadow:0 0 20px rgba(255,255,255,.03);
-}
-.brand-mark span{
-  font-size:13px;
-  font-weight:900;
-}
-.brand-name{
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:4px;
-}
-.system-button{
-  font-size:8px;
-  padding:9px 12px;
-}
-.menu-wrap{position:relative}
-.menu-panel{
-  position:absolute;
-  right:0;
-  top:45px;
-  width:190px;
-  background:#0b0e13;
-  border:1px solid #252c38;
-  border-radius:15px;
-  padding:8px;
-  z-index:100;
-  box-shadow:0 20px 50px rgba(0,0,0,.55);
-}
-.menu-panel button{
-  width:100%;
-  text-align:left;
-  background:transparent;
-  border:0;
-  border-radius:8px;
-}
-.menu-section{
-  color:#555e6d;
-  font-size:7px;
-  letter-spacing:2px;
-  padding:8px 10px;
+  padding:8px 4px 20px;
+  border-bottom:1px solid var(--line)
 }
 
-/* VIEWS */
+.brand{display:flex;align-items:center}
+.brand-name{
+  font-size:19px;
+  font-weight:950;
+  letter-spacing:5.5px;
+  color:#f1f3f7;
+  text-shadow:0 0 22px rgba(230,238,255,.08)
+}
+
+.system-status{
+  font-size:8px;
+  color:var(--green);
+  letter-spacing:2px
+}
+.status-dot{
+  display:inline-block;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  margin-right:6px;
+  box-shadow:0 0 8px var(--green)
+}
+
 .view{display:none}
 .view.active{display:block}
+.section{margin-top:25px}
 
-/* HERO */
-.hero{
-  border:1px solid #252c38;
-  background:
-    radial-gradient(circle at 80% 0%,rgba(101,169,255,.06),transparent 35%),
-    radial-gradient(circle at 10% 100%,rgba(168,124,255,.04),transparent 35%),
-    rgba(10,13,18,.8);
-  border-radius:20px;
-  padding:24px;
-  margin-bottom:15px;
-  box-shadow:0 20px 70px rgba(0,0,0,.25);
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:10px;
+  margin-bottom:11px
 }
+
+.section-title{
+  font-size:11px;
+  letter-spacing:3px;
+  font-weight:900
+}
+
+.section-description,
+.summary-label,
+.form-label{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:1.8px
+}
+
+.hero,
+.panel,
+.summary-card,
+.quest,
+.stat,
+.achievement,
+.life-quest,
+.objective,
+.week-card,
+.title-card,
+.history-item,
+.menu-panel,
+.path-card,
+.profile-card,
+.setting-card{
+  border:1px solid var(--line);
+  background:var(--panel);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  box-shadow:0 12px 35px rgba(0,0,0,.12)
+}
+
+.hero{
+  margin-top:20px;
+  padding:24px;
+  background:
+    radial-gradient(circle at 90% 0,rgba(101,169,255,.08),transparent 35%),
+    linear-gradient(135deg,rgba(255,255,255,.025),transparent),
+    var(--panel)
+}
+
 .hero-top{
   display:flex;
   justify-content:space-between;
-  gap:20px;
+  gap:20px
 }
-.hero-label,.summary-label,.section-label{
-  color:#68717f;
-  font-size:7px;
-  letter-spacing:2px;
-  font-weight:800;
+
+.hero-label{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:2px
 }
+
 .level{
-  font-size:42px;
+  font-size:39px;
   font-weight:900;
-  letter-spacing:-2px;
-  margin-top:4px;
+  line-height:1;
+  margin-top:5px
 }
-.level span:last-child{
-  font-size:10px;
-  color:#596272;
-  letter-spacing:2px;
+
+.level span{
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:2px
 }
+
 .hero-xp{text-align:right}
 .hero-xp-number{
-  font-size:18px;
-  font-weight:800;
+  font-size:21px;
+  font-weight:900
 }
 .hero-xp-label{
-  color:#555e6d;
-  font-size:7px;
-  letter-spacing:1.5px;
-  margin-top:4px;
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:2px;
+  margin-top:3px
 }
-.xp-track{
-  height:5px;
-  background:#171b23;
+
+.xp-track,
+.stat-track,
+.week-track,
+.objective-track{
+  height:6px;
+  background:#181c24;
   border-radius:99px;
-  margin-top:22px;
-  overflow:hidden;
+  overflow:hidden
 }
-.xp-fill{
+
+.xp-track{margin-top:22px}
+
+.xp-fill,
+.stat-fill,
+.week-fill,
+.objective-fill{
   height:100%;
-  width:0;
-  background:linear-gradient(90deg,#65a9ff,#a87cff);
+  background:linear-gradient(90deg,#697589,#edf2f8);
   border-radius:99px;
-  transition:.5s;
+  transition:width .4s
 }
+
 .xp-footer{
   display:flex;
   justify-content:space-between;
+  color:var(--muted);
+  font-size:8px;
   margin-top:8px;
-  color:#596272;
-  font-size:7px;
-  letter-spacing:1px;
+  letter-spacing:1px
 }
 
-/* SUMMARY */
 .summary-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  margin-bottom:15px;
+  margin-top:10px
 }
-.summary-card{
-  border:1px solid #202632;
-  background:rgba(12,15,21,.75);
-  border-radius:15px;
-  padding:15px;
-}
-.summary-value{
-  font-size:24px;
-  font-weight:900;
-  margin-top:5px;
-}
-.summary-sub{
-  color:#555e6d;
-  font-size:7px;
-  letter-spacing:1px;
-  margin-top:2px;
-}
-.streak-value{color:#ffae57}
 
-/* SECTIONS */
-.section{
-  margin-top:28px;
+.summary-card{padding:15px}
+
+.summary-value{
+  font-size:22px;
+  font-weight:900;
+  margin-top:7px
 }
-.section-head{
+
+.summary-sub{
+  color:#59616f;
+  font-size:8px;
+  margin-top:4px
+}
+
+.streak-value{color:var(--orange)}
+
+.objective{
+  padding:18px;
+  border-left:2px solid var(--blue)
+}
+
+.objective-tag,
+.reflection-label,
+.life-label,
+.quest-tag,
+.path-tag{
+  color:var(--blue);
+  font-size:8px;
+  letter-spacing:2px
+}
+
+.objective h2{
+  font-size:18px;
+  margin:7px 0
+}
+
+.objective p,
+.reflection-text,
+.quest-desc,
+.life-text,
+.milestone-desc,
+.history-text{
+  color:#aeb5c1;
+  font-size:10px;
+  line-height:1.55
+}
+
+.objective-track{margin-top:13px}
+
+.objective-meta{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-.section-title{
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-.section-sub{
-  color:#596272;
+  color:var(--muted);
   font-size:8px;
+  margin-top:6px
 }
 
-/* QUESTS */
-.quest-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.quest{
-  border:1px solid #202632;
-  background:rgba(12,15,21,.72);
-  border-radius:15px;
-  padding:15px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  transition:.2s;
-}
-.quest:hover{
-  border-color:#394251;
-  transform:translateY(-1px);
-}
-.quest.done{opacity:.45}
-.quest-check{
-  width:32px;
-  height:32px;
-  min-width:32px;
-  border-radius:50%;
-  border:1px solid #394251;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#667080;
-  font-size:12px;
-}
-.quest.done .quest-check{
-  background:#5df2a5;
-  border-color:#5df2a5;
-  color:#050609;
-}
-.quest-main{flex:1}
-.quest-name{
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
-.quest-desc{
-  color:#697381;
-  font-size:8px;
-  margin-top:4px;
-  line-height:1.4;
-}
-.quest-meta{
-  text-align:right;
-  min-width:55px;
-}
-.quest-xp{
-  color:#69e2dc;
-  font-size:9px;
-  font-weight:800;
-}
-.quest-stat{
-  color:#4e5867;
-  font-size:7px;
-  margin-top:3px;
-}
-
-/* GRID */
-.grid-2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-/* SYSTEM PANEL */
-.system-panel{
-  border:1px solid #242c38;
-  background:linear-gradient(145deg,rgba(15,19,27,.9),rgba(8,10,14,.85));
-  border-radius:18px;
-  padding:18px;
+.reflection-card{
+  border:1px solid #29303b;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 90% 0,rgba(101,169,255,.1),transparent 38%),
+    linear-gradient(135deg,rgba(255,255,255,.025),transparent),
+    var(--panel);
+  padding:20px;
   position:relative;
-  overflow:hidden;
+  overflow:hidden
 }
-.system-panel:before{
+
+.reflection-card:before{
   content:"";
   position:absolute;
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  right:-80px;
-  top:-80px;
-  background:rgba(101,169,255,.05);
-  filter:blur(10px);
+  left:0;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(180deg,var(--blue),var(--purple))
 }
-.panel-kicker{
-  color:#667080;
-  font-size:7px;
-  letter-spacing:2px;
-}
-.panel-title{
-  font-size:16px;
+
+.reflection-title{
+  font-size:17px;
   font-weight:900;
-  margin-top:7px;
-}
-.panel-text{
-  color:#737d8b;
-  font-size:9px;
-  line-height:1.6;
-  margin-top:8px;
+  line-height:1.35;
+  margin:8px 0
 }
 
-/* MOMENTUM */
-.momentum-bar{
-  height:7px;
-  background:#171b23;
-  border-radius:99px;
-  overflow:hidden;
-  margin-top:12px;
+.reflection-divider{
+  height:1px;
+  background:#1d232d;
+  margin:16px 0
 }
-.momentum-fill{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#5df2a5,#69e2dc,#65a9ff);
-  transition:.5s;
+
+.reflection-suggestion-label{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:2px
 }
-.momentum-meta{
+
+.reflection-suggestion{
+  font-size:13px;
+  font-weight:800;
+  margin-top:6px
+}
+
+.reflection-reward{
+  color:var(--green);
+  font-size:8px;
+  letter-spacing:1px;
+  margin-top:5px
+}
+
+.reflection-actions{
   display:flex;
-  justify-content:space-between;
-  color:#596272;
-  font-size:7px;
-  margin-top:7px;
+  gap:8px;
+  margin-top:14px
 }
 
-/* LIFE */
-.life-card{
-  min-height:180px;
+.reflection-actions button{flex:1}
+
+.quest-list{
+  display:grid;
+  gap:8px
+}
+
+.quest{
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px
+}
+
+.quest-main{min-width:0}
+
+.quest-title{
+  font-size:11px;
+  font-weight:800
+}
+
+.quest-desc{
+  font-size:9px;
+  margin-top:4px
+}
+
+.quest-meta{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:7px
+}
+
+.pill{
+  border:1px solid #2b313c;
+  color:var(--muted);
+  border-radius:99px;
+  padding:4px 7px;
+  font-size:7px;
+  letter-spacing:1px
+}
+
+.pill.xp{color:var(--green)}
+.pill.main{color:var(--blue)}
+
+.quest.complete{opacity:.45}
+.quest.complete .quest-title{text-decoration:line-through}
+
+.custom-quest-actions{
+  display:flex;
+  gap:6px
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px
+}
+
+.form-group.full{grid-column:1/-1}
+
+.form-group{
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
+  gap:6px
 }
-.life-category{
-  color:#69e2dc;
-  font-size:7px;
-  letter-spacing:2px;
+
+.form-label{display:block}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #2a303b;
+  background:#0a0d12;
+  color:var(--text);
+  border-radius:12px;
+  padding:11px 12px;
+  font-size:10px;
+  outline:none
 }
-.life-text{
-  font-size:18px;
-  line-height:1.35;
-  font-weight:800;
-  margin:18px 0;
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#66758a
 }
+
+.create-quest{padding:16px}
+
+.create-button{
+  width:100%;
+  margin-top:12px
+}
+
 .button-row{
   display:flex;
   gap:8px;
-  flex-wrap:wrap;
+  margin-top:14px
 }
-.button-row button{flex:1}
 
-/* PATH */
-.path-card{
-  border:1px solid #282f3a;
+.button-row>*{flex:1}
+
+.side-card{
+  border:1px solid var(--line);
+  background:var(--panel);
   border-radius:18px;
-  padding:20px;
-  background:
-    radial-gradient(circle at 100% 0%,rgba(168,124,255,.08),transparent 40%),
-    rgba(11,14,19,.85);
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px
 }
-.path-name{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:2px;
+
+.side-left{
+  display:flex;
+  align-items:center;
+  gap:12px
 }
-.path-desc{
-  color:#747e8d;
+
+.side-icon{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  background:#171b23;
+  display:grid;
+  place-items:center
+}
+
+.side-name{
+  font-size:10px;
+  font-weight:800
+}
+
+.side-meta{
+  font-size:8px;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px
+}
+
+.stat{padding:16px}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.stat-name{
+  font-size:11px;
+  font-weight:900
+}
+
+.stat-value{
+  font-size:17px;
+  font-weight:900
+}
+
+.stat-note{
+  font-size:8px;
+  color:var(--muted);
+  margin:4px 0 10px
+}
+
+.stat-track{height:5px}
+
+.stat-fill.str{background:var(--red)}
+.stat-fill.int{background:var(--blue)}
+.stat-fill.wis{background:var(--purple)}
+.stat-fill.cha{background:var(--orange)}
+.stat-fill.dex{background:var(--cyan)}
+.stat-fill.cre{background:#e98bff}
+.stat-fill.vit{background:var(--green)}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
+}
+
+.week-card,
+.title-card,
+.profile-card,
+.setting-card{
+  padding:17px
+}
+
+.week-top,
+.title-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px
+}
+
+.week-title,
+.title-name{
+  font-size:12px;
+  font-weight:900
+}
+
+.week-xp,
+.title-reward{
+  color:var(--green);
+  font-size:8px;
+  letter-spacing:1px
+}
+
+.week-desc{
+  color:var(--muted);
   font-size:9px;
-  line-height:1.6;
-  margin-top:8px;
+  line-height:1.5;
+  margin:7px 0 12px
 }
-.path-progress{
-  height:4px;
-  background:#191e27;
+
+.week-track{height:5px}
+
+.week-meta{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:8px;
+  margin-top:6px
+}
+
+.menu-wrap{position:relative}
+
+.system-button{
   border-radius:99px;
-  margin-top:18px;
-  overflow:hidden;
+  padding:9px 12px
 }
-.path-progress div{
-  height:100%;
-  background:#a87cff;
+
+.menu-panel{
+  position:absolute;
+  right:0;
+  top:45px;
+  width:220px;
+  padding:8px;
+  z-index:200;
+  box-shadow:0 20px 50px rgba(0,0,0,.5)
 }
+
+.menu-panel button{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent
+}
+
+.menu-panel button:hover{background:#171b23}
+
+.menu-section{
+  color:var(--muted);
+  font-size:7px;
+  letter-spacing:2px;
+  padding:9px 10px 5px
+}
+
+.path-card{padding:18px}
+
 .path-tags{
   display:flex;
   flex-wrap:wrap;
   gap:6px;
-  margin-top:12px;
-}
-.path-tag{
-  border:1px solid #2b3340;
-  color:#7f8997;
-  border-radius:99px;
-  padding:6px 9px;
-  font-size:7px;
-  letter-spacing:1px;
+  margin-top:12px
 }
 
-/* STATS */
-.stat-list{
+.path-header{
   display:flex;
-  flex-direction:column;
-  gap:9px;
+  justify-content:space-between;
+  gap:10px
 }
-.stat-row{
+
+.path-title{
+  font-size:19px;
+  font-weight:900;
+  margin-top:6px
+}
+
+.path-reason{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5;
+  margin-top:5px
+}
+
+.milestone{
+  margin-top:16px;
+  border-top:1px solid var(--line);
+  padding-top:14px
+}
+
+.milestone-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px
+}
+
+.milestone-name{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px
+}
+
+.milestone-status{
+  font-size:7px;
+  letter-spacing:1px;
+  color:var(--muted)
+}
+
+.milestone-status.done{color:var(--green)}
+
+.path-quest{
+  margin-top:9px;
+  border:1px solid #262d38;
+  border-radius:14px;
+  padding:11px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px
+}
+
+.path-quest.done{opacity:.45}
+
+.path-quest-title{
+  font-size:10px;
+  font-weight:800
+}
+
+.path-quest-meta{
+  font-size:7px;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px
+}
+
+.achievement{
+  padding:16px;
+  position:relative
+}
+
+.achievement.locked{opacity:.45}
+
+.achievement-icon{font-size:22px}
+
+.achievement-title{
+  font-size:11px;
+  font-weight:900;
+  margin-top:8px
+}
+
+.achievement-desc{
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.45;
+  margin-top:5px
+}
+
+.achievement-reward{
+  color:var(--green);
+  font-size:8px;
+  margin-top:9px
+}
+
+.achievement-status{
+  position:absolute;
+  right:12px;
+  top:12px;
+  color:var(--muted);
+  font-size:7px;
+  letter-spacing:1px
+}
+
+.achievement.unlocked .achievement-status{color:var(--green)}
+
+.achievement-progress{
+  height:3px;
+  background:#1a1e26;
+  margin-top:10px;
+  border-radius:99px;
+  overflow:hidden
+}
+
+.achievement-progress div{
+  height:100%;
+  background:var(--purple)
+}
+
+.history-list{
+  display:grid;
+  gap:8px
+}
+
+.history-item{
+  padding:13px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px
+}
+
+.history-title{
+  font-size:10px;
+  font-weight:800
+}
+
+.history-time{
+  color:var(--muted);
+  font-size:7px
+}
+
+.history-xp{
+  color:var(--green);
+  font-size:9px;
+  font-weight:800;
+  white-space:nowrap
+}
+
+.profile-card{text-align:center}
+
+.profile-avatar{
+  width:66px;
+  height:66px;
+  border:1px solid #4a5361;
+  border-radius:50%;
+  margin:0 auto 12px;
+  display:grid;
+  place-items:center;
+  font-size:23px;
+  font-weight:900;
+  background:#11151c
+}
+
+.profile-name{
+  font-size:18px;
+  font-weight:900
+}
+
+.profile-sub{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:2px;
+  margin-top:5px
+}
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:16px
+}
+
+.profile-stat{
+  background:#0a0d12;
   border:1px solid #202632;
-  border-radius:13px;
-  padding:12px;
-  background:#0c0f15;
+  border-radius:12px;
+  padding:10px
 }
-.stat-top{
+
+.profile-stat strong{
+  display:block;
+  font-size:15px
+}
+
+.profile-stat span{
+  font-size:7px;
+  color:var(--muted);
+  letter-spacing:1px
+}
+
+.setting-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-}
-.stat-name{
-  font-size:9px;
-  font-weight:900;
-}
-.stat-level{
-  color:#69e2dc;
-  font-size:8px;
-}
-.stat-note{
-  color:#596272;
-  font-size:7px;
-  margin-top:4px;
-}
-.stat-bar{
-  height:4px;
-  background:#191e27;
-  border-radius:99px;
-  margin-top:9px;
-  overflow:hidden;
-}
-.stat-fill{
-  height:100%;
-  background:#65a9ff;
-}
-
-/* FORMS */
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
   gap:10px;
+  padding:13px 0;
+  border-bottom:1px solid var(--line)
 }
-.form-group{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+
+.setting-row:last-child{border-bottom:0}
+
+.setting-name{
+  font-size:10px;
+  font-weight:800
 }
-.form-group.full{grid-column:1/-1}
-.form-label{
-  color:#657080;
+
+.setting-desc{
+  font-size:8px;
+  color:var(--muted);
+  margin-top:3px
+}
+
+/* RAISED LIFE NAV */
+.navbar{
+  position:fixed;
+  left:50%;
+  bottom:11px;
+  transform:translateX(-50%);
+  width:min(700px,calc(100% - 18px));
+  z-index:500;
+  background:rgba(10,12,17,.94);
+  border:1px solid #242a34;
+  border-radius:22px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  padding:5px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 15px 40px rgba(0,0,0,.4)
+}
+
+.nav-button{
+  border:0;
+  background:transparent;
+  color:#687180;
+  padding:10px 4px;
+  border-radius:16px;
   font-size:7px;
-  letter-spacing:1.5px;
+  letter-spacing:1px;
+  position:relative;
+  min-height:58px
 }
-input,textarea,select{
-  width:100%;
-  border:1px solid #282f3a;
-  background:#0b0e13;
+
+.nav-button.active{
   color:#f1f3f7;
-  border-radius:11px;
-  padding:12px;
-  outline:none;
-  font-size:9px;
-}
-textarea{min-height:100px;resize:vertical}
-input:focus,textarea:focus,select:focus{
-  border-color:#596577;
+  background:#171b23
 }
 
-/* TILES */
-.tile{
-  border:1px solid #202632;
-  background:#0c0f15;
-  border-radius:15px;
-  padding:15px;
-}
-.tile-title{
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-.tile-text{
-  color:#646f7d;
-  font-size:8px;
-  line-height:1.5;
-  margin-top:6px;
+.nav-icon{
+  display:block;
+  font-size:15px;
+  margin-bottom:4px
 }
 
-/* MOMENTS */
-.moment{
-  border-left:2px solid #394251;
-  padding:3px 0 3px 14px;
-  margin-bottom:17px;
-}
-.moment-date{
-  color:#596272;
-  font-size:7px;
-  letter-spacing:1.5px;
-}
-.moment-title{
-  font-size:11px;
-  font-weight:900;
-  margin-top:5px;
-}
-.moment-text{
-  color:#77818f;
-  font-size:9px;
-  line-height:1.55;
-  margin-top:5px;
+.nav-button.life-nav{
+  background:transparent!important;
+  overflow:visible;
+  padding-top:4px
 }
 
-/* ACHIEVEMENTS */
-.achievement{
-  border:1px solid #252c38;
-  background:#0c0f15;
-  border-radius:14px;
-  padding:14px;
-}
-.achievement.locked{opacity:.35}
-.achievement-icon{
-  font-size:18px;
-  margin-bottom:9px;
-}
-.achievement-name{
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-.achievement-desc{
-  color:#616c7b;
-  font-size:7px;
-  line-height:1.5;
-  margin-top:5px;
+.nav-button.life-nav .nav-icon{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  margin:-24px auto 6px;
+  background:radial-gradient(circle at 35% 30%,#202733,#0c0f15 72%);
+  border:1px solid #4b5565;
+  color:#e9eef6;
+  font-size:20px;
+  box-shadow:
+    0 0 0 5px rgba(10,12,17,.94),
+    0 8px 28px rgba(0,0,0,.45),
+    0 0 25px rgba(105,226,220,.08);
+  transition:.2s
 }
 
-/* EVENTS */
-.event-modal{
-  text-align:center;
-  padding:12px 3px 5px;
-}
-.event-symbol{
-  font-size:34px;
+.nav-button.life-nav.active .nav-icon{
+  border-color:#69e2dc;
   color:#69e2dc;
-  margin-bottom:14px;
-  text-shadow:0 0 25px rgba(105,226,220,.25);
-}
-.event-type{
-  color:#667080;
-  font-size:7px;
-  letter-spacing:3px;
-}
-.event-title{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:1px;
-  margin-top:7px;
-}
-.event-text{
-  color:#7b8592;
-  font-size:9px;
-  line-height:1.65;
-  margin:13px auto;
-  max-width:430px;
-}
-.event-reward{
-  color:#69e2dc;
-  font-size:8px;
-  letter-spacing:1.5px;
-  min-height:15px;
-}
-.event-button{
-  margin-top:18px;
-  min-width:150px;
+  box-shadow:
+    0 0 0 5px rgba(10,12,17,.94),
+    0 8px 30px rgba(0,0,0,.5),
+    0 0 30px rgba(105,226,220,.16)
 }
 
-/* MODAL */
+.nav-button.life-nav:hover .nav-icon{
+  transform:translateY(-1px);
+  border-color:#697589
+}
+
+.nav-button.life-nav{color:#687180}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:88px;
+  transform:translate(-50%,120px);
+  background:#eef2f7;
+  color:#050609;
+  padding:12px 18px;
+  border-radius:99px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  z-index:10000;
+  opacity:0;
+  transition:.3s;
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
+  white-space:nowrap
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+  opacity:1
+}
+
 .modal-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.72);
-  z-index:500;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  backdrop-filter:blur(8px);
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(7px);
+  z-index:900;
+  display:grid;
+  place-items:center;
+  padding:18px
 }
+
 .modal{
-  width:min(600px,100%);
+  width:min(650px,100%);
   max-height:90vh;
   overflow:auto;
-  background:#090c11;
-  border:1px solid #2b3340;
-  border-radius:20px;
+  background:#0b0e14;
+  border:1px solid #2b313c;
+  border-radius:24px;
   padding:20px;
-  box-shadow:0 25px 90px rgba(0,0,0,.6);
+  box-shadow:0 25px 80px rgba(0,0,0,.55)
 }
+
 .modal-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:15px;
+  margin-bottom:15px
 }
+
 .modal-title{
-  font-size:12px;
+  font-size:13px;
   font-weight:900;
-  letter-spacing:2px;
+  letter-spacing:2px
 }
+
 .close{
   border-radius:50%;
   width:34px;
   height:34px;
-  padding:0;
+  padding:0
 }
+
 .modal-body{
   color:#aeb5c1;
   font-size:10px;
-  line-height:1.6;
+  line-height:1.6
 }
 
-/* TOAST */
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:90px;
-  transform:translate(-50%,20px);
-  background:#edf2f8;
-  color:#050609;
-  border-radius:99px;
-  padding:10px 16px;
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:1px;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  z-index:1000;
-}
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* NAV */
-.navbar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:200;
-  height:72px;
-  background:rgba(5,6,9,.94);
-  border-top:1px solid #202632;
-  display:flex;
-  justify-content:center;
-  gap:5px;
-  backdrop-filter:blur(15px);
-}
-.nav-button{
-  width:min(150px,24vw);
-  border:0;
-  background:transparent;
-  border-radius:0;
-  color:#596272;
-  font-size:7px;
-  letter-spacing:1.5px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-}
-.nav-button.active{color:#f1f3f7}
-.nav-icon{font-size:15px}
-
-/* FOOTER */
 footer{
   text-align:center;
   color:#343a45;
   font-size:7px;
   letter-spacing:3px;
-  margin-top:40px;
+  margin-top:40px
 }
 
-/* MOBILE */
 @media(max-width:700px){
+  .brand-name{
+    font-size:17px;
+    letter-spacing:4.5px
+  }
+
   #app{padding:16px 11px 100px}
-  .summary-grid{grid-template-columns:repeat(2,1fr)}
-  .grid-2,.grid-3{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
+
+  .summary-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .stats-grid,
+  .achievement-grid,
+  .grid-2{
+    grid-template-columns:1fr
+  }
+
+  .form-grid{
+    grid-template-columns:1fr
+  }
+
   .form-group.full{grid-column:auto}
+
   .hero{padding:18px}
+
   .level{font-size:32px}
-  .hero-xp-number{font-size:15px}
-  .life-text{font-size:16px}
+
+  .reflection-actions,
+  .button-row{
+    flex-direction:column
+  }
+
+  .reflection-actions button,
+  .button-row>*{
+    width:100%
+  }
+
   .splash-logo{width:230px}
+
+  .nav-button.life-nav .nav-icon{
+    width:48px;
+    height:48px
+  }
 }
 </style>
 </head>
@@ -828,10 +1140,12 @@ footer{
   <div class="splash-content">
     <img class="splash-logo" src="senrai-logo.png" alt="SENRAI">
     <div class="splash-subtitle">PERSONAL PROGRESSION SYSTEM</div>
+
     <div class="loading-container">
       <div class="loading-bar">
         <div class="loading-fill" id="loadingFill"></div>
       </div>
+
       <div class="loading-text">
         <span id="loadingStatus">SYSTEM INITIALIZING</span>
         <span id="loadingPercent">0%</span>
@@ -844,7 +1158,6 @@ footer{
 
 <header>
   <div class="brand">
-    <div class="brand-mark"><span>S</span></div>
     <div class="brand-name">SENRAI</div>
   </div>
 
@@ -854,11 +1167,8 @@ footer{
     <div class="menu-panel hidden" id="systemMenu">
       <div class="menu-section">SYSTEM</div>
       <button onclick="openSystem('objectives')">OBJECTIVES</button>
-      <button onclick="openSystem('path')">THE PATH</button>
       <button onclick="openSystem('achievements')">ACHIEVEMENTS</button>
-      <button onclick="openSystem('moments')">MOMENTS</button>
       <button onclick="openSystem('history')">HISTORY</button>
-      <button onclick="openSystem('intelligence')">INTELLIGENCE</button>
       <button onclick="openSystem('profile')">PROFILE</button>
       <button onclick="openSystem('settings')">SETTINGS</button>
     </div>
@@ -870,6 +1180,7 @@ footer{
 
 <section class="hero">
   <div class="hero-top">
+
     <div>
       <div class="hero-label">CURRENT LEVEL</div>
       <div class="level">
@@ -879,9 +1190,12 @@ footer{
     </div>
 
     <div class="hero-xp">
-      <div class="hero-xp-number"><span id="xp">0</span> XP</div>
+      <div class="hero-xp-number">
+        <span id="xp">0</span> XP
+      </div>
       <div class="hero-xp-label">CURRENT EXPERIENCE</div>
     </div>
+
   </div>
 
   <div class="xp-track">
@@ -895,115 +1209,130 @@ footer{
 </section>
 
 <section class="summary-grid">
+
   <div class="summary-card">
     <div class="summary-label">TODAY</div>
-    <div class="summary-value"><span id="todayCount">0</span></div>
+    <div class="summary-value">
+      <span id="todayCount">0</span>
+    </div>
     <div class="summary-sub">QUESTS COMPLETE</div>
   </div>
 
   <div class="summary-card">
     <div class="summary-label">STREAK</div>
-    <div class="summary-value streak-value"><span id="streak">0</span></div>
+    <div class="summary-value streak-value">
+      <span id="streak">0</span>
+    </div>
     <div class="summary-sub">DAYS ACTIVE</div>
   </div>
 
   <div class="summary-card">
-    <div class="summary-label">MOMENTUM</div>
-    <div class="summary-value"><span id="momentumNumber">0</span>%</div>
-    <div class="summary-sub">CURRENT MOMENTUM</div>
+    <div class="summary-label">TODAY XP</div>
+    <div class="summary-value">
+      <span id="todayXP">0</span>
+    </div>
+    <div class="summary-sub">EXPERIENCE</div>
   </div>
 
   <div class="summary-card">
-    <div class="summary-label">TOTAL</div>
-    <div class="summary-value"><span id="totalXP">0</span></div>
-    <div class="summary-sub">TOTAL XP</div>
-  </div>
-</section>
-
-<section class="grid-2">
-
-  <div class="system-panel">
-    <div class="panel-kicker">CURRENT SIGNAL</div>
-    <div class="panel-title" id="homeSignalTitle">BEGIN</div>
-    <div class="panel-text" id="homeSignalText">
-      Start anywhere. The system does not require a perfect beginning.
+    <div class="summary-label">MOMENTUM</div>
+    <div class="summary-value">
+      <span id="momentum">0</span>
     </div>
-
-    <div class="momentum-bar">
-      <div class="momentum-fill" id="momentumBar"></div>
-    </div>
-
-    <div class="momentum-meta">
-      <span>MOMENTUM</span>
-      <span id="momentumMeta">0 / 100</span>
-    </div>
-  </div>
-
-  <div class="path-card">
-    <div class="section-label">CURRENT PATH</div>
-    <div class="path-name" id="homePathName">INITIATE</div>
-    <div class="path-desc" id="homePathDesc">
-      Your direction is still forming.
-    </div>
-
-    <div class="path-progress">
-      <div id="homePathProgress" style="width:0%"></div>
-    </div>
-
-    <div class="path-tags" id="homePathTags"></div>
+    <div class="summary-sub">RECENT ACTIVITY</div>
   </div>
 
 </section>
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">TODAY'S SYSTEM</div>
-      <div class="section-title">QUESTS</div>
-    </div>
-    <button class="small ghost" onclick="showView('quests')">VIEW ALL</button>
+  <div class="section-header">
+    <div class="section-title">CURRENT OBJECTIVE</div>
+    <div class="section-description">MAIN PATH</div>
   </div>
 
-  <div class="quest-list" id="homeQuestList"></div>
+  <div class="objective" id="homeObjective"></div>
 </section>
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">LIFE</div>
-      <div class="section-title">RANDOM ENCOUNTER</div>
+  <div class="section-header">
+    <div class="section-title">SYSTEM REFLECTION</div>
+    <div class="section-description">ADAPTIVE GUIDANCE</div>
+  </div>
+
+  <div class="reflection-card">
+
+    <div class="reflection-label">SYSTEM INSIGHT</div>
+
+    <div class="reflection-title" id="reflectionTitle"></div>
+
+    <div class="reflection-text" id="reflectionText"></div>
+
+    <div class="reflection-divider"></div>
+
+    <div class="reflection-suggestion-label">
+      RECOMMENDED QUEST
+    </div>
+
+    <div class="reflection-suggestion" id="reflectionSuggestion"></div>
+
+    <div class="reflection-reward" id="reflectionReward"></div>
+
+    <div class="reflection-actions">
+      <button class="primary" id="acceptReflectionButton">
+        ACCEPT QUEST
+      </button>
+
+      <button class="ghost" id="refreshReflectionButton">
+        ANOTHER SUGGESTION
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">CURRENT PATH</div>
+    <div class="section-description" id="pathStatusLabel">
+      FORMING
     </div>
   </div>
 
-  <div class="system-panel life-card">
-    <div>
-      <div class="life-category" id="homeLifeCategory">LIFE</div>
-      <div class="life-text" id="homeLifeText">
-        The system has nothing to show you yet.
-      </div>
+  <div class="path-card" id="homePathCard"></div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">QUICK QUESTS</div>
+    <button class="small" onclick="showView('quests')">
+      VIEW ALL
+    </button>
+  </div>
+
+  <div class="quest-list" id="homeDailyQuests"></div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">LIFE QUEST</div>
+    <div class="section-description">OPTIONAL</div>
+  </div>
+
+  <div class="life-quest" style="padding:17px">
+    <div class="life-label">RANDOM ENCOUNTER</div>
+
+    <div class="life-text" id="homeLifeText" style="margin-top:6px">
+      Generate an optional real-world quest.
     </div>
 
     <div class="button-row">
-      <button id="homeSurprise">ANOTHER</button>
-      <button class="primary" id="homeCompleteLife" disabled>ACCEPT</button>
-    </div>
-  </div>
-</section>
+      <button class="primary" id="homeSurprise">
+        🎲 SURPRISE ME
+      </button>
 
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">RECENT</div>
-      <div class="section-title">MOMENT</div>
-    </div>
-    <button class="small ghost" onclick="showView('moments')">LOOK BACK</button>
-  </div>
-
-  <div class="system-panel">
-    <div class="panel-kicker" id="homeMomentDate">NO MOMENTS RECORDED</div>
-    <div class="panel-title" id="homeMomentTitle">Your story starts here.</div>
-    <div class="panel-text" id="homeMomentText">
-      Moments are optional. Record something when it feels worth remembering.
+      <button id="homeCompleteLife" disabled>
+        COMPLETE
+      </button>
     </div>
   </div>
 </section>
@@ -1014,58 +1343,118 @@ footer{
 <main id="questsView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">AVAILABLE</div>
-      <div class="section-title">DAILY QUESTS</div>
-    </div>
+  <div class="section-header">
+    <div class="section-title">DAILY QUESTS</div>
+    <div class="section-description">RESET DAILY</div>
   </div>
 
-  <div class="quest-list" id="questList"></div>
+  <div class="quest-list" id="dailyQuests"></div>
 </section>
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">YOUR CREATION</div>
-      <div class="section-title">CUSTOM QUEST</div>
-    </div>
+  <div class="section-header">
+    <div class="section-title">CREATE QUEST</div>
+    <div class="section-description">DEFINE YOUR OWN PATH</div>
   </div>
 
-  <div class="system-panel">
+  <div class="panel create-quest">
+
     <div class="form-grid">
+
       <div class="form-group full">
-        <div class="form-label">QUEST NAME</div>
-        <input id="questNameInput" placeholder="Something you want to accomplish">
+        <label class="form-label">QUEST NAME</label>
+        <input
+          id="questNameInput"
+          maxlength="80"
+          placeholder="What do you want to accomplish?"
+        >
       </div>
 
       <div class="form-group">
-        <div class="form-label">DIFFICULTY</div>
-        <select id="questDifficulty">
-          <option value="EASY">EASY — 10 XP</option>
-          <option value="NORMAL" selected>NORMAL — 25 XP</option>
-          <option value="HARD">HARD — 50 XP</option>
-          <option value="EXTREME">EXTREME — 100 XP</option>
+        <label class="form-label">TYPE</label>
+        <select id="questTypeInput">
+          <option value="MAIN">MAIN QUEST</option>
+          <option value="DAILY">DAILY QUEST</option>
+          <option value="SIDE">SIDE QUEST</option>
         </select>
       </div>
 
       <div class="form-group">
-        <div class="form-label">STAT</div>
-        <select id="questStat">
-          <option value="DEX">DEXTERITY</option>
-          <option value="STR">STRENGTH</option>
-          <option value="INT">INTELLIGENCE</option>
-          <option value="WIS">WISDOM</option>
-          <option value="CHA">CHARISMA</option>
-          <option value="CRE">CREATIVITY</option>
-          <option value="VIT">VITALITY</option>
+        <label class="form-label">DIFFICULTY</label>
+        <select id="questDifficultyInput">
+          <option value="EASY">EASY • +10 XP</option>
+          <option value="NORMAL">NORMAL • +25 XP</option>
+          <option value="HARD">HARD • +50 XP</option>
+          <option value="EXTREME">EXTREME • +100 XP</option>
         </select>
       </div>
 
-      <div class="form-group full">
-        <button class="primary" id="createQuestButton">CREATE QUEST</button>
+      <div class="form-group">
+        <label class="form-label">STAT</label>
+        <select id="questStatInput">
+          <option value="STR">STR • FITNESS</option>
+          <option value="INT">INT • LEARNING</option>
+          <option value="WIS">WIS • GROWTH</option>
+          <option value="CHA">CHA • SOCIAL</option>
+          <option value="DEX">DEX • PRODUCTIVITY</option>
+          <option value="CRE">CRE • CREATIVITY</option>
+          <option value="VIT">VIT • HEALTH</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">DESCRIPTION</label>
+        <input
+          id="questDescInput"
+          maxlength="120"
+          placeholder="Optional details"
+        >
+      </div>
+
+    </div>
+
+    <button class="create-button primary" id="createQuestButton">
+      + CREATE QUEST
+    </button>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">YOUR QUESTS</div>
+    <div class="section-description">PERSONAL</div>
+  </div>
+
+  <div id="customQuestList" class="quest-list"></div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">SIDE QUEST</div>
+    <div class="section-description">SOCIAL</div>
+  </div>
+
+  <div class="side-card">
+
+    <div class="side-left">
+      <div class="side-icon">☎</div>
+
+      <div>
+        <div class="side-name">
+          Call someone you haven't talked to recently
+        </div>
+
+        <div class="side-meta">
+          +20 XP • +1 CHA
+        </div>
       </div>
     </div>
+
+    <button id="sideQuestButton">
+      COMPLETE
+    </button>
+
   </div>
 </section>
 
@@ -1075,20 +1464,21 @@ footer{
 <main id="statsView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">PERSONAL ATTRIBUTES</div>
-      <div class="section-title">STATS</div>
-    </div>
+  <div class="section-header">
+    <div class="section-title">CHARACTER STATS</div>
+    <div class="section-description">LONG-TERM DEVELOPMENT</div>
   </div>
 
-  <div class="system-panel">
-    <div class="stat-list" id="statsList"></div>
-  </div>
+  <div class="stats-grid" id="statsGrid"></div>
 </section>
 
 <section class="section">
-  <div class="grid-3" id="statTiles"></div>
+  <div class="section-header">
+    <div class="section-title">WEEKLY MISSIONS</div>
+    <div class="section-description">BONUS PROGRESSION</div>
+  </div>
+
+  <div class="grid-2" id="weeklyGrid"></div>
 </section>
 
 </main>
@@ -1097,43 +1487,41 @@ footer{
 <main id="lifeView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">OUTSIDE THE QUEST LOG</div>
-      <div class="section-title">LIFE</div>
-    </div>
+  <div class="section-header">
+    <div class="section-title">LIFE QUESTS</div>
+    <div class="section-description">OPTIONAL • NO PENALTY</div>
   </div>
 
-  <div class="system-panel life-card">
-    <div>
-      <div class="life-category" id="lifeCategory">LIFE</div>
-      <div class="life-text" id="lifeText">
-        Generate something unexpected.
-      </div>
+  <div class="life-quest" style="padding:18px">
+
+    <div class="life-label">SYSTEM GENERATOR</div>
+
+    <div class="life-text" id="lifeText" style="margin-top:6px">
+      Generate something small that makes your day better.
     </div>
 
     <div class="button-row">
-      <button id="surpriseButton">ANOTHER</button>
-      <button class="primary" id="completeLifeButton" disabled>ACCEPT</button>
+
+      <button class="primary" id="surpriseButton">
+        🎲 SURPRISE ME
+      </button>
+
+      <button id="completeLifeButton" disabled>
+        COMPLETE QUEST
+      </button>
+
     </div>
+
   </div>
 </section>
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">OPTIONAL</div>
-      <div class="section-title">SIDE QUEST</div>
-    </div>
+  <div class="section-header">
+    <div class="section-title">WEEKLY LIFE CHALLENGE</div>
+    <div class="section-description">OPTIONAL</div>
   </div>
 
-  <div class="system-panel">
-    <div class="panel-title" id="sideQuestTitle">Do one thing you have been avoiding.</div>
-    <div class="panel-text" id="sideQuestText">
-      Small actions count when they remove friction from your life.
-    </div>
-    <button class="primary" id="sideQuestButton" style="margin-top:14px">ACCEPT SIDE QUEST</button>
-  </div>
+  <div class="week-card" id="lifeWeeklyCard"></div>
 </section>
 
 </main>
@@ -1142,156 +1530,31 @@ footer{
 <main id="objectivesView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">LONGER HORIZON</div>
-      <div class="section-title">OBJECTIVES</div>
-    </div>
+
+  <div class="section-header">
+    <div class="section-title">OBJECTIVES</div>
+
+    <button class="small primary" onclick="openObjectiveForm()">
+      + NEW OBJECTIVE
+    </button>
   </div>
 
-  <div class="system-panel">
-    <div class="form-grid">
-      <div class="form-group">
-        <div class="form-label">OBJECTIVE</div>
-        <input id="objectiveName" placeholder="What are you working toward?">
-      </div>
+  <div id="objectivesList"></div>
 
-      <div class="form-group">
-        <div class="form-label">CATEGORY</div>
-        <select id="objectiveCategory">
-          <option>PERSONAL</option>
-          <option>HEALTH</option>
-          <option>CAREER</option>
-          <option>CREATIVE</option>
-          <option>RELATIONSHIPS</option>
-          <option>LEARNING</option>
-        </select>
-      </div>
-
-      <div class="form-group full">
-        <div class="form-label">WHY IT MATTERS</div>
-        <textarea id="objectiveWhy" placeholder="Why does this matter to you?"></textarea>
-      </div>
-
-      <div class="form-group full">
-        <button class="primary" onclick="createObjective()">CREATE OBJECTIVE</button>
-      </div>
-    </div>
-  </div>
 </section>
 
-<section class="section">
-  <div class="grid-2" id="objectiveList"></div>
-</section>
+<section class="section hidden" id="objectivePathSection">
 
-</main>
+  <div class="section-header">
+    <div class="section-title">OBJECTIVE PATH</div>
 
-<!-- PATH -->
-<main id="pathView" class="view">
-
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">WHO ARE YOU BECOMING?</div>
-      <div class="section-title">THE PATH</div>
-    </div>
+    <button class="small" onclick="closeObjectivePath()">
+      CLOSE
+    </button>
   </div>
 
-  <div class="path-card">
-    <div class="section-label">CURRENT DIRECTION</div>
-    <div class="path-name" id="pathName">INITIATE</div>
-    <div class="path-desc" id="pathDescription">
-      Your direction is still forming. Keep moving.
-    </div>
+  <div id="objectivePath"></div>
 
-    <div class="path-progress">
-      <div id="pathProgress" style="width:0%"></div>
-    </div>
-
-    <div class="momentum-meta">
-      <span>PATH SIGNAL</span>
-      <span id="pathScore">0%</span>
-    </div>
-
-    <div class="path-tags" id="pathTags"></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">YOUR CURRENT TENDENCIES</div>
-      <div class="section-title">WHAT THE SYSTEM NOTICES</div>
-    </div>
-  </div>
-
-  <div class="grid-2" id="tendencyList"></div>
-</section>
-
-<section class="section">
-  <div class="system-panel">
-    <div class="panel-kicker">IMPORTANT</div>
-    <div class="panel-title">THE PATH IS NOT A BOX.</div>
-    <div class="panel-text">
-      Your direction can change. Nothing here defines who you have to become.
-      SENRAI only reflects the patterns your actions create.
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- MOMENTS -->
-<main id="momentsView" class="view">
-
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">YOUR STORY</div>
-      <div class="section-title">MOMENTS</div>
-    </div>
-  </div>
-
-  <div class="system-panel">
-    <div class="form-grid">
-      <div class="form-group full">
-        <div class="form-label">TITLE</div>
-        <input id="momentTitle" placeholder="Something worth remembering">
-      </div>
-
-      <div class="form-group full">
-        <div class="form-label">MOMENT</div>
-        <textarea id="momentText" placeholder="What happened? How did it feel? What do you want future you to remember?"></textarea>
-      </div>
-
-      <div class="form-group">
-        <div class="form-label">MOOD</div>
-        <select id="momentMood">
-          <option>CALM</option>
-          <option>HAPPY</option>
-          <option>PROUD</option>
-          <option>CURIOUS</option>
-          <option>GRATEFUL</option>
-          <option>CONFUSED</option>
-          <option>HEAVY</option>
-          <option>HOPEFUL</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <div class="form-label">PRIVATE NOTE</div>
-        <input id="momentTag" placeholder="Optional">
-      </div>
-
-      <div class="form-group full">
-        <button class="primary" onclick="createMoment()">SAVE MOMENT</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div id="momentsList"></div>
 </section>
 
 </main>
@@ -1300,56 +1563,25 @@ footer{
 <main id="achievementsView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">DISCOVERIES</div>
-      <div class="section-title">ACHIEVEMENTS</div>
-    </div>
+
+  <div class="section-header">
+    <div class="section-title">ACHIEVEMENTS</div>
+    <div class="section-description">UNLOCK THROUGH ACTION</div>
   </div>
 
-  <div class="grid-3" id="achievementList"></div>
-</section>
+  <div class="achievement-grid" id="achievementGrid"></div>
 
-</main>
-
-<!-- TITLES -->
-<main id="titlesView" class="view">
-
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">IDENTITY</div>
-      <div class="section-title">TITLES</div>
-    </div>
-  </div>
-
-  <div class="grid-3" id="titleList"></div>
-</section>
-
-</main>
-
-<!-- INTELLIGENCE -->
-<main id="intelligenceView" class="view">
-
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">SYSTEM OBSERVATION</div>
-      <div class="section-title">INTELLIGENCE</div>
-    </div>
-  </div>
-
-  <div class="grid-2" id="intelligenceList"></div>
 </section>
 
 <section class="section">
-  <div class="system-panel">
-    <div class="panel-kicker">PATTERN DETECTION</div>
-    <div class="panel-title" id="patternTitle">Not enough data yet.</div>
-    <div class="panel-text" id="patternText">
-      Keep using SENRAI naturally. Patterns will appear over time.
-    </div>
+
+  <div class="section-header">
+    <div class="section-title">TITLES</div>
+    <div class="section-description">YOUR REPUTATION</div>
   </div>
+
+  <div class="grid-2" id="titlesGrid"></div>
+
 </section>
 
 </main>
@@ -1358,14 +1590,14 @@ footer{
 <main id="historyView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">RECORD</div>
-      <div class="section-title">HISTORY</div>
-    </div>
+
+  <div class="section-header">
+    <div class="section-title">HISTORY</div>
+    <div class="section-description">RECENT SYSTEM LOG</div>
   </div>
 
-  <div class="quest-list" id="historyList"></div>
+  <div class="history-list" id="historyList"></div>
+
 </section>
 
 </main>
@@ -1374,38 +1606,17 @@ footer{
 <main id="profileView" class="view">
 
 <section class="section">
-  <div class="system-panel">
-    <div class="panel-kicker">PROFILE</div>
-    <div class="panel-title" id="profileTitle">INITIATE</div>
-    <div class="panel-text" id="profileText">
-      The System knows very little about you yet.
-    </div>
-
-    <div class="section" style="margin-top:20px">
-      <div class="form-group">
-        <div class="form-label">NAME</div>
-        <input id="profileName" placeholder="Optional">
-      </div>
-      <button class="primary" onclick="saveProfile()" style="margin-top:10px">SAVE PROFILE</button>
-    </div>
-  </div>
+  <div class="profile-card" id="profileCard"></div>
 </section>
 
 <section class="section">
-  <div class="grid-3">
-    <div class="tile">
-      <div class="tile-title">LEVEL</div>
-      <div class="tile-text" id="profileLevel">1</div>
-    </div>
-    <div class="tile">
-      <div class="tile-title">TOTAL XP</div>
-      <div class="tile-text" id="profileXP">0</div>
-    </div>
-    <div class="tile">
-      <div class="tile-title">MOMENTS</div>
-      <div class="tile-text" id="profileMoments">0</div>
-    </div>
+
+  <div class="section-header">
+    <div class="section-title">SYSTEM SUMMARY</div>
   </div>
+
+  <div class="grid-2" id="profileSummary"></div>
+
 </section>
 
 </main>
@@ -1414,2366 +1625,4029 @@ footer{
 <main id="settingsView" class="view">
 
 <section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-label">PERSONALIZATION</div>
-      <div class="section-title">SETTINGS</div>
-    </div>
+
+  <div class="section-header">
+    <div class="section-title">SETTINGS</div>
+    <div class="section-description">LOCAL DEVICE</div>
   </div>
 
-  <div class="system-panel">
+  <div class="setting-card">
 
-    <div class="setting-row" style="display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid #202632">
+    <div class="setting-row">
+
       <div>
-        <div class="tile-title">SYSTEM GUIDANCE</div>
-        <div class="tile-text">Allow SENRAI to offer adaptive recommendations.</div>
+        <div class="setting-name">SYSTEM GUIDANCE</div>
+        <div class="setting-desc">
+          Allow adaptive recommendations to change based on your activity.
+        </div>
       </div>
+
       <button id="guidanceToggle" class="small"></button>
+
     </div>
 
-    <div class="setting-row" style="display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid #202632">
+    <div class="setting-row">
+
       <div>
-        <div class="tile-title">REDUCE SYSTEM MOTION</div>
-        <div class="tile-text">Reduce loading and interface animation.</div>
+        <div class="setting-name">REDUCE SYSTEM MOTION</div>
+        <div class="setting-desc">
+          Reduce loading and interface animation.
+        </div>
       </div>
+
       <button id="motionToggle" class="small"></button>
+
     </div>
 
-    <div class="setting-row" style="display:flex;justify-content:space-between;gap:20px;padding:15px 0">
+    <div class="setting-row">
+
       <div>
-        <div class="tile-title">RESET LOCAL DATA</div>
-        <div class="tile-text">Erase SENRAI progress stored on this device.</div>
+        <div class="setting-name">BROWSER NOTIFICATIONS</div>
+        <div class="setting-desc">
+          Allow SENRAI to request permission for local browser notifications where supported.
+        </div>
       </div>
-      <button id="resetButton" class="small danger">RESET</button>
+
+      <button id="notificationToggle" class="small">
+        OFF
+      </button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <div>
+        <div class="setting-name">RESET LOCAL DATA</div>
+        <div class="setting-desc">
+          Erase SENRAI progress stored on this device.
+        </div>
+      </div>
+
+      <button id="resetButton" class="small danger">
+        RESET
+      </button>
+
     </div>
 
   </div>
+
 </section>
 
 </main>
 
-<footer>SENRAI — THE SYSTEM THAT MOVES YOU FORWARD</footer>
+<footer>
+  SENRAI — THE SYSTEM THAT MOVES YOU FORWARD
+</footer>
 
 </div>
 
+<!-- BOTTOM NAV -->
 <nav class="navbar">
+
   <button class="nav-button active" data-view="home">
-    <span class="nav-icon">⌂</span>HOME
+    <span class="nav-icon">⌂</span>
+    HOME
   </button>
+
   <button class="nav-button" data-view="quests">
-    <span class="nav-icon">◆</span>QUESTS
+    <span class="nav-icon">◆</span>
+    QUESTS
   </button>
+
   <button class="nav-button" data-view="stats">
-    <span class="nav-icon">▥</span>STATS
+    <span class="nav-icon">▥</span>
+    STATS
   </button>
-  <button class="nav-button" data-view="life">
-    <span class="nav-icon">✦</span>LIFE
+
+  <button class="nav-button life-nav" data-view="life">
+    <span class="nav-icon">✦</span>
+    LIFE
   </button>
-  <button class="nav-button" data-view="moments">
-    <span class="nav-icon">◌</span>MOMENTS
-  </button>
+
 </nav>
 
 <div class="toast" id="toast"></div>
 
 <div class="modal-backdrop hidden" id="modalBackdrop">
+
   <div class="modal">
+
     <div class="modal-head">
-      <div class="modal-title" id="modalTitle">SYSTEM</div>
-      <button class="close" id="modalClose">×</button>
+      <div class="modal-title" id="modalTitle">
+        SYSTEM
+      </div>
+
+      <button class="close" id="modalClose">
+        ×
+      </button>
     </div>
+
     <div class="modal-body" id="modalBody"></div>
+
   </div>
+
 </div>
 
 <script>
 
-/* =========================================================
-   SENRAI SYSTEM
-   ========================================================= */
-
-const STORAGE = {
-  data:"senraiSystemData",
-  state:"senraiSystemState"
+const STORAGE={
+  data:'theSystemData',
+  custom:'senraiCustomQuests',
+  achievements:'senraiAchievements',
+  history:'senraiHistory',
+  profile:'senraiProfile',
+  objectives:'senraiObjectives',
+  state:'senraiSystemState',
+  weekly:'senraiWeeklyMissions'
 };
 
-const today = () => new Date().toISOString().slice(0,10);
+const today=()=>new Date().toISOString().slice(0,10);
 
-const uid = (p="id") =>
-  p+"_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,7);
+const uid=(p='id')=>
+  p+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
 
-const read = (key,fallback) => {
+const read=(k,f)=>{
   try{
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
+    const v=localStorage.getItem(k);
+    return v?JSON.parse(v):f
   }catch(e){
-    return fallback;
+    return f
   }
 };
 
-const save = (key,value) =>
-  localStorage.setItem(key,JSON.stringify(value));
+const save=(k,v)=>
+  localStorage.setItem(k,JSON.stringify(v));
 
-const clone = object =>
-  JSON.parse(JSON.stringify(object));
+const clone=o=>
+  JSON.parse(JSON.stringify(o));
 
-const xpNeededForLevel = level =>
-  100 + ((level-1)*50);
+const xpNeededForLevel=l=>
+  100+((l-1)*50);
 
-const statXPNeededForLevel = level =>
-  50 + ((level-1)*75);
+const statXPNeededForLevel=l=>
+  50+((l-1)*75);
 
-const DIFFICULTY_XP = {
+const statGain={
+  10:10,
+  15:12,
+  20:15,
+  25:20,
+  50:35,
+  100:55
+};
+
+const STAT_NAMES={
+  STR:'STRENGTH',
+  INT:'INTELLIGENCE',
+  WIS:'WISDOM',
+  CHA:'CHARISMA',
+  DEX:'DEXTERITY',
+  CRE:'CREATIVITY',
+  VIT:'VITALITY'
+};
+
+const STAT_NOTES={
+  STR:'Fitness, physical capability',
+  INT:'Learning, knowledge, problem solving',
+  WIS:'Judgment, self-awareness, personal growth',
+  CHA:'Communication, relationships, confidence',
+  DEX:'Execution, organization, practical action',
+  CRE:'Art, ideas, imagination',
+  VIT:'Health, recovery, wellness'
+};
+
+const DIFFICULTY_XP={
   EASY:10,
   NORMAL:25,
   HARD:50,
   EXTREME:100
 };
 
-const STAT_NAMES = {
-  STR:"STRENGTH",
-  INT:"INTELLIGENCE",
-  WIS:"WISDOM",
-  CHA:"CHARISMA",
-  DEX:"DEXTERITY",
-  CRE:"CREATIVITY",
-  VIT:"VITALITY"
-};
-
-const STAT_NOTES = {
-  STR:"Fitness, physical capability",
-  INT:"Learning, knowledge, problem solving",
-  WIS:"Judgment, self-awareness, personal growth",
-  CHA:"Communication, relationships, confidence",
-  DEX:"Execution, organization, practical action",
-  CRE:"Art, ideas, imagination",
-  VIT:"Health, recovery, wellness"
-};
-
-const DAILY = [
+const DAILY=[
   {
-    id:"daily_move",
-    name:"Move your body",
-    desc:"Walk, stretch, exercise, or do something physical.",
+    id:'daily_move',
+    name:'Move your body',
+    desc:'Walk, stretch, exercise, or do something physical.',
     xp:15,
-    stat:"STR"
+    stat:'STR'
   },
   {
-    id:"daily_learn",
-    name:"Learn something",
-    desc:"Spend a little time learning or practicing a skill.",
+    id:'daily_learn',
+    name:'Learn something',
+    desc:'Spend a little time learning or practicing a skill.',
     xp:15,
-    stat:"INT"
+    stat:'INT'
   },
   {
-    id:"daily_reset",
-    name:"Reset your space",
-    desc:"Clean, organize, or remove one source of friction.",
+    id:'daily_reset',
+    name:'Reset your space',
+    desc:'Clean, organize, or remove one source of friction.',
     xp:10,
-    stat:"DEX"
+    stat:'DEX'
   },
   {
-    id:"daily_care",
-    name:"Do one thing for future you",
-    desc:"A small action that makes tomorrow easier.",
+    id:'daily_care',
+    name:'Do one thing for future you',
+    desc:'A small action that makes tomorrow easier.',
     xp:20,
-    stat:"WIS"
-  },
-  {
-    id:"daily_create",
-    name:"Create something",
-    desc:"Make, write, build, draw, record, or experiment.",
-    xp:20,
-    stat:"CRE"
-  },
-  {
-    id:"daily_connect",
-    name:"Reach out",
-    desc:"Talk to someone, check in, or make a genuine connection.",
-    xp:15,
-    stat:"CHA"
+    stat:'WIS'
   }
 ];
 
-const LIFE = [
-  {
-    text:"Take a different route somewhere today.",
-    stat:"WIS",
-    xp:20,
-    category:"EXPLORE"
-  },
-  {
-    text:"Try a food or drink you have never had.",
-    stat:"WIS",
-    xp:20,
-    category:"EXPLORE"
-  },
-  {
-    text:"Spend 20 minutes outside without scrolling.",
-    stat:"VIT",
-    xp:20,
-    category:"QUIET"
-  },
-  {
-    text:"Send a genuine compliment to someone.",
-    stat:"CHA",
-    xp:20,
-    category:"SOCIAL"
-  },
-  {
-    text:"Visit a place nearby you have never explored.",
-    stat:"WIS",
-    xp:25,
-    category:"EXPLORE"
-  },
-  {
-    text:"Make something just because you can.",
-    stat:"CRE",
-    xp:25,
-    category:"CREATIVE"
-  },
-  {
-    text:"Put your phone away for one hour.",
-    stat:"WIS",
-    xp:20,
-    category:"QUIET"
-  },
-  {
-    text:"Do one small thing you have been putting off.",
-    stat:"DEX",
-    xp:25,
-    category:"CHAOS"
-  },
-  {
-    text:"Listen to an album from start to finish.",
-    stat:"CRE",
-    xp:20,
-    category:"QUIET"
-  },
-  {
-    text:"Write down three things you want your future self to have.",
-    stat:"WIS",
-    xp:20,
-    category:"REFLECTION"
-  },
-  {
-    text:"Ask someone a question you genuinely want to know the answer to.",
-    stat:"CHA",
-    xp:20,
-    category:"SOCIAL"
-  },
-  {
-    text:"Learn the story behind something you see every day.",
-    stat:"INT",
-    xp:20,
-    category:"CURIOUS"
-  },
-  {
-    text:"Take a photo of something you normally overlook.",
-    stat:"CRE",
-    xp:15,
-    category:"EXPLORE"
-  },
-  {
-    text:"Spend ten minutes doing absolutely nothing.",
-    stat:"WIS",
-    xp:15,
-    category:"QUIET"
-  },
-  {
-    text:"Start a conversation instead of waiting for someone else to.",
-    stat:"CHA",
-    xp:25,
-    category:"SOCIAL"
-  }
+const LIFE=[
+  ['Take a different route somewhere today.','WIS',20],
+  ['Try a food or drink you have never had.','WIS',20],
+  ['Spend 20 minutes outside without scrolling.','VIT',20],
+  ['Send a genuine compliment to someone.','CHA',20],
+  ['Visit a place nearby you have never explored.','WIS',25],
+  ['Make something just because you can.','CRE',25],
+  ['Put your phone away for one hour.','WIS',20],
+  ['Do one small thing you have been putting off.','DEX',25],
+  ['Listen to an album from start to finish.','CRE',20],
+  ['Write down three things you want your future self to have.','WIS',20]
 ];
 
-const SIDE_QUESTS = [
-  [
-    "Clear one surface completely.",
-    "A cleaner environment can make the next action easier."
-  ],
-  [
-    "Delete ten things from your phone you do not need.",
-    "Remove a little digital friction."
-  ],
-  [
-    "Finish something that has been sitting at 80%.",
-    "Completion is its own form of progress."
-  ],
-  [
-    "Prepare one thing for tomorrow tonight.",
-    "Make tomorrow slightly easier."
-  ],
-  [
-    "Spend fifteen minutes learning something unrelated to work.",
-    "Curiosity does not need a practical reason."
-  ],
-  [
-    "Do the smallest possible version of something you keep avoiding.",
-    "Starting counts."
-  ]
-];
+let notificationEnabled=
+  localStorage.getItem('senraiNotifications')==='true';
 
-const PATHS = [
-  {
-    id:"BUILDER",
-    name:"BUILDER",
-    desc:"You create, finish, organize, and turn ideas into something real.",
-    tags:["CREATION","EXECUTION","PROGRESS"],
-    weights:{CRE:3,DEX:3,INT:1}
-  },
-  {
-    id:"EXPLORER",
-    name:"EXPLORER",
-    desc:"You seek experiences, novelty, perspective, and things outside your normal routine.",
-    tags:["CURIOSITY","EXPERIENCE","DISCOVERY"],
-    weights:{WIS:2,INT:2,CHA:1,CRE:1}
-  },
-  {
-    id:"SEEKER",
-    name:"SEEKER",
-    desc:"You learn, reflect, question, and look beneath the surface.",
-    tags:["LEARNING","REFLECTION","UNDERSTANDING"],
-    weights:{INT:3,WIS:3,CRE:1}
-  },
-  {
-    id:"CONNECTOR",
-    name:"CONNECTOR",
-    desc:"You invest in people, communication, trust, and shared experiences.",
-    tags:["PEOPLE","COMMUNICATION","RELATIONSHIPS"],
-    weights:{CHA:4,WIS:1}
-  },
-  {
-    id:"DISCIPLINED",
-    name:"DISCIPLINED",
-    desc:"You repeatedly show up and turn intention into action.",
-    tags:["CONSISTENCY","ACTION","FOLLOW THROUGH"],
-    weights:{DEX:3,VIT:2,STR:1}
-  }
-];
-
-const DEFAULT = {
+let data=read(STORAGE.data,{
   level:1,
   xp:0,
   totalXP:0,
   completedToday:0,
   todayXP:0,
   streak:0,
-  lastActiveDate:"",
-  dailyDate:today(),
-  completedDaily:[],
-  completedCustom:[],
-  history:[],
+  lastActiveDate:null,
+
   stats:{
-    STR:{progress:0,level:1},
-    INT:{progress:0,level:1},
-    WIS:{progress:0,level:1},
-    CHA:{progress:0,level:1},
-    DEX:{progress:0,level:1},
-    CRE:{progress:0,level:1},
-    VIT:{progress:0,level:1}
+    STR:{progress:0},
+    INT:{progress:0},
+    WIS:{progress:0},
+    CHA:{progress:0},
+    DEX:{progress:0},
+    CRE:{progress:0},
+    VIT:{progress:0}
   },
-  custom:[],
-  objectives:[],
-  moments:[],
-  achievements:[],
-  unlockedTitles:["INITIATE"],
-  equippedTitle:"INITIATE",
-  discoveries:[],
-  systemEvents:[],
-  firstRun:true,
-  life:{
-    current:null,
-    used:[],
-    category:"ALL"
-  },
+
+  completedQuestIds:[],
+  dailyDate:today(),
+
   path:{
-    current:"INITIATE",
-    score:0
-  },
-  settings:{
-    guidance:true,
-    motion:false,
-    name:""
+    current:'INITIATE',
+    score:0,
+    history:[]
   }
-};
-
-let data = read(STORAGE.data,clone(DEFAULT));
-
-let state = read(STORAGE.state,{
-  guidance:true,
-  motion:false,
-  activeLife:null,
-  currentReflectionIndex:0,
-  sideQuest:null
 });
 
-function normalizeData(){
+let custom=read(STORAGE.custom,[]);
+let history=read(STORAGE.history,[]);
+let objectives=read(STORAGE.objectives,[]);
+let profile=read(STORAGE.profile,{
+  name:'PLAYER',
+  title:'INITIATE'
+});
 
-  data = Object.assign(clone(DEFAULT),data || {});
+let state=read(STORAGE.state,{
+  guidance:true,
+  motion:false,
+  lastRecommendationId:null,
+  lastRecommendationAt:0,
+  shownRecommendationIds:[],
+  acceptedRecommendationIds:[],
+  dismissedRecommendationIds:[],
+  activeLife:null
+});
 
-  data.stats = Object.assign(
-    clone(DEFAULT.stats),
-    data.stats || {}
-  );
+let currentReflectionIndex=0;
+let currentObjectiveId=null;
 
-  Object.keys(DEFAULT.stats).forEach(stat=>{
-    data.stats[stat] = Object.assign(
-      clone(DEFAULT.stats[stat]),
-      data.stats[stat] || {}
-    );
-  });
+function migrate(){
 
-  data.life = Object.assign(
-    clone(DEFAULT.life),
-    data.life || {}
-  );
-
-  data.settings = Object.assign(
-    clone(DEFAULT.settings),
-    data.settings || {}
-  );
-
-  data.path = Object.assign(
-    clone(DEFAULT.path),
-    data.path || {}
-  );
-
-  if(!Array.isArray(data.history))data.history=[];
-  if(!Array.isArray(data.custom))data.custom=[];
-  if(!Array.isArray(data.objectives))data.objectives=[];
-  if(!Array.isArray(data.moments))data.moments=[];
-  if(!Array.isArray(data.achievements))data.achievements=[];
-  if(!Array.isArray(data.unlockedTitles))data.unlockedTitles=["INITIATE"];
-  if(!Array.isArray(data.discoveries))data.discoveries=[];
-  if(!Array.isArray(data.systemEvents))data.systemEvents=[];
-  if(!Array.isArray(data.completedDaily))data.completedDaily=[];
-  if(!Array.isArray(data.completedCustom))data.completedCustom=[];
-
-  if(data.dailyDate!==today()){
-    data.dailyDate=today();
-    data.completedToday=0;
-    data.todayXP=0;
-    data.completedDaily=[];
-    data.completedCustom=[];
+  if(!data.path){
+    data.path={
+      current:'INITIATE',
+      score:0,
+      history:[]
+    };
   }
 
-  state.guidance = data.settings.guidance;
-  state.motion = data.settings.motion;
+  if(!Array.isArray(data.path.history)){
+    data.path.history=[];
+  }
+
+  if(!data.stats || typeof data.stats.STR==='number'){
+    const old=data.stats||{};
+    data.stats={};
+
+    Object.keys(STAT_NAMES).forEach(s=>{
+      data.stats[s]={
+        progress:Number(old[s]||0)*10
+      };
+    });
+  }
+
+  Object.keys(STAT_NAMES).forEach(s=>{
+    if(!data.stats[s]){
+      data.stats[s]={progress:0};
+    }
+  });
+
+  if(!Array.isArray(data.completedQuestIds)){
+    data.completedQuestIds=[];
+  }
+
+  if(!Array.isArray(custom))custom=[];
+  if(!Array.isArray(objectives))objectives=[];
+  if(!Array.isArray(history))history=[];
 
   save(STORAGE.data,data);
+  save(STORAGE.custom,custom);
+  save(STORAGE.objectives,objectives);
+  save(STORAGE.history,history);
   save(STORAGE.state,state);
 }
 
-normalizeData();
+migrate();
 
-/* =========================================================
-   CORE
-   ========================================================= */
+function levelFromStatProgress(p){
 
-function esc(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  let level=1;
+  let remaining=p;
+
+  while(
+    remaining>=statXPNeededForLevel(level)
+  ){
+    remaining-=statXPNeededForLevel(level);
+    level++;
+  }
+
+  return {
+    level,
+    remaining,
+    need:statXPNeededForLevel(level),
+    pct:Math.min(
+      100,
+      (remaining/statXPNeededForLevel(level))*100
+    )
+  };
 }
 
-function saveData(){
-  data.settings.guidance=state.guidance;
-  data.settings.motion=state.motion;
+function addXP(amount,countToday=true){
+
+  data.totalXP+=amount;
+  data.xp+=amount;
+
+  while(
+    data.xp>=xpNeededForLevel(data.level)
+  ){
+    data.xp-=xpNeededForLevel(data.level);
+    data.level++;
+
+    toast(
+      'LEVEL UP — LEVEL '+data.level
+    );
+  }
+
+  if(countToday){
+    data.todayXP+=amount;
+  }
+}
+
+function addStat(stat,xp){
+
+  if(!data.stats[stat]){
+    data.stats[stat]={progress:0};
+  }
+
+  data.stats[stat].progress+=
+    statGain[xp]||
+    Math.max(
+      5,
+      Math.round(xp*.55)
+    );
+}
+
+function activeDate(){
+  return today();
+}
+
+function checkDailyReset(){
+
+  if(data.dailyDate!==activeDate()){
+
+    data.dailyDate=activeDate();
+    data.completedToday=0;
+    data.todayXP=0;
+
+    save(STORAGE.data,data);
+  }
+}
+
+function registerActivity(){
+
+  const t=today();
+
+  if(data.lastActiveDate!==t){
+
+    if(data.lastActiveDate){
+
+      const prev=new Date(data.lastActiveDate);
+      const now=new Date(t);
+
+      const diff=Math.round(
+        (now-prev)/86400000
+      );
+
+      data.streak=
+        diff===1
+        ?data.streak+1
+        :1;
+
+    }else{
+
+      data.streak=1;
+
+    }
+
+    data.lastActiveDate=t;
+  }
+
   save(STORAGE.data,data);
-  save(STORAGE.state,state);
 }
 
-function toast(message){
-  const el=document.getElementById("toast");
-  el.textContent=message;
-  el.classList.add("show");
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>{
-    el.classList.remove("show");
-  },2300);
+function record(
+  title,
+  xp,
+  stat,
+  source='QUEST'
+){
+
+  history.unshift({
+    id:uid('h'),
+    title,
+    xp,
+    stat,
+    source,
+    date:new Date().toISOString()
+  });
+
+  history=history.slice(0,100);
+
+  save(STORAGE.history,history);
 }
 
-function openModal(title,html){
-  document.getElementById("modalTitle").textContent=title;
-  document.getElementById("modalBody").innerHTML=html;
-  document.getElementById("modalBackdrop").classList.remove("hidden");
+function completeReward({
+  id,
+  title,
+  xp,
+  stat,
+  source='QUEST',
+  objectiveQuestId=null
+}){
+
+  if(
+    id &&
+    data.completedQuestIds.includes(id)
+  ){
+    return false;
+  }
+
+  checkDailyReset();
+
+  if(id){
+    data.completedQuestIds.push(id);
+  }
+
+  data.completedToday++;
+
+  addXP(xp);
+  addStat(stat,xp);
+  registerActivity();
+
+  record(
+    title,
+    xp,
+    stat,
+    source
+  );
+
+  if(objectiveQuestId){
+    markObjectiveQuest(objectiveQuestId);
+  }
+
+  save(STORAGE.data,data);
+  save(STORAGE.history,history);
+
+  checkAchievements();
+  renderAll();
+
+  toast(
+    'QUEST COMPLETE  +'+xp+' XP'
+  );
+
+  if(
+    notificationEnabled &&
+    'Notification' in window &&
+    Notification.permission==='granted'
+  ){
+
+    try{
+
+      new Notification(
+        'SENRAI — QUEST COMPLETE',
+        {
+          body:title+'  •  +'+xp+' XP'
+        }
+      );
+
+    }catch(e){}
+
+  }
+
+  return true;
 }
 
-function closeModal(){
-  document.getElementById("modalBackdrop").classList.add("hidden");
+function objectiveTemplates(category,name){
+
+  const short=
+    name.length>35
+    ?name.slice(0,35)+'…'
+    :name;
+
+  const t={
+
+    CAREER:[
+      ['PREPARE','Get your materials, résumé, plan, or tools ready.'],
+      ['BUILD','Complete a meaningful piece of work toward it.'],
+      ['EXECUTE','Take the real-world action that moves it forward.']
+    ],
+
+    LEARNING:[
+      ['FOUNDATION','Build the basic knowledge needed to understand it.'],
+      ['PRACTICE','Practice the skill instead of only consuming information.'],
+      ['PROVE IT','Use the skill in a small real-world test.']
+    ],
+
+    FITNESS:[
+      ['FOUNDATION','Set up a simple routine you can actually repeat.'],
+      ['CONSISTENCY','Complete several sessions and make movement normal.'],
+      ['PROGRESS','Increase the challenge or measure your improvement.']
+    ],
+
+    FINANCE:[
+      ['ASSESS','Understand where your money is going.'],
+      ['PLAN','Choose one realistic financial action.'],
+      ['EXECUTE','Complete the action and verify the result.']
+    ],
+
+    HEALTH:[
+      ['PREPARE','Remove one obstacle to taking care of yourself.'],
+      ['CONSISTENCY','Repeat a healthy action enough to build momentum.'],
+      ['CHECK IN','Review how you feel and adjust your approach.']
+    ],
+
+    CREATIVE:[
+      ['CONCEPT','Define the idea and what finished means.'],
+      ['CREATE','Make the thing without waiting for perfect.'],
+      ['FINISH','Complete, polish, or share it.']
+    ],
+
+    RELATIONSHIPS:[
+      ['REACH OUT','Start the conversation or make the invitation.'],
+      ['NURTURE','Follow through and give the relationship attention.'],
+      ['DEEPEN','Create a meaningful shared experience.']
+    ],
+
+    PRODUCTIVITY:[
+      ['CLARIFY','Decide exactly what done looks like.'],
+      ['BUILD MOMENTUM','Complete the first focused block of work.'],
+      ['FINISH','Close the loop instead of leaving it half-done.']
+    ],
+
+    LIFE:[
+      ['EXPLORE','Take the first step toward the experience.'],
+      ['EXPERIENCE','Actually do the thing.'],
+      ['REFLECT','Capture what you learned or how it felt.']
+    ]
+
+  };
+
+  return (t[category]||t.LIFE).map(
+    (m,i)=>({
+
+      id:uid('milestone'),
+
+      title:m[0],
+
+      description:m[1],
+
+      completed:false,
+
+      quests:[{
+
+        id:uid('oq'),
+
+        name:[
+          `Start ${short}`,
+          `Work on ${short}`,
+          `Move ${short} forward`
+        ][i],
+
+        xp:[25,50,75][i],
+
+        stat:[
+          'WIS',
+          'DEX',
+          'WIS'
+        ][i],
+
+        difficulty:[
+          'NORMAL',
+          'HARD',
+          'HARD'
+        ][i],
+
+        completed:false
+      }]
+
+    })
+  );
 }
 
-function showSystemEvent(event){
+function createObjective(){
+
+  const name=
+    document.getElementById('objName')
+    .value
+    .trim();
+
+  if(!name){
+    return toast('ENTER AN OBJECTIVE');
+  }
+
+  const category=
+    document.getElementById('objCategory')
+    .value;
+
+  const target=
+    document.getElementById('objDate')
+    .value;
+
+  const reason=
+    document.getElementById('objReason')
+    .value
+    .trim();
+
+  const o={
+    id:uid('obj'),
+    name,
+    targetDate:target,
+    category,
+    reason,
+    progress:0,
+    completed:false,
+    createdDate:today(),
+    milestones:objectiveTemplates(
+      category,
+      name
+    )
+  };
+
+  objectives.unshift(o);
+
+  save(
+    STORAGE.objectives,
+    objectives
+  );
+
+  closeModal();
+  renderAll();
+
+  toast('OBJECTIVE CREATED');
+}
+
+function markObjectiveQuest(qid){
+
+  for(const o of objectives){
+
+    for(const m of o.milestones){
+
+      for(const q of m.quests){
+
+        if(q.id===qid){
+
+          q.completed=true;
+
+          m.completed=
+            m.quests.every(
+              x=>x.completed
+            );
+
+          const all=
+            o.milestones
+              .flatMap(x=>x.quests);
+
+          const done=
+            all.filter(
+              x=>x.completed
+            ).length;
+
+          o.progress=
+            Math.round(
+              done/all.length*100
+            );
+
+          o.completed=
+            o.progress===100;
+
+          save(
+            STORAGE.objectives,
+            objectives
+          );
+
+          return;
+        }
+      }
+    }
+  }
+}
+
+function completePathQuest(
+  oid,
+  qid
+){
+
+  const o=
+    objectives.find(
+      x=>x.id===oid
+    );
+
+  if(!o)return;
+
+  const q=
+    o.milestones
+      .flatMap(
+        m=>m.quests
+      )
+      .find(
+        x=>x.id===qid
+      );
+
+  if(!q || q.completed)return;
+
+  q.completed=true;
+
+  const m=
+    o.milestones.find(
+      x=>x.quests.some(
+        y=>y.id===qid
+      )
+    );
+
+  if(m){
+    m.completed=
+      m.quests.every(
+        x=>x.completed
+      );
+  }
+
+  const all=
+    o.milestones
+      .flatMap(
+        x=>x.quests
+      );
+
+  o.progress=
+    Math.round(
+      all.filter(
+        x=>x.completed
+      ).length/all.length*100
+    );
+
+  o.completed=
+    o.progress===100;
+
+  addXP(q.xp);
+  addStat(q.stat,q.xp);
+
+  data.completedToday++;
+
+  registerActivity();
+
+  record(
+    q.name,
+    q.xp,
+    q.stat,
+    'OBJECTIVE PATH'
+  );
+
+  save(
+    STORAGE.objectives,
+    objectives
+  );
+
+  save(
+    STORAGE.data,
+    data
+  );
+
+  checkAchievements();
+  renderAll();
+
+  toast(
+    'PATH PROGRESS  +'+q.xp+' XP'
+  );
+}
+
+function getActiveObjective(){
+  return objectives.find(
+    o=>!o.completed
+  )||null;
+}
+
+function nextObjectiveQuest(o){
+
+  return o
+    ?o.milestones
+      .flatMap(
+        m=>m.quests
+      )
+      .find(
+        q=>!q.completed
+      )||null
+    :null;
+}
+
+function objectiveCard(o){
+
+  const total=
+    o.milestones
+      .flatMap(
+        m=>m.quests
+      )
+      .length;
+
+  const done=
+    o.milestones
+      .flatMap(
+        m=>m.quests
+      )
+      .filter(
+        q=>q.completed
+      )
+      .length;
+
+  return `
+    <div class="path-card" style="margin-bottom:10px">
+
+      <div class="path-header">
+
+        <div>
+
+          <div class="path-tag">
+            ${o.category} • OBJECTIVE
+          </div>
+
+          <div class="path-title">
+            ${esc(o.name)}
+          </div>
+
+          <div class="path-reason">
+            ${esc(
+              o.reason||
+              'A goal worth moving toward.'
+            )}
+          </div>
+
+        </div>
+
+        <div class="pill">
+          ${done}/${total}
+        </div>
+
+      </div>
+
+      <div class="objective-track" style="margin-top:14px">
+        <div
+          class="objective-fill"
+          style="width:${o.progress}%"
+        ></div>
+      </div>
+
+      <div class="objective-meta">
+        <span>${o.progress}% COMPLETE</span>
+        <span>
+          ${
+            o.targetDate
+            ?esc(o.targetDate)
+            :'NO DEADLINE'
+          }
+        </span>
+      </div>
+
+      <div class="button-row">
+
+        <button
+          onclick="viewObjective('${o.id}')"
+          class="primary"
+        >
+          OPEN PATH
+        </button>
+
+        <button
+          onclick="removeObjective('${o.id}')"
+          class="danger"
+        >
+          DELETE
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+function viewObjective(id){
+
+  currentObjectiveId=id;
+
+  const o=
+    objectives.find(
+      x=>x.id===id
+    );
+
+  if(!o)return;
+
+  document
+    .getElementById('objectivePathSection')
+    .classList
+    .remove('hidden');
+
+  document
+    .getElementById('objectivePath')
+    .innerHTML=
+      renderPath(o);
+
+  document
+    .getElementById('objectivePathSection')
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+}
+
+function renderPath(o){
+
+  return `
+    <div class="path-card">
+
+      <div class="path-tag">
+        ${o.category} • MAIN PATH
+      </div>
+
+      <div class="path-title">
+        ${esc(o.name)}
+      </div>
+
+      <div class="path-reason">
+        ${esc(
+          o.reason||
+          'Keep moving forward. Skipping is allowed. There is no penalty.'
+        )}
+      </div>
+
+      ${
+        o.milestones.map(
+          (m,mi)=>`
+
+          <div class="milestone">
+
+            <div class="milestone-head">
+
+              <div>
+
+                <div class="milestone-name">
+                  ${mi+1}. ${esc(m.title)}
+                </div>
+
+                <div class="milestone-desc">
+                  ${esc(m.description)}
+                </div>
+
+              </div>
+
+              <div
+                class="milestone-status ${
+                  m.completed?'done':''
+                }"
+              >
+                ${
+                  m.completed
+                  ?'COMPLETE'
+                  :'ACTIVE'
+                }
+              </div>
+
+            </div>
+
+            ${
+              m.quests.map(
+                q=>`
+
+                <div
+                  class="path-quest ${
+                    q.completed?'done':''
+                  }"
+                >
+
+                  <div>
+
+                    <div class="path-quest-title">
+                      ${esc(q.name)}
+                    </div>
+
+                    <div class="path-quest-meta">
+                      +${q.xp} XP • ${q.stat} • ${q.difficulty}
+                    </div>
+
+                  </div>
+
+                  <button
+                    class="small ${
+                      q.completed?'':'primary'
+                    }"
+                    ${
+                      q.completed
+                      ?'disabled'
+                      :''
+                    }
+                    onclick="completePathQuest('${o.id}','${q.id}')"
+                  >
+                    ${
+                      q.completed
+                      ?'DONE'
+                      :'COMPLETE'
+                    }
+                  </button>
+
+                </div>
+
+              `
+              ).join('')
+            }
+
+          </div>
+
+        `
+        ).join('')
+      }
+
+    </div>
+  `;
+}
+
+function removeObjective(id){
+
+  if(
+    !confirm(
+      'Delete this objective?'
+    )
+  )return;
+
+  objectives=
+    objectives.filter(
+      o=>o.id!==id
+    );
+
+  save(
+    STORAGE.objectives,
+    objectives
+  );
+
+  if(currentObjectiveId===id){
+    closeObjectivePath();
+  }
+
+  renderAll();
+
+  toast('OBJECTIVE REMOVED');
+}
+
+function closeObjectivePath(){
+
+  document
+    .getElementById('objectivePathSection')
+    .classList
+    .add('hidden');
+
+  currentObjectiveId=null;
+}
+
+function openObjectiveForm(){
+
   openModal(
-    "SYSTEM",
+    'NEW OBJECTIVE',
     `
-      <div class="event-modal">
-        <div class="event-symbol">✦</div>
-        <div class="event-type">${esc(event.type)}</div>
-        <div class="event-title">${esc(event.title)}</div>
-        <div class="event-text">${esc(event.text)}</div>
-        <div class="event-reward">${esc(event.reward || "")}</div>
-        <button class="primary event-button" onclick="closeModal()">CONTINUE</button>
+      <div class="form-grid">
+
+        <div class="form-group full">
+
+          <label class="form-label">
+            OBJECTIVE
+          </label>
+
+          <input
+            id="objName"
+            placeholder="What do you want to make real?"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label class="form-label">
+            CATEGORY
+          </label>
+
+          <select id="objCategory">
+
+            <option>CAREER</option>
+            <option>LEARNING</option>
+            <option>FITNESS</option>
+            <option>FINANCE</option>
+            <option>HEALTH</option>
+            <option>CREATIVE</option>
+            <option>RELATIONSHIPS</option>
+            <option>PRODUCTIVITY</option>
+            <option>LIFE</option>
+
+          </select>
+
+        </div>
+
+        <div class="form-group">
+
+          <label class="form-label">
+            TARGET DATE
+          </label>
+
+          <input
+            id="objDate"
+            type="date"
+          >
+
+        </div>
+
+        <div class="form-group full">
+
+          <label class="form-label">
+            WHY IT MATTERS
+          </label>
+
+          <textarea
+            id="objReason"
+            rows="3"
+            placeholder="Why is this worth doing?"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="button-row">
+
+        <button
+          class="primary"
+          onclick="createObjective()"
+        >
+          CREATE OBJECTIVE
+        </button>
+
+        <button onclick="closeModal()">
+          CANCEL
+        </button>
+
       </div>
     `
   );
 }
 
-function systemEvent(type,title,text,reward=""){
-  const event={
-    id:uid("event"),
-    type,
-    title,
-    text,
-    reward,
-    date:new Date().toISOString()
-  };
+function buildRecommendations(){
 
-  data.systemEvents.unshift(event);
+  const opts=[];
 
-  if(data.systemEvents.length>40){
-    data.systemEvents=data.systemEvents.slice(0,40);
+  const active=
+    getActiveObjective();
+
+  if(active){
+
+    const q=
+      nextObjectiveQuest(active);
+
+    if(q){
+
+      opts.push({
+
+        id:'objective_'+q.id,
+
+        title:
+          'YOUR MAIN PATH IS WAITING.',
+
+        text:
+          `You said ${active.name} matters. The next step is small on purpose: move the objective forward without needing to finish everything today.`,
+
+        quest:q.name,
+        xp:q.xp,
+        stat:q.stat,
+
+        source:'OBJECTIVE',
+
+        objectiveId:active.id,
+        objectiveQuestId:q.id
+
+      });
+    }
   }
 
-  saveData();
+  const recent=
+    history.filter(
+      h=>
+        Date.now()-
+        new Date(h.date).getTime()
+        <
+        7*86400000
+    );
 
-  setTimeout(()=>{
-    showSystemEvent(event);
-  },100);
-}
+  const counts={};
 
-function formatDate(date){
-  try{
-    return new Date(date).toLocaleDateString(undefined,{
-      month:"short",
-      day:"numeric",
-      year:"numeric"
+  Object.keys(STAT_NAMES).forEach(
+    s=>{
+      counts[s]=
+        recent.filter(
+          h=>h.stat===s
+        ).length;
+    }
+  );
+
+  const weakest=
+    Object.keys(counts)
+      .sort(
+        (a,b)=>
+          counts[a]-counts[b]
+      )[0];
+
+  if(
+    counts[weakest]<2
+  ){
+
+    opts.push({
+
+      id:'weak_'+weakest,
+
+      title:
+        `${STAT_NAMES[weakest]} HAS BEEN QUIET.`,
+
+      text:
+        `Your recent actions have not touched ${STAT_NAMES[weakest].toLowerCase()} much. A small action can keep your character balanced.`,
+
+      quest:{
+        name:
+          'Do one small '+
+          STAT_NAMES[weakest].toLowerCase()+
+          ' action',
+
+        xp:20,
+        stat:weakest
+      },
+
+      source:'BALANCE'
     });
-  }catch(e){
-    return date;
   }
+
+  if(data.completedToday>=4){
+
+    opts.push({
+
+      id:'recovery',
+
+      title:
+        'MOMENTUM DOESN’T REQUIRE MORE GRIND.',
+
+      text:
+        'You have already put in real work today. SENRAI recommends something restorative instead of stacking more pressure.',
+
+      quest:{
+        name:
+          'Take 20 minutes to genuinely recharge',
+
+        xp:20,
+        stat:'VIT'
+      },
+
+      source:'RECOVERY'
+    });
+  }
+
+  if(data.streak>=3){
+
+    opts.push({
+
+      id:'streak_'+data.streak,
+
+      title:
+        'YOU ARE BUILDING MOMENTUM.',
+
+      text:
+        `You have been active for ${data.streak} days. Keep the next action small enough that consistency stays easy.`,
+
+      quest:{
+        name:
+          'Protect your momentum with one intentional action',
+
+        xp:20,
+        stat:'WIS'
+      },
+
+      source:'MOMENTUM'
+    });
+  }
+
+  opts.push({
+
+    id:'life_quality',
+
+    title:
+      'MAKE YOUR DAY A LITTLE BETTER.',
+
+    text:
+      'Not every quest needs to be productive. SENRAI also tracks actions that make life feel better.',
+
+    quest:{
+      name:
+        'Do one small thing you genuinely enjoy',
+
+      xp:20,
+      stat:'WIS'
+    },
+
+    source:'LIFE'
+  });
+
+  return opts;
 }
 
-/* =========================================================
-   LEVEL / XP
-   ========================================================= */
+function chooseRecommendation(force=false){
 
-function addXP(amount,reason="",stat=null){
+  let opts=
+    buildRecommendations();
 
-  if(amount<=0)return;
+  if(!opts.length)return null;
 
-  const oldLevel=data.level;
+  const now=Date.now();
 
-  data.xp += amount;
-  data.totalXP += amount;
-  data.todayXP += amount;
+  const cooldown=
+    state.lastRecommendationAt &&
+    now-state.lastRecommendationAt<
+    86400000 &&
+    !force;
 
-  if(stat && data.stats[stat]){
-    addStatXP(stat,amount);
+  let filtered=
+    opts.filter(
+      o=>
+        !state.dismissedRecommendationIds
+          .includes(o.id)
+    );
+
+  if(cooldown){
+
+    const unseen=
+      filtered.filter(
+        o=>
+          !state.shownRecommendationIds
+            .includes(o.id)
+      );
+
+    if(unseen.length){
+      filtered=unseen;
+    }
   }
 
-  data.history.unshift({
-    id:uid("history"),
-    type:"XP",
-    amount,
-    reason,
+  if(!filtered.length){
+    filtered=opts;
+  }
+
+  const choice=
+    filtered[
+      currentReflectionIndex%
+      filtered.length
+    ];
+
+  if(choice){
+
+    state.lastRecommendationId=
+      choice.id;
+
+    state.lastRecommendationAt=
+      now;
+
+    if(
+      !state.shownRecommendationIds
+        .includes(choice.id)
+    ){
+
+      state.shownRecommendationIds
+        .push(choice.id);
+    }
+
+    save(
+      STORAGE.state,
+      state
+    );
+  }
+
+  return choice;
+}
+
+let currentRecommendation=null;
+
+function renderReflection(force=false){
+
+  if(!state.guidance){
+
+    document
+      .getElementById('reflectionTitle')
+      .textContent=
+        'SYSTEM GUIDANCE IS OFF.';
+
+    document
+      .getElementById('reflectionText')
+      .textContent=
+        'You can still use every quest, objective, and stat manually.';
+
+    document
+      .getElementById('reflectionSuggestion')
+      .textContent=
+        'Turn guidance back on in SETTINGS when you want adaptive recommendations.';
+
+    document
+      .getElementById('reflectionReward')
+      .textContent='';
+
+    document
+      .getElementById('acceptReflectionButton')
+      .disabled=true;
+
+    return;
+  }
+
+  currentRecommendation=
+    chooseRecommendation(force);
+
+  if(!currentRecommendation)return;
+
+  document
+    .getElementById('reflectionTitle')
+    .textContent=
+      currentRecommendation.title;
+
+  document
+    .getElementById('reflectionText')
+    .textContent=
+      currentRecommendation.text;
+
+  document
+    .getElementById('reflectionSuggestion')
+    .textContent=
+      currentRecommendation.quest.name;
+
+  document
+    .getElementById('reflectionReward')
+    .textContent=
+      '+'+
+      currentRecommendation.quest.xp+
+      ' XP • +'+
+      currentRecommendation.quest.stat;
+
+  document
+    .getElementById('acceptReflectionButton')
+    .disabled=false;
+}
+
+function acceptReflection(){
+
+  if(!currentRecommendation)return;
+
+  const q=
+    currentRecommendation.quest;
+
+  const id=
+    uid('rec');
+
+  custom.unshift({
+
+    id,
+
+    name:q.name,
+
+    desc:
+      'Accepted from System Reflection.',
+
+    type:'SIDE',
+
+    difficulty:
+      q.xp>=75
+      ?'HARD'
+      :q.xp>=50
+      ?'HARD'
+      :'NORMAL',
+
+    stat:q.stat,
+
+    xp:q.xp,
+
+    completed:false,
+
+    source:'SYSTEM_RECOMMENDATION',
+
+    objectiveId:
+      currentRecommendation.objectiveId||
+      null,
+
+    objectiveQuestId:
+      currentRecommendation.objectiveQuestId||
+      null,
+
+    createdDate:today()
+
+  });
+
+  state.acceptedRecommendationIds
+    .push(
+      currentRecommendation.id
+    );
+
+  save(
+    STORAGE.custom,
+    custom
+  );
+
+  save(
+    STORAGE.state,
+    state
+  );
+
+  renderAll();
+
+  showView('quests');
+
+  toast('QUEST ACCEPTED');
+}
+
+function renderDaily(){
+
+  checkDailyReset();
+
+  const html=
+    DAILY.map(
+      q=>{
+
+        const done=
+          data.completedQuestIds
+            .includes(
+              q.id+'_'+data.dailyDate
+            );
+
+        return questHTML(
+          {
+            ...q,
+            id:q.id+'_'+data.dailyDate
+          },
+          done,
+          true
+        );
+      }
+    ).join('');
+
+  document
+    .getElementById('dailyQuests')
+    .innerHTML=html;
+
+  document
+    .getElementById('homeDailyQuests')
+    .innerHTML=html;
+}
+
+function questHTML(
+  q,
+  done,
+  compact=false
+){
+
+  const action=
+    q.source
+    ?'completeCustom'
+    :'completeQuest';
+
+  return `
+    <div class="quest ${done?'complete':''}">
+
+      <div class="quest-main">
+
+        <div class="quest-title">
+          ${esc(q.name)}
+        </div>
+
+        ${
+          q.desc
+          ?`
+            <div class="quest-desc">
+              ${esc(q.desc)}
+            </div>
+          `
+          :''
+        }
+
+        <div class="quest-meta">
+
+          <span class="pill xp">
+            +${q.xp} XP
+          </span>
+
+          <span class="pill">
+            ${q.stat}
+          </span>
+
+          ${
+            q.type
+            ?`
+              <span class="pill ${
+                q.type==='MAIN'
+                ?'main'
+                :''
+              }">
+                ${q.type}
+              </span>
+            `
+            :''
+          }
+
+        </div>
+
+      </div>
+
+      <button
+        class="small ${
+          done
+          ?''
+          :'primary'
+        }"
+        ${
+          done
+          ?'disabled'
+          :''
+        }
+        onclick="${action}(
+          '${q.id}',
+          '${escAttr(q.name)}',
+          ${q.xp},
+          '${q.stat}',
+          '${q.objectiveQuestId||''}'
+        )"
+      >
+        ${
+          done
+          ?'DONE'
+          :'COMPLETE'
+        }
+      </button>
+
+    </div>
+  `;
+}
+
+function completeQuest(
+  id,
+  name,
+  xp,
+  stat,
+  objectiveQuestId=''
+){
+
+  if(
+    data.completedQuestIds
+      .includes(id)
+  ){
+    return;
+  }
+
+  completeReward({
+    id,
+    title:name,
+    xp,
     stat,
-    date:new Date().toISOString()
+    objectiveQuestId:
+      objectiveQuestId||null
   });
-
-  if(data.history.length>100){
-    data.history=data.history.slice(0,100);
-  }
-
-  while(data.xp>=xpNeededForLevel(data.level)){
-    data.xp-=xpNeededForLevel(data.level);
-    data.level++;
-    handleLevelUp(data.level);
-  }
-
-  saveData();
-  renderAll();
-
-  if(data.level>oldLevel){
-    toast("LEVEL UP — LEVEL "+data.level);
-  }else{
-    toast("+"+amount+" XP");
-  }
-}
-
-function addStatXP(stat,amount){
-
-  const s=data.stats[stat];
-  if(!s)return;
-
-  s.progress += amount;
-
-  while(s.progress>=statXPNeededForLevel(s.level)){
-    s.progress-=statXPNeededForLevel(s.level);
-    s.level++;
-  }
-}
-
-function handleLevelUp(level){
-
-  const unlocks={
-    2:["LIFE ENCOUNTERS","Life encounters are now available."],
-    3:["MOMENTS","You can now record moments and look back later."],
-    4:["DEEPER PATHS","The System is beginning to recognize how you act."],
-    5:["TENDENCIES","Behavioral tendencies are now being observed."],
-    7:["HIDDEN SIGNALS","Some discoveries will no longer announce themselves."],
-    10:["A DEEPER SIGNAL","Your long-term patterns are becoming clearer."]
-  };
-
-  if(unlocks[level]){
-    systemEvent(
-      "SYSTEM",
-      unlocks[level][0],
-      unlocks[level][1],
-      "LEVEL "+level+" REACHED"
-    );
-  }
-}
-
-/* =========================================================
-   MOMENTUM
-   ========================================================= */
-
-function calculateMomentum(){
-
-  let momentum=0;
-
-  const recent=data.history.slice(0,30);
-
-  recent.forEach(item=>{
-    if(item.type==="QUEST"){
-      momentum += 5;
-    }
-
-    if(item.type==="LIFE"){
-      momentum += 3;
-    }
-
-    if(item.type==="OBJECTIVE"){
-      momentum += 7;
-    }
-  });
-
-  const days=new Set();
-
-  recent.forEach(item=>{
-    if(item.date){
-      days.add(item.date.slice(0,10));
-    }
-  });
-
-  momentum += Math.min(days.size*4,28);
-
-  return Math.min(100,momentum);
-}
-
-/* =========================================================
-   STREAK
-   ========================================================= */
-
-function updateActivity(){
-
-  const current=today();
-
-  if(data.lastActiveDate===current){
-    return;
-  }
-
-  if(data.lastActiveDate){
-    const previous=new Date(data.lastActiveDate);
-    const now=new Date(current);
-
-    const difference=Math.round(
-      (now-previous)/(1000*60*60*24)
-    );
-
-    if(difference===1){
-      data.streak++;
-    }else if(difference>1){
-      data.streak=1;
-    }
-  }else{
-    data.streak=1;
-  }
-
-  data.lastActiveDate=current;
-}
-
-/* =========================================================
-   QUESTS
-   ========================================================= */
-
-function completeDaily(id){
-
-  if(data.completedDaily.includes(id)){
-    return;
-  }
-
-  const quest=DAILY.find(q=>q.id===id);
-
-  if(!quest)return;
-
-  data.completedDaily.push(id);
-  data.completedToday++;
-
-  updateActivity();
-
-  data.history.unshift({
-    id:uid("history"),
-    type:"QUEST",
-    name:quest.name,
-    amount:quest.xp,
-    stat:quest.stat,
-    date:new Date().toISOString()
-  });
-
-  addXP(quest.xp,"Daily Quest: "+quest.name,quest.stat);
-
-  checkAchievements();
-  updatePath();
-
-  saveData();
-  renderAll();
-}
-
-function completeCustom(id){
-
-  if(data.completedCustom.includes(id)){
-    return;
-  }
-
-  const quest=data.custom.find(q=>q.id===id);
-
-  if(!quest)return;
-
-  data.completedCustom.push(id);
-  data.completedToday++;
-
-  updateActivity();
-
-  data.history.unshift({
-    id:uid("history"),
-    type:"QUEST",
-    name:quest.name,
-    amount:quest.xp,
-    stat:quest.stat,
-    date:new Date().toISOString()
-  });
-
-  addXP(quest.xp,"Custom Quest: "+quest.name,quest.stat);
-
-  checkAchievements();
-  updatePath();
-
-  saveData();
-  renderAll();
 }
 
 function createCustomQuest(){
 
-  const input=document.getElementById("questNameInput");
-  const difficulty=document.getElementById("questDifficulty").value;
-  const stat=document.getElementById("questStat").value;
-
-  const name=input.value.trim();
+  const name=
+    document
+      .getElementById('questNameInput')
+      .value
+      .trim();
 
   if(!name){
-    toast("GIVE THE QUEST A NAME");
-    return;
+    return toast('ENTER A QUEST NAME');
   }
 
-  data.custom.push({
-    id:uid("custom"),
+  const difficulty=
+    document
+      .getElementById('questDifficultyInput')
+      .value;
+
+  custom.unshift({
+
+    id:uid('quest'),
+
     name,
-    desc:"Custom quest created by you.",
-    xp:DIFFICULTY_XP[difficulty],
-    stat,
-    difficulty
+
+    desc:
+      document
+        .getElementById('questDescInput')
+        .value
+        .trim(),
+
+    type:
+      document
+        .getElementById('questTypeInput')
+        .value,
+
+    difficulty,
+
+    stat:
+      document
+        .getElementById('questStatInput')
+        .value,
+
+    xp:
+      DIFFICULTY_XP[difficulty],
+
+    completed:false,
+
+    createdDate:today(),
+
+    source:'CUSTOM'
   });
 
-  input.value="";
+  save(
+    STORAGE.custom,
+    custom
+  );
 
-  saveData();
-  renderAll();
+  [
+    'questNameInput',
+    'questDescInput'
+  ].forEach(
+    id=>
+      document
+        .getElementById(id)
+        .value=''
+  );
 
-  toast("QUEST CREATED");
+  renderCustom();
+
+  toast('QUEST CREATED');
 }
 
-/* =========================================================
-   LIFE
-   ========================================================= */
+function renderCustom(){
+
+  document
+    .getElementById('customQuestList')
+    .innerHTML=
+      custom.length
+      ?custom
+        .map(
+          q=>questHTML(
+            q,
+            q.completed
+          )
+        )
+        .join('')
+      :`
+        <div
+          class="panel"
+          style="
+            padding:18px;
+            color:var(--muted);
+            font-size:9px;
+            border-radius:18px
+          "
+        >
+          No custom quests yet. Create one when you want to define your own path.
+        </div>
+      `;
+}
+
+function completeCustom(id){
+
+  const q=
+    custom.find(
+      x=>x.id===id
+    );
+
+  if(!q || q.completed)return;
+
+  q.completed=true;
+
+  save(
+    STORAGE.custom,
+    custom
+  );
+
+  completeReward({
+
+    id,
+
+    title:q.name,
+
+    xp:q.xp,
+
+    stat:q.stat,
+
+    source:
+      q.source||
+      'CUSTOM',
+
+    objectiveQuestId:
+      q.objectiveQuestId||
+      null
+
+  });
+}
 
 function generateLife(){
 
-  let choices=LIFE.filter(
-    (_,index)=>!data.life.used.includes(index)
-  );
+  const x=
+    LIFE[
+      Math.floor(
+        Math.random()*LIFE.length
+      )
+    ];
 
-  if(!choices.length){
-    data.life.used=[];
-    choices=LIFE;
-  }
-
-  const chosen=choices[
-    Math.floor(Math.random()*choices.length)
-  ];
-
-  const index=LIFE.indexOf(chosen);
-
-  data.life.used.push(index);
-  data.life.current={
-    text:chosen.text,
-    stat:chosen.stat,
-    xp:chosen.xp,
-    category:chosen.category
+  state.activeLife={
+    text:x[0],
+    stat:x[1],
+    xp:x[2]
   };
 
-  state.activeLife=data.life.current;
+  save(
+    STORAGE.state,
+    state
+  );
 
-  saveData();
-  save(STORAGE.state,state);
+  document
+    .getElementById('lifeText')
+    .textContent=x[0];
 
-  renderLife();
+  document
+    .getElementById('homeLifeText')
+    .textContent=x[0];
 
-  toast("NEW ENCOUNTER");
+  document
+    .getElementById('completeLifeButton')
+    .disabled=false;
+
+  document
+    .getElementById('homeCompleteLife')
+    .disabled=false;
 }
 
 function completeLife(){
 
-  const life=data.life.current;
+  if(!state.activeLife)return;
 
-  if(!life){
-    generateLife();
-    return;
-  }
+  const q=
+    state.activeLife;
 
-  updateActivity();
-
-  data.history.unshift({
-    id:uid("history"),
-    type:"LIFE",
-    name:life.text,
-    amount:life.xp,
-    stat:life.stat,
-    category:life.category,
-    date:new Date().toISOString()
-  });
-
-  data.completedToday++;
-
-  addXP(
-    life.xp,
-    "Life Encounter: "+life.text,
-    life.stat
-  );
-
-  data.life.current=null;
   state.activeLife=null;
 
-  saveData();
-  save(STORAGE.state,state);
+  save(
+    STORAGE.state,
+    state
+  );
 
-  renderAll();
+  completeReward({
 
-  toast("ENCOUNTER ACCEPTED");
+    id:uid('life'),
+
+    title:q.text,
+
+    xp:q.xp,
+
+    stat:q.stat,
+
+    source:'LIFE QUEST'
+  });
+
+  document
+    .getElementById('completeLifeButton')
+    .disabled=true;
+
+  document
+    .getElementById('homeCompleteLife')
+    .disabled=true;
 }
 
 function completeSide(){
 
-  const side=SIDE_QUESTS[
-    Math.floor(Math.random()*SIDE_QUESTS.length)
-  ];
+  completeReward({
 
-  updateActivity();
+    id:uid('side'),
 
-  data.history.unshift({
-    id:uid("history"),
-    type:"SIDE",
-    name:side[0],
-    amount:15,
-    stat:"DEX",
-    date:new Date().toISOString()
+    title:
+      "Call someone you haven't talked to recently",
+
+    xp:20,
+
+    stat:'CHA',
+
+    source:'SIDE QUEST'
   });
 
-  data.completedToday++;
-
-  addXP(15,"Side Quest: "+side[0],"DEX");
-
-  openModal(
-    "SIDE QUEST COMPLETE",
-    `
-      <div class="event-modal">
-        <div class="event-symbol">✦</div>
-        <div class="event-title">GOOD MOVE.</div>
-        <div class="event-text">${esc(side[1])}</div>
-        <div class="event-reward">+15 XP</div>
-        <button class="primary event-button" onclick="closeModal()">CONTINUE</button>
-      </div>
-    `
-  );
+  document
+    .getElementById('sideQuestButton')
+    .disabled=true;
 }
 
-/* =========================================================
-   OBJECTIVES
-   ========================================================= */
+const ACH=[
 
-function createObjective(){
+  {
+    id:'first',
+    icon:'◇',
+    name:'FIRST STEP',
+    desc:'Complete your first quest.',
+    reward:25,
+    check:d=>d.totalXP>0,
+    progress:d=>Math.min(1,d.totalXP)
+  },
 
-  const name=document.getElementById("objectiveName").value.trim();
-  const category=document.getElementById("objectiveCategory").value;
-  const why=document.getElementById("objectiveWhy").value.trim();
+  {
+    id:'ten',
+    icon:'◆',
+    name:'GETTING STARTED',
+    desc:'Complete 10 quests.',
+    reward:50,
+    check:d=>d.completedQuestIds.length>=10,
+    progress:d=>Math.min(
+      10,
+      d.completedQuestIds.length
+    )
+  },
 
-  if(!name){
-    toast("NAME THE OBJECTIVE");
-    return;
+  {
+    id:'level5',
+    icon:'△',
+    name:'RISING',
+    desc:'Reach level 5.',
+    reward:100,
+    check:d=>d.level>=5,
+    progress:d=>Math.min(5,d.level)
+  },
+
+  {
+    id:'streak7',
+    icon:'✦',
+    name:'CONSISTENT',
+    desc:'Reach a 7-day active streak.',
+    reward:100,
+    check:d=>d.streak>=7,
+    progress:d=>Math.min(7,d.streak)
+  },
+
+  {
+    id:'xp1000',
+    icon:'✧',
+    name:'BUILDER',
+    desc:'Earn 1,000 total XP.',
+    reward:150,
+    check:d=>d.totalXP>=1000,
+    progress:d=>Math.min(1000,d.totalXP)
+  },
+
+  {
+    id:'objective',
+    icon:'◎',
+    name:'PATHFINDER',
+    desc:'Complete an objective.',
+    reward:200,
+    check:d=>objectives.some(o=>o.completed),
+    progress:d=>
+      objectives.filter(
+        o=>o.completed
+      ).length
+  },
+
+  {
+    id:'balanced',
+    icon:'◈',
+    name:'WELL ROUNDED',
+    desc:'Reach level 2 in every stat.',
+    reward:200,
+
+    check:d=>
+      Object.keys(STAT_NAMES)
+        .every(
+          s=>
+            levelFromStatProgress(
+              d.stats[s].progress
+            ).level>=2
+        ),
+
+    progress:d=>
+      Object.keys(STAT_NAMES)
+        .filter(
+          s=>
+            levelFromStatProgress(
+              d.stats[s].progress
+            ).level>=2
+        )
+        .length
   }
 
-  data.objectives.push({
-    id:uid("objective"),
-    name,
-    category,
-    why,
-    progress:0,
-    complete:false,
-    created:new Date().toISOString()
+];
+
+let unlocked=
+  read(
+    STORAGE.achievements,
+    {}
+  );
+
+function checkAchievements(){
+
+  let changed=false;
+
+  ACH.forEach(a=>{
+
+    if(
+      a.check(data) &&
+      !unlocked[a.id]
+    ){
+
+      unlocked[a.id]=true;
+
+      data.totalXP+=a.reward;
+
+      changed=true;
+
+      toast(
+        'ACHIEVEMENT — '+a.name
+      );
+    }
+
   });
 
-  document.getElementById("objectiveName").value="";
-  document.getElementById("objectiveWhy").value="";
+  if(changed){
 
-  saveData();
-  renderAll();
+    save(
+      STORAGE.achievements,
+      unlocked
+    );
 
-  toast("OBJECTIVE CREATED");
-}
-
-function advanceObjective(id){
-
-  const objective=data.objectives.find(o=>o.id===id);
-
-  if(!objective || objective.complete)return;
-
-  objective.progress=Math.min(100,objective.progress+10);
-
-  if(objective.progress>=100){
-    objective.complete=true;
-
-    data.history.unshift({
-      id:uid("history"),
-      type:"OBJECTIVE",
-      name:objective.name,
-      amount:50,
-      date:new Date().toISOString()
-    });
-
-    addXP(50,"Objective Complete: "+objective.name);
-
-    systemEvent(
-      "OBJECTIVE",
-      "OBJECTIVE COMPLETE",
-      objective.name,
-      "+50 XP"
+    save(
+      STORAGE.data,
+      data
     );
   }
-
-  saveData();
-  renderAll();
 }
 
-/* =========================================================
-   MOMENTS
-   ========================================================= */
+const TITLES=[
 
-function createMoment(){
+  [
+    'INITIATE',
+    'Reach level 1',
+    d=>d.level>=1
+  ],
 
-  const title=document.getElementById("momentTitle").value.trim();
-  const text=document.getElementById("momentText").value.trim();
-  const mood=document.getElementById("momentMood").value;
-  const tag=document.getElementById("momentTag").value.trim();
+  [
+    'EXPLORER',
+    'Complete 5 quests',
+    d=>d.completedQuestIds.length>=5
+  ],
 
-  if(!title || !text){
-    toast("A MOMENT NEEDS SOMETHING TO REMEMBER");
-    return;
+  [
+    'CONSISTENT',
+    'Reach a 7-day streak',
+    d=>d.streak>=7
+  ],
+
+  [
+    'BUILDER',
+    'Earn 1,000 total XP',
+    d=>d.totalXP>=1000
+  ],
+
+  [
+    'PATHFINDER',
+    'Complete an objective',
+    d=>objectives.some(
+      o=>o.completed
+    )
+  ],
+
+  [
+    'WELL ROUNDED',
+    'Reach level 2 in every stat',
+    d=>
+      Object.keys(STAT_NAMES)
+        .every(
+          s=>
+            levelFromStatProgress(
+              d.stats[s].progress
+            ).level>=2
+        )
+  ]
+
+];
+
+const PATH_PROFILES={
+
+  INITIATE:{
+    name:'INITIATE',
+    desc:'Your direction is still forming. SENRAI is learning from what you actually do.',
+    tags:[
+      'BEGINNING',
+      'DISCOVERY',
+      'POTENTIAL'
+    ]
+  },
+
+  BUILDER:{
+    name:'BUILDER',
+    desc:'You tend to create, finish, organize, and turn ideas into something real.',
+    tags:[
+      'CREATION',
+      'EXECUTION',
+      'PROGRESS'
+    ]
+  },
+
+  EXPLORER:{
+    name:'EXPLORER',
+    desc:'You tend to seek experiences, novelty, perspective, and things outside your normal routine.',
+    tags:[
+      'CURIOSITY',
+      'EXPERIENCE',
+      'DISCOVERY'
+    ]
+  },
+
+  SEEKER:{
+    name:'SEEKER',
+    desc:'You tend to learn, reflect, question, and look beneath the surface.',
+    tags:[
+      'LEARNING',
+      'REFLECTION',
+      'UNDERSTANDING'
+    ]
+  },
+
+  CONNECTOR:{
+    name:'CONNECTOR',
+    desc:'You tend to invest in people, communication, trust, and shared experiences.',
+    tags:[
+      'PEOPLE',
+      'COMMUNICATION',
+      'RELATIONSHIPS'
+    ]
+  },
+
+  DISCIPLINED:{
+    name:'DISCIPLINED',
+    desc:'You tend to return, follow through, and turn intention into action.',
+    tags:[
+      'CONSISTENCY',
+      'ACTION',
+      'FOLLOW THROUGH'
+    ]
   }
 
-  data.moments.unshift({
-    id:uid("moment"),
-    title,
-    text,
-    mood,
-    tag,
-    date:new Date().toISOString()
-  });
-
-  document.getElementById("momentTitle").value="";
-  document.getElementById("momentText").value="";
-  document.getElementById("momentTag").value="";
-
-  checkAchievements();
-
-  saveData();
-  renderAll();
-
-  toast("MOMENT SAVED");
-}
-
-/* =========================================================
-   PATH
-   ========================================================= */
+};
 
 function calculatePath(){
 
-  const scores={};
+  const actions=
+    data.completedQuestIds.length;
 
-  PATHS.forEach(path=>{
-    let score=0;
+  if(actions<10){
+    return {
+      id:'INITIATE',
+      score:0
+    };
+  }
 
-    Object.entries(path.weights).forEach(([stat,weight])=>{
-      score += (data.stats[stat]?.level || 1)*weight;
-    });
+  const scores={
+    BUILDER:0,
+    EXPLORER:0,
+    SEEKER:0,
+    CONNECTOR:0,
+    DISCIPLINED:0
+  };
 
-    scores[path.id]=score;
-  });
+  Object.entries(
+    data.stats
+  ).forEach(
+    ([s,v])=>{
 
-  let best="INITIATE";
-  let bestScore=0;
+      const level=
+        levelFromStatProgress(
+          v.progress
+        ).level;
 
-  Object.entries(scores).forEach(([id,score])=>{
-    if(score>bestScore){
-      best=id;
-      bestScore=score;
+      const weights={
+        STR:{
+          DISCIPLINED:2
+        },
+
+        INT:{
+          SEEKER:3,
+          EXPLORER:1
+        },
+
+        WIS:{
+          SEEKER:3,
+          EXPLORER:2
+        },
+
+        CHA:{
+          CONNECTOR:4,
+          EXPLORER:1
+        },
+
+        DEX:{
+          BUILDER:4,
+          DISCIPLINED:2
+        },
+
+        CRE:{
+          BUILDER:4,
+          EXPLORER:2,
+          SEEKER:1
+        },
+
+        VIT:{
+          DISCIPLINED:3
+        }
+
+      }[s]||{};
+
+      Object.entries(weights)
+        .forEach(
+          ([path,weight])=>
+            scores[path]+=level*weight
+        );
     }
-  });
-
-  const totalStats=Object.values(data.stats)
-    .reduce((sum,s)=>sum+(s.level||1),0);
-
-  const normalized=Math.min(
-    100,
-    Math.round((bestScore/Math.max(1,totalStats*3))*100)
   );
+
+  const recent=
+    history.slice(0,30);
+
+  scores.BUILDER+=
+    recent.filter(
+      h=>
+        [
+          'QUEST',
+          'CUSTOM',
+          'OBJECTIVE PATH'
+        ].includes(h.source)
+    ).length*1.5;
+
+  scores.EXPLORER+=
+    recent.filter(
+      h=>h.source==='LIFE QUEST'
+    ).length*3;
+
+  scores.CONNECTOR+=
+    recent.filter(
+      h=>h.stat==='CHA'
+    ).length*2;
+
+  scores.SEEKER+=
+    recent.filter(
+      h=>
+        h.stat==='INT'||
+        h.stat==='WIS'
+    ).length*1.5;
+
+  scores.DISCIPLINED+=
+    Math.min(
+      20,
+      data.streak*2
+    );
+
+  let best='BUILDER';
+  let bestScore=scores.BUILDER;
+
+  Object.entries(scores)
+    .forEach(
+      ([id,score])=>{
+        if(score>bestScore){
+          best=id;
+          bestScore=score;
+        }
+      }
+    );
+
+  const max=
+    Math.max(
+      ...Object.values(scores),
+      1
+    );
 
   return {
     id:best,
-    score:normalized
+    score:Math.min(
+      100,
+      Math.round(
+        (bestScore/max)*100
+      )
+    )
   };
 }
 
 function updatePath(){
 
-  const result=calculatePath();
+  const result=
+    calculatePath();
 
-  const previous=data.path.current;
+  const previous=
+    data.path.current;
 
-  data.path.current=result.id;
-  data.path.score=result.score;
+  data.path.current=
+    result.id;
+
+  data.path.score=
+    result.score;
+
+  if(
+    !data.path.history
+      .includes(result.id)
+  ){
+    data.path.history
+      .push(result.id);
+  }
+
+  save(
+    STORAGE.data,
+    data
+  );
 
   if(
     previous &&
-    previous!=="INITIATE" &&
+    previous!=='INITIATE' &&
     previous!==result.id &&
-    result.id!=="INITIATE"
+    result.id!=='INITIATE'
   ){
-    systemEvent(
-      "PATH SHIFT",
-      "YOUR DIRECTION IS CHANGING",
-      "Your recent actions are pulling your Path in a different direction.",
-      result.id
+
+    setTimeout(
+      ()=>openModal(
+        'PATH SHIFT',
+        `
+          <div
+            style="
+              text-align:center;
+              padding:12px
+            "
+          >
+
+            <div
+              style="
+                font-size:28px;
+                color:#a87cff
+              "
+            >
+              ✦
+            </div>
+
+            <div
+              style="
+                font-size:20px;
+                font-weight:900;
+                margin-top:10px
+              "
+            >
+              YOUR DIRECTION IS CHANGING
+            </div>
+
+            <div
+              style="
+                color:#7d8694;
+                margin-top:10px
+              "
+            >
+              Your recent actions are pulling your Path in a different direction.
+            </div>
+
+            <div
+              style="
+                color:#69e2dc;
+                font-size:8px;
+                letter-spacing:2px;
+                margin-top:16px
+              "
+            >
+              ${esc(PATH_PROFILES[result.id].name)}
+            </div>
+
+          </div>
+        `
+      ),
+      300
     );
   }
-
-  saveData();
 }
 
-/* =========================================================
-   ACHIEVEMENTS
-   ========================================================= */
+function renderPathHome(){
 
-const ACHIEVEMENTS = [
-  {
-    id:"FIRST_STEP",
-    name:"FIRST STEP",
-    desc:"Complete your first quest.",
-    icon:"◆",
-    check:()=>data.totalXP>0
-  },
-  {
-    id:"GETTING_SERIOUS",
-    name:"GETTING SERIOUS",
-    desc:"Reach level 3.",
-    icon:"◇",
-    check:()=>data.level>=3
-  },
-  {
-    id:"RISING",
-    name:"RISING",
-    desc:"Reach level 5.",
-    icon:"↑",
-    check:()=>data.level>=5
-  },
-  {
-    id:"CONSISTENT",
-    name:"CONSISTENT",
-    desc:"Reach a 7-day active streak.",
-    icon:"∞",
-    check:()=>data.streak>=7
-  },
-  {
-    id:"BUILDER",
-    name:"BUILDER",
-    desc:"Complete 10 quests.",
-    icon:"▣",
-    check:()=>data.history.filter(x=>x.type==="QUEST").length>=10
-  },
-  {
-    id:"PATHFINDER",
-    name:"PATHFINDER",
-    desc:"Reach level 7.",
-    icon:"✦",
-    check:()=>data.level>=7
-  },
-  {
-    id:"WELL_ROUNDED",
-    name:"WELL ROUNDED",
-    desc:"Reach level 2 in every stat.",
-    icon:"◎",
-    check:()=>Object.values(data.stats).every(s=>s.level>=2)
-  },
-  {
-    id:"REMEMBER",
-    name:"REMEMBER",
-    desc:"Record your first Moment.",
-    icon:"◌",
-    check:()=>data.moments.length>=1
-  },
-  {
-    id:"OFF_THE_PATH",
-    name:"OFF THE PATH",
-    desc:"Complete five Life encounters.",
-    icon:"↗",
-    check:()=>data.history.filter(x=>x.type==="LIFE").length>=5
-  },
-  {
-    id:"NIGHT_OWL",
-    name:"NIGHT OWL",
-    desc:"Complete a quest late at night.",
-    icon:"☾",
-    check:()=>{
-      const hour=new Date().getHours();
-      return hour>=22 || hour<4;
-    }
-  },
-  {
-    id:"CURIOUS",
-    name:"CURIOUS",
-    desc:"Complete three Explore encounters.",
-    icon:"?",
-    check:()=>data.history.filter(x=>x.type==="LIFE"&&x.category==="EXPLORE").length>=3
-  },
-  {
-    id:"CHOICE",
-    name:"CHOICE",
-    desc:"Complete a System choice moment.",
-    icon:"◇",
-    check:()=>data.discoveries.includes("CHOICE")
-  },
-  {
-    id:"MOMENT_KEEPER",
-    name:"MOMENT KEEPER",
-    desc:"Record five Moments.",
-    icon:"◉",
-    check:()=>data.moments.length>=5
-  },
-  {
-    id:"BALANCED",
-    name:"BALANCED",
-    desc:"Reach level 3 in at least four stats.",
-    icon:"◎",
-    check:()=>Object.values(data.stats).filter(s=>s.level>=3).length>=4
-  },
-  {
-    id:"AWAKE",
-    name:"AWAKE",
-    desc:"Reach level 10.",
-    icon:"✧",
-    check:()=>data.level>=10
-  }
-];
+  updatePath();
 
-function checkAchievements(){
+  const path=
+    PATH_PROFILES[data.path.current]||
+    PATH_PROFILES.INITIATE;
 
-  ACHIEVEMENTS.forEach(achievement=>{
+  const forming=
+    data.completedQuestIds.length<10;
 
-    if(
-      !data.achievements.includes(achievement.id) &&
-      achievement.check()
-    ){
+  document
+    .getElementById('pathStatusLabel')
+    .textContent=
+      forming
+      ?'FORMING'
+      :'DEVELOPING';
 
-      data.achievements.push(achievement.id);
+  document
+    .getElementById('homePathCard')
+    .innerHTML=`
 
-      data.history.unshift({
-        id:uid("history"),
-        type:"ACHIEVEMENT",
-        name:achievement.name,
-        date:new Date().toISOString()
-      });
+      <div class="path-header">
 
-      if(
-        !data.discoveries.includes(achievement.id)
-      ){
-        data.discoveries.push(achievement.id);
+        <div>
+
+          <div class="path-tag">
+            ${
+              forming
+              ?'DIRECTION FORMING'
+              :'CURRENT DIRECTION'
+            }
+          </div>
+
+          <div class="path-title">
+            ${path.name}
+          </div>
+
+          <div class="path-reason">
+            ${path.desc}
+          </div>
+
+        </div>
+
+        <div class="pill">
+          ${data.path.score}%
+        </div>
+
+      </div>
+
+      <div
+        class="objective-track"
+        style="margin-top:14px"
+      >
+        <div
+          class="objective-fill"
+          style="
+            width:${data.path.score}%;
+            background:
+              linear-gradient(
+                90deg,
+                #65a9ff,
+                #a87cff
+              )
+          "
+        ></div>
+      </div>
+
+      <div
+        class="path-tags"
+        style="
+          display:flex;
+          flex-wrap:wrap;
+          gap:6px;
+          margin-top:12px
+        "
+      >
+
+        ${
+          path.tags
+            .map(
+              t=>
+                `<span class="pill">${t}</span>`
+            )
+            .join('')
+        }
+
+      </div>
+
+      ${
+        forming
+        ?`
+          <div
+            style="
+              color:#596272;
+              font-size:8px;
+              margin-top:12px
+            "
+          >
+            SENRAI is still learning from you.
+            Complete ${
+              Math.max(
+                0,
+                10-
+                data.completedQuestIds.length
+              )
+            } more actions and your direction will begin to emerge.
+          </div>
+        `
+        :`
+          <div
+            style="
+              color:#596272;
+              font-size:8px;
+              margin-top:12px
+            "
+          >
+            Your Path can change as you change.
+            Nothing here locks you into an identity.
+          </div>
+        `
       }
 
-      systemEvent(
-        "DISCOVERY",
-        achievement.name,
-        achievement.desc,
-        "ACHIEVEMENT UNLOCKED"
-      );
-    }
-
-  });
-
-  updateTitles();
-  saveData();
-}
-
-/* =========================================================
-   TITLES
-   ========================================================= */
-
-const TITLES = [
-  {
-    id:"INITIATE",
-    name:"INITIATE",
-    requirement:()=>true
-  },
-  {
-    id:"MOVER",
-    name:"MOVER",
-    requirement:()=>data.stats.STR.level>=2
-  },
-  {
-    id:"EXPLORER",
-    name:"EXPLORER",
-    requirement:()=>data.history.filter(x=>x.type==="LIFE").length>=3
-  },
-  {
-    id:"DISCIPLINED",
-    name:"DISCIPLINED",
-    requirement:()=>data.streak>=7
-  },
-  {
-    id:"BUILDER",
-    name:"BUILDER",
-    requirement:()=>data.history.filter(x=>x.type==="QUEST").length>=15
-  },
-  {
-    id:"PATHFINDER",
-    name:"PATHFINDER",
-    requirement:()=>data.level>=7
-  },
-  {
-    id:"BALANCED",
-    name:"BALANCED",
-    requirement:()=>Object.values(data.stats).filter(s=>s.level>=3).length>=4
-  },
-  {
-    id:"AWAKENED",
-    name:"AWAKENED",
-    requirement:()=>data.level>=10
-  }
-];
-
-function updateTitles(){
-
-  TITLES.forEach(title=>{
-    if(
-      title.requirement() &&
-      !data.unlockedTitles.includes(title.id)
-    ){
-      data.unlockedTitles.push(title.id);
-
-      systemEvent(
-        "TITLE",
-        "NEW TITLE AVAILABLE",
-        title.name,
-        "TITLE UNLOCKED"
-      );
-    }
-  });
-
-  saveData();
-}
-
-function equipTitle(title){
-
-  if(!data.unlockedTitles.includes(title)){
-    return;
-  }
-
-  data.equippedTitle=title;
-
-  saveData();
-  renderAll();
-
-  toast("TITLE EQUIPPED");
-}
-
-/* =========================================================
-   INTELLIGENCE
-   ========================================================= */
-
-function buildIntelligence(){
-
-  const result=[];
-
-  const questCount=data.history.filter(
-    x=>x.type==="QUEST"
-  ).length;
-
-  const lifeCount=data.history.filter(
-    x=>x.type==="LIFE"
-  ).length;
-
-  const objectiveCount=data.objectives.length;
-
-  const moments=data.moments.length;
-
-  const strongest=Object.entries(data.stats)
-    .sort((a,b)=>(b[1].level||1)-(a[1].level||1))[0];
-
-  if(questCount>=5){
-    result.push({
-      title:"ACTION BIAS",
-      text:"You have started completing things instead of only planning them."
-    });
-  }
-
-  if(lifeCount>=3){
-    result.push({
-      title:"EXPLORATION SIGNAL",
-      text:"You have allowed the System to push you outside your normal routine."
-    });
-  }
-
-  if(objectiveCount>=2){
-    result.push({
-      title:"LONG-TERM THINKING",
-      text:"You are using objectives in addition to immediate tasks."
-    });
-  }
-
-  if(moments>=2){
-    result.push({
-      title:"MEMORY INSTINCT",
-      text:"You are choosing to preserve parts of your life rather than simply move past them."
-    });
-  }
-
-  if(strongest){
-    result.push({
-      title:"STRONGEST SIGNAL",
-      text:`Your strongest developing attribute is ${STAT_NAMES[strongest[0]]}.`
-    });
-  }
-
-  if(data.streak>=3){
-    result.push({
-      title:"RETURN PATTERN",
-      text:"You are showing a tendency to return after previous activity."
-    });
-  }
-
-  if(!result.length){
-    result.push({
-      title:"NOISE FLOOR",
-      text:"There is not enough behavioral data yet. Keep using SENRAI naturally."
-    });
-  }
-
-  return result;
-}
-
-function generatePattern(){
-
-  const momentum=calculateMomentum();
-
-  if(data.level<3){
-    return {
-      title:"THE BEGINNING",
-      text:"You do not need a perfect system. You need a reason to take the next step."
-    };
-  }
-
-  if(momentum>=75){
-    return {
-      title:"HIGH MOMENTUM",
-      text:"You have been taking enough actions recently for your progress to reinforce itself."
-    };
-  }
-
-  if(data.moments.length>=5){
-    return {
-      title:"MEMORY PATTERN",
-      text:"You seem interested in remembering the process, not just measuring the result."
-    };
-  }
-
-  if(data.history.filter(x=>x.type==="LIFE").length>=5){
-    return {
-      title:"EXPLORATION PATTERN",
-      text:"You appear willing to trade a little certainty for new experiences."
-    };
-  }
-
-  return {
-    title:"EARLY SIGNAL",
-    text:"The System is beginning to recognize your habits, but the pattern is still forming."
-  };
-}
-
-/* =========================================================
-   CHOICE MOMENTS
-   ========================================================= */
-
-function maybeChoice(){
-
-  if(data.level<4)return;
-
-  if(data.discoveries.includes("CHOICE"))return;
-
-  const chance=Math.random();
-
-  if(chance>.22)return;
-
-  data.discoveries.push("CHOICE");
-
-  saveData();
-
-  openModal(
-    "SYSTEM PRESENTS A CHOICE",
-    `
-      <div class="event-modal">
-        <div class="event-symbol">◇</div>
-        <div class="event-type">CHOICE MOMENT</div>
-        <div class="event-title">WHAT DO YOU NEED RIGHT NOW?</div>
-        <div class="event-text">
-          There is no correct answer. Choose what feels useful.
-        </div>
-
-        <div class="button-row" style="margin-top:18px">
-          <button onclick="choiceAction('DIFFICULT')">
-            SOMETHING DIFFICULT
-          </button>
-
-          <button onclick="choiceAction('AVOIDING')">
-            SOMETHING I'VE AVOIDED
-          </button>
-
-          <button onclick="choiceAction('ENJOY')">
-            SOMETHING I ENJOY
-          </button>
-        </div>
-      </div>
-    `
-  );
-}
-
-function choiceAction(type){
-
-  closeModal();
-
-  const choices={
-    DIFFICULT:[
-      "Do the hardest small thing on your list.",
-      "Start something that feels slightly beyond your comfort zone.",
-      "Spend twenty focused minutes on something difficult."
-    ],
-    AVOIDING:[
-      "Take the smallest possible step toward something you've avoided.",
-      "Send the message you've been putting off.",
-      "Open the task you've been avoiding and work on it for ten minutes."
-    ],
-    ENJOY:[
-      "Do something purely because you enjoy it.",
-      "Give yourself an hour without needing to be productive.",
-      "Make something fun with no expectation attached."
-    ]
-  };
-
-  const list=choices[type];
-
-  const action=list[
-    Math.floor(Math.random()*list.length)
-  ];
-
-  state.sideQuest={
-    title:"CHOICE SELECTED",
-    text:action
-  };
-
-  save(STORAGE.state,state);
-
-  document.getElementById("sideQuestTitle").textContent="CHOICE SELECTED";
-  document.getElementById("sideQuestText").textContent=action;
-
-  toast("CHOICE RECORDED");
-}
-
-/* =========================================================
-   RENDER
-   ========================================================= */
-
-function renderHome(){
-
-  const level=data.level;
-  const needed=xpNeededForLevel(level);
-  const percent=Math.min(100,(data.xp/needed)*100);
-  const momentum=calculateMomentum();
-
-  document.getElementById("level").textContent=level;
-  document.getElementById("xp").textContent=data.xp;
-  document.getElementById("totalXP").textContent=data.totalXP;
-  document.getElementById("todayCount").textContent=data.completedToday;
-  document.getElementById("streak").textContent=data.streak;
-  document.getElementById("xpProgress").textContent=
-    `${data.xp} / ${needed} XP`;
-  document.getElementById("nextLevel").textContent=
-    `LEVEL ${level+1}`;
-  document.getElementById("xpBar").style.width=percent+"%";
-
-  document.getElementById("momentumNumber").textContent=momentum;
-  document.getElementById("momentumBar").style.width=momentum+"%";
-  document.getElementById("momentumMeta").textContent=
-    `${momentum} / 100`;
-
-  const path=getCurrentPath();
-
-  document.getElementById("homePathName").textContent=path.name;
-  document.getElementById("homePathDesc").textContent=path.desc;
-  document.getElementById("homePathProgress").style.width=
-    data.path.score+"%";
-
-  document.getElementById("homePathTags").innerHTML=
-    path.tags.map(tag=>`
-      <div class="path-tag">${esc(tag)}</div>
-    `).join("");
-
-  const signal=generatePattern();
-
-  document.getElementById("homeSignalTitle").textContent=
-    signal.title;
-
-  document.getElementById("homeSignalText").textContent=
-    signal.text;
-
-  renderHomeQuests();
-  renderHomeMoment();
-}
-
-function renderHomeQuests(){
-
-  const list=document.getElementById("homeQuestList");
-
-  const quests=DAILY.slice(0,4);
-
-  list.innerHTML=quests.map(renderQuestHTML).join("");
-}
-
-function renderQuestHTML(quest){
-
-  const done=data.completedDaily.includes(quest.id);
-
-  return `
-    <div class="quest ${done?"done":""}">
-      <button
-        class="quest-check"
-        onclick="completeDaily('${quest.id}')"
-        ${done?"disabled":""}
-      >
-        ${done?"✓":"○"}
-      </button>
-
-      <div class="quest-main">
-        <div class="quest-name">${esc(quest.name)}</div>
-        <div class="quest-desc">${esc(quest.desc)}</div>
-      </div>
-
-      <div class="quest-meta">
-        <div class="quest-xp">+${quest.xp}</div>
-        <div class="quest-stat">${STAT_NAMES[quest.stat]}</div>
-      </div>
-    </div>
-  `;
-}
-
-function renderQuests(){
-
-  const daily=document.getElementById("questList");
-
-  daily.innerHTML=
-    DAILY.map(renderQuestHTML).join("");
-
-  if(data.custom.length){
-
-    daily.innerHTML += `
-      <div style="margin-top:22px">
-        <div class="section-label" style="margin-bottom:10px">
-          CUSTOM
-        </div>
-
-        <div class="quest-list">
-          ${data.custom.map(q=>{
-            const done=data.completedCustom.includes(q.id);
-
-            return `
-              <div class="quest ${done?"done":""}">
-                <button
-                  class="quest-check"
-                  onclick="completeCustom('${q.id}')"
-                  ${done?"disabled":""}
-                >
-                  ${done?"✓":"○"}
-                </button>
-
-                <div class="quest-main">
-                  <div class="quest-name">${esc(q.name)}</div>
-                  <div class="quest-desc">
-                    ${esc(q.difficulty)} CUSTOM QUEST
-                  </div>
-                </div>
-
-                <div class="quest-meta">
-                  <div class="quest-xp">+${q.xp}</div>
-                  <div class="quest-stat">${STAT_NAMES[q.stat]}</div>
-                </div>
-              </div>
-            `;
-          }).join("")}
-        </div>
-      </div>
     `;
-  }
+}
+
+function currentTitle(){
+
+  const eligible=
+    TITLES.filter(
+      t=>t[2](data)
+    );
+
+  return eligible.length
+    ?eligible[eligible.length-1][0]
+    :'INITIATE';
 }
 
 function renderStats(){
 
-  const list=document.getElementById("statsList");
+  const c=
+    document.getElementById(
+      'statsGrid'
+    );
 
-  list.innerHTML=Object.entries(data.stats).map(
-    ([key,stat])=>{
+  c.innerHTML=
+    Object.keys(STAT_NAMES)
+      .map(
+        s=>{
 
-      const needed=statXPNeededForLevel(stat.level);
-      const percent=Math.min(100,(stat.progress/needed)*100);
+          const x=
+            levelFromStatProgress(
+              data.stats[s].progress
+            );
 
-      return `
-        <div class="stat-row">
-          <div class="stat-top">
-            <div class="stat-name">${STAT_NAMES[key]}</div>
-            <div class="stat-level">LVL ${stat.level}</div>
-          </div>
+          return `
+            <div class="stat">
 
-          <div class="stat-note">${STAT_NOTES[key]}</div>
+              <div class="stat-top">
 
-          <div class="stat-bar">
-            <div
-              class="stat-fill"
-              style="width:${percent}%"
-            ></div>
-          </div>
-        </div>
-      `;
-    }
-  ).join("");
+                <div class="stat-name">
+                  ${s} • ${STAT_NAMES[s]}
+                </div>
 
-  document.getElementById("statTiles").innerHTML=
-    Object.entries(data.stats).map(([key,stat])=>`
-      <div class="tile">
-        <div class="tile-title">${STAT_NAMES[key]}</div>
-        <div class="tile-text">
-          LEVEL ${stat.level}<br>
-          ${stat.progress} / ${statXPNeededForLevel(stat.level)} XP
-        </div>
-      </div>
-    `).join("");
+                <div class="stat-value">
+                  ${x.level}
+                </div>
+
+              </div>
+
+              <div class="stat-note">
+                ${STAT_NOTES[s]}
+              </div>
+
+              <div class="stat-track">
+
+                <div
+                  class="stat-fill ${s.toLowerCase()}"
+                  style="width:${x.pct}%"
+                ></div>
+
+              </div>
+
+              <div class="objective-meta">
+
+                <span>
+                  ${x.remaining} / ${x.need} PROGRESS
+                </span>
+
+                <span>
+                  LVL ${x.level+1}
+                </span>
+
+              </div>
+
+            </div>
+          `;
+        }
+      )
+      .join('');
 }
 
-function renderLife(){
+function weekKey(){
 
-  const life=data.life.current;
+  const d=new Date();
+  const one=
+    new Date(
+      d.getFullYear(),
+      0,
+      1
+    );
 
-  const text=life
-    ? life.text
-    : "Generate something unexpected.";
-
-  const category=life
-    ? life.category
-    : "LIFE";
-
-  document.getElementById("lifeText").textContent=text;
-  document.getElementById("homeLifeText").textContent=text;
-
-  document.getElementById("lifeCategory").textContent=category;
-  document.getElementById("homeLifeCategory").textContent=category;
-
-  document.getElementById("completeLifeButton").disabled=!life;
-  document.getElementById("homeCompleteLife").disabled=!life;
+  return (
+    d.getFullYear()+
+    '-W'+
+    Math.ceil(
+      (
+        (
+          (d-one)/86400000
+        )+
+        one.getDay()+
+        1
+      )/7
+    )
+  );
 }
 
-function renderHomeMoment(){
+function buildWeekly(){
 
-  const latest=data.moments[0];
+  const key=
+    weekKey();
 
-  if(!latest){
-    document.getElementById("homeMomentDate").textContent=
-      "NO MOMENTS RECORDED";
+  let w=
+    read(
+      STORAGE.weekly,
+      null
+    );
 
-    document.getElementById("homeMomentTitle").textContent=
-      "Your story starts here.";
+  if(
+    !w ||
+    w.key!==key
+  ){
 
-    document.getElementById("homeMomentText").textContent=
-      "Moments are optional. Record something when it feels worth remembering.";
+    w={
+      key,
+      claimed:[],
 
-    return;
+      missions:[
+
+        {
+          id:'wq1',
+          title:'COMPLETE 5 QUESTS',
+          desc:'Any quests count.',
+          target:5,
+          progress:0,
+          xp:100
+        },
+
+        {
+          id:'wq2',
+          title:'TOUCH 3 STATS',
+          desc:'Complete quests across three different stats.',
+          target:3,
+          progress:0,
+          xp:100
+        },
+
+        {
+          id:'wq3',
+          title:'MOVE AN OBJECTIVE',
+          desc:'Complete one objective-path quest.',
+          target:1,
+          progress:0,
+          xp:125
+        }
+
+      ]
+    };
+
+    save(
+      STORAGE.weekly,
+      w
+    );
   }
 
-  document.getElementById("homeMomentDate").textContent=
-    `${formatDate(latest.date)} · ${latest.mood}`;
-
-  document.getElementById("homeMomentTitle").textContent=
-    latest.title;
-
-  document.getElementById("homeMomentText").textContent=
-    latest.text;
+  return w;
 }
 
-function renderObjectives(){
+function renderWeekly(){
 
-  const list=document.getElementById("objectiveList");
+  const w=
+    buildWeekly();
 
-  if(!data.objectives.length){
-    list.innerHTML=`
-      <div class="system-panel">
-        <div class="panel-kicker">NO OBJECTIVES</div>
-        <div class="panel-title">Nothing is locked in.</div>
-        <div class="panel-text">
-          Objectives are for things you want to work toward over time.
-        </div>
-      </div>
-    `;
-    return;
+  if(!Array.isArray(w.claimed)){
+    w.claimed=[];
   }
 
-  list.innerHTML=data.objectives.map(o=>`
-    <div class="tile">
-      <div class="tile-title">${esc(o.name)}</div>
-      <div class="tile-text">
-        ${esc(o.category)}<br><br>
-        ${esc(o.why || "No reason recorded.")}<br><br>
-        PROGRESS: ${o.progress}%
-      </div>
+  const statSet=
+    new Set(
+      history
+        .filter(
+          h=>
+            new Date(h.date)>=
+            startOfWeek()
+        )
+        .map(
+          h=>h.stat
+        )
+    );
 
-      <div class="stat-bar">
-        <div
-          class="stat-fill"
-          style="width:${o.progress}%"
-        ></div>
-      </div>
+  w.missions[0].progress=
+    Math.min(
+      5,
+      history.filter(
+        h=>
+          new Date(h.date)>=
+          startOfWeek()
+      ).length
+    );
 
-      ${
-        o.complete
-        ? `<div style="margin-top:10px;color:#5df2a5;font-size:8px">
-             COMPLETE
-           </div>`
-        : `<button
-             class="small"
-             onclick="advanceObjective('${o.id}')"
-             style="margin-top:10px"
-           >
-             +10% PROGRESS
-           </button>`
+  w.missions[1].progress=
+    Math.min(
+      3,
+      statSet.size
+    );
+
+  w.missions[2].progress=
+    Math.min(
+      1,
+      history.filter(
+        h=>
+          h.source==='OBJECTIVE PATH' &&
+          new Date(h.date)>=
+          startOfWeek()
+      ).length
+    );
+
+  w.missions.forEach(
+    m=>{
+
+      if(
+        m.progress>=m.target &&
+        !w.claimed.includes(m.id)
+      ){
+
+        w.claimed.push(m.id);
+
+        addXP(m.xp);
+
+        record(
+          m.title,
+          m.xp,
+          'WIS',
+          'WEEKLY MISSION'
+        );
       }
-    </div>
-  `).join("");
+
+    }
+  );
+
+  save(
+    STORAGE.weekly,
+    w
+  );
+
+  save(
+    STORAGE.data,
+    data
+  );
+
+  save(
+    STORAGE.history,
+    history
+  );
+
+  document
+    .getElementById('weeklyGrid')
+    .innerHTML=
+      w.missions
+        .map(
+          m=>`
+
+            <div class="week-card">
+
+              <div class="week-top">
+
+                <div class="week-title">
+                  ${m.title}
+                </div>
+
+                <div class="week-xp">
+                  +${m.xp} XP
+                </div>
+
+              </div>
+
+              <div class="week-desc">
+                ${m.desc}
+              </div>
+
+              <div class="week-track">
+
+                <div
+                  class="week-fill"
+                  style="
+                    width:${
+                      Math.min(
+                        100,
+                        m.progress/m.target*100
+                      )
+                    }%
+                  "
+                ></div>
+
+              </div>
+
+              <div class="week-meta">
+
+                <span>
+                  ${m.progress} / ${m.target}
+                </span>
+
+                <span>
+                  ${
+                    m.progress>=m.target
+                    ?'COMPLETE'
+                    :'IN PROGRESS'
+                  }
+                </span>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join('');
 }
 
-function renderMoments(){
+function startOfWeek(){
 
-  const list=document.getElementById("momentsList");
+  const d=new Date();
+  const day=d.getDay();
 
-  if(!data.moments.length){
-    list.innerHTML=`
-      <div class="system-panel">
-        <div class="panel-kicker">LOOKING BACK</div>
-        <div class="panel-title">Nothing recorded yet.</div>
-        <div class="panel-text">
-          Not every moment needs to be saved. Save the ones that matter.
-        </div>
-      </div>
-    `;
-    return;
-  }
+  const diff=
+    day===0
+    ?-6
+    :1-day;
 
-  list.innerHTML=data.moments.map(moment=>`
-    <div class="moment">
-      <div class="moment-date">
-        ${formatDate(moment.date)} · ${esc(moment.mood)}
-        ${moment.tag ? " · "+esc(moment.tag) : ""}
-      </div>
+  const x=
+    new Date(d);
 
-      <div class="moment-title">
-        ${esc(moment.title)}
-      </div>
+  x.setDate(
+    d.getDate()+diff
+  );
 
-      <div class="moment-text">
-        ${esc(moment.text)}
-      </div>
-    </div>
-  `).join("");
+  x.setHours(
+    0,0,0,0
+  );
+
+  return x;
 }
 
 function renderAchievements(){
 
-  document.getElementById("achievementList").innerHTML=
-    ACHIEVEMENTS.map(a=>{
-      const unlocked=data.achievements.includes(a.id);
+  document
+    .getElementById(
+      'achievementGrid'
+    )
+    .innerHTML=
+      ACH.map(
+        a=>{
 
-      return `
-        <div class="achievement ${unlocked?"":"locked"}">
-          <div class="achievement-icon">${a.icon}</div>
-          <div class="achievement-name">${a.name}</div>
-          <div class="achievement-desc">
-            ${a.desc}
-          </div>
+          const ok=
+            !!unlocked[a.id];
 
-          <div style="
-            margin-top:10px;
-            color:${unlocked?"#5df2a5":"#4c5562"};
-            font-size:7px;
-            letter-spacing:1px;
-          ">
-            ${unlocked?"UNLOCKED":"LOCKED"}
-          </div>
-        </div>
-      `;
-    }).join("");
+          const p=
+            a.progress(data);
+
+          const target=
+            a.id==='first'
+            ?1
+            :a.id==='ten'
+            ?10
+            :a.id==='level5'
+            ?5
+            :a.id==='streak7'
+            ?7
+            :a.id==='xp1000'
+            ?1000
+            :a.id==='objective'
+            ?1
+            :7;
+
+          return `
+            <div
+              class="achievement ${
+                ok
+                ?'unlocked'
+                :'locked'
+              }"
+            >
+
+              <div class="achievement-icon">
+                ${a.icon}
+              </div>
+
+              <div class="achievement-status">
+                ${
+                  ok
+                  ?'UNLOCKED'
+                  :'LOCKED'
+                }
+              </div>
+
+              <div class="achievement-title">
+                ${a.name}
+              </div>
+
+              <div class="achievement-desc">
+                ${a.desc}
+              </div>
+
+              <div class="achievement-reward">
+                +${a.reward} XP
+              </div>
+
+              <div class="achievement-progress">
+
+                <div
+                  style="
+                    width:${
+                      Math.min(
+                        100,
+                        p/target*100
+                      )
+                    }%
+                  "
+                ></div>
+
+              </div>
+
+            </div>
+          `;
+        }
+      )
+      .join('');
 }
 
 function renderTitles(){
 
-  document.getElementById("titleList").innerHTML=
-    TITLES.map(title=>{
-      const unlocked=data.unlockedTitles.includes(title.id);
-      const equipped=data.equippedTitle===title.id;
+  const cur=
+    currentTitle();
 
-      return `
-        <div class="tile">
-          <div class="tile-title">${title.name}</div>
+  document
+    .getElementById('titlesGrid')
+    .innerHTML=
+      TITLES.map(
+        t=>`
 
-          <div class="tile-text">
-            ${
-              unlocked
-              ? equipped
-                ? "CURRENT TITLE"
-                : "UNLOCKED"
-              : "LOCKED"
-            }
+          <div class="title-card">
+
+            <div class="title-top">
+
+              <div class="title-name">
+                ${t[0]}
+              </div>
+
+              <div class="title-reward">
+                ${
+                  cur===t[0]
+                  ?'EQUIPPED'
+                  :'TITLE'
+                }
+              </div>
+
+            </div>
+
+            <div class="week-desc">
+              ${t[1]}
+            </div>
+
           </div>
 
-          ${
-            unlocked && !equipped
-            ? `
-              <button
-                class="small"
-                onclick="equipTitle('${title.id}')"
-                style="margin-top:10px"
-              >
-                EQUIP
-              </button>
-            `
-            : equipped
-              ? `
-                <div style="
-                  margin-top:10px;
-                  color:#69e2dc;
-                  font-size:7px;
-                  letter-spacing:1px
-                ">
-                  EQUIPPED
-                </div>
-              `
-              : ""
-          }
-        </div>
-      `;
-    }).join("");
-}
-
-function renderPath(){
-
-  const path=getCurrentPath();
-
-  document.getElementById("pathName").textContent=path.name;
-  document.getElementById("pathDescription").textContent=path.desc;
-  document.getElementById("pathProgress").style.width=
-    data.path.score+"%";
-  document.getElementById("pathScore").textContent=
-    data.path.score+"%";
-
-  document.getElementById("pathTags").innerHTML=
-    path.tags.map(tag=>`
-      <div class="path-tag">${esc(tag)}</div>
-    `).join("");
-
-  const tendencies=getTendencies();
-
-  document.getElementById("tendencyList").innerHTML=
-    tendencies.map(t=>`
-      <div class="tile">
-        <div class="tile-title">${esc(t.title)}</div>
-        <div class="tile-text">${esc(t.text)}</div>
-      </div>
-    `).join("");
-}
-
-function getCurrentPath(){
-
-  const path=PATHS.find(
-    p=>p.id===data.path.current
-  );
-
-  return path || {
-    id:"INITIATE",
-    name:"INITIATE",
-    desc:"Your direction is still forming.",
-    tags:["BEGINNING"]
-  };
-}
-
-function getTendencies(){
-
-  const tendencies=[];
-
-  const stats=Object.entries(data.stats)
-    .sort((a,b)=>(b[1].level||1)-(a[1].level||1));
-
-  if(stats[0]){
-    tendencies.push({
-      title:"STRONGEST ATTRIBUTE",
-      text:`${STAT_NAMES[stats[0][0]]} is currently your strongest developing attribute.`
-    });
-  }
-
-  const questCount=data.history.filter(
-    x=>x.type==="QUEST"
-  ).length;
-
-  if(questCount>=10){
-    tendencies.push({
-      title:"FOLLOW THROUGH",
-      text:"You have demonstrated repeated willingness to complete concrete actions."
-    });
-  }
-
-  if(data.moments.length>=3){
-    tendencies.push({
-      title:"REFLECTION",
-      text:"You appear to value preserving experiences and looking back on them."
-    });
-  }
-
-  if(data.history.filter(x=>x.type==="LIFE").length>=3){
-    tendencies.push({
-      title:"CURIOSITY",
-      text:"You are willing to introduce novelty into your routine."
-    });
-  }
-
-  if(data.streak>=5){
-    tendencies.push({
-      title:"RETURNING",
-      text:"You have shown that you can return to the system repeatedly without needing perfection."
-    });
-  }
-
-  if(!tendencies.length){
-    tendencies.push({
-      title:"FORMING",
-      text:"Your tendencies are still forming."
-    });
-  }
-
-  return tendencies;
-}
-
-function renderIntelligence(){
-
-  const list=document.getElementById("intelligenceList");
-
-  list.innerHTML=
-    buildIntelligence().map(item=>`
-      <div class="tile">
-        <div class="tile-title">${esc(item.title)}</div>
-        <div class="tile-text">${esc(item.text)}</div>
-      </div>
-    `).join("");
-
-  const pattern=generatePattern();
-
-  document.getElementById("patternTitle").textContent=
-    pattern.title;
-
-  document.getElementById("patternText").textContent=
-    pattern.text;
+        `
+      )
+      .join('');
 }
 
 function renderHistory(){
 
-  const list=document.getElementById("historyList");
+  document
+    .getElementById('historyList')
+    .innerHTML=
+      history.length
 
-  if(!data.history.length){
-    list.innerHTML=`
-      <div class="system-panel">
-        <div class="panel-title">Nothing recorded yet.</div>
-      </div>
-    `;
-    return;
-  }
+      ?history
+        .slice(0,40)
+        .map(
+          h=>`
 
-  list.innerHTML=data.history.slice(0,50).map(item=>`
+            <div class="history-item">
 
-    <div class="quest">
+              <div>
 
-      <div class="quest-check">
-        ${item.type==="ACHIEVEMENT"?"✦":"+"}
-      </div>
+                <div class="history-title">
+                  ${esc(h.title)}
+                </div>
 
-      <div class="quest-main">
-        <div class="quest-name">
-          ${esc(item.name || item.reason || item.type)}
+                <div class="history-text">
+                  ${h.source}
+                  •
+                  ${STAT_NAMES[h.stat]||h.stat}
+                  •
+                  ${new Date(h.date).toLocaleString()}
+                </div>
+
+              </div>
+
+              <div class="history-xp">
+                +${h.xp}
+              </div>
+
+            </div>
+
+          `
+        )
+        .join('')
+
+      :`
+        <div
+          class="panel"
+          style="
+            padding:18px;
+            color:var(--muted);
+            font-size:9px
+          "
+        >
+          No system activity yet.
         </div>
-
-        <div class="quest-desc">
-          ${formatDate(item.date)}
-        </div>
-      </div>
-
-      <div class="quest-meta">
-        ${
-          item.amount
-          ? `<div class="quest-xp">+${item.amount}</div>`
-          : ""
-        }
-
-        <div class="quest-stat">
-          ${item.stat ? STAT_NAMES[item.stat] : item.type}
-        </div>
-      </div>
-
-    </div>
-
-  `).join("");
+      `;
 }
 
 function renderProfile(){
 
-  const name=data.settings.name;
+  const total=
+    history.length;
 
-  document.getElementById("profileTitle").textContent=
-    name ? name.toUpperCase() : data.equippedTitle;
+  document
+    .getElementById('profileCard')
+    .innerHTML=`
 
-  document.getElementById("profileText").textContent=
-    name
-      ? `${name}, your current direction is ${getCurrentPath().name}.`
-      : `Your current direction is ${getCurrentPath().name}.`;
+      <div class="profile-avatar">
+        S
+      </div>
 
-  document.getElementById("profileName").value=name;
+      <div class="profile-name">
+        ${esc(
+          profile.name||
+          'PLAYER'
+        )}
+      </div>
 
-  document.getElementById("profileLevel").textContent=data.level;
-  document.getElementById("profileXP").textContent=data.totalXP;
-  document.getElementById("profileMoments").textContent=data.moments.length;
+      <div class="profile-sub">
+        ${esc(currentTitle())}
+        •
+        LEVEL ${data.level}
+      </div>
+
+      <div class="profile-grid">
+
+        <div class="profile-stat">
+          <strong>
+            ${data.totalXP}
+          </strong>
+          <span>
+            TOTAL XP
+          </span>
+        </div>
+
+        <div class="profile-stat">
+          <strong>
+            ${total}
+          </strong>
+          <span>
+            QUESTS
+          </span>
+        </div>
+
+        <div class="profile-stat">
+          <strong>
+            ${data.streak}
+          </strong>
+          <span>
+            STREAK
+          </span>
+        </div>
+
+      </div>
+    `;
+
+  document
+    .getElementById('profileSummary')
+    .innerHTML=`
+
+      <div class="week-card">
+
+        <div class="week-title">
+          OBJECTIVES
+        </div>
+
+        <div class="week-desc">
+          ${
+            objectives.filter(
+              o=>o.completed
+            ).length
+          }
+          completed •
+          ${
+            objectives.filter(
+              o=>!o.completed
+            ).length
+          }
+          active
+        </div>
+
+      </div>
+
+      <div class="week-card">
+
+        <div class="week-title">
+          ACHIEVEMENTS
+        </div>
+
+        <div class="week-desc">
+          ${
+            Object.keys(unlocked).length
+          }
+          unlocked
+        </div>
+
+      </div>
+    `;
 }
 
-function saveProfile(){
+function renderObjectives(){
 
-  const name=document.getElementById("profileName").value.trim();
+  document
+    .getElementById('objectivesList')
+    .innerHTML=
+      objectives.length
 
-  data.settings.name=name;
+      ?objectives
+        .map(
+          objectiveCard
+        )
+        .join('')
 
-  saveData();
-  renderProfile();
+      :`
+        <div
+          class="panel"
+          style="
+            padding:18px;
+            color:var(--muted);
+            font-size:9px;
+            border-radius:18px
+          "
+        >
+          No objectives yet.
+          Create one and SENRAI will generate a path.
+        </div>
+      `;
+}
 
-  toast("PROFILE UPDATED");
+function renderHomeObjective(){
+
+  const o=
+    getActiveObjective();
+
+  const el=
+    document.getElementById(
+      'homeObjective'
+    );
+
+  if(!o){
+
+    el.innerHTML=`
+
+      <div class="objective-tag">
+        MAIN QUEST
+      </div>
+
+      <h2>
+        Become better than yesterday.
+      </h2>
+
+      <p>
+        Create an objective when you know what you want to move toward.
+        SENRAI will turn it into a path.
+      </p>
+
+    `;
+
+    return;
+  }
+
+  const q=
+    nextObjectiveQuest(o);
+
+  el.innerHTML=`
+
+    <div class="objective-tag">
+      ${o.category} • MAIN QUEST
+    </div>
+
+    <h2>
+      ${esc(o.name)}
+    </h2>
+
+    <p>
+      ${esc(
+        o.reason||
+        'Keep moving forward one action at a time.'
+      )}
+    </p>
+
+    <div class="objective-track">
+
+      <div
+        class="objective-fill"
+        style="width:${o.progress}%"
+      ></div>
+
+    </div>
+
+    <div class="objective-meta">
+
+      <span>
+        ${o.progress}% COMPLETE
+      </span>
+
+      <span>
+        ${
+          q
+          ?'NEXT: '+esc(q.name)
+          :'COMPLETE'
+        }
+      </span>
+
+    </div>
+
+    <div class="button-row">
+
+      <button
+        class="primary"
+        onclick="
+          showView('objectives');
+          setTimeout(
+            ()=>viewObjective('${o.id}'),
+            100
+          )
+        "
+      >
+        OPEN PATH
+      </button>
+
+    </div>
+
+  `;
 }
 
 function renderSettings(){
 
-  const guidance=document.getElementById("guidanceToggle");
-  const motion=document.getElementById("motionToggle");
+  const n=
+    document.getElementById(
+      'notificationToggle'
+    );
 
-  guidance.textContent=
-    state.guidance ? "ON" : "OFF";
+  if(n){
 
-  motion.textContent=
-    state.motion ? "ON" : "OFF";
+    n.textContent=
+      notificationEnabled
+      ?'ON'
+      :'OFF';
+
+    n.className=
+      'small '+
+      (
+        notificationEnabled
+        ?'primary'
+        :''
+      );
+  }
+
+  const g=
+    document.getElementById(
+      'guidanceToggle'
+    );
+
+  const m=
+    document.getElementById(
+      'motionToggle'
+    );
+
+  g.textContent=
+    state.guidance
+    ?'ON'
+    :'OFF';
+
+  g.className=
+    'small '+
+    (
+      state.guidance
+      ?'primary'
+      :''
+    );
+
+  m.textContent=
+    state.motion
+    ?'ON'
+    :'OFF';
+
+  m.className=
+    'small '+
+    (
+      state.motion
+      ?'primary'
+      :''
+    );
 }
 
 function renderAll(){
 
-  updatePath();
+  checkDailyReset();
 
-  renderHome();
-  renderQuests();
+  renderDaily();
+  renderCustom();
   renderStats();
-  renderLife();
-  renderObjectives();
-  renderMoments();
+  renderWeekly();
   renderAchievements();
   renderTitles();
-  renderPath();
-  renderIntelligence();
   renderHistory();
   renderProfile();
+  renderObjectives();
+  renderHomeObjective();
+  renderPathHome();
+  renderReflection(false);
   renderSettings();
+  updateTop();
 }
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+function updateTop(){
 
-function showView(view){
+  document
+    .getElementById('level')
+    .textContent=
+      data.level;
 
-  document.querySelectorAll(".view").forEach(v=>{
-    v.classList.remove("active");
-  });
+  document
+    .getElementById('xp')
+    .textContent=
+      data.xp;
 
-  const target=document.getElementById(view+"View");
+  document
+    .getElementById('todayCount')
+    .textContent=
+      data.completedToday;
 
-  if(target){
-    target.classList.add("active");
+  document
+    .getElementById('todayXP')
+    .textContent=
+      data.todayXP;
+
+  document
+    .getElementById('streak')
+    .textContent=
+      data.streak;
+
+  document
+    .getElementById('momentum')
+    .textContent=
+      momentum();
+
+  const need=
+    xpNeededForLevel(
+      data.level
+    );
+
+  document
+    .getElementById('xpBar')
+    .style
+    .width=
+      Math.min(
+        100,
+        data.xp/need*100
+      )+'%';
+
+  document
+    .getElementById('xpProgress')
+    .textContent=
+      data.xp+
+      ' / '+
+      need+
+      ' XP';
+
+  document
+    .getElementById('nextLevel')
+    .textContent=
+      'LEVEL '+
+      (data.level+1);
+}
+
+function momentum(){
+
+  if(
+    data.totalXP<=0||
+    history.length===0
+  ){
+    return 0;
   }
 
-  document.querySelectorAll(".nav-button").forEach(button=>{
-    button.classList.toggle(
-      "active",
-      button.dataset.view===view
+  const cutoff=
+    Date.now()-
+    7*86400000;
+
+  const n=
+    history.filter(
+      h=>
+        new Date(h.date)
+          .getTime()>=cutoff
+    ).length;
+
+  return Math.min(
+    100,
+    n*8
+  );
+}
+
+function openSystem(v){
+
+  document
+    .getElementById('systemMenu')
+    .classList
+    .add('hidden');
+
+  showView(v);
+}
+
+function showView(v){
+
+  document
+    .querySelectorAll('.nav-button')
+    .forEach(
+      b=>
+        b.classList.toggle(
+          'active',
+          b.dataset.view===v
+        )
     );
-  });
+
+  document
+    .querySelectorAll('.view')
+    .forEach(
+      x=>
+        x.classList.remove('active')
+    );
+
+  const el=
+    document.getElementById(
+      v+'View'
+    );
+
+  if(el){
+    el.classList.add('active');
+  }
 
   window.scrollTo({
     top:0,
-    behavior:"smooth"
+    behavior:'smooth'
   });
 }
 
-function openSystem(view){
+function openModal(
+  title,
+  body
+){
 
-  document.getElementById("systemMenu")
-    .classList.add("hidden");
+  document
+    .getElementById('modalTitle')
+    .textContent=
+      title;
 
-  showView(view);
+  document
+    .getElementById('modalBody')
+    .innerHTML=
+      body;
+
+  document
+    .getElementById('modalBackdrop')
+    .classList
+    .remove('hidden');
 }
 
-/* =========================================================
-   RESET
-   ========================================================= */
+function closeModal(){
+
+  document
+    .getElementById('modalBackdrop')
+    .classList
+    .add('hidden');
+}
+
+function toast(msg){
+
+  const t=
+    document.getElementById(
+      'toast'
+    );
+
+  t.textContent=msg;
+
+  t.classList.add('show');
+
+  clearTimeout(
+    window.__toast
+  );
+
+  window.__toast=
+    setTimeout(
+      ()=>t.classList.remove('show'),
+      2200
+    );
+}
+
+function esc(s){
+
+  return String(
+    s??''
+  ).replace(
+    /[&<>"']/g,
+    c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c])
+  );
+}
+
+function escAttr(s){
+
+  return String(
+    s??''
+  ).replace(
+    /'/g,
+    "\\'"
+  );
+}
 
 function resetData(){
 
-  const confirmed=confirm(
-    "Reset all SENRAI progress on this device?"
+  if(
+    !confirm(
+      'Reset all SENRAI data on this device? This cannot be undone.'
+    )
+  ){
+    return;
+  }
+
+  Object.values(
+    STORAGE
+  ).forEach(
+    k=>
+      localStorage.removeItem(k)
   );
 
-  if(!confirmed)return;
+  localStorage.removeItem(
+    'senraiNotifications'
+  );
 
-  data=clone(DEFAULT);
-
-  state={
-    guidance:true,
-    motion:false,
-    activeLife:null,
-    currentReflectionIndex:0,
-    sideQuest:null
-  };
-
-  saveData();
-  save(STORAGE.state,state);
-
-  renderAll();
-
-  toast("SYSTEM DATA RESET");
+  location.reload();
 }
 
-/* =========================================================
-   EVENTS
-   ========================================================= */
+document
+  .getElementById(
+    'systemMenuButton'
+  )
+  .addEventListener(
+    'click',
+    e=>{
 
-document.getElementById("systemMenuButton")
-  .addEventListener("click",()=>{
-    document.getElementById("systemMenu")
-      .classList.toggle("hidden");
-  });
+      e.stopPropagation();
 
-document.addEventListener("click",event=>{
-  if(!event.target.closest(".menu-wrap")){
-    document.getElementById("systemMenu")
-      .classList.add("hidden");
+      document
+        .getElementById('systemMenu')
+        .classList
+        .toggle('hidden');
+
+    }
+  );
+
+document.addEventListener(
+  'click',
+  e=>{
+
+    if(
+      !e.target.closest(
+        '.menu-wrap'
+      )
+    ){
+
+      document
+        .getElementById('systemMenu')
+        .classList
+        .add('hidden');
+
+    }
+
   }
-});
+);
 
-document.querySelectorAll(".nav-button")
-  .forEach(button=>{
-    button.addEventListener("click",()=>{
-      showView(button.dataset.view);
-    });
-  });
+document
+  .querySelectorAll('.nav-button')
+  .forEach(
+    b=>
+      b.addEventListener(
+        'click',
+        ()=>showView(
+          b.dataset.view
+        )
+      )
+  );
 
-document.getElementById("createQuestButton")
-  .addEventListener("click",createCustomQuest);
+document
+  .getElementById(
+    'createQuestButton'
+  )
+  .addEventListener(
+    'click',
+    createCustomQuest
+  );
 
-document.getElementById("questNameInput")
-  .addEventListener("keydown",event=>{
-    if(event.key==="Enter"){
-      createCustomQuest();
+document
+  .getElementById(
+    'questNameInput'
+  )
+  .addEventListener(
+    'keydown',
+    e=>{
+      if(
+        e.key==='Enter'
+      ){
+        createCustomQuest();
+      }
     }
-  });
+  );
 
-document.getElementById("homeSurprise")
-  .addEventListener("click",generateLife);
+document
+  .getElementById(
+    'homeSurprise'
+  )
+  .addEventListener(
+    'click',
+    generateLife
+  );
 
-document.getElementById("homeCompleteLife")
-  .addEventListener("click",completeLife);
+document
+  .getElementById(
+    'homeCompleteLife'
+  )
+  .addEventListener(
+    'click',
+    completeLife
+  );
 
-document.getElementById("surpriseButton")
-  .addEventListener("click",generateLife);
+document
+  .getElementById(
+    'surpriseButton'
+  )
+  .addEventListener(
+    'click',
+    generateLife
+  );
 
-document.getElementById("completeLifeButton")
-  .addEventListener("click",completeLife);
+document
+  .getElementById(
+    'completeLifeButton'
+  )
+  .addEventListener(
+    'click',
+    completeLife
+  );
 
-document.getElementById("sideQuestButton")
-  .addEventListener("click",completeSide);
+document
+  .getElementById(
+    'sideQuestButton'
+  )
+  .addEventListener(
+    'click',
+    completeSide
+  );
 
-document.getElementById("modalClose")
-  .addEventListener("click",closeModal);
+document
+  .getElementById(
+    'acceptReflectionButton'
+  )
+  .addEventListener(
+    'click',
+    acceptReflection
+  );
 
-document.getElementById("modalBackdrop")
-  .addEventListener("click",event=>{
-    if(event.target.id==="modalBackdrop"){
-      closeModal();
+document
+  .getElementById(
+    'refreshReflectionButton'
+  )
+  .addEventListener(
+    'click',
+    ()=>{
+      currentReflectionIndex++;
+      renderReflection(true);
     }
-  });
+  );
 
-document.getElementById("guidanceToggle")
-  .addEventListener("click",()=>{
-    state.guidance=!state.guidance;
-    saveData();
-    renderSettings();
-    toast(
-      state.guidance
-      ? "GUIDANCE ENABLED"
-      : "GUIDANCE DISABLED"
-    );
-  });
+document
+  .getElementById(
+    'modalClose'
+  )
+  .addEventListener(
+    'click',
+    closeModal
+  );
 
-document.getElementById("motionToggle")
-  .addEventListener("click",()=>{
-    state.motion=!state.motion;
-    saveData();
-    renderSettings();
+document
+  .getElementById(
+    'modalBackdrop'
+  )
+  .addEventListener(
+    'click',
+    e=>{
+      if(
+        e.target.id===
+        'modalBackdrop'
+      ){
+        closeModal();
+      }
+    }
+  );
 
-    document.getElementById("splash").style.transition=
-      state.motion ? "none" : "opacity .8s,visibility .8s";
+document
+  .getElementById(
+    'guidanceToggle'
+  )
+  .addEventListener(
+    'click',
+    ()=>{
+      state.guidance=
+        !state.guidance;
 
-    toast(
-      state.motion
-      ? "MOTION REDUCED"
-      : "MOTION ENABLED"
-    );
-  });
+      save(
+        STORAGE.state,
+        state
+      );
 
-document.getElementById("resetButton")
-  .addEventListener("click",resetData);
+      renderSettings();
+      renderReflection(true);
+    }
+  );
 
-/* =========================================================
-   BOOT
-   ========================================================= */
+document
+  .getElementById(
+    'motionToggle'
+  )
+  .addEventListener(
+    'click',
+    ()=>{
+
+      state.motion=
+        !state.motion;
+
+      save(
+        STORAGE.state,
+        state
+      );
+
+      document.body.style.setProperty(
+        '--motion',
+        state.motion
+        ?'0s'
+        :''
+      );
+
+      renderSettings();
+    }
+  );
+
+document
+  .getElementById(
+    'resetButton'
+  )
+  .addEventListener(
+    'click',
+    resetData
+  );
+
+document
+  .getElementById(
+    'notificationToggle'
+  )
+  .addEventListener(
+    'click',
+    async()=>{
+
+      if(
+        !('Notification' in window)
+      ){
+        toast(
+          'NOTIFICATIONS NOT SUPPORTED'
+        );
+        return;
+      }
+
+      if(
+        Notification.permission===
+        'denied'
+      ){
+
+        toast(
+          'NOTIFICATIONS BLOCKED IN BROWSER'
+        );
+
+        return;
+      }
+
+      if(
+        Notification.permission!==
+        'granted'
+      ){
+
+        const p=
+          await Notification
+            .requestPermission();
+
+        if(
+          p!=='granted'
+        ){
+
+          toast(
+            'NOTIFICATION PERMISSION NOT GRANTED'
+          );
+
+          return;
+        }
+      }
+
+      notificationEnabled=
+        !notificationEnabled;
+
+      localStorage.setItem(
+        'senraiNotifications',
+        notificationEnabled
+      );
+
+      renderSettings();
+
+      if(notificationEnabled){
+
+        new Notification(
+          'SENRAI',
+          {
+            body:
+              'System notifications are enabled.'
+          }
+        );
+      }
+
+    }
+  );
 
 function boot(){
-
-  normalizeData();
 
   checkAchievements();
 
   renderAll();
 
-  if(!data.life.current){
-    generateLife();
+  if(state.activeLife){
+
+    document
+      .getElementById('lifeText')
+      .textContent=
+        state.activeLife.text;
+
+    document
+      .getElementById('homeLifeText')
+      .textContent=
+        state.activeLife.text;
+
+    document
+      .getElementById('completeLifeButton')
+      .disabled=false;
+
+    document
+      .getElementById('homeCompleteLife')
+      .disabled=false;
   }
 
   const messages=[
-    "SYSTEM INITIALIZING",
-    "LOADING PROFILE",
-    "SYNCING PROGRESS DATA",
-    "CALIBRATING INTELLIGENCE",
-    "BUILDING QUEST PATHS",
-    "SYSTEM READY"
+    'SYSTEM INITIALIZING',
+    'LOADING PROFILE',
+    'SYNCING PROGRESS DATA',
+    'CALIBRATING INTELLIGENCE',
+    'BUILDING QUEST PATHS',
+    'SYSTEM READY'
   ];
 
-  let progress=0;
+  let p=0;
 
-  const fill=document.getElementById("loadingFill");
-  const percent=document.getElementById("loadingPercent");
-  const status=document.getElementById("loadingStatus");
-
-  const interval=setInterval(()=>{
-
-    progress=Math.min(
-      100,
-      progress + Math.floor(Math.random()*10)+8
+  const fill=
+    document.getElementById(
+      'loadingFill'
     );
 
-    fill.style.width=progress+"%";
-    percent.textContent=progress+"%";
+  const pct=
+    document.getElementById(
+      'loadingPercent'
+    );
 
-    status.textContent=
-      messages[
-        Math.min(
-          messages.length-1,
-          Math.floor(progress/20)
-        )
-      ];
+  const status=
+    document.getElementById(
+      'loadingStatus'
+    );
 
-    if(progress>=100){
+  const interval=
+    setInterval(
+      ()=>{
 
-      clearInterval(interval);
+        p=
+          Math.min(
+            100,
+            p+
+            Math.floor(
+              Math.random()*10
+            )+
+            8
+          );
 
-      setTimeout(()=>{
-        document
-          .getElementById("splash")
-          .classList.add("hidden");
+        fill.style.width=
+          p+'%';
 
-        if(
-          data.level>=4 &&
-          state.guidance
-        ){
-          setTimeout(maybeChoice,1000);
+        pct.textContent=
+          p+'%';
+
+        status.textContent=
+          messages[
+            Math.min(
+              messages.length-1,
+              Math.floor(p/20)
+            )
+          ];
+
+        if(p>=100){
+
+          clearInterval(
+            interval
+          );
+
+          setTimeout(
+            ()=>{
+              document
+                .getElementById(
+                  'splash'
+                )
+                .classList
+                .add('hidden');
+            },
+            450
+          );
         }
 
-      },450);
-    }
-
-  },120);
+      },
+      120
+    );
 }
 
 boot();
